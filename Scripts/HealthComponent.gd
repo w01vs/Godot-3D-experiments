@@ -2,12 +2,12 @@ extends Node
 class_name HealthComponent
 
 var health: float
-var max_health : float = 100
+var max_health: float = 100
 
 signal health_changed(float)
 signal died()
 
-func _ready():
+func _ready() -> void:
 	health = max_health
 
 func _process(delta: float) -> void:

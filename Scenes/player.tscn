@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkfqj7e1phnrs"]
+[gd_scene load_steps=8 format=3 uid="uid://dkfqj7e1phnrs"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_yulea"]
 [ext_resource type="Script" path="res://Scenes/Interact.gd" id="2_exbyg"]
 [ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="3_0ppws"]
 [ext_resource type="Theme" uid="uid://b73bouufh83t6" path="res://Resources/UI/healthbar.tres" id="4_j8x6p"]
+[ext_resource type="Theme" uid="uid://ctvka6lpw4y82" path="res://Resources/UI/healthbarback.tres" id="5_1klu2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_it4al"]
 
@@ -50,6 +51,7 @@ offset_right = 277.0
 offset_bottom = 251.0
 
 [node name="HealthBar" type="ProgressBar" parent="UI"]
+z_index = 1
 layout_mode = 0
 offset_left = -214.0
 offset_top = 381.0
@@ -58,5 +60,17 @@ offset_bottom = 408.0
 theme = ExtResource("4_j8x6p")
 max_value = 1.0
 step = 0.0
-value = 0.5
+value = 1.0
+show_percentage = false
+
+[node name="HealthBarBack" type="ProgressBar" parent="UI"]
+layout_mode = 0
+offset_left = -214.0
+offset_top = 381.0
+offset_right = 41.0
+offset_bottom = 408.0
+theme = ExtResource("5_1klu2")
+max_value = 1.0
+step = 0.0
+value = 1.0
 show_percentage = false

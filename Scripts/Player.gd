@@ -5,13 +5,16 @@ var twist_input: float = 0
 var pitch_input: float = 0
 
 
-@onready var twist_pivot = $TwistPivot
-@onready var pitch_pivot = $TwistPivot/PitchPivot
+@onready var twist_pivot := $TwistPivot
+@onready var pitch_pivot := $TwistPivot/PitchPivot
+@onready var health_component := $HealthComponent
+@onready var health_bar := $UI/HealthBar
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	health_component.died.connect(died)
+	health_component.health_changed.connect(change_health)
+	health_bar.value = 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,3 +40,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			twist_input = - event.relative.x * mouse_sensitivity
 			pitch_input = - event.relative.y * mouse_sensitivity
+			
+func died() -> void:
+	pass
+
+func change_health(health: float) -> void:
+	health_bar.value = (health / health_component.get_max_health())
+	print(health_bar.value)

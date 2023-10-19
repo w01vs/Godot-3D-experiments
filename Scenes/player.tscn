@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkfqj7e1phnrs"]
+[gd_scene load_steps=7 format=3 uid="uid://dkfqj7e1phnrs"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_yulea"]
 [ext_resource type="Script" path="res://Scenes/Interact.gd" id="2_exbyg"]
+[ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="3_0ppws"]
+[ext_resource type="Theme" uid="uid://b73bouufh83t6" path="res://Resources/UI/healthbar.tres" id="4_j8x6p"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_it4al"]
 
@@ -35,3 +37,26 @@ script = ExtResource("2_exbyg")
 
 [node name="EquipmentHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.305977, 0.338656, -0.376652)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_0ppws")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 237.0
+offset_top = 211.0
+offset_right = 277.0
+offset_bottom = 251.0
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+layout_mode = 0
+offset_left = -214.0
+offset_top = 381.0
+offset_right = 41.0
+offset_bottom = 408.0
+theme = ExtResource("4_j8x6p")
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false

@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://8isw7d7qh08a"]
+[gd_scene load_steps=15 format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="PackedScene" uid="uid://dkfqj7e1phnrs" path="res://Scenes/player.tscn" id="1_m56e2"]
-[ext_resource type="Script" path="res://TestInteractable.gd" id="2_fghju"]
+[ext_resource type="Script" path="res://Scripts/TestInteractable.gd" id="2_ptlam"]
 [ext_resource type="Script" path="res://Scripts/Interactable.gd" id="2_ve7nx"]
+[ext_resource type="Script" path="res://HealInteractable.gd" id="4_asvi5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -22,9 +23,17 @@ glow_enabled = true
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ueir4"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gp6bf"]
+albedo_color = Color(1, 0, 0, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_h5xwh"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_35xku"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cf7fp"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gsqyl"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="World" type="Node3D"]
@@ -48,15 +57,29 @@ shape = SubResource("ConcavePolygonShape3D_ueir4")
 [node name="Player" parent="." instance=ExtResource("1_m56e2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="TestInteractable" type="MeshInstance3D" parent="."]
+[node name="DamageInteractable" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0186856, 1.95276, -1.7677)
+material_override = SubResource("StandardMaterial3D_gp6bf")
 mesh = SubResource("BoxMesh_h5xwh")
-script = ExtResource("2_fghju")
+script = ExtResource("2_ptlam")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TestInteractable"]
+[node name="StaticBody3D" type="StaticBody3D" parent="DamageInteractable"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_ve7nx")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TestInteractable/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageInteractable/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_35xku")
+
+[node name="HealInteractable" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999436, 0.0335913, 0, -0.0335913, 0.999436, 0, 0, 0, 1, 1.78643, 1.93453, -1.60979)
+mesh = SubResource("BoxMesh_cf7fp")
+script = ExtResource("4_asvi5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="HealInteractable"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_ve7nx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealInteractable/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_gsqyl")

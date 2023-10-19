@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://8isw7d7qh08a"]
+[gd_scene load_steps=11 format=3 uid="uid://8isw7d7qh08a"]
 
 [ext_resource type="PackedScene" uid="uid://dkfqj7e1phnrs" path="res://Scenes/player.tscn" id="1_m56e2"]
+[ext_resource type="Script" path="res://TestInteractable.gd" id="2_fghju"]
 [ext_resource type="Script" path="res://Scripts/Interactable.gd" id="2_ve7nx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
@@ -50,6 +51,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="TestInteractable" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0186856, 1.95276, -1.7677)
 mesh = SubResource("BoxMesh_h5xwh")
+script = ExtResource("2_fghju")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TestInteractable"]
 collision_layer = 2

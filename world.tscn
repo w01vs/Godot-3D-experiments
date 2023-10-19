@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="PackedScene" uid="uid://dkfqj7e1phnrs" path="res://Scenes/player.tscn" id="1_m56e2"]
-[ext_resource type="Script" path="res://Scripts/TestInteractable.gd" id="2_ptlam"]
 [ext_resource type="Script" path="res://Scripts/Interactable.gd" id="2_ve7nx"]
-[ext_resource type="Script" path="res://HealInteractable.gd" id="4_asvi5"]
+[ext_resource type="Script" path="res://Scripts/DamageInteractable.gd" id="2_xh5bi"]
+[ext_resource type="Script" path="res://Scripts/HealInteractable.gd" id="4_mbanx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -61,7 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0186856, 1.95276, -1.7677)
 material_override = SubResource("StandardMaterial3D_gp6bf")
 mesh = SubResource("BoxMesh_h5xwh")
-script = ExtResource("2_ptlam")
+script = ExtResource("2_xh5bi")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="DamageInteractable"]
 collision_layer = 2
@@ -74,7 +74,7 @@ shape = SubResource("ConcavePolygonShape3D_35xku")
 [node name="HealInteractable" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999436, 0.0335913, 0, -0.0335913, 0.999436, 0, 0, 0, 1, 1.78643, 1.93453, -1.60979)
 mesh = SubResource("BoxMesh_cf7fp")
-script = ExtResource("4_asvi5")
+script = ExtResource("4_mbanx")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="HealInteractable"]
 collision_layer = 2

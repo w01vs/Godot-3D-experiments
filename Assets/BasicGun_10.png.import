@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp46ujjk4k03v"
-path.s3tc="res://.godot/imported/BasicGun_4.png-3cdb165885e6f97c3fdf9fc23ec01666.s3tc.ctex"
+uid="uid://b2hwvqnbxa1ju"
+path.s3tc="res://.godot/imported/BasicGun_10.png-d1b3f7985bea2f42475a05dbb699ba3f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://glbs/BasicGun_4.png"
-dest_files=["res://.godot/imported/BasicGun_4.png-3cdb165885e6f97c3fdf9fc23ec01666.s3tc.ctex"]
+source_file="res://Assets/BasicGun_10.png"
+dest_files=["res://.godot/imported/BasicGun_10.png-d1b3f7985bea2f42475a05dbb699ba3f.s3tc.ctex"]
 
 [params]
 

@@ -1,9 +1,10 @@
-extends RigidBody3D
+extends Node3D
 class_name Player
 
 var mouse_sensitivity: float = 0.001
 var twist_input: float = 0
 var pitch_input: float = 0
+var gravity: float = -9.81
 
 # Health Related
 var health: float
@@ -12,9 +13,10 @@ var health_chipspeed: float = 2
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var health_bar: ProgressBar = $UI/HealthBar
 @onready var health_bar_back: ProgressBar = $UI/HealthBarBack
+@onready var character: CharacterBody3D = $CharacterBody3D
 
-@onready var twist_pivot: Node3D = $TwistPivot
-@onready var pitch_pivot: Node3D = $TwistPivot/PitchPivot
+@onready var twist_pivot: Node3D = $CharacterBody3D/TwistPivot
+@onready var pitch_pivot: Node3D = $CharacterBody3D/TwistPivot/PitchPivot
 
 
 func _ready() -> void:
@@ -27,11 +29,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var input:  Vector3 = Vector3.ZERO
-	input.x = Input.get_axis("left", "right")
-	input.z = Input.get_axis("forward", "backward")
-	apply_central_force(twist_pivot.basis * input * 1200 * delta)
-	
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
@@ -46,6 +43,23 @@ func _process(delta: float) -> void:
 	
 	update_health_bar(delta)
 
+func _physics_process(delta: float) -> void:
+	if not character.is_on_floor():
+		character.velocity.y += gravity * delta
+		
+	if Input.is_action_just_pressed("ui_accept") and character.is_on_floor():
+		character.velocity.y = 4.5
+	
+	var input:  Vector2 = Input.get_vector("left", "right", "forward", "backward")
+	var direction = (twist_pivot.basis * Vector3(input.x, 0, input.y)).normalized()
+	if direction:
+		character.velocity.x = direction.x * 5
+		character.velocity.z = direction.z * 5
+	else:
+		character.velocity.x = 0
+		character.velocity.z = 0
+		
+	character.move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

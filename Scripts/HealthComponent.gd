@@ -41,7 +41,8 @@ func decrease_health(amount: float, apply_over_time: bool = false, tick_time: fl
 			health -= amount
 			clamp_health()
 			health_changed.emit(health)
-		else:
+		elif not decreasing_over_time:
+			decrease_timer = tick_time
 			decreasing_over_time = apply_over_time
 			decrease_tick_time = tick_time
 			decrease_tick_amount = per_tick
@@ -54,7 +55,8 @@ func increase_health(amount: float, apply_over_time: bool = false, tick_time: fl
 			health += amount
 			clamp_health()
 			health_changed.emit(health)
-		else:
+		elif not increasing_over_time:
+			increase_timer = tick_time
 			increasing_over_time = apply_over_time
 			increase_tick_time = tick_time
 			increase_tick_amount = per_tick
@@ -67,13 +69,12 @@ func increase_health_over_time(time: float) -> void:
 		if increase_timer > increase_tick_time:
 			increase_health(increase_tick_amount)
 			increase_timer = 0
-			print("health increased")
 			increase_total_ticks -= 1
 		if increase_total_ticks == 0:
 			increasing_over_time = false
 			
 func decrease_health_over_time(time: float) -> void:
-	if increasing_over_time:
+	if decreasing_over_time:
 		decrease_timer += time
 		if decrease_timer > decrease_tick_time:
 			decrease_health(decrease_tick_amount)

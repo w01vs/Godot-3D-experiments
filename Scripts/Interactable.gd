@@ -5,6 +5,5 @@ func get_interaction_text() -> String:
 	return "Interact"
 	
 	
-func interact(interacter: Node) -> void:
-	#print("Interacted with %s" % name)
+func interact(interacter: Node3D) -> void:
 	get_parent().interact(interacter)

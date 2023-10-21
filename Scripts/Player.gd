@@ -1,4 +1,5 @@
 extends RigidBody3D
+class_name Player
 
 var mouse_sensitivity: float = 0.001
 var twist_input: float = 0
@@ -34,6 +35,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
+	if Input.is_action_just_pressed("refocus"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		
 	twist_pivot.rotate_y(twist_input)
 	pitch_pivot.rotate_x(pitch_input)
 	pitch_pivot.rotation.x = clamp(pitch_pivot.rotation.x, deg_to_rad(-60), deg_to_rad(45))
@@ -60,8 +64,8 @@ func update_health_bar(delta: float) -> void:
 	var fillF: float = health_bar.value
 	var fillB: float = health_bar_back.value
 	var hFraction = health / health_component.get_max_health()
-	var percent_complete: float = health_lerp_timer / health_chipspeed
 	health_lerp_timer += delta
+	var percent_complete: float = health_lerp_timer / health_chipspeed
 	percent_complete *= percent_complete
 	if fillB > hFraction:
 		health_bar.value = hFraction

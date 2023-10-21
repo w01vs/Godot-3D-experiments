@@ -1,4 +1,4 @@
 extends MeshInstance3D
 
-func interact(interacter: Node) -> void:
-	interacter.get_node("HealthComponent").decrease_health(10)
+func interact(interacter: Node3D) -> void:
+	interacter.get_node("HealthComponent").decrease_health(50)

@@ -1,11 +1,14 @@
 class_name OnHitInformation
 
+# Which groups should it affect?
+var groups = []
+
 # Anything relating to damage
 var has_damage_info: bool = false
 var damage: float = 0
 var damage_over_time: float = 0
-var timer_dot: float = 0
-var damage_multiplier = 1
+var time_per_tick: float = 0
+var damage_multiplier: float = 1
 
 # Anything relating to healing
 var has_healing_info = false

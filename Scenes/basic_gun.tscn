@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://clgh1pwx0u06o"]
-
-[ext_resource type="PackedScene" uid="uid://cmuiku10rgky2" path="res://Assets/BasicGun.glb" id="1_c0flq"]
-
-[node name="BasicGun" instance=ExtResource("1_c0flq")]

@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://breoudmrdmvee"]
+[gd_scene load_steps=11 format=3 uid="uid://breoudmrdmvee"]
 
 [ext_resource type="Script" path="res://Scripts/Interact.gd" id="1_jfgcp"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_xae5v"]
-[ext_resource type="Theme" uid="uid://b73bouufh83t6" path="res://Resources/UI/healthbar.tres" id="2_poxep"]
-[ext_resource type="Theme" uid="uid://ctvka6lpw4y82" path="res://Resources/UI/healthbarback.tres" id="3_5bn7i"]
+[ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://Scenes/sword.tscn" id="3_ov8cx"]
 [ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="4_biyrv"]
 [ext_resource type="Script" path="res://Scripts/HurtboxComponent.gd" id="5_06fjb"]
 
@@ -12,12 +11,38 @@
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d45w0"]
 points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
 
+[sub_resource type="BoxMesh" id="BoxMesh_08bc5"]
+
+[sub_resource type="Animation" id="Animation_rkapn"]
+resource_name = "sword_slash"
+length = 0.9
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody3D/TwistPivot/RightArm")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.507, -1.484, -0.282355, 0.2, 1, 0.313861, -1.484, -0.651632, 0.5, 1, 0.313861, -1.484, -0.651632, 0.9, 1, 0.507, -1.484, -0.282355)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterBody3D/TwistPivot/RightArm")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.2, 1, 0.192924, 0, 0, 0.981214, 0.5, 1, -0.396179, 0, 0, 0.918173, 0.9, 1, 0, 0, 0, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ip4g"]
+_data = {
+"sword_slash": SubResource("Animation_rkapn")
+}
+
 [node name="Player" type="Node3D"]
 script = ExtResource("1_xae5v")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_tlmwq")
 skeleton = NodePath("")
 
@@ -33,52 +58,43 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/TwistPivot/PitchPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
-[node name="Interact" type="RayCast3D" parent="CharacterBody3D/TwistPivot/PitchPivot/Camera3D"]
+[node name="Interact" type="RayCast3D" parent="CharacterBody3D/TwistPivot/PitchPivot/Camera3D" groups=["ally"]]
 transform = Transform3D(1, 0, 0, 0, -2.98023e-08, -1, 0, 1, -2.98023e-08, 0, 0, 0)
 target_position = Vector3(0, -5, 0)
 collision_mask = 2
 script = ExtResource("1_jfgcp")
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 237.0
-offset_top = 211.0
-offset_right = 277.0
-offset_bottom = 251.0
+[node name="RightArm" type="Node3D" parent="CharacterBody3D/TwistPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507, -1.484, -0.282355)
 
-[node name="HealthBar" type="ProgressBar" parent="UI"]
-z_index = 1
-layout_mode = 0
-offset_left = -214.0
-offset_top = 381.0
-offset_right = 41.0
-offset_bottom = 408.0
-theme = ExtResource("2_poxep")
-max_value = 1.0
-step = 0.0
-value = 1.0
-show_percentage = false
+[node name="rightarm" type="MeshInstance3D" parent="CharacterBody3D/TwistPivot/RightArm"]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
+mesh = SubResource("BoxMesh_08bc5")
+skeleton = NodePath("../..")
 
-[node name="HealthBarBack" type="ProgressBar" parent="UI"]
-layout_mode = 0
-offset_left = -214.0
-offset_top = 381.0
-offset_right = 41.0
-offset_bottom = 408.0
-theme = ExtResource("3_5bn7i")
-max_value = 1.0
-step = 0.0
-value = 1.0
-show_percentage = false
+[node name="sword" parent="CharacterBody3D/TwistPivot/RightArm" instance=ExtResource("3_ov8cx")]
+transform = Transform3D(1.91069e-16, 4.37114e-09, 0.1, 0.1, -4.37114e-09, 0, 4.37114e-09, 0.1, -4.37114e-09, 0, 0.188912, -0.249862)
+
+[node name="LeftArm" type="Node3D" parent="CharacterBody3D/TwistPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.507, -1.484, -0.282)
+
+[node name="leftarm" type="MeshInstance3D" parent="CharacterBody3D/TwistPivot/LeftArm"]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
+mesh = SubResource("BoxMesh_08bc5")
+skeleton = NodePath("../..")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_biyrv")
 
 [node name="HurtboxComponent" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 8
 script = ExtResource("5_06fjb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
 shape = SubResource("ConvexPolygonShape3D_d45w0")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3ip4g")
+}

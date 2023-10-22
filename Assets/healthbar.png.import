@@ -2,18 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ic2nqbmy8r1f"
-path.s3tc="res://.godot/imported/BasicGun_2.png-3b1c6af50c10c5982493b14d1df38ec6.s3tc.ctex"
+uid="uid://cy8hnqtojfw5h"
+path.s3tc="res://.godot/imported/healthbar.png-ff9f8bb5ea78f1b194dd2ce3d2fddf02.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
-source_file="res://Assets/BasicGun_2.png"
-dest_files=["res://.godot/imported/BasicGun_2.png-3b1c6af50c10c5982493b14d1df38ec6.s3tc.ctex"]
+source_file="res://Assets/healthbar.png"
+dest_files=["res://.godot/imported/healthbar.png-ff9f8bb5ea78f1b194dd2ce3d2fddf02.s3tc.ctex"]
 
 [params]
 

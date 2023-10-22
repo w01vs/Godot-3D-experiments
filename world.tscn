@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://by7on7nhfca2w"]
+[gd_scene load_steps=16 format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="PackedScene" uid="uid://breoudmrdmvee" path="res://Scenes/player.tscn" id="1_m56e2"]
 [ext_resource type="Script" path="res://Scripts/Interactable.gd" id="2_ve7nx"]
 [ext_resource type="Script" path="res://Scripts/DamageInteractable.gd" id="2_xh5bi"]
 [ext_resource type="Script" path="res://Scripts/HealInteractable.gd" id="4_mbanx"]
+[ext_resource type="PackedScene" uid="uid://b5q4k8h5yskx" path="res://Scenes/enemy.tscn" id="5_e3yjx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -45,7 +46,7 @@ environment = SubResource("Environment_eocis")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Floor" type="MeshInstance3D" parent="." groups=["Environment"]]
+[node name="Floor" type="MeshInstance3D" parent="." groups=["environment"]]
 transform = Transform3D(-16.3267, 0, 0, 0, -0.238141, 0, 0, 0, 15.8915, -0.00630379, 0.0128107, -0.185878)
 mesh = SubResource("BoxMesh_kcw8a")
 
@@ -54,10 +55,10 @@ mesh = SubResource("BoxMesh_kcw8a")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_by3p7")
 
-[node name="Player" parent="." groups=["Players"] instance=ExtResource("1_m56e2")]
+[node name="Player" parent="." instance=ExtResource("1_m56e2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254076, 1.34446, 0.462328)
 
-[node name="HealInteractable" type="Node3D" parent="." groups=["Interactable"]]
+[node name="HealInteractable" type="Node3D" parent="." groups=["interactable"]]
 script = ExtResource("4_mbanx")
 
 [node name="Mesh" type="MeshInstance3D" parent="HealInteractable"]
@@ -73,7 +74,7 @@ script = ExtResource("2_ve7nx")
 transform = Transform3D(1, -1.49012e-08, 0, 1.49012e-08, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_gsqyl")
 
-[node name="DamageInteractable" type="Node3D" parent="." groups=["Interactable"]]
+[node name="DamageInteractable" type="Node3D" parent="." groups=["interactable"]]
 script = ExtResource("2_xh5bi")
 
 [node name="Mesh" type="MeshInstance3D" parent="DamageInteractable"]
@@ -88,3 +89,10 @@ script = ExtResource("2_ve7nx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageInteractable/Interactable"]
 shape = SubResource("ConcavePolygonShape3D_35xku")
+
+[node name="Enemy" parent="." instance=ExtResource("5_e3yjx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0259317, 1.44635, 3.8077)
+
+[editable path="Player"]
+[editable path="Player/UILayer"]
+[editable path="Player/UILayer/Control/healthbar"]

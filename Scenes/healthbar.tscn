@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlbp5e24063wi"]
+
+[ext_resource type="Texture2D" uid="uid://cmagkdweuf45m" path="res://Assets/healthbar_back.png" id="1_kn2nn"]
+[ext_resource type="Texture2D" uid="uid://7x6kcbh6ltpt" path="res://Assets/outline.png" id="2_i3mdx"]
+[ext_resource type="Texture2D" uid="uid://cy8hnqtojfw5h" path="res://Assets/healthbar.png" id="3_jibln"]
+
+[node name="healthbar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="front" type="TextureProgressBar" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = -63.0
+offset_right = 368.0
+offset_bottom = -28.0
+grow_vertical = 0
+max_value = 1.0
+step = 0.001
+value = 1.0
+nine_patch_stretch = true
+texture_progress = ExtResource("1_kn2nn")
+
+[node name="back" type="TextureProgressBar" parent="front"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.002
+anchor_top = 1.0
+anchor_right = 0.002
+anchor_bottom = 1.0
+offset_left = -0.668
+offset_top = -35.0
+offset_right = 333.332
+max_value = 1.0
+step = 0.001
+value = 1.0
+nine_patch_stretch = true
+texture_over = ExtResource("2_i3mdx")
+texture_progress = ExtResource("3_jibln")

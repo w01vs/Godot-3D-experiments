@@ -10,4 +10,4 @@ func _ready():
 
 func update_value(amount: float) -> void:
 	bar.value = amount / health_component.get_max_health()
-	print_debug(amount)
+	#print_debug(amount)

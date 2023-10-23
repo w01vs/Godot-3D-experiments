@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc4hd3148fvfv"]
+
+[ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://Assets/sword.glb" id="1_l5h7o"]
+
+[node name="sword" instance=ExtResource("1_l5h7o")]

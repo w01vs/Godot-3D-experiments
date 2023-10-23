@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://breoudmrdmvee"]
+[gd_scene load_steps=12 format=3 uid="uid://breoudmrdmvee"]
 
 [ext_resource type="Script" path="res://Scripts/Interact.gd" id="1_jfgcp"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_xae5v"]
 [ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://Scenes/sword.tscn" id="3_ov8cx"]
 [ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="4_biyrv"]
 [ext_resource type="Script" path="res://Scripts/HurtboxComponent.gd" id="5_06fjb"]
+[ext_resource type="PackedScene" uid="uid://f5d7wissjqge" path="res://Scenes/ui_layer.tscn" id="6_y0ql4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tlmwq"]
 
@@ -36,7 +37,7 @@ _data = {
 "sword_slash": SubResource("Animation_rkapn")
 }
 
-[node name="Player" type="Node3D"]
+[node name="Player" type="Node3D" groups=["ally"]]
 script = ExtResource("1_xae5v")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
@@ -98,3 +99,5 @@ shape = SubResource("ConvexPolygonShape3D_d45w0")
 libraries = {
 "": SubResource("AnimationLibrary_3ip4g")
 }
+
+[node name="UILayer" parent="." instance=ExtResource("6_y0ql4")]

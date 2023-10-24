@@ -5,13 +5,7 @@ var tween: Tween = Tween.new()
 @onready var animator: AnimationPlayer = $AnimationPlayer
 var stylebox_1: StyleBoxFlat = StyleBoxFlat.new()
 var stylebox_fill: StyleBoxFlat = StyleBoxFlat.new()
-var prev_fill: float = 0
-
-func animate(new_value: float) -> void:
-	animator.play("twinkle")
-	var duration = animator.current_animation_length
-	
-	tween.interpolate_value(value,  new_value - value, 0, duration, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+var prev_fill: float = value
 
 func _ready() -> void:
 	stylebox_1.set_border_width_all(2)
@@ -27,7 +21,13 @@ func _ready() -> void:
 	stylebox_1.bg_color = Color.GREEN
 	value_changed.connect(change_stylebox)
 	value_changed.connect(animate)
+	change_stylebox(prev_fill)
+
+func animate(new_value: float) -> void:
+	animator.play("twinkle")
+	var duration = animator.current_animation_length
 	
+	tween.interpolate_value(value,  new_value - value, 0, duration, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
 
 func change_stylebox(fill: float):
 	if prev_fill != 1 and fill == 1:
@@ -36,4 +36,7 @@ func change_stylebox(fill: float):
 	elif fill != 1 and prev_fill == 1:
 		remove_theme_stylebox_override("fill")
 		add_theme_stylebox_override("fill", stylebox_fill)
+	elif fill == 1 and prev_fill == 1:
+		remove_theme_stylebox_override("fill")
+		add_theme_stylebox_override("fill", stylebox_1)
 	prev_fill = fill

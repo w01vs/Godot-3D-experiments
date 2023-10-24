@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://breoudmrdmvee"]
+[gd_scene load_steps=11 format=3 uid="uid://breoudmrdmvee"]
 
 [ext_resource type="Script" path="res://Scripts/Interact.gd" id="1_jfgcp"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_xae5v"]
-[ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://Scenes/sword.tscn" id="3_ov8cx"]
 [ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="4_biyrv"]
 [ext_resource type="Script" path="res://Scripts/HurtboxComponent.gd" id="5_06fjb"]
-[ext_resource type="PackedScene" uid="uid://f5d7wissjqge" path="res://Scenes/ui_layer.tscn" id="6_y0ql4"]
+[ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://Scenes/sword.tscn" id="6_y0ql4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tlmwq"]
 
@@ -73,7 +72,7 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_08bc5")
 skeleton = NodePath("../..")
 
-[node name="sword" parent="CharacterBody3D/TwistPivot/RightArm" instance=ExtResource("3_ov8cx")]
+[node name="sword" parent="CharacterBody3D/TwistPivot/RightArm" instance=ExtResource("6_y0ql4")]
 transform = Transform3D(1.91069e-16, 4.37114e-09, 0.1, 0.1, -4.37114e-09, 0, 4.37114e-09, 0.1, -4.37114e-09, 0, 0.188912, -0.249862)
 
 [node name="LeftArm" type="Node3D" parent="CharacterBody3D/TwistPivot"]
@@ -99,5 +98,3 @@ shape = SubResource("ConvexPolygonShape3D_d45w0")
 libraries = {
 "": SubResource("AnimationLibrary_3ip4g")
 }
-
-[node name="UILayer" parent="." instance=ExtResource("6_y0ql4")]

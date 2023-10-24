@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="1_q801n"]
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_uak1f"]
 [ext_resource type="Script" path="res://Scripts/HurtboxComponent.gd" id="2_nwn55"]
-[ext_resource type="PackedScene" uid="uid://c5f46idct2w8x" path="res://Scenes/floating_healthbar.tscn" id="3_mibso"]
 [ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://Assets/sword.glb" id="5_03oht"]
+[ext_resource type="PackedScene" uid="uid://4v0ymcds2oi8" path="res://Scenes/health_bar_3d.tscn" id="6_n2la5"]
 [ext_resource type="Script" path="res://Scripts/HitboxComponent.gd" id="6_v5i7x"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_n5pd5"]
@@ -67,13 +67,12 @@ debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 1, 1)
 
-[node name="Healthbar" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_mibso")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29853, 0)
-health_component = NodePath("../HealthComponent")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_cbem3")
 }
+
+[node name="HealthBar3D" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_n2la5")]
+health_component = NodePath("../HealthComponent")
 
 [editable path="CharacterBody3D/sword"]

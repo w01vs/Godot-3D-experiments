@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://p71w1jc720fp"]
+
+[ext_resource type="PackedScene" uid="uid://cjjbk1lj7hf64" path="res://Scenes/health_bar.tscn" id="1_8ya5f"]
+[ext_resource type="Script" path="res://Scripts/player_health_bar.gd" id="2_fince"]
+
+[sub_resource type="Animation" id="Animation_k870g"]
+length = 0.001
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4flyb"]
+bg_color = Color(0, 1, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qfrd"]
+bg_color = Color(0, 0.505882, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hdev"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56yi4"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="Animation" id="Animation_o7kmb"]
+resource_name = "twinkle"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/fill")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_4flyb"), SubResource("StyleBoxFlat_4qfrd"), SubResource("StyleBoxFlat_4flyb"), SubResource("StyleBoxFlat_4qfrd"), SubResource("StyleBoxFlat_4flyb"), SubResource("StyleBoxFlat_4qfrd"), SubResource("StyleBoxFlat_4flyb")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_styles/background")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_7hdev"), SubResource("StyleBoxFlat_56yi4"), SubResource("StyleBoxFlat_7hdev"), SubResource("StyleBoxFlat_56yi4"), SubResource("StyleBoxFlat_7hdev"), SubResource("StyleBoxFlat_56yi4"), SubResource("StyleBoxFlat_7hdev")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_protj"]
+_data = {
+"RESET": SubResource("Animation_k870g"),
+"twinkle": SubResource("Animation_o7kmb")
+}
+
+[node name="BetterHealthBar" instance=ExtResource("1_8ya5f")]
+script = ExtResource("2_fince")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_protj")
+}

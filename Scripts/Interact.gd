@@ -13,8 +13,10 @@ func collision() -> void:
 	if is_colliding() and collider is Interactable:
 		if current_collider != collider:
 			current_collider = collider
+		print_debug("collided")
 		
 		if(Input.is_action_just_pressed("interact")):
 			collider.interact(player)
+			print_debug("kut")
 	elif current_collider:
 		current_collider = null

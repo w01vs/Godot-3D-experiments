@@ -6,6 +6,10 @@ var twist_input: float = 0
 var pitch_input: float = 0
 var gravity: float = -9.81
 
+# Player Stats
+var SPEED: float = 5
+var JUMP_SPEED_REDUCTION: float = 5
+
 # Health Related
 var health: float
 var health_lerp_timer: float
@@ -40,20 +44,15 @@ func _process(delta: float) -> void:
 #	update_health_bar(delta)
 
 func _physics_process(delta: float) -> void:
-	if not character.is_on_floor():
-		character.velocity.y += gravity * delta
 		
 	if Input.is_action_just_pressed("ui_accept") and character.is_on_floor():
 		character.velocity.y = 4.5
 	
-	var input:  Vector2 = Input.get_vector("left", "right", "forward", "backward")
-	var direction = (twist_pivot.basis * Vector3(input.x, 0, input.y)).normalized()
-	if direction:
-		character.velocity.x = direction.x * 5
-		character.velocity.z = direction.z * 5
+	if character.is_on_floor():
+		updateVelocity(SPEED)
 	else:
-		character.velocity.x = 0
-		character.velocity.z = 0
+		updateVelocity(JUMP_SPEED_REDUCTION)
+		character.velocity.y += gravity * delta
 		
 	character.move_and_slide()
 	
@@ -74,7 +73,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			
 func died() -> void:
-	get_tree().quit()
+	queue_free()
 
 func change_health(health: float) -> void:
 	self.health = health
@@ -95,3 +94,14 @@ func change_health(health: float) -> void:
 #		health_bar_back.value = hFraction
 #		health_bar_back.get_theme_stylebox("fill", "ProgressBar").bg_color = Color.WEB_GREEN
 #		health_bar.value = lerp(fillF, hFraction, percent_complete)
+
+
+func updateVelocity(multiplier: float) -> void:
+	var input:  Vector2 = Input.get_vector("left", "right", "forward", "backward")
+	var direction = (twist_pivot.basis * Vector3(input.x, 0, input.y)).normalized()
+	if direction:
+		character.velocity.x = direction.x * multiplier
+		character.velocity.z = direction.z * multiplier
+	else:
+		character.velocity.x = 0
+		character.velocity.z = 0

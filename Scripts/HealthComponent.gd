@@ -26,6 +26,7 @@ signal died()
 
 func _ready() -> void:
 	health = max_health
+	health_changed.emit(health)
 
 func _process(delta: float) -> void:
 	clamp_health()

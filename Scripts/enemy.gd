@@ -21,6 +21,7 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	pathfind = false
 	if pathfind:
 		body.velocity = Vector3.ZERO
 		nav_agent.set_target_position(player.global_position)

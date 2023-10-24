@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Interactable.gd" id="2_ve7nx"]
 [ext_resource type="Script" path="res://Scripts/DamageInteractable.gd" id="2_xh5bi"]
 [ext_resource type="Script" path="res://Scripts/HealInteractable.gd" id="4_mbanx"]
-[ext_resource type="PackedScene" uid="uid://b5q4k8h5yskx" path="res://Scenes/enemy.tscn" id="5_e3yjx"]
+[ext_resource type="PackedScene" uid="uid://b5q4k8h5yskx" path="res://Scenes/Enemy.tscn" id="5_e3yjx"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="6_lsuly"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8p0lu"]
@@ -51,10 +51,10 @@ points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_m56e2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254076, 1.34446, 0.462328)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0385325, 1.34446, 0.462328)
 
 [node name="Enemy" parent="." instance=ExtResource("5_e3yjx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.875356, 1.44635, -5.23828)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0494407, 1.44635, -5.23828)
 player_path = NodePath("../Player/CharacterBody3D")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]

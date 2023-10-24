@@ -10,7 +10,7 @@ extends Node3D
 var player
 var pathfind: bool = true
 
-var SPEED: float = 2
+var SPEED: float = 0.2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,19 +20,22 @@ func _ready() -> void:
 	player = get_node(player_path)
 	
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if pathfind:
 		body.velocity = Vector3.ZERO
-		var temp = player.global_position
 		nav_agent.set_target_position(player.global_position)
 		var next_nav_point = nav_agent.get_next_path_position()
-		body.velocity = -(next_nav_point - player.global_position).normalized() * SPEED
-		body.velocity.y = 0
+		body.velocity = (next_nav_point - body.global_position).normalized() * SPEED
+		#body.velocity.y = 0
+		print_debug(next_nav_point)
+		print_debug(player.global_position)
 		body.move_and_slide()
-	if body.global_position.distance_to(player.global_position) < 0.5:
+	if body.global_position.distance_to(player.global_position) < 1:
 		pathfind = false
+		body.velocity = Vector3.ZERO
 	else:
 		pathfind = true
+		global_position = body.global_position
 
 func die() -> void:
 	queue_free()

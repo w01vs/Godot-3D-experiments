@@ -15,8 +15,6 @@ var health: float
 var health_lerp_timer: float
 var health_chipspeed: float = 2
 @onready var health_component: HealthComponent = $HealthComponent
-#@onready var health_bar: TextureProgressBar = $UILayer/Control/healthbar/front
-#@onready  var health_bar_back: TextureProgressBar = $UILayer/Control/healthbar/front/back
 @onready var character: CharacterBody3D = $CharacterBody3D
 
 # Camera pivots
@@ -28,20 +26,13 @@ var health_chipspeed: float = 2
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	health_component.died.connect(died)
-	health_component.health_changed.connect(change_health)
-	#health_bar.value = 1
-	#health = health_component.get_max_health()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	twist_pivot.rotate_y(twist_input)
 	pitch_pivot.rotate_x(pitch_input)
 	pitch_pivot.rotation.x = clamp(pitch_pivot.rotation.x, deg_to_rad(-60), deg_to_rad(45))
 	pitch_input = 0
 	twist_input = 0
-	
-#	update_health_bar(delta)
 
 func _physics_process(delta: float) -> void:
 		
@@ -74,27 +65,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 func died() -> void:
 	queue_free()
-
-func change_health(health: float) -> void:
-	self.health = health
-	health_lerp_timer = 0
-
-#func update_health_bar(delta: float) -> void:
-#	var fillF: float = health_bar.value
-#	var fillB: float = health_bar_back.value
-#	var hFraction = health / health_component.get_max_health()
-#	health_lerp_timer += delta
-#	var percent_complete: float = health_lerp_timer / health_chipspeed
-#	percent_complete *= percent_complete
-#	if fillB > hFraction:
-#		health_bar.value = hFraction
-#		health_bar_back.get_theme_stylebox("fill", "ProgressBar").bg_color = Color.RED
-#		health_bar_back.value = lerp(fillB, hFraction, percent_complete)
-#	if hFraction > fillF:
-#		health_bar_back.value = hFraction
-#		health_bar_back.get_theme_stylebox("fill", "ProgressBar").bg_color = Color.WEB_GREEN
-#		health_bar.value = lerp(fillF, hFraction, percent_complete)
-
 
 func updateVelocity(multiplier: float) -> void:
 	var input:  Vector2 = Input.get_vector("left", "right", "forward", "backward")

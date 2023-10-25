@@ -1,7 +1,7 @@
 extends ProgressBar
 class_name BetterHealthBar
 
-var tween: Tween = Tween.new()
+var tween: Tween = create_tween()
 @onready var animator: AnimationPlayer = $AnimationPlayer
 var stylebox_1: StyleBoxFlat = StyleBoxFlat.new()
 var stylebox_fill: StyleBoxFlat = StyleBoxFlat.new()

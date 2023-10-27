@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqx0tb1rgvagu"]
+[gd_scene load_steps=10 format=3 uid="uid://dqx0tb1rgvagu"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_4hyil"]
 [ext_resource type="Script" path="res://Scripts/HealthComponent.gd" id="2_kcu2p"]
 [ext_resource type="PackedScene" uid="uid://4v0ymcds2oi8" path="res://Scenes/health_bar_3d.tscn" id="3_mvyt3"]
 [ext_resource type="Script" path="res://Scripts/HurtboxComponent.gd" id="4_k4yd5"]
+[ext_resource type="Script" path="res://Scripts/finite_state_machine.gd" id="5_nghls"]
+[ext_resource type="Script" path="res://Scripts/enemy_wander_state.gd" id="5_shusx"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vapi6"]
 
@@ -46,4 +48,16 @@ target_desired_distance = 2.0
 path_height_offset = 0.1
 debug_enabled = true
 
-[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
+[node name="FiniteStateMachine" type="Node3D" parent="." node_paths=PackedStringArray("state")]
+script = ExtResource("5_nghls")
+state = NodePath("EnemyWanderState")
+
+[node name="EnemyWanderState" type="Node3D" parent="FiniteStateMachine"]
+script = ExtResource("5_shusx")
+wander_radius = 10.0
+sphere_center = Vector3(5, 0, 5)
+
+[node name="Timer" type="Timer" parent="FiniteStateMachine/EnemyWanderState"]
+one_shot = true
+
+[connection signal="timeout" from="FiniteStateMachine/EnemyWanderState/Timer" to="FiniteStateMachine/EnemyWanderState" method="_on_timer_timeout"]

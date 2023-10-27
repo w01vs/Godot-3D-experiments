@@ -53,7 +53,6 @@ func _physics_process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 	if Input.is_action_just_pressed("default_attack"):
-		print_debug("yes")
 		anim_player.play("slash_attack")
 
 func _unhandled_input(event: InputEvent) -> void:

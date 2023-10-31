@@ -31,6 +31,7 @@ func get_new_destination() -> Vector3:
 	var target_position: Vector3 = Vector3(x, y, z)
 	
 	var map: RID = get_world_3d().navigation_map
+	await get_tree().physics_frame
 	var closest_point: Vector3 = NavigationServer3D.map_get_closest_point(map, target_position)
 	#var delta = closest_point - target_position
 	#var is_on_map = delta.is_zero_approx()
@@ -46,22 +47,23 @@ func _exit_tree() -> void:
 
 func _update(delta: float) -> void:
 	if not target_set:
-		nav_agent.target_position = get_new_destination()
+		nav_agent.target_position = await get_new_destination()
 		target_set = true
-	
+		
 	var next_position = nav_agent.get_next_path_position()
 	var new_velocity = (next_position - actor.global_position).normalized() * actor.SPEED
+	actor.velocity = actor.velocity.move_toward(new_velocity, .4)
 	
 	if nav_agent.is_target_reached() and not waiting:
 		wait_or_move()
 	
-	actor.velocity = new_velocity
+	
 	actor.move_and_slide()
 	
 func wait_or_move() -> void:
 	var chance = randf()
-	if chance > 0.5:
-		target_set = false
+	if chance > .5:
+		timer.start(.5)
 	else:
 		timer.start(3)
 		waiting = true

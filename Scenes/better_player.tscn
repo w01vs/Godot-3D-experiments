@@ -106,3 +106,6 @@ shape = SubResource("ConvexPolygonShape3D_flj5x")
 libraries = {
 "": SubResource("AnimationLibrary_3ip4g")
 }
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

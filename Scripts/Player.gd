@@ -22,9 +22,12 @@ var health_chipspeed: float = 2
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
+@onready var hitbox: HitboxComponent = $TwistPivot/RightArm/rightarm/sword/HitboxComponent
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	health_component.died.connect(died)
+	hitbox.set_physics_process(false)
 
 func _process(delta: float) -> void:
 	twist_pivot.rotate_y(twist_input)
@@ -54,6 +57,7 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("default_attack"):
 		anim_player.play("slash_attack")
+		
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -74,3 +78,13 @@ func updateVelocity(multiplier: float) -> void:
 	else:
 		velocity.x = 0
 		velocity.z = 0
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "slash_attack":
+		hitbox.set_physics_process(false)
+
+
+func _on_animation_player_animation_started(anim_name):
+	if anim_name == "slash_attack":
+		hitbox.set_physics_process(true)

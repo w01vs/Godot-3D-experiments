@@ -49,15 +49,19 @@ func _update(delta: float) -> void:
 	if not target_set:
 		nav_agent.target_position = await get_new_destination()
 		target_set = true
-		
-	var next_position = nav_agent.get_next_path_position()
-	var new_velocity = (next_position - actor.global_position).normalized() * actor.SPEED
-	actor.velocity = actor.velocity.move_toward(new_velocity, .4)
+	
+	if not nav_agent.is_target_reached():
+		var next_position = nav_agent.get_next_path_position()
+		var new_velocity = (next_position - actor.global_position).normalized() * actor.SPEED
+		actor.velocity = actor.velocity.move_toward(new_velocity, .4)
+		var look_at = next_position
+		look_at.y = actor.global_transform.origin.y
+		actor.look_at(look_at)
 	
 	if nav_agent.is_target_reached() and not waiting:
 		wait_or_move()
-	
-	
+		actor.velocity = Vector3.ZERO
+		
 	actor.move_and_slide()
 	
 func wait_or_move() -> void:

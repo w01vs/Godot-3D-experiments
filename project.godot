@@ -18,6 +18,11 @@ config/icon="res://Assets/icon.svg"
 [autoload]
 
 UniversalHitController="*res://Scripts/UniversalHitController.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+
+[display]
+
+window/vsync/vsync_mode=0
 
 [dotnet]
 
@@ -27,6 +32,10 @@ project/assembly_name="Attempt"
 
 movie_writer/movie_file="C:/Users/Thomas/Videos/Godot/test.avi"
 movie_writer/disable_vsync=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg")
 
 [input]
 
@@ -73,6 +82,10 @@ default_attack={
 3d_physics/layer_2="Interactable"
 3d_physics/layer_3="Hurtboxes"
 3d_physics/layer_4="Hitboxes"
+
+[physics]
+
+3d/physics_engine="JoltPhysics3D"
 
 [rendering]
 

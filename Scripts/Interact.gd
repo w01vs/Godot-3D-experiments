@@ -2,7 +2,7 @@ extends RayCast3D
 
 var current_collider: Interactable
 
-@onready var player: Node3D = $"../../../../.."
+@onready var player: Node3D = $"../../../.."
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

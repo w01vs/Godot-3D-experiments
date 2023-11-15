@@ -18,3 +18,6 @@ var heal: float = 0
 var has_position_effect_info: bool = false
 var knockback: float = 0
 var stun_time: float = 0
+
+
+# Effects (poison, slow etc)

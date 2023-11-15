@@ -54,9 +54,9 @@ func _update(delta: float) -> void:
 		var next_position = nav_agent.get_next_path_position()
 		var new_velocity = (next_position - actor.global_position).normalized() * actor.SPEED
 		actor.velocity = actor.velocity.move_toward(new_velocity, .4)
-		var look_at = next_position
-		look_at.y = actor.global_transform.origin.y
-		actor.look_at(look_at)
+		#var look_at = next_position
+		#look_at.y = actor.global_transform.origin.y
+		#actor.look_at(look_at)
 	
 	if nav_agent.is_target_reached() and not waiting:
 		wait_or_move()

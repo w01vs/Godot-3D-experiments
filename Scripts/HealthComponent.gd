@@ -8,13 +8,13 @@ var increasing_over_time: bool = false
 var increase_timer: float = 0
 var increase_tick_time: float = 0
 var increase_tick_amount: float = 0
-var increase_total_ticks: int = 0
+var increase_total_ticks: float = 0
 
 var decreasing_over_time: bool = false
 var decrease_timer: float = 0
 var decrease_tick_time: float = 0
 var decrease_tick_amount: float = 0
-var decrease_total_ticks: int = 0
+var decrease_total_ticks: float = 0
 
 
 

@@ -1,7 +1,7 @@
 extends ProgressBar
 class_name BetterHealthBar
 
-var tween: Tween = create_tween()
+var tween: Tween
 @onready var animator: AnimationPlayer = $AnimationPlayer
 var stylebox_1: StyleBoxFlat = StyleBoxFlat.new()
 var stylebox_fill: StyleBoxFlat = StyleBoxFlat.new()
@@ -22,6 +22,7 @@ func _ready() -> void:
 	value_changed.connect(change_stylebox)
 	value_changed.connect(animate)
 	change_stylebox(prev_fill)
+	tween = create_tween()
 
 func animate(new_value: float) -> void:
 	animator.play("twinkle")

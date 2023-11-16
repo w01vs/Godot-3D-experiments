@@ -25,6 +25,7 @@ var health_chipspeed: float = 2
 @onready var hitbox: HitboxComponent = $TwistPivot/RightArm/rightarm/sword/HitboxComponent
 
 func _ready() -> void:
+	GlobalRefs.player = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	health_component.died.connect(died)
 	hitbox.set_physics_process(false)

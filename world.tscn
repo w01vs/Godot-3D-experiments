@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://Scenes/better_player.tscn" id="1_m56e2"]
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_vbbqe"]
-[ext_resource type="Script" path="res://Scripts/Interactable.gd" id="2_ve7nx"]
-[ext_resource type="Script" path="res://Scripts/DamageInteractable.gd" id="2_xh5bi"]
-[ext_resource type="Script" path="res://Scripts/HealInteractable.gd" id="4_mbanx"]
+[ext_resource type="Script" path="res://Scripts/damage_interactable.gd" id="2_xh5bi"]
+[ext_resource type="Script" path="res://Scripts/heal_interactable.gd" id="4_mbanx"]
+[ext_resource type="Script" path="res://Scripts/interactable.gd" id="4_vo34m"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://Scenes/player_health_bar.tscn" id="6_wq5pv"]
 [ext_resource type="PackedScene" uid="uid://dqx0tb1rgvagu" path="res://Scenes/better_enemy.tscn" id="7_5cvea"]
 
@@ -81,7 +81,7 @@ skeleton = NodePath("../../..")
 
 [node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/HealInteractable"]
 transform = Transform3D(0.999436, 0.0335913, 0, -0.0335913, 0.999436, 0, 0, 0, 1, 1.78643, 1.93453, -1.60979)
-script = ExtResource("2_ve7nx")
+script = ExtResource("4_vo34m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Interactable"]
 transform = Transform3D(1, -1.49012e-08, 0, 1.49012e-08, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -98,7 +98,7 @@ skeleton = NodePath("../../..")
 
 [node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/DamageInteractable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0186856, 1.95276, -1.7677)
-script = ExtResource("2_ve7nx")
+script = ExtResource("4_vo34m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable/Interactable"]
 shape = SubResource("ConcavePolygonShape3D_35xku")
@@ -113,9 +113,8 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_tijdu")
 
-[node name="BetterEnemy" parent="." instance=ExtResource("7_5cvea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.404, 1.33252, -5.139)
-metadata/player_path = NodePath("../BetterPlayer")
-
-[node name="BetterPlayer" parent="." groups=["ally"] instance=ExtResource("1_m56e2")]
+[node name="BetterPlayer" parent="." groups=["ally", "player"] instance=ExtResource("1_m56e2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.725407, 1.28765, 1.44889)
+
+[node name="BetterEnemy" parent="." instance=ExtResource("7_5cvea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 0.262811, -4.35614)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://baxriy832o6la"]
 
-[ext_resource type="Script" path="res://Scripts/HitboxComponent.gd" id="1_mng83"]
+[ext_resource type="Script" path="res://Scripts/hitbox_component.gd" id="1_mng83"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_7isis"]
 

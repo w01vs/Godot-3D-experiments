@@ -17,7 +17,8 @@ config/icon="res://Assets/icon.svg"
 
 [autoload]
 
-UniversalHitController="*res://Scripts/UniversalHitController.gd"
+UniversalHitController="*res://Scripts/Autoloads/universal_hit_controller.gd"
+GlobalRefs="*res://Scripts/Autoloads/global_references.gd"
 
 [display]
 

@@ -4,6 +4,7 @@ extends CharacterBody3D
 #@onready var hitbox: HitboxComponent = $CharacterBody3D/sword/HitboxComponent
 
 var SPEED: float = 5
+var x
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

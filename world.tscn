@@ -117,4 +117,4 @@ shape = SubResource("ConcavePolygonShape3D_tijdu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.725407, 1.28765, 1.44889)
 
 [node name="BetterEnemy" parent="." instance=ExtResource("7_5cvea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 0.262811, -4.35614)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 1.39856, -4.35614)

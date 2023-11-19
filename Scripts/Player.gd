@@ -26,9 +26,9 @@ var health_chipspeed: float = 2
 
 func _ready() -> void:
 	GlobalRefs.player = self
+	GlobalRefs.player_set.emit()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	health_component.died.connect(died)
-	hitbox.set_physics_process(false)
 
 func _process(delta: float) -> void:
 	twist_pivot.rotate_y(twist_input)

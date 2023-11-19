@@ -1,12 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqx0tb1rgvagu"]
+[gd_scene load_steps=15 format=3 uid="uid://csjjl6bjs6sr7"]
 
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_4hyil"]
-[ext_resource type="Script" path="res://Scripts/health_component.gd" id="2_dga0r"]
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_mjmkq"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="2_ms8sh"]
 [ext_resource type="PackedScene" uid="uid://4v0ymcds2oi8" path="res://Scenes/health_bar_3d.tscn" id="3_mvyt3"]
-[ext_resource type="Script" path="res://Scripts/hurtbox_component.gd" id="4_i5jq7"]
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="4_it210"]
 [ext_resource type="Script" path="res://Scripts/finite_state_machine.gd" id="5_nghls"]
-[ext_resource type="Script" path="res://Scripts/enemy_wander_state.gd" id="5_shusx"]
-[ext_resource type="Script" path="res://Scripts/enemy_follow_state.gd" id="7_afu5u"]
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy_wander_state.gd" id="6_3kicw"]
+[ext_resource type="Script" path="res://Scripts/BehaviorTree/priority_selector_bt_node.gd" id="8_ah5be"]
+[ext_resource type="Script" path="res://Scripts/BehaviorTree/concurrent_bt_node.gd" id="9_mxi16"]
+[ext_resource type="Script" path="res://Scripts/Enemy/follow_player.gd" id="9_rnxmq"]
+[ext_resource type="Script" path="res://Scripts/Enemy/player_in_view.gd" id="10_bggwa"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vapi6"]
 
@@ -23,7 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
-script = ExtResource("1_4hyil")
+script = ExtResource("1_mjmkq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_vapi6")
@@ -33,7 +36,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_t8po0")
 shape = SubResource("ConvexPolygonShape3D_hml1b")
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("2_dga0r")
+script = ExtResource("2_ms8sh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
@@ -43,7 +46,7 @@ health_component = NodePath("../HealthComponent")
 [node name="HurtboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 monitorable = false
-script = ExtResource("4_i5jq7")
+script = ExtResource("4_it210")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
@@ -54,20 +57,16 @@ shape = SubResource("ConvexPolygonShape3D_hml1b")
 path_height_offset = 0.1
 debug_enabled = true
 
-[node name="FiniteStateMachine" type="Node3D" parent="." node_paths=PackedStringArray("state")]
+[node name="FiniteStateMachine" type="Node3D" parent="."]
 script = ExtResource("5_nghls")
-state = NodePath("EnemyFollowState")
 
 [node name="EnemyWanderState" type="Node3D" parent="FiniteStateMachine"]
-script = ExtResource("5_shusx")
+script = ExtResource("6_3kicw")
 wander_radius = 10.0
 sphere_center = Vector3(5, 0, 5)
 
 [node name="Timer" type="Timer" parent="FiniteStateMachine/EnemyWanderState"]
 one_shot = true
-
-[node name="EnemyFollowState" type="Node3D" parent="FiniteStateMachine"]
-script = ExtResource("7_afu5u")
 
 [node name="LaserSpawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339192, -0.776076)
@@ -76,5 +75,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339192, -0.776076)
 process_mode = 4
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, -0.531442)
 mesh = SubResource("SphereMesh_nmfm4")
+
+[node name="BTRoot" type="Node" parent="."]
+script = ExtResource("8_ah5be")
+
+[node name="ConcurrentNode" type="Node" parent="BTRoot"]
+script = ExtResource("9_mxi16")
+
+[node name="BTFollowPlayer" type="Node" parent="BTRoot/ConcurrentNode"]
+script = ExtResource("9_rnxmq")
+
+[node name="BTPlayerInView" type="Node" parent="BTRoot/ConcurrentNode"]
+script = ExtResource("10_bggwa")
 
 [connection signal="timeout" from="FiniteStateMachine/EnemyWanderState/Timer" to="FiniteStateMachine/EnemyWanderState" method="_on_timer_timeout"]

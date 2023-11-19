@@ -1,7 +1,5 @@
-extends BehaviorNode
-class_name PrioritySelector
-
-var last_index: int = -1
+extends RegularNodeBT
+class_name PrioritySelectorBT
 
 func _ready() -> void:
 	get_bt_children()
@@ -10,9 +8,8 @@ func _ready() -> void:
 
 func _physics_process(delta) -> void:
 	for i in children:
-		assert(i is ConcurrentNode)
+		assert(i is RegularNodeBT)
 		i.visit()
-
 
 func visit() -> int:
 	var result
@@ -32,8 +29,8 @@ func iteration(start: int) -> int:
 				return RUNNING
 	return SUCCESS
 
-func iterate(child: BehaviorNode) -> int:
-	if child is ExecutableNode:
+func iterate(child: BTNode) -> int:
+	if child is ExecutableNodeBT:
 		return child.execute()
 	else:
 		return child.visit()

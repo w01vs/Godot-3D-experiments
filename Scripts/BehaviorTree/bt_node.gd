@@ -1,9 +1,8 @@
-extends Node
-class_name BehaviorNode
+class_name BTNode extends Node
 
 enum {SUCCESS, FAILED, RUNNING}
 
-var children: Array[BehaviorNode]
+var children: Array[BTNode]
 var priority: int
 
 func get_bt_children() -> void:

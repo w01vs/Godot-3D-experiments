@@ -1,7 +1,4 @@
-extends BehaviorNode
-class_name ConcurrentNode
-
-var last_index: int = -1
+class_name SequenceNodeBT extends RegularNodeBT
 
 func _ready() -> void:
 	get_bt_children()
@@ -18,14 +15,16 @@ func iteration(start: int) -> int:
 	for i in range(start, children.size()):
 			result = await iterate(children[i])
 			if result == FAILED:
+				last_index = -1
 				return result
 			elif result == RUNNING:
 				last_index = i
 				return RUNNING
+	last_index = -1
 	return SUCCESS
 
-func iterate(child: BehaviorNode) -> int:
-	if child is ExecutableNode:
+func iterate(child: BTNode) -> int:
+	if child is ExecutableNodeBT:
 		return await child.execute()
 	else:
-		return await child.visit()
+		return child.visit()

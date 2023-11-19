@@ -1,4 +1,4 @@
-extends ExecutableNode
+extends ExecutableNodeBT
 
 var player
 

@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="4_it210"]
 [ext_resource type="Script" path="res://Scripts/finite_state_machine.gd" id="5_nghls"]
 [ext_resource type="Script" path="res://Scripts/Enemy/enemy_wander_state.gd" id="6_3kicw"]
+[ext_resource type="Script" path="res://Scripts/BehaviorTree/sequence_bt_node.gd" id="8_3ffs6"]
 [ext_resource type="Script" path="res://Scripts/BehaviorTree/priority_selector_bt_node.gd" id="8_ah5be"]
-[ext_resource type="Script" path="res://Scripts/BehaviorTree/concurrent_bt_node.gd" id="9_mxi16"]
 [ext_resource type="Script" path="res://Scripts/Enemy/follow_player.gd" id="9_rnxmq"]
 [ext_resource type="Script" path="res://Scripts/Enemy/player_in_view.gd" id="10_bggwa"]
 
@@ -79,13 +79,13 @@ mesh = SubResource("SphereMesh_nmfm4")
 [node name="BTRoot" type="Node" parent="."]
 script = ExtResource("8_ah5be")
 
-[node name="ConcurrentNode" type="Node" parent="BTRoot"]
-script = ExtResource("9_mxi16")
+[node name="SequenceNodeBT" type="Node" parent="BTRoot"]
+script = ExtResource("8_3ffs6")
 
-[node name="BTFollowPlayer" type="Node" parent="BTRoot/ConcurrentNode"]
+[node name="FollowPlayerBT" type="Node" parent="BTRoot/SequenceNodeBT"]
 script = ExtResource("9_rnxmq")
 
-[node name="BTPlayerInView" type="Node" parent="BTRoot/ConcurrentNode"]
+[node name="PlayerInViewBT" type="Node" parent="BTRoot/SequenceNodeBT"]
 script = ExtResource("10_bggwa")
 
 [connection signal="timeout" from="FiniteStateMachine/EnemyWanderState/Timer" to="FiniteStateMachine/EnemyWanderState" method="_on_timer_timeout"]

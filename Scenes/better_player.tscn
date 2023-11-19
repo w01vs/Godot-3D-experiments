@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cs6bt"]
 [ext_resource type="Script" path="res://Scripts/interact.gd" id="2_w8m0h"]
 [ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://Scenes/sword.tscn" id="3_0m5en"]
-[ext_resource type="Script" path="res://Scripts/health_component.gd" id="4_wkj4k"]
-[ext_resource type="Script" path="res://Scripts/hurtbox_component.gd" id="5_wtxar"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="4_1qn71"]
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="5_7kohf"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x5kv8"]
 
@@ -104,13 +104,13 @@ mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("4_wkj4k")
+script = ExtResource("4_1qn71")
 
 [node name="HurtboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 4
 collision_mask = 8
-script = ExtResource("5_wtxar")
+script = ExtResource("5_7kohf")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]

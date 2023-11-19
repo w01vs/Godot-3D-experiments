@@ -30,7 +30,7 @@ func get_new_destination() -> Vector3:
 	
 	var target_position: Vector3 = Vector3(x, y, z)
 	
-	var map: RID = get_world_3d().navigation_map
+	var map: RID = GlobalRefs.map
 	await get_tree().physics_frame
 	var closest_point: Vector3 = NavigationServer3D.map_get_closest_point(map, target_position)
 	#var delta = closest_point - target_position

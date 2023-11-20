@@ -91,11 +91,16 @@ priority = 1
 
 [node name="MoveBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT/SequenceNodeBT"]
 script = ExtResource("12_ofl3c")
-priority = 2
+priority = 10
 
 [node name="SetTargetBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT/SequenceNodeBT"]
 script = ExtResource("13_hbgub")
 wander_radius = 10
+priority = 9
+
+[node name="WaitBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT/SequenceNodeBT"]
+script = ExtResource("13_qhdmk")
+time_to_wait = 0.3
 priority = 1
 
 [node name="MoveToBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT/SequenceNodeBT"]
@@ -103,3 +108,4 @@ script = ExtResource("13_1d3fv")
 
 [node name="WaitBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT"]
 script = ExtResource("13_qhdmk")
+time_to_wait = 3.0

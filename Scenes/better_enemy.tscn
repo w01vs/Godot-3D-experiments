@@ -24,12 +24,15 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="SphereMesh" id="SphereMesh_nmfm4"]
 
-[node name="BetterEnemy" type="CharacterBody3D" groups=["enemy"]]
+[node name="BetterEnemy" type="CharacterBody3D" node_paths=PackedStringArray("eye") groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 script = ExtResource("1_mjmkq")
+eye = NodePath("Eye")
+eye_angle = 45.0
+max_view_distance = 15.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_vapi6")
@@ -63,9 +66,9 @@ debug_enabled = true
 [node name="LaserSpawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339192, -0.776076)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="Eye" type="MeshInstance3D" parent="."]
 process_mode = 4
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, -0.531442)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.651531, -0.412274)
 mesh = SubResource("SphereMesh_nmfm4")
 
 [node name="PrioritySelectorBT" type="Node" parent="."]

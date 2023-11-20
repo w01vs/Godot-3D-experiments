@@ -1,15 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://csjjl6bjs6sr7"]
+[gd_scene load_steps=18 format=3 uid="uid://dky64grklmxns"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_mjmkq"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="2_ms8sh"]
 [ext_resource type="PackedScene" uid="uid://4v0ymcds2oi8" path="res://Scenes/health_bar_3d.tscn" id="3_mvyt3"]
 [ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="4_it210"]
-[ext_resource type="Script" path="res://Scripts/finite_state_machine.gd" id="5_nghls"]
-[ext_resource type="Script" path="res://Scripts/Enemy/enemy_wander_state.gd" id="6_3kicw"]
 [ext_resource type="Script" path="res://Scripts/BehaviorTree/sequence_bt_node.gd" id="8_3ffs6"]
+[ext_resource type="Script" path="res://Scripts/BehaviorTree/concurrent_bt_node.gd" id="8_315fb"]
 [ext_resource type="Script" path="res://Scripts/BehaviorTree/priority_selector_bt_node.gd" id="8_ah5be"]
 [ext_resource type="Script" path="res://Scripts/Enemy/follow_player.gd" id="9_rnxmq"]
 [ext_resource type="Script" path="res://Scripts/Enemy/player_in_view.gd" id="10_bggwa"]
+[ext_resource type="Script" path="res://Scripts/Enemy/move_decision.gd" id="12_ofl3c"]
+[ext_resource type="Script" path="res://Scripts/Enemy/move_to.gd" id="13_1d3fv"]
+[ext_resource type="Script" path="res://Scripts/Enemy/set_target.gd" id="13_hbgub"]
+[ext_resource type="Script" path="res://Scripts/Enemy/wait.gd" id="13_qhdmk"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vapi6"]
 
@@ -57,17 +60,6 @@ shape = SubResource("ConvexPolygonShape3D_hml1b")
 path_height_offset = 0.1
 debug_enabled = true
 
-[node name="FiniteStateMachine" type="Node3D" parent="."]
-script = ExtResource("5_nghls")
-
-[node name="EnemyWanderState" type="Node3D" parent="FiniteStateMachine"]
-script = ExtResource("6_3kicw")
-wander_radius = 10.0
-sphere_center = Vector3(5, 0, 5)
-
-[node name="Timer" type="Timer" parent="FiniteStateMachine/EnemyWanderState"]
-one_shot = true
-
 [node name="LaserSpawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339192, -0.776076)
 
@@ -76,16 +68,38 @@ process_mode = 4
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, -0.531442)
 mesh = SubResource("SphereMesh_nmfm4")
 
-[node name="BTRoot" type="Node" parent="."]
+[node name="PrioritySelectorBT" type="Node" parent="."]
 script = ExtResource("8_ah5be")
 
-[node name="SequenceNodeBT" type="Node" parent="BTRoot"]
-script = ExtResource("8_3ffs6")
+[node name="ConcurrentNodeBT" type="Node" parent="PrioritySelectorBT"]
+script = ExtResource("8_315fb")
+priority = 1
 
-[node name="FollowPlayerBT" type="Node" parent="BTRoot/SequenceNodeBT"]
+[node name="PlayerInViewBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT"]
+script = ExtResource("10_bggwa")
+priority = 1
+
+[node name="FollowPlayerBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT"]
 script = ExtResource("9_rnxmq")
 
-[node name="PlayerInViewBT" type="Node" parent="BTRoot/SequenceNodeBT"]
-script = ExtResource("10_bggwa")
+[node name="PrioritySelectorBT" type="Node" parent="PrioritySelectorBT"]
+script = ExtResource("8_ah5be")
 
-[connection signal="timeout" from="FiniteStateMachine/EnemyWanderState/Timer" to="FiniteStateMachine/EnemyWanderState" method="_on_timer_timeout"]
+[node name="SequenceNodeBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT"]
+script = ExtResource("8_3ffs6")
+priority = 1
+
+[node name="MoveBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT/SequenceNodeBT"]
+script = ExtResource("12_ofl3c")
+priority = 2
+
+[node name="SetTargetBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT/SequenceNodeBT"]
+script = ExtResource("13_hbgub")
+wander_radius = 10
+priority = 1
+
+[node name="MoveToBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT/SequenceNodeBT"]
+script = ExtResource("13_1d3fv")
+
+[node name="WaitBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT"]
+script = ExtResource("13_qhdmk")

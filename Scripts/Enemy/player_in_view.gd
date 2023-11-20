@@ -1,10 +1,10 @@
-extends ExecutableNodeBT
+extends ConditionalNodeBT
 
 var player
 
 func _ready() -> void:
 	player = GlobalRefs.player
-	priority = 0
+	priority = 1
 
-func execute() -> int:
-	return FAILED
+func condition() -> bool:
+	return false

@@ -1,11 +1,10 @@
-extends ExecutableNodeBT
+extends ActionNodeBT
 
 var player
 @onready var nav_agent: NavigationAgent3D = $"../../../NavigationAgent3D"
 @onready var actor = $"../../.."
 func _ready() -> void:
 	player = GlobalRefs.player
-	priority = 1
 
 func execute() -> int:
 	await get_tree().physics_frame

@@ -1,36 +1,26 @@
-extends RegularNodeBT
-class_name PrioritySelectorBT
+class_name PrioritySelectorBT extends BTNode
+
+var last_index: int = 0
 
 func _ready() -> void:
 	get_bt_children()
-	for i in children:
-		i.disable()
 
-func _physics_process(delta) -> void:
-	for i in children:
-		assert(i is RegularNodeBT)
-		i.visit()
+func _physics_process(_delta: float) -> void:
+	for child in children:
+		await child.execute()
 
-func visit() -> int:
-	var result
-	if last_index == -1:
-		return iteration(0)
-	else:
-		return iteration(last_index)
+func execute() -> int:
+	return await iteration(last_index)
 
 func iteration(start: int) -> int:
+	last_index = 0
 	var result
 	for i in range(start, children.size()):
-			result = iterate(children[i])
-			if result == FAILED:
-				return result
-			elif result == RUNNING:
-				last_index = i
-				return RUNNING
-	return SUCCESS
-
-func iterate(child: BTNode) -> int:
-	if child is ExecutableNodeBT:
-		return child.execute()
-	else:
-		return child.visit()
+			result = await children[i].execute()
+			match result:
+				RUNNING:
+					last_index = i
+					return RUNNING
+				SUCCESS:
+					return SUCCESS
+	return FAILED

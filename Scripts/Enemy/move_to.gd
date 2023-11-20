@@ -2,7 +2,6 @@ extends ActionNodeBT
 
 @onready var nav_agent: NavigationAgent3D = $"../../../../NavigationAgent3D"
 @onready var actor = $"../../../.."
-@onready var timer: Timer = $Timer
 var smooth_time_finished: bool = false
 
 func action() -> int:

@@ -1,11 +1,13 @@
 extends ActionNodeBT
+class_name WaitBT
+
+@export var time_to_wait: float
 
 var timer: float = 0
 
 func action() -> int:
 	update_timer()
-	print_debug(timer)
-	if check_timer(3):
+	if check_timer(time_to_wait):
 		return SUCCESS
 	return RUNNING
 

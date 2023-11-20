@@ -6,6 +6,8 @@ extends ActionNodeBT
 
 @onready var nav_agent: NavigationAgent3D = $"../../../../NavigationAgent3D"
 
+@onready var actor = $"../../../.."
+
 func action() -> int:
 	nav_agent.target_position = await get_new_destination()
 	if not nav_agent.is_target_reachable():

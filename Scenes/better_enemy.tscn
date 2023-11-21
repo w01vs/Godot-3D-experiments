@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://dky64grklmxns"]
+[gd_scene load_steps=20 format=3 uid="uid://dky64grklmxns"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_mjmkq"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="2_ms8sh"]
 [ext_resource type="PackedScene" uid="uid://4v0ymcds2oi8" path="res://Scenes/health_bar_3d.tscn" id="3_mvyt3"]
 [ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="4_it210"]
 [ext_resource type="Script" path="res://Scripts/BehaviorTree/sequence_bt_node.gd" id="8_3ffs6"]
+[ext_resource type="Script" path="res://addons/draw3d/draw_3d.gd" id="8_8ofux"]
 [ext_resource type="Script" path="res://Scripts/BehaviorTree/concurrent_bt_node.gd" id="8_315fb"]
 [ext_resource type="Script" path="res://Scripts/BehaviorTree/priority_selector_bt_node.gd" id="8_ah5be"]
 [ext_resource type="Script" path="res://Scripts/Enemy/follow_player.gd" id="9_rnxmq"]
@@ -24,6 +25,8 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="SphereMesh" id="SphereMesh_nmfm4"]
 
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_nhbeq"]
+
 [node name="BetterEnemy" type="CharacterBody3D" node_paths=PackedStringArray("eye") groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 axis_lock_angular_x = true
@@ -31,8 +34,9 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 script = ExtResource("1_mjmkq")
 eye = NodePath("Eye")
+max_view_distance = 5.0
 eye_angle = 45.0
-max_view_distance = 15.0
+SPEED = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_vapi6")
@@ -82,6 +86,10 @@ priority = 1
 script = ExtResource("10_bggwa")
 priority = 1
 
+[node name="Draw3D" type="MeshInstance3D" parent="PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT"]
+mesh = SubResource("ImmediateMesh_nhbeq")
+script = ExtResource("8_8ofux")
+
 [node name="FollowPlayerBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT"]
 script = ExtResource("9_rnxmq")
 
@@ -111,4 +119,4 @@ script = ExtResource("13_1d3fv")
 
 [node name="WaitBT" type="Node" parent="PrioritySelectorBT/PrioritySelectorBT"]
 script = ExtResource("13_qhdmk")
-time_to_wait = 3.0
+time_to_wait = 2.0

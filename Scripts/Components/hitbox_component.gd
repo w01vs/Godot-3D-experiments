@@ -1,5 +1,4 @@
-extends Area3D
-class_name HitboxComponent
+class_name HitboxComponent extends Area3D
 
 var on_hit_information: OnHitInformation
 

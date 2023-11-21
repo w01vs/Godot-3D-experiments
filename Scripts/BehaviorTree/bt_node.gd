@@ -2,8 +2,9 @@ class_name BTNode extends Node
 
 enum {SUCCESS = 1, FAILED = -1, RUNNING = 0}
 
-var children: Array[BTNode]
 @export var priority: int = 0
+
+var children: Array[BTNode]
 
 func get_bt_children() -> void:
 	var nodeChildren = get_children()

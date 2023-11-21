@@ -1,8 +1,9 @@
 extends ActionNodeBT
 
+var smooth_time_finished: bool = false
+
 @onready var nav_agent: NavigationAgent3D = $"../../../../NavigationAgent3D"
 @onready var actor = $"../../../.."
-var smooth_time_finished: bool = false
 
 func action() -> int:
 	if nav_agent.is_target_reached():
@@ -14,7 +15,6 @@ func action() -> int:
 	actor.velocity = actor.velocity.move_toward(new_velocity, .4)
 	var lookdir = atan2(-actor.velocity.x, -actor.velocity.z)
 	actor.rotation.y = lookdir
-	
 	
 	actor.move_and_slide()
 	return RUNNING

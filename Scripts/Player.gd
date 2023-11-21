@@ -1,5 +1,4 @@
-extends CharacterBody3D
-class_name Player
+class_name Player extends CharacterBody3D
 
 var mouse_sensitivity: float = 0.001
 var twist_input: float = 0
@@ -38,7 +37,6 @@ func _process(delta: float) -> void:
 	twist_input = 0
 
 func _physics_process(delta: float) -> void:
-		
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = 4.5
 	
@@ -58,15 +56,13 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("default_attack"):
 		anim_player.play("slash_attack")
-		
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			twist_input = -event.relative.x * mouse_sensitivity
 			pitch_input = -event.relative.y * mouse_sensitivity
-			
-			
+
 func died() -> void:
 	queue_free()
 
@@ -80,11 +76,9 @@ func updateVelocity(multiplier: float) -> void:
 		velocity.x = 0
 		velocity.z = 0
 
-
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "slash_attack":
 		hitbox.set_physics_process(false)
-
 
 func _on_animation_player_animation_started(anim_name):
 	if anim_name == "slash_attack":

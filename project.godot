@@ -19,7 +19,7 @@ config/icon="res://Assets/icon.svg"
 
 UniversalHitController="*res://Scripts/Autoloads/universal_hit_controller.gd"
 GlobalRefs="*res://Scripts/Autoloads/global_references.gd"
-DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+DebugMenu="res://addons/debug_menu/debug_menu.tscn"
 
 [display]
 
@@ -36,7 +36,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/float_script_editor/plugin.cfg", "res://addons/script-tabs/plugin.cfg", "res://addons/script_panel_plus/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/draw3d/plugin.cfg", "res://addons/float_script_editor/plugin.cfg", "res://addons/script-tabs/plugin.cfg", "res://addons/script_panel_plus/plugin.cfg")
 
 [input]
 

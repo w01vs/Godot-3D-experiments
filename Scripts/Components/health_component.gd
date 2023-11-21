@@ -1,7 +1,10 @@
-extends Node
-class_name HealthComponent
+class_name HealthComponent extends Node
+
+signal health_changed(float)
+signal died()
 
 @export var max_health: float = 100
+
 var health: float
 
 var increasing_over_time: bool = false
@@ -16,14 +19,6 @@ var decrease_tick_time: float = 0
 var decrease_tick_amount: float = 0
 var decrease_total_ticks: float = 0
 
-
-
-
-
-
-signal health_changed(float)
-signal died()
-
 func _ready() -> void:
 	health = max_health
 	health_changed.emit(health)
@@ -33,8 +28,6 @@ func _process(delta: float) -> void:
 	health_0()
 	increase_health_over_time(delta)
 	decrease_health_over_time(delta)
-	
-	
 
 func decrease_health(amount: float, apply_over_time: bool = false, tick_time: float = 0, per_tick: float = 0) -> void:
 	if health > 0:
@@ -48,7 +41,6 @@ func decrease_health(amount: float, apply_over_time: bool = false, tick_time: fl
 			decrease_tick_time = tick_time
 			decrease_tick_amount = per_tick
 			decrease_total_ticks = amount / per_tick
-			
 
 func increase_health(amount: float, apply_over_time: bool = false, tick_time: float = 0, per_tick: float = 0) -> void:
 	if health < max_health:
@@ -63,7 +55,6 @@ func increase_health(amount: float, apply_over_time: bool = false, tick_time: fl
 			increase_tick_amount = per_tick
 			increase_total_ticks = amount / per_tick
 
-
 func increase_health_over_time(time: float) -> void:
 	if increasing_over_time:
 		increase_timer += time
@@ -73,7 +64,7 @@ func increase_health_over_time(time: float) -> void:
 			increase_total_ticks -= 1
 		if increase_total_ticks == 0:
 			increasing_over_time = false
-			
+
 func decrease_health_over_time(time: float) -> void:
 	if decreasing_over_time:
 		decrease_timer += time
@@ -83,17 +74,16 @@ func decrease_health_over_time(time: float) -> void:
 			decrease_timer = 0
 		if decrease_total_ticks == 0:
 			decreasing_over_time = false
-			
-		
+
 func health_0() -> void:
 	if health <= 0:
 		died.emit()
 
 func clamp_health() -> void:
 	health = clamp(health, 0, max_health)
-	
+
 func set_max_health(amount: float) -> void:
 	max_health = amount
-	
+
 func get_max_health() -> float:
 	return max_health

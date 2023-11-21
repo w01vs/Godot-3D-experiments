@@ -1,5 +1,4 @@
-extends Node3D
-class_name World
+class_name World extends Node3D
 
 func _ready() -> void:
 	GlobalRefs.map = get_world_3d().navigation_map

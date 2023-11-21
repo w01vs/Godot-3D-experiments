@@ -3,13 +3,11 @@ extends ActionNodeBT
 @export_category("Settings")
 @export var wander_radius: int
 @export var radius_center: Vector3
-
-@onready var nav_agent: NavigationAgent3D = $"../../../../NavigationAgent3D"
-@onready var actor = $"../../../.."
+@export var actor: SimpleEnemy
 
 func action() -> int:
-	nav_agent.target_position = await get_new_destination()
-	if not nav_agent.is_target_reachable():
+	actor.nav_agent.target_position = await get_new_destination()
+	if not actor.nav_agent.is_target_reachable():
 		return FAILED
 	return SUCCESS
 

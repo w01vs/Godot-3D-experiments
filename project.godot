@@ -19,7 +19,7 @@ config/icon="res://Assets/icon.svg"
 
 UniversalHitController="*res://Scripts/Autoloads/universal_hit_controller.gd"
 GlobalRefs="*res://Scripts/Autoloads/global_references.gd"
-DebugMenu="res://addons/debug_menu/debug_menu.tscn"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [display]
 

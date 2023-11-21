@@ -4,6 +4,7 @@ class_name SimpleEnemy extends CharacterBody3D
 @export var max_view_distance: float
 @export var eye_angle: float
 @export var SPEED: float
+@export var nav_agent: NavigationAgent3D
 
 var eye_rad: float
 var cos_angle: float

@@ -24,15 +24,16 @@ func die() -> void:
 func calculate_sight_box() -> void:
 	eye_rad = deg_to_rad(eye_angle)
 	cos_angle = cos(eye_rad)
-	sight_box = get_node("SightBox")
+	var has_sight_box: bool = has_node("SightBox")
 	var box_shape: CollisionPolygon3D
-	if sight_box == null:
+	if not has_sight_box:
 		sight_box = Area3D.new()
 		sight_box.name = "SightBox"
 		add_child(sight_box)
 		box_shape = CollisionPolygon3D.new()
 		sight_box.add_child(box_shape)
 	else:
+		sight_box = get_node("SightBox")
 		box_shape = sight_box.get_node("CollisionPolygon3D")
 		box_shape.polygon.clear()
 	

@@ -55,7 +55,7 @@ health_component = NodePath("../HealthComponent")
 
 [node name="HurtboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-monitorable = false
+monitoring = false
 script = ExtResource("4_it210")
 health_component = NodePath("../HealthComponent")
 

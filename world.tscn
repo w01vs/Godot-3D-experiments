@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Interactables/heal_interactable.gd" id="4_mbanx"]
 [ext_resource type="Script" path="res://Scripts/Components/interactable_component.gd" id="5_ffr8s"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://Scenes/player_health_bar.tscn" id="6_wq5pv"]
-[ext_resource type="PackedScene" uid="uid://dky64grklmxns" path="res://Scenes/better_enemy.tscn" id="7_5cvea"]
+[ext_resource type="PackedScene" uid="uid://dga0fjv0a80a8" path="res://Scenes/better_enemy.tscn" id="7_5cvea"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

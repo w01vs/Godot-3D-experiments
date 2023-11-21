@@ -5,7 +5,6 @@ extends ActionNodeBT
 @export var radius_center: Vector3
 
 @onready var nav_agent: NavigationAgent3D = $"../../../../NavigationAgent3D"
-
 @onready var actor = $"../../../.."
 
 func action() -> int:

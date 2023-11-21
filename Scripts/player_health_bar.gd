@@ -1,10 +1,11 @@
-extends ProgressBar
-class_name BetterHealthBar
+class_name BetterHealthBar extends ProgressBar
 
-@onready var animator: AnimationPlayer = $AnimationPlayer
+
 var stylebox_1: StyleBoxFlat = StyleBoxFlat.new()
 var stylebox_fill: StyleBoxFlat = StyleBoxFlat.new()
 var prev_fill: float = value
+
+@onready var animator: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	stylebox_1.set_border_width_all(2)

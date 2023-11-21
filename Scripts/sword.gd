@@ -1,10 +1,9 @@
-extends Node3D
-class_name Sword
+class_name Sword extends Node3D
 
 var info: OnHitInformation
 
 @onready var hitbox: HitboxComponent = $HitboxComponent
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	info = OnHitInformation.new()
 	info.damage = 15

@@ -1,9 +1,9 @@
 extends Area3D
 class_name HurtboxComponent
 
-@export var health_component: HealthComponent
-
 signal hit_by_hitbox(hitbox: Area3D)
+
+@export var health_component: HealthComponent
 
 func _ready() -> void:
 	set_collision_layer_value(1, false)

@@ -3,6 +3,7 @@ extends CanvasLayer
 var player_health_component: HealthComponent
 var player_health: float
 var player: Player
+
 @onready var player_healthbar: BetterHealthBar = $BetterHealthBar
 
 func _ready() -> void:
@@ -13,7 +14,6 @@ func _process(delta: float) -> void:
 
 func updateHealth(amount: float) -> void:
 	player_health = amount
-
 
 func initialize_healthbar() -> void:
 	player = GlobalRefs.player

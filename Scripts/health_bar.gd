@@ -17,9 +17,7 @@ func _ready() -> void:
 	stylebox_fill.bg_color = Color.GREEN
 	stylebox_1.bg_color = Color.GREEN
 	value_changed.connect(change_stylebox)
-	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func change_stylebox(fill: float):
 	if prev_fill != 1 and fill == 1:
 		remove_theme_stylebox_override("fill")

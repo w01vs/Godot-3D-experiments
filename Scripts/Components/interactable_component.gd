@@ -1,5 +1,4 @@
-extends StaticBody3D
-class_name Interactable
+class_name Interactable extends StaticBody3D
 
 func _ready() -> void:
 	set_collision_layer_value(2, true)

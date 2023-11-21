@@ -1,4 +1,5 @@
-class_name WaitBT extends ActionNodeBT
+class_name WaitBT 
+extends ActionNodeBT
 
 @export var time_to_wait: float
 

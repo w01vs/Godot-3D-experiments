@@ -1,12 +1,13 @@
 extends ConditionalNodeBT
 
+@export var actor: SimpleEnemy
+
 var player: Player
 var space_state: PhysicsDirectSpaceState3D
 
 var origin
 var end
 
-@onready var actor: SimpleEnemy = $"../../.."
 @onready var draw: Draw3D = $Draw3D
 
 func _ready() -> void:

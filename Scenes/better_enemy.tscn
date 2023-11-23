@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dga0fjv0a80a8"]
+[gd_scene load_steps=22 format=3 uid="uid://dga0fjv0a80a8"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_mjmkq"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="2_ms8sh"]
@@ -10,9 +10,11 @@
 [ext_resource type="Script" path="res://Scripts/BehaviorTree/priority_selector_bt_node.gd" id="8_ah5be"]
 [ext_resource type="Script" path="res://Scripts/Enemy/set_player_target.gd" id="9_jcfm8"]
 [ext_resource type="Script" path="res://Scripts/Enemy/player_in_view.gd" id="10_bggwa"]
+[ext_resource type="Script" path="res://Scripts/Enemy/sight_changed.gd" id="12_bi3i3"]
 [ext_resource type="Script" path="res://Scripts/Enemy/move_decision.gd" id="12_ofl3c"]
 [ext_resource type="Script" path="res://Scripts/Enemy/wait_bt.gd" id="13_2ikyo"]
 [ext_resource type="Script" path="res://Scripts/Enemy/set_wander_target.gd" id="13_hq04p"]
+[ext_resource type="Script" path="res://Scenes/reset_velocity.gd" id="13_v8cft"]
 [ext_resource type="Script" path="res://Scripts/Enemy/move_to_bt.gd" id="14_o0fii"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vapi6"]
@@ -25,7 +27,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="SphereMesh" id="SphereMesh_nmfm4"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_26lm0"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4ajlb"]
 
 [node name="BetterEnemy" type="CharacterBody3D" node_paths=PackedStringArray("eye", "nav_agent") groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -89,16 +91,29 @@ actor = NodePath("../../..")
 priority = 5
 
 [node name="Draw3D" type="MeshInstance3D" parent="PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT"]
-mesh = SubResource("ImmediateMesh_26lm0")
+mesh = SubResource("ImmediateMesh_4ajlb")
 script = ExtResource("8_8ofux")
+
+[node name="MoveToNavPointBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]
+script = ExtResource("14_o0fii")
+actor = NodePath("../../..")
 
 [node name="SetPlayerTargetBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]
 script = ExtResource("9_jcfm8")
 actor = NodePath("../../..")
 priority = 2
 
-[node name="MoveToNavPointBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]
-script = ExtResource("14_o0fii")
+[node name="SequenceNodeBT" type="Node" parent="PrioritySelectorBT"]
+script = ExtResource("8_3ffs6")
+priority = 1
+
+[node name="SightChangedBT" type="Node" parent="PrioritySelectorBT/SequenceNodeBT" node_paths=PackedStringArray("actor")]
+script = ExtResource("12_bi3i3")
+actor = NodePath("../../..")
+priority = 5
+
+[node name="ResetVelocityBT" type="Node" parent="PrioritySelectorBT/SequenceNodeBT" node_paths=PackedStringArray("actor")]
+script = ExtResource("13_v8cft")
 actor = NodePath("../../..")
 
 [node name="PrioritySelectorBT" type="Node" parent="PrioritySelectorBT"]

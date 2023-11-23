@@ -5,9 +5,6 @@ var last_index: int = 0
 func _ready() -> void:
 	get_bt_children()
 
-func _physics_process(_delta: float) -> void:
-	for child in children:
-		await child.execute()
 
 func execute() -> int:
 	return await iteration(last_index)

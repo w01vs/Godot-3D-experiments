@@ -3,4 +3,6 @@ extends ConditionalNodeBT
 @export var actor: SimpleEnemy
 
 func condition() -> bool:
-	return actor.sight_changed
+	var res = actor.sight_changed
+	actor.sight_changed = not actor.sight_changed
+	return res

@@ -1,6 +1,6 @@
-extends ConditionalNodeBT
+class_name IsPathfindingBT extends ConditionalNodeBT
 
 @export var actor: SimpleEnemy
 
 func condition() -> bool:
-	return not actor.pathfinding
+	return actor.pathfinding

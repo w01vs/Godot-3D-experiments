@@ -5,6 +5,8 @@ extends ConditionalNodeBT
 var player: Player
 var space_state: PhysicsDirectSpaceState3D
 
+var prev_res: bool = false
+
 var origin
 var end
 
@@ -18,6 +20,7 @@ func condition() -> bool:
 	return sight()
 
 func sight() -> bool:
+	draw.clear()
 	var res: bool = false
 	var sight_box: Area3D = actor.get_node("SightBox")
 	if sight_box != null:
@@ -29,14 +32,15 @@ func sight() -> bool:
 				var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end)
 				query.exclude = [actor.get_rid()]
 				var result = space_state.intersect_ray(query)
-				draw.clear()
 				draw.draw_line([origin, end], Color.RED)
 				if result.collider is Player:
 					res = true
-	if actor.sight_changed and not res:
+	if prev_res and not res:
 		actor.sight_changed = true
 	else:
 		actor.sight_changed = false
+	
+	prev_res = res
 	return res
 		# probe width of player
 		# maybe probe height as well?

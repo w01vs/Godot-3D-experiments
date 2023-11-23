@@ -19,6 +19,7 @@ func condition() -> bool:
 	return sight()
 
 func sight() -> bool:
+	var res: bool = false
 	var sight_box: Area3D = actor.get_node("SightBox")
 	if sight_box != null:
 		var colliders = sight_box.get_overlapping_bodies()
@@ -29,12 +30,16 @@ func sight() -> bool:
 				var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end)
 				query.exclude = [actor.get_rid()]
 				var result = space_state.intersect_ray(query)
+				draw.clear()
+				draw.draw_line([origin, end], Color.RED)
+				print_debug(result.collider)
 				if result.collider is Player:
-					return true
-	return false
+					res = true
+	if (actor.sight_changed and not res) or (not actor.sight_changed and res):
+		actor.sight_changed = true
+	else:
+		actor.sight_changed = false
+		print_debug(res)
+	return res
 		# probe width of player
 		# maybe probe height as well?
-
-func _process(delta) -> void:
-	draw.clear()
-	draw.draw_line([origin, end], Color.RED)

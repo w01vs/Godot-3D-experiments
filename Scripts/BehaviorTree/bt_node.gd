@@ -14,7 +14,7 @@ func get_bt_children() -> void:
 		child.set_process(false)
 	children.sort_custom(compare)
 
-func compare(a, b) -> bool:
+func compare(a: BTNode, b: BTNode) -> bool:
 	return a.priority > b.priority
 
 func execute() -> int:

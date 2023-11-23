@@ -6,6 +6,8 @@ class_name SimpleEnemy extends CharacterBody3D
 @export var SPEED: float
 @export var nav_agent: NavigationAgent3D
 
+var sight_changed: bool = false
+
 var eye_rad: float
 var cos_angle: float
 var sight_box: Area3D

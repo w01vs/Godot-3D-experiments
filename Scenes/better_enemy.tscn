@@ -13,8 +13,8 @@
 [ext_resource type="Script" path="res://Scripts/Enemy/sight_changed.gd" id="12_bi3i3"]
 [ext_resource type="Script" path="res://Scripts/Enemy/move_decision.gd" id="12_ofl3c"]
 [ext_resource type="Script" path="res://Scripts/Enemy/wait_bt.gd" id="13_2ikyo"]
+[ext_resource type="Script" path="res://Scripts/Enemy/reset_velocity.gd" id="13_63ov7"]
 [ext_resource type="Script" path="res://Scripts/Enemy/set_wander_target.gd" id="13_hq04p"]
-[ext_resource type="Script" path="res://Scenes/reset_velocity.gd" id="13_v8cft"]
 [ext_resource type="Script" path="res://Scripts/Enemy/move_to_bt.gd" id="14_o0fii"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vapi6"]
@@ -27,7 +27,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="SphereMesh" id="SphereMesh_nmfm4"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_4ajlb"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_vqkbw"]
 
 [node name="BetterEnemy" type="CharacterBody3D" node_paths=PackedStringArray("eye", "nav_agent") groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -91,17 +91,17 @@ actor = NodePath("../../..")
 priority = 5
 
 [node name="Draw3D" type="MeshInstance3D" parent="PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT"]
-mesh = SubResource("ImmediateMesh_4ajlb")
+mesh = SubResource("ImmediateMesh_vqkbw")
 script = ExtResource("8_8ofux")
-
-[node name="MoveToNavPointBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]
-script = ExtResource("14_o0fii")
-actor = NodePath("../../..")
 
 [node name="SetPlayerTargetBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]
 script = ExtResource("9_jcfm8")
 actor = NodePath("../../..")
 priority = 2
+
+[node name="MoveToNavPointBT" type="Node" parent="PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]
+script = ExtResource("14_o0fii")
+actor = NodePath("../../..")
 
 [node name="SequenceNodeBT" type="Node" parent="PrioritySelectorBT"]
 script = ExtResource("8_3ffs6")
@@ -113,7 +113,7 @@ actor = NodePath("../../..")
 priority = 5
 
 [node name="ResetVelocityBT" type="Node" parent="PrioritySelectorBT/SequenceNodeBT" node_paths=PackedStringArray("actor")]
-script = ExtResource("13_v8cft")
+script = ExtResource("13_63ov7")
 actor = NodePath("../../..")
 
 [node name="PrioritySelectorBT" type="Node" parent="PrioritySelectorBT"]

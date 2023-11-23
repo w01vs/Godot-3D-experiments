@@ -12,7 +12,6 @@ var end
 
 func _ready() -> void:
 	player = GlobalRefs.player
-	priority = 1
 	space_state = actor.get_world_3d().direct_space_state
 
 func condition() -> bool:
@@ -32,14 +31,12 @@ func sight() -> bool:
 				var result = space_state.intersect_ray(query)
 				draw.clear()
 				draw.draw_line([origin, end], Color.RED)
-				print_debug(result.collider)
 				if result.collider is Player:
 					res = true
-	if (actor.sight_changed and not res) or (not actor.sight_changed and res):
+	if actor.sight_changed and not res:
 		actor.sight_changed = true
 	else:
 		actor.sight_changed = false
-		print_debug(res)
 	return res
 		# probe width of player
 		# maybe probe height as well?

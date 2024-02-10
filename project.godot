@@ -12,8 +12,12 @@ config_version=5
 
 config/name="Attempt"
 run/main_scene="res://world.tscn"
-config/features=PackedStringArray("4.1", "C#", "Forward Plus")
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://Assets/icon.svg"
+
+[audio]
+
+buses/default_bus_layout=""
 
 [autoload]
 

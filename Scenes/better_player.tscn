@@ -53,7 +53,7 @@ _data = {
 "slash_attack": SubResource("Animation_amry5")
 }
 
-[node name="BetterPlayer" type="CharacterBody3D"]
+[node name="BetterPlayer" type="CharacterBody3D" groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_cs6bt")
 
@@ -75,7 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 [node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
-[node name="Interact" type="RayCast3D" parent="TwistPivot/PitchPivot/Camera3D" groups=["ally"]]
+[node name="Interact" type="RayCast3D" parent="TwistPivot/PitchPivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -2.98023e-08, -1, 0, 1, -2.98023e-08, 0, 0, 0)
 target_position = Vector3(0, -5, 0)
 collision_mask = 2
@@ -84,7 +84,7 @@ script = ExtResource("2_w8m0h")
 [node name="RightArm" type="Node3D" parent="TwistPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507, -1.484, -0.282355)
 
-[node name="rightarm" type="MeshInstance3D" parent="TwistPivot/RightArm" groups=["ally"]]
+[node name="rightarm" type="MeshInstance3D" parent="TwistPivot/RightArm"]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")

@@ -9,6 +9,7 @@ func action() -> int:
 	update_timer()
 	if check_timer(time_to_wait):
 		return SUCCESS
+	# if see player, interrupt and return SUCCESS
 	return RUNNING
 
 func update_timer() -> void:

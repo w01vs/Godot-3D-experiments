@@ -59,6 +59,7 @@ script = ExtResource("1_cs6bt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
+layers = 33
 mesh = SubResource("CapsuleMesh_x5kv8")
 skeleton = NodePath("")
 

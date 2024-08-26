@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://by7on7nhfca2w"]
+[gd_scene load_steps=21 format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://Scenes/better_player.tscn" id="1_m56e2"]
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_vbbqe"]
 [ext_resource type="Script" path="res://Scripts/player_ui.gd" id="2_7cltx"]
 [ext_resource type="Script" path="res://Scripts/Interactables/damage_interactable.gd" id="2_xh5bi"]
+[ext_resource type="Script" path="res://build_ui.gd" id="4_0hc4e"]
 [ext_resource type="Script" path="res://Scripts/Interactables/heal_interactable.gd" id="4_mbanx"]
 [ext_resource type="Script" path="res://Scripts/Components/interactable_component.gd" id="5_ffr8s"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://Scenes/player_health_bar.tscn" id="6_wq5pv"]
@@ -69,6 +70,20 @@ offset_top = -61.0
 offset_right = 240.0
 offset_bottom = -31.0
 grow_vertical = 0
+
+[node name="Label" type="Label" parent="PlayerUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.5
+offset_top = 51.0
+offset_right = 136.5
+offset_bottom = 74.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "BUILDING MODE | PRESS Q TO EXIT"
+script = ExtResource("4_0hc4e")
 
 [node name="BaseNavRegion" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_vv4qp")

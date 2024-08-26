@@ -32,8 +32,6 @@ var zen_button:           BaseButton
 var save_data := {}
 var load_data := {}
 
-const old_save_path := "res://addons/script_panel_plus/saves/autosave_old.save"
-const new_save_path := "res://addons/script_panel_plus/saves/autosave.save"
 
 ## Script Arrays
 var all:     Array[ScriptItem] = []
@@ -87,6 +85,9 @@ var current_sorting = {
 	"★": DATE,
 	"tests": DATE,
 	}
+
+var custom_names: Dictionary = {}
+const custom_names_path := "res://addons/script_panel_plus/saves/custom_names.json"
 
 ## Script Class
 class ScriptItem:
@@ -231,6 +232,11 @@ func check_for_script_change() -> void:
 			current_script = get_script_from_engine_list_index(selected_item)
 			sort_all_tab()
 			update_locked_scripts_position()
+			
+			
+			if settings["save_scripts_custom_name"]:
+				if str(current_script) in custom_names:
+					current_script.text = custom_names[str(current_script)]
 	
 	_on_script_editor_changed(current_script)
 	check_current_tab()
@@ -437,6 +443,10 @@ func _on_item_click(index: int, at_position: Vector2, button_index: int) -> void
 func _on_item_selected(index: int) -> void:
 	var _script := script_list.get_item_metadata(index)
 	list_select_script(_script, index)
+	
+	if settings["save_scripts_custom_name"]:
+		if str(_script) in custom_names:
+			_script.text = custom_names[str(_script)]
 
 func _on_error_input(event: InputEvent) -> void:
 	if not event is InputEventMouseButton: return
@@ -1381,6 +1391,18 @@ func _on_method_search_button_pressed(id: int) -> void:
 
 ## SAVE
 
+func get_save_filepath() -> String:
+	var save_path := settings.get("save_path", "")
+	var save_name := settings.get("save_name", "")
+	var result := (save_path.path_join(save_name)) as String
+	var dir := DirAccess.open(save_path)
+	
+	if not dir:
+		plugin_reference.print_error("Save folder path is invalid. (%s)" % result)
+		return ""
+	
+	return result
+
 func get_script_item_as_dict(script_item: ScriptItem) -> Dictionary:
 	var result := {
 		"original_text": script_item.original_text,
@@ -1392,9 +1414,13 @@ func get_script_item_as_dict(script_item: ScriptItem) -> Dictionary:
 	return result
 
 func save_last_session() -> void:
-	if not settings["save_session"]: return
+	if not settings["save_session_on_exit"]: return
 	
-	var file = FileAccess.open(new_save_path, FileAccess.WRITE)
+	var file = FileAccess.open(get_save_filepath(), FileAccess.WRITE)
+	
+	if not file:
+		plugin_reference.print_error("Failed to save session.")
+		return
 	
 	_save_sorting()
 	_save_font_size()
@@ -1409,7 +1435,7 @@ func save_last_session() -> void:
 	file.store_var(save_data, true)
 
 func _save_backup() -> void:
-	var file = FileAccess.open(old_save_path, FileAccess.WRITE)
+	var file = FileAccess.open(get_save_filepath() + ".backup", FileAccess.WRITE)
 	file.store_var(save_data, true)
 
 func _save_font_size() -> void:
@@ -1486,7 +1512,7 @@ func get_current_plugin_version() -> String:
 	var config := ConfigFile.new()
 	var err := config.load(cfg_path)
 	
-	if err: push_error(err)
+	if err: return result
 	
 	for section in config.get_sections():
 		for key in config.get_section_keys(section):
@@ -1500,18 +1526,24 @@ func get_current_plugin_version() -> String:
 ## LOAD
 
 func load_last_session() -> void:
-	if not settings["save_session"]:
+	if not settings["save_session_on_exit"]:
 		return
 	
-	var file = FileAccess.open(new_save_path, FileAccess.READ)
+	var file = FileAccess.open(get_save_filepath(), FileAccess.READ)
 	if file: 
 		load_data = file.get_var()
 	else:
+		plugin_reference.print_error("Failed to load previous session.")
 		return
 	
-	if load_data.is_empty(): return
+	if load_data.is_empty(): 
+		plugin_reference.print_error("Failed to load previous session.")
+		return
 	
 	if _is_plugin_updated(): ## deletes save file, if it has outdated version
+		plugin_reference.print_message("Plugin was updated to version %s. Previous save session will be deleted to avoid incompatibility errors." % get_current_plugin_version())
+		OS.move_to_trash( ProjectSettings.globalize_path(get_save_filepath()) )
+		
 		return
 	
 	_load_tabs()
@@ -1524,6 +1556,9 @@ func load_last_session() -> void:
 	
 	update_font_size()
 	sort_current_tab()
+	
+	if settings["save_scripts_custom_name"]:
+		load_custom_names()
 
 func get_script_item_from_dict(dict: Dictionary) -> ScriptItem:
 	var _orig_text: String = dict.get("original_text")
@@ -1642,14 +1677,12 @@ func _is_plugin_updated() -> bool:
 	if not load_data.has("version"): return false
 	
 	if load_data["version"] != get_current_plugin_version():
-		print_rich("[color=cadetblue][b]Script Panel Plus:[/b][/color] plugin was updated to version %s. Previous save session was deleted to avoid incompatibility errors." % get_current_plugin_version())
-		OS.move_to_trash( ProjectSettings.globalize_path(new_save_path) )
 		return true
 	
 	return false
 
 
-## ERRORS
+## SCRIPT ERRORS
 
 func add_error(script_path: String, error_text: String) -> void:
 	var new_error := [script_path, error_text]
@@ -1850,6 +1883,11 @@ func _on_custom_name_submit() -> void:
 	_on_custom_name_change()
 	renamed_script = null
 	check_rename_status(current_script)
+	
+	custom_names[str(current_script)] = current_script.text
+	
+	if settings["save_scripts_custom_name"]:
+		save_custom_names()
 
 func _on_custom_name_restore() -> void:
 	current_script.text = current_script.original_text
@@ -1860,6 +1898,33 @@ func _on_custom_name_cancel() -> void:
 	rename_bar.visible = false
 	rename_bar_line.text = ""
 
+func load_custom_names():
+	if not settings["save_scripts_custom_name"]: return
+	
+	if not FileAccess.file_exists(custom_names_path):
+		#print("No file found. Check if the file: '" + custom_names_path + " exist.")
+		var file = FileAccess.open(custom_names_path, FileAccess.WRITE)
+		file.store_string(JSON.stringify({}))
+		file.close()
+		return false
+	
+	var file = FileAccess.open(custom_names_path, FileAccess.READ)
+	var data = JSON.parse_string(file.get_as_text())
+	if data != null:
+		custom_names = data
+	file.close()
+	
+
+func save_custom_names():
+	if not settings["save_scripts_custom_name"]: return
+	
+	var file = FileAccess.open(custom_names_path, FileAccess.WRITE)
+	
+	if file != null:
+		file.store_string(JSON.stringify(custom_names))
+		file.close()
+	else:
+		print_debug("Found some error when trying to save custom names in file.")
 
 ## SHOW-HIDE SCRIPT PANEL
 

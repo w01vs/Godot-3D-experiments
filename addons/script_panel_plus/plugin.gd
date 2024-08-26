@@ -2,9 +2,13 @@
 extends EditorPlugin
 
 const project_settings_category := "script_panel_plus/panel_settings/"
-const config_path := "res://addons/script_panel_plus/configs/config.cfg"
-const defaults_path := "res://addons/script_panel_plus/configs/defaults.cfg"
 const scene := preload("res://addons/script_panel_plus/script_panel/script_panel.tscn")
+
+const default_config_path := "res://addons/script_panel_plus/configs"
+var config_path := "res://addons/script_panel_plus/configs"
+var config_name := "config.cfg"
+
+var defaults_path := "res://addons/script_panel_plus/configs/defaults.cfg"
 
 var config: ConfigFile
 var defaults: ConfigFile
@@ -30,6 +34,7 @@ var settings := {}
 func _enter_tree() -> void:
 	while _scripts_are_loading(): 
 		await get_tree().process_frame
+	
 	load_config()
 	load_engine_nodes()
 	create_script_panel()
@@ -44,6 +49,7 @@ func _exit_tree() -> void:
 	hide_screen_select_button()
 	script_panel.save_last_session()
 	close_config()
+	unload_config_path_settings()
 	script_panel.show_panel()
 	script_panel.queue_free()
 	show_engine_script_vbox()
@@ -74,11 +80,14 @@ func load_config() -> void:
 	if not config: config = ConfigFile.new()
 	if not defaults: defaults = ConfigFile.new()
 	
-	var err := config.load(config_path)
+	var err := config.load(config_path.path_join(config_name))
 	var err2 := defaults.load(defaults_path)
 	
-	if err: push_error(err)
-	if err2: push_error(err2)
+	if err: 
+		return
+	if err2: 
+		return
+	
 	load_project_settings()
 	set_defaults()
 
@@ -99,26 +108,33 @@ func load_settings():
 	script_panel.settings = settings
 
 func load_project_settings() -> void:
+	update_config_file()
+	
 	for section in config.get_sections():
 		for key in config.get_section_keys(section):
 			var value = config.get_value(section, key)
 			var path := project_settings_category + key
 			ProjectSettings.set_setting(path, value)
+			ProjectSettings.set_as_basic(path, true)
 	
+	add_save_path_property_info()
 	ProjectSettings.save()
 
 func save_project_settings() -> void:
+	update_config_file()
+	
 	for section in config.get_sections():
 		for key in config.get_section_keys(section):
 			var path := project_settings_category + key
 			config.set_value(section, key, ProjectSettings.get_setting(path))
-	config.save(config_path)
+	
+	config.save(config_path.path_join(config_name))
 
 func unload_project_settings() -> void:
 	for section in config.get_sections():
 		for key in config.get_section_keys(section):
 			var path := project_settings_category + key
-			ProjectSettings.set_setting(path, null)
+			ProjectSettings.clear(path)
 	ProjectSettings.save()
 
 func set_defaults() -> void:
@@ -128,6 +144,51 @@ func set_defaults() -> void:
 			var path := project_settings_category + key
 			ProjectSettings.set_initial_value(path, value)
 	ProjectSettings.save()
+
+func add_save_path_property_info() -> void:
+	var save_folder_property_info = {
+	"name": project_settings_category + "save_path",
+	"type": TYPE_STRING,
+	"hint": PROPERTY_HINT_GLOBAL_DIR,
+	"hint_string": "Session save folder"
+	}
+	
+	ProjectSettings.add_property_info(save_folder_property_info)
+
+func add_config_path_property_info() -> void:
+	var save_folder_property_info = {
+	"name": project_settings_category + "config_path",
+	"type": TYPE_STRING,
+	"hint": PROPERTY_HINT_GLOBAL_DIR,
+	"hint_string": "Config Filepath"
+	}
+	
+	ProjectSettings.add_property_info(save_folder_property_info)
+
+
+## CONFIG PATH SETTING (EXPERIMENTAL)
+const _config_path_holder := "res://addons/script_panel_plus/configs/config_path.txt"
+
+func unload_config_path_settings() -> void:
+	var new_file := FileAccess.open(_config_path_holder, FileAccess.WRITE)
+	
+	var config_folder := ProjectSettings.get_setting(project_settings_category + "config_path", default_config_path) as String
+	
+	if new_file: new_file.store_string(config_folder)
+	
+	ProjectSettings.set_setting(project_settings_category + "config_path", null)
+
+func update_config_file() -> void:
+	var file := FileAccess.open(_config_path_holder, FileAccess.READ)
+	if file:
+		var text := file.get_as_text().strip_edges()
+		
+		if DirAccess.dir_exists_absolute(text):
+			config_path = text
+			ProjectSettings.set_setting(project_settings_category + "config_path", config_path)
+			ProjectSettings.set_as_basic(project_settings_category + "config_path", false)
+			ProjectSettings.set_initial_value(project_settings_category + "config_path", default_config_path)
+			add_config_path_property_info()
 
 
 ## SHOW / HIDE
@@ -141,7 +202,10 @@ func check_top_bar_visibility() -> void:
 		hide_top_bar()
 
 func check_current_screen_button_visibility() -> void:
-	if settings["show_screen_select_button"] and not settings["show_top_bar"]:
+	var editor_settings := engine_editor_interface.get_editor_settings()
+	var multi_window := editor_settings.get_setting("interface/multi_window/enable")
+	
+	if settings["show_screen_select_button"] and multi_window and not settings["show_top_bar"]:
 		show_screen_select_button()
 	else:
 		hide_screen_select_button()
@@ -294,6 +358,15 @@ func upload_engine_nodes_to_script_panel() -> void:
 	script_panel.engine_editor_interface = engine_editor_interface
 	script_panel.engine_script_editor = engine_script_editor
 	script_panel.engine_script_list = engine_script_list
+
+
+## PRINT
+
+func print_message(text: String) -> void:
+	print_rich("[color=cadetblue][b]Script Panel Plus: [/b][/color]", text)
+
+func print_error(text: String) -> void:
+	print_rich("[color=cadetblue][b]Script Panel Plus: [/b][/color][color=lightcoral]", text, "[/color]")
 
 
 ## MISC

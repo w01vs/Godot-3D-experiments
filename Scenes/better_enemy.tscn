@@ -31,7 +31,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="SphereMesh" id="SphereMesh_nmfm4"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_bjqdd"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_d624a"]
 
 [node name="BetterEnemy" type="CharacterBody3D" node_paths=PackedStringArray("eye", "nav_agent") groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -98,7 +98,7 @@ actor = NodePath("../../../..")
 priority = 5
 
 [node name="Draw3D" type="MeshInstance3D" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT"]
-mesh = SubResource("ImmediateMesh_bjqdd")
+mesh = SubResource("ImmediateMesh_d624a")
 script = ExtResource("9_iv3b0")
 
 [node name="SetPlayerTargetBT" type="Node" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]

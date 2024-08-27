@@ -12,7 +12,12 @@ func init() -> void:
 	interact = player.get_node("TwistPivot/PitchPivot/Camera3D/Interact")
 	interact.ui_switched.connect(switch)
 	
-func switch(state) -> void:
-	pass
+func switch(state: GlobalRefs.PlayerState) -> void:
+	match state:
+		GlobalRefs.PlayerState.DEFAULT:
+			visible = false
+		GlobalRefs.PlayerState.BUILD:
+			visible = true
+	
 	
 	

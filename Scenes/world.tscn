@@ -1,14 +1,14 @@
 [gd_scene load_steps=21 format=3 uid="uid://by7on7nhfca2w"]
 
-[ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://Scenes/better_player.tscn" id="1_m56e2"]
-[ext_resource type="Script" path="res://Scripts/world.gd" id="1_vbbqe"]
-[ext_resource type="Script" path="res://Scripts/player_ui.gd" id="2_7cltx"]
-[ext_resource type="Script" path="res://Scripts/Interactables/damage_interactable.gd" id="2_xh5bi"]
-[ext_resource type="Script" path="res://build_ui.gd" id="4_0hc4e"]
-[ext_resource type="Script" path="res://Scripts/Interactables/heal_interactable.gd" id="4_mbanx"]
-[ext_resource type="Script" path="res://Scripts/Components/interactable_component.gd" id="5_ffr8s"]
-[ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://Scenes/player_health_bar.tscn" id="6_wq5pv"]
-[ext_resource type="PackedScene" uid="uid://dga0fjv0a80a8" path="res://Scenes/better_enemy.tscn" id="7_5cvea"]
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_lgbn5"]
+[ext_resource type="Script" path="res://Scripts/player_ui.gd" id="2_4r7yu"]
+[ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://Scenes/player_health_bar.tscn" id="3_1mcgj"]
+[ext_resource type="Script" path="res://Scripts/build_ui.gd" id="4_etm23"]
+[ext_resource type="Script" path="res://Scripts/Interactables/heal_interactable.gd" id="5_ghv5m"]
+[ext_resource type="Script" path="res://Scripts/Components/interactable_component.gd" id="6_lyyo3"]
+[ext_resource type="Script" path="res://Scripts/Interactables/damage_interactable.gd" id="7_5icb3"]
+[ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://Scenes/better_player.tscn" id="8_2uxu7"]
+[ext_resource type="PackedScene" uid="uid://dga0fjv0a80a8" path="res://Scenes/better_enemy.tscn" id="9_xqdx1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -49,7 +49,7 @@ size = Vector3(100, 0.5, 100)
 data = PackedVector3Array(-50, 0.25, 50, 50, 0.25, 50, -50, -0.25, 50, 50, 0.25, 50, 50, -0.25, 50, -50, -0.25, 50, 50, 0.25, -50, -50, 0.25, -50, 50, -0.25, -50, -50, 0.25, -50, -50, -0.25, -50, 50, -0.25, -50, 50, 0.25, 50, 50, 0.25, -50, 50, -0.25, 50, 50, 0.25, -50, 50, -0.25, -50, 50, -0.25, 50, -50, 0.25, -50, -50, 0.25, 50, -50, -0.25, -50, -50, 0.25, 50, -50, -0.25, 50, -50, -0.25, -50, 50, 0.25, 50, -50, 0.25, 50, 50, 0.25, -50, -50, 0.25, 50, -50, 0.25, -50, 50, 0.25, -50, -50, -0.25, 50, 50, -0.25, 50, -50, -0.25, -50, 50, -0.25, 50, 50, -0.25, -50, -50, -0.25, -50)
 
 [node name="World" type="Node3D"]
-script = ExtResource("1_vbbqe")
+script = ExtResource("1_lgbn5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_eocis")
@@ -59,9 +59,9 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="PlayerUI" type="CanvasLayer" parent="."]
-script = ExtResource("2_7cltx")
+script = ExtResource("2_4r7yu")
 
-[node name="BetterHealthBar" parent="PlayerUI" instance=ExtResource("6_wq5pv")]
+[node name="BetterHealthBar" parent="PlayerUI" instance=ExtResource("3_1mcgj")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -83,13 +83,13 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "BUILDING MODE | PRESS Q TO EXIT"
-script = ExtResource("4_0hc4e")
+script = ExtResource("4_etm23")
 
 [node name="BaseNavRegion" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_vv4qp")
 
 [node name="HealInteractable" type="Node3D" parent="BaseNavRegion" groups=["interactable"]]
-script = ExtResource("4_mbanx")
+script = ExtResource("5_ghv5m")
 
 [node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/HealInteractable"]
 transform = Transform3D(0.999436, 0.0335913, 0, -0.0335913, 0.999436, 0, 0, 0, 1, 1.78643, 1.93453, -1.60979)
@@ -98,14 +98,14 @@ skeleton = NodePath("../../..")
 
 [node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/HealInteractable"]
 transform = Transform3D(0.999436, 0.0335913, 0, -0.0335913, 0.999436, 0, 0, 0, 1, 1.78643, 1.93453, -1.60979)
-script = ExtResource("5_ffr8s")
+script = ExtResource("6_lyyo3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Interactable"]
 transform = Transform3D(1, -1.49012e-08, 0, 1.49012e-08, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_gsqyl")
 
 [node name="DamageInteractable" type="Node3D" parent="BaseNavRegion" groups=["interactable"]]
-script = ExtResource("2_xh5bi")
+script = ExtResource("7_5icb3")
 
 [node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/DamageInteractable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0186856, 1.95276, -1.7677)
@@ -115,7 +115,7 @@ skeleton = NodePath("../../..")
 
 [node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/DamageInteractable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0186856, 1.95276, -1.7677)
-script = ExtResource("5_ffr8s")
+script = ExtResource("6_lyyo3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable/Interactable"]
 shape = SubResource("ConcavePolygonShape3D_35xku")
@@ -130,8 +130,8 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_tijdu")
 
-[node name="BetterPlayer" parent="." groups=["ally", "player"] instance=ExtResource("1_m56e2")]
+[node name="BetterPlayer" parent="." groups=["ally", "player"] instance=ExtResource("8_2uxu7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.725407, 1.28765, 1.44889)
 
-[node name="BetterEnemy" parent="." instance=ExtResource("7_5cvea")]
+[node name="BetterEnemy" parent="." instance=ExtResource("9_xqdx1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 1.39856, -4.35614)

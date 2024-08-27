@@ -34,6 +34,7 @@ func calculate_sight_box() -> void:
 		sight_box = Area3D.new()
 		sight_box.name = "SightBox"
 		add_child(sight_box)
+		sight_box.set_collision_layer_value(1, false)
 		box_shape = CollisionPolygon3D.new()
 		sight_box.add_child(box_shape)
 	else:

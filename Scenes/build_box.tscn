@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://425laymvnd48"]
+
+[ext_resource type="Material" uid="uid://db2oa1m56af12" path="res://default_material.tres" id="1_56afw"]
+[ext_resource type="Script" path="res://Scripts/build_box.gd" id="1_ulq0x"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tj3u4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nt2pb"]
+
+[node name="BuildBox" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_tj3u4")
+surface_material_override/0 = ExtResource("1_56afw")
+script = ExtResource("1_ulq0x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 16
+collision_mask = 17
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_nt2pb")

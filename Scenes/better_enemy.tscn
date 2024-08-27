@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/Enemy/player_in_view.gd" id="10_bggwa"]
 [ext_resource type="Script" path="res://Scripts/BehaviorTree/invert_bt_node.gd" id="11_n8qiy"]
 [ext_resource type="Script" path="res://Scripts/Enemy/sight_changed.gd" id="12_bi3i3"]
-[ext_resource type="Script" path="res://Scenes/nav_target_reached.gd" id="12_h5m2t"]
+[ext_resource type="Script" path="res://Scripts/nav_target_reached.gd" id="12_h5m2t"]
 [ext_resource type="Script" path="res://Scripts/Enemy/move_decision.gd" id="12_ofl3c"]
 [ext_resource type="Script" path="res://Scripts/Enemy/wait_bt.gd" id="13_2ikyo"]
 [ext_resource type="Script" path="res://Scripts/Enemy/reset_velocity.gd" id="13_63ov7"]
@@ -31,10 +31,12 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="SphereMesh" id="SphereMesh_nmfm4"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_d624a"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_cm5jq"]
 
 [node name="BetterEnemy" type="CharacterBody3D" node_paths=PackedStringArray("eye", "nav_agent") groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 32
+collision_mask = 49
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
@@ -98,7 +100,7 @@ actor = NodePath("../../../..")
 priority = 5
 
 [node name="Draw3D" type="MeshInstance3D" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT"]
-mesh = SubResource("ImmediateMesh_d624a")
+mesh = SubResource("ImmediateMesh_cm5jq")
 script = ExtResource("9_iv3b0")
 
 [node name="SetPlayerTargetBT" type="Node" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]

@@ -71,10 +71,11 @@ func _physics_process(delta: float) -> void:
 				buildx.global_position = get_collision_point()
 				buildx.global_position = Vector3(buildx.global_position.x, buildx.global_position.y + buildx.scale.y / 2, buildx.global_position.z)
 				if Input.is_action_just_pressed("default_attack"):
-					buildx.place()
-					buildx = build_scene.instantiate()
-					GlobalRefs.world.add_child(buildx)
-					buildx.to_holo()
+					if buildx.placeable:
+						buildx.place()
+						buildx = build_scene.instantiate()
+						GlobalRefs.world.add_child(buildx)
+						buildx.to_holo()
 			else:
 				buildx.visible = false
 				

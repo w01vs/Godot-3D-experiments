@@ -12,6 +12,8 @@ var buildx: BuildBox = null
 
 var state : GlobalRefs.PlayerState = GlobalRefs.PlayerState.DEFAULT
 
+var snapping: bool = false
+
 func _process(_delta: float) -> void:
 	match state:
 		GlobalRefs.PlayerState.DEFAULT:
@@ -66,10 +68,29 @@ func _physics_process(delta: float) -> void:
 	match state:
 		GlobalRefs.PlayerState.BUILD:
 			if is_colliding():
+				if snapping:
+					var object = get_collider()
+					if object is BuildBox:
+						var pt: Vector3 = get_collision_point()
+						var loc: Vector3 = object.global_transform
+						var offsets: Vector3 = object.scale / 2
+						object.area.monitorable = false
+						# something something side of the object
+						if pt.x > loc.x and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y \
+						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
+							buildx.global_position = Vector3(loc.x + offsets.x + buildx.scale.x / 2,
+															 loc.y + offsets.y + buildx.scale.y / 2,
+															 loc.z + offsets.z + buildx.scale.z / 2)
+						elif true:
+							pass
+							
+				else:
+					buildx.global_position = get_collision_point()
+					buildx.global_position = Vector3(buildx.global_position.x,
+													 buildx.global_position.y + buildx.scale.y / 2,
+													 buildx.global_position.z)
 				buildx.visible = true
 				buildx.to_holo()
-				buildx.global_position = get_collision_point()
-				buildx.global_position = Vector3(buildx.global_position.x, buildx.global_position.y + buildx.scale.y / 2, buildx.global_position.z)
 				if Input.is_action_just_pressed("default_attack"):
 					if buildx.placeable:
 						buildx.place()
@@ -79,3 +100,12 @@ func _physics_process(delta: float) -> void:
 			else:
 				buildx.visible = false
 				
+			if snapping:
+				pass
+			
+			
+			if Input.is_action_just_pressed("snap"):
+				if snapping:
+					snapping = false
+				else:
+					snapping = true

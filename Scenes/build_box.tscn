@@ -11,6 +11,7 @@
 [node name="BuildBox" type="MeshInstance3D"]
 mesh = SubResource("BoxMesh_tj3u4")
 script = ExtResource("1_ulq0x")
+snap = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 0
@@ -20,20 +21,20 @@ input_ray_pickable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_nt2pb")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="BuildDetection" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 17
 input_ray_pickable = false
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildDetection"]
 shape = SubResource("BoxShape3D_p3b7a")
 
-[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
-[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
-[connection signal="area_shape_entered" from="Area3D" to="." method="_on_area_3d_area_shape_entered"]
-[connection signal="area_shape_exited" from="Area3D" to="." method="_on_area_3d_area_shape_exited"]
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
-[connection signal="body_shape_entered" from="Area3D" to="." method="_on_area_3d_body_shape_entered"]
-[connection signal="body_shape_exited" from="Area3D" to="." method="_on_area_3d_body_shape_exited"]
+[connection signal="area_entered" from="BuildDetection" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="BuildDetection" to="." method="_on_area_3d_area_exited"]
+[connection signal="area_shape_entered" from="BuildDetection" to="." method="_on_area_3d_area_shape_entered"]
+[connection signal="area_shape_exited" from="BuildDetection" to="." method="_on_area_3d_area_shape_exited"]
+[connection signal="body_entered" from="BuildDetection" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="BuildDetection" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_shape_entered" from="BuildDetection" to="." method="_on_area_3d_body_shape_entered"]
+[connection signal="body_shape_exited" from="BuildDetection" to="." method="_on_area_3d_body_shape_exited"]

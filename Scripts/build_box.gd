@@ -13,12 +13,17 @@ var placeable: bool = true
 var placed: bool = false
 
 var collider_count: int = 0
-
+	
 var time_margin: float = 0.08
 
 var timer_running: bool = false
 
 var timer_current: float = 0
+
+@export var snap: bool
+
+@onready var area: Area3D = $BuildDetection
+@onready var staticbody: StaticBody3D = $StaticBody3D
 
 func _ready() -> void:
 	set_surface_override_material(0, default_mat)
@@ -34,16 +39,17 @@ func place() -> void:
 		holo = false
 		set_surface_override_material(0, default_mat)
 		$StaticBody3D.set_collision_layer_value(5, true)
-		$Area3D.disconnect("area_entered", _on_area_3d_area_entered)
-		$Area3D.disconnect("area_exited", _on_area_3d_area_exited)
-		$Area3D.disconnect("body_entered", _on_area_3d_body_entered)
-		$Area3D.disconnect("body_exited", _on_area_3d_body_exited)
-		$Area3D.disconnect("area_shape_entered", _on_area_3d_area_shape_entered)
-		$Area3D.disconnect("area_shape_exited", _on_area_3d_area_shape_exited)
-		$Area3D.disconnect("body_shape_entered", _on_area_3d_body_shape_entered)
-		$Area3D.disconnect("body_shape_exited", _on_area_3d_body_shape_exited)
-		$Area3D.monitorable = true
-		$Area3D.set_collision_layer_value(1, true)
+		area.disconnect("area_entered", _on_area_3d_area_entered)
+		area.disconnect("area_exited", _on_area_3d_area_exited)
+		area.disconnect("body_entered", _on_area_3d_body_entered)
+		area.disconnect("body_exited", _on_area_3d_body_exited)
+		area.disconnect("area_shape_entered", _on_area_3d_area_shape_entered)
+		area.disconnect("area_shape_exited", _on_area_3d_area_shape_exited)
+		area.disconnect("body_shape_entered", _on_area_3d_body_shape_entered)
+		area.disconnect("body_shape_exited", _on_area_3d_body_shape_exited)
+		area.monitorable = true
+		area.monitoring = false
+		area.set_collision_layer_value(1, true)
 
 func _process(delta: float) -> void:
 	if timer_running:

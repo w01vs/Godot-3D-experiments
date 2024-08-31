@@ -8,7 +8,7 @@ signal ui_switched(state: GlobalRefs.PlayerState)
 
 var build_scene: PackedScene = load("res://Scenes/build_box.tscn")
 
-var buildx: BuildBox = null
+var buildx: MeshInstance3D = null
 
 var state : GlobalRefs.PlayerState = GlobalRefs.PlayerState.DEFAULT
 
@@ -72,18 +72,34 @@ func _physics_process(delta: float) -> void:
 					var object = get_collider()
 					if object is BuildBox:
 						var pt: Vector3 = get_collision_point()
-						var loc: Vector3 = object.global_transform
+						var loc: Vector3 = object.global_position
+						var scales: Vector3 = object.scale
 						var offsets: Vector3 = object.scale / 2
 						object.area.monitorable = false
 						# something something side of the object
 						if pt.x > loc.x and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y \
 						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
-							buildx.global_position = Vector3(loc.x + offsets.x + buildx.scale.x / 2,
-															 loc.y + offsets.y + buildx.scale.y / 2,
-															 loc.z + offsets.z + buildx.scale.z / 2)
-						elif true:
-							pass
-							
+							buildx.global_position = Vector3(loc.x + scales.x, loc.y, loc.z)
+						elif pt.x < loc.x and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y \
+						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
+							buildx.global_position = Vector3(loc.x - scales.x, loc.y, loc.z)
+						elif pt.y < loc.y and pt.x < loc.x + offsets.x and pt.x > loc.x - offsets.x \
+						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
+							buildx.global_position = Vector3(loc.x, loc.y - scales.y, loc.z)
+						elif pt.y > loc.y and pt.x < loc.x + offsets.x and pt.x > loc.x - offsets.x \
+						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
+							buildx.global_position = Vector3(loc.x, loc.y + scales.y, loc.z)
+						elif pt.z > loc.z and pt.x < loc.x + offsets.x and pt.x > loc.x - offsets.x \
+						and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y:
+							buildx.global_position = Vector3(loc.x, loc.y, loc.z + scales.z)
+						elif pt.z < loc.z and pt.x < loc.x + offsets.x and pt.x > loc.x - offsets.x \
+						and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y:
+							buildx.global_position = Vector3(loc.x, loc.y, loc.z - scales.z)
+					else:
+						buildx.global_position = get_collision_point()
+						buildx.global_position = Vector3(buildx.global_position.x,
+													 buildx.global_position.y + buildx.scale.y / 2,
+													 buildx.global_position.z)
 				else:
 					buildx.global_position = get_collision_point()
 					buildx.global_position = Vector3(buildx.global_position.x,
@@ -92,18 +108,13 @@ func _physics_process(delta: float) -> void:
 				buildx.visible = true
 				buildx.to_holo()
 				if Input.is_action_just_pressed("default_attack"):
-					if buildx.placeable:
+					if buildx.body.placeable:
 						buildx.place()
 						buildx = build_scene.instantiate()
 						GlobalRefs.world.add_child(buildx)
 						buildx.to_holo()
 			else:
 				buildx.visible = false
-				
-			if snapping:
-				pass
-			
-			
 			if Input.is_action_just_pressed("snap"):
 				if snapping:
 					snapping = false

@@ -1,4 +1,6 @@
-class_name BuildBox extends MeshInstance3D
+class_name BuildBox extends StaticBody3D
+
+@onready var mesh_: MeshInstance3D = $".."
 
 var mat: Material = preload("res://hologram_material.tres")
 
@@ -22,23 +24,22 @@ var timer_current: float = 0
 
 @export var snap: bool
 
-@onready var area: Area3D = $BuildDetection
-@onready var staticbody: StaticBody3D = $StaticBody3D
+@onready var area: Area3D = $"../BuildDetection"
 
 func _ready() -> void:
-	set_surface_override_material(0, default_mat)
+	mesh_.set_surface_override_material(0, default_mat)
 
 func to_holo() -> void:
 	if not holo:
 		holo = true
-		set_surface_override_material(0, mat)
+		mesh_.set_surface_override_material(0, mat)
 
 func place() -> void:
 	if holo:
 		placed = true
 		holo = false
-		set_surface_override_material(0, default_mat)
-		$StaticBody3D.set_collision_layer_value(5, true)
+		mesh_.set_surface_override_material(0, default_mat)
+		set_collision_layer_value(5, true)
 		area.disconnect("area_entered", _on_area_3d_area_entered)
 		area.disconnect("area_exited", _on_area_3d_area_exited)
 		area.disconnect("body_entered", _on_area_3d_body_entered)
@@ -56,13 +57,13 @@ func _process(delta: float) -> void:
 		timer_current += delta
 		if timer_current > time_margin:
 			placeable = true
-			set_surface_override_material(0, mat)
+			mesh_.set_surface_override_material(0, mat)
 			timer_running = false
 
 func _on_area_3d_area_entered(area):
 	collider_count += 1
 	if placeable:
-		set_surface_override_material(0, err_mat)
+		mesh_.set_surface_override_material(0, err_mat)
 		placeable = false
 
 func _on_area_3d_area_exited(area):
@@ -74,7 +75,7 @@ func _on_area_3d_area_exited(area):
 func _on_area_3d_body_entered(body):
 	collider_count += 1
 	if placeable:
-		set_surface_override_material(0, err_mat)
+		mesh_.set_surface_override_material(0, err_mat)
 		placeable = false
 
 func _on_area_3d_body_exited(body):
@@ -86,7 +87,7 @@ func _on_area_3d_body_exited(body):
 func _on_area_3d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	collider_count += 1
 	if placeable:
-		set_surface_override_material(0, err_mat)
+		mesh_.set_surface_override_material(0, err_mat)
 		placeable = false
 
 func _on_area_3d_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
@@ -98,7 +99,7 @@ func _on_area_3d_area_shape_exited(area_rid, area, area_shape_index, local_shape
 func _on_area_3d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	collider_count += 1
 	if placeable:
-		set_surface_override_material(0, err_mat)
+		mesh_.set_surface_override_material(0, err_mat)
 		placeable = false
 
 func _on_area_3d_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):

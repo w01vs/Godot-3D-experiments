@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://425laymvnd48"]
+[gd_scene load_steps=6 format=3 uid="uid://425laymvnd48"]
 
 [ext_resource type="Script" path="res://Scripts/build_box.gd" id="1_ulq0x"]
+[ext_resource type="Script" path="res://Scenes/box_parent.gd" id="1_vkx3c"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_tj3u4"]
 
@@ -8,15 +9,15 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p3b7a"]
 
-[node name="BuildBox" type="MeshInstance3D"]
+[node name="BoxParent" type="MeshInstance3D"]
 mesh = SubResource("BoxMesh_tj3u4")
-script = ExtResource("1_ulq0x")
-snap = true
+script = ExtResource("1_vkx3c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 0
 collision_mask = 0
 input_ray_pickable = false
+script = ExtResource("1_ulq0x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_nt2pb")

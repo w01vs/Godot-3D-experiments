@@ -35,6 +35,8 @@ func calculate_sight_box() -> void:
 		sight_box.name = "SightBox"
 		add_child(sight_box)
 		sight_box.set_collision_layer_value(1, false)
+		sight_box.set_collision_mask_value(6, true)
+		sight_box.set_collision_mask_value(1, false)
 		box_shape = CollisionPolygon3D.new()
 		sight_box.add_child(box_shape)
 	else:
@@ -50,7 +52,6 @@ func calculate_sight_box() -> void:
 	sight_box.owner = self
 	box_shape.owner = sight_box
 	
-	#sight_box.connect("body_exited", exit)
 	sight_box.body_exited.connect(exit)
 
 func exit(body: Node3D) -> void:

@@ -1,25 +1,25 @@
 [gd_scene load_steps=26 format=3 uid="uid://dga0fjv0a80a8"]
 
-[ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_mjmkq"]
-[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="2_ms8sh"]
+[ext_resource type="Script" uid="uid://bw5qaeom038r3" path="res://Scripts/Enemy/enemy.gd" id="1_mjmkq"]
+[ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://Scripts/Components/health_component.gd" id="2_ms8sh"]
 [ext_resource type="PackedScene" uid="uid://4v0ymcds2oi8" path="res://Scenes/health_bar_3d.tscn" id="3_mvyt3"]
-[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="4_it210"]
-[ext_resource type="Script" path="res://Scripts/BehaviorTree/root_bt_node.gd" id="5_7fxlj"]
-[ext_resource type="Script" path="res://Scripts/BehaviorTree/sequence_bt_node.gd" id="8_3ffs6"]
-[ext_resource type="Script" path="res://Scripts/BehaviorTree/concurrent_bt_node.gd" id="8_315fb"]
-[ext_resource type="Script" path="res://Scripts/BehaviorTree/priority_selector_bt_node.gd" id="8_ah5be"]
-[ext_resource type="Script" path="res://addons/draw3d/draw_3d.gd" id="9_iv3b0"]
-[ext_resource type="Script" path="res://Scripts/Enemy/set_player_target.gd" id="9_jcfm8"]
-[ext_resource type="Script" path="res://Scripts/Enemy/player_in_view.gd" id="10_bggwa"]
-[ext_resource type="Script" path="res://Scripts/BehaviorTree/invert_bt_node.gd" id="11_n8qiy"]
-[ext_resource type="Script" path="res://Scripts/Enemy/sight_changed.gd" id="12_bi3i3"]
-[ext_resource type="Script" path="res://Scripts/nav_target_reached.gd" id="12_h5m2t"]
-[ext_resource type="Script" path="res://Scripts/Enemy/move_decision.gd" id="12_ofl3c"]
-[ext_resource type="Script" path="res://Scripts/Enemy/wait_bt.gd" id="13_2ikyo"]
-[ext_resource type="Script" path="res://Scripts/Enemy/reset_velocity.gd" id="13_63ov7"]
-[ext_resource type="Script" path="res://Scripts/Enemy/set_wander_target.gd" id="13_hq04p"]
-[ext_resource type="Script" path="res://Scripts/Enemy/move_to_bt.gd" id="14_o0fii"]
-[ext_resource type="Script" path="res://Scripts/Enemy/is_pathfinding.gd" id="17_vgwb8"]
+[ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://Scripts/Components/hurtbox_component.gd" id="4_it210"]
+[ext_resource type="Script" uid="uid://dob08y15l1djm" path="res://Scripts/BehaviorTree/root_bt_node.gd" id="5_7fxlj"]
+[ext_resource type="Script" uid="uid://cuf6w7oo4o2gi" path="res://Scripts/BehaviorTree/sequence_bt_node.gd" id="8_3ffs6"]
+[ext_resource type="Script" uid="uid://c22s27nfsh82h" path="res://Scripts/BehaviorTree/concurrent_bt_node.gd" id="8_315fb"]
+[ext_resource type="Script" uid="uid://b42mp6ym7c1hc" path="res://Scripts/BehaviorTree/priority_selector_bt_node.gd" id="8_ah5be"]
+[ext_resource type="Script" uid="uid://bshieyerwb1mq" path="res://addons/draw3d/draw_3d.gd" id="9_iv3b0"]
+[ext_resource type="Script" uid="uid://coh702q3xfd3p" path="res://Scripts/Enemy/set_player_target.gd" id="9_jcfm8"]
+[ext_resource type="Script" uid="uid://bjvomyaoq6m8u" path="res://Scripts/Enemy/player_in_view.gd" id="10_bggwa"]
+[ext_resource type="Script" uid="uid://cxuko7xk2jctf" path="res://Scripts/BehaviorTree/invert_bt_node.gd" id="11_n8qiy"]
+[ext_resource type="Script" uid="uid://dymkijby6yoes" path="res://Scripts/Enemy/sight_changed.gd" id="12_bi3i3"]
+[ext_resource type="Script" uid="uid://bytxl14011e2s" path="res://Scripts/Enemy/nav_target_reached.gd" id="12_h5m2t"]
+[ext_resource type="Script" uid="uid://chypc5vrm625m" path="res://Scripts/Enemy/move_decision.gd" id="12_ofl3c"]
+[ext_resource type="Script" uid="uid://28nhk76c28t0" path="res://Scripts/Enemy/wait_bt.gd" id="13_2ikyo"]
+[ext_resource type="Script" uid="uid://cv8d6bl4ig6br" path="res://Scripts/Enemy/reset_velocity.gd" id="13_63ov7"]
+[ext_resource type="Script" uid="uid://dh3465w6fwasj" path="res://Scripts/Enemy/set_wander_target.gd" id="13_hq04p"]
+[ext_resource type="Script" uid="uid://30m3n7suv43v" path="res://Scripts/Enemy/move_to_bt.gd" id="14_o0fii"]
+[ext_resource type="Script" uid="uid://d1ulleg28gcss" path="res://Scripts/Enemy/is_pathfinding.gd" id="17_vgwb8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vapi6"]
 
@@ -31,7 +31,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="SphereMesh" id="SphereMesh_nmfm4"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_dp3mp"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_py4bd"]
 
 [node name="BetterEnemy" type="CharacterBody3D" node_paths=PackedStringArray("eye", "nav_agent") groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -100,7 +100,7 @@ actor = NodePath("../../../..")
 priority = 5
 
 [node name="Draw3D" type="MeshInstance3D" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT"]
-mesh = SubResource("ImmediateMesh_dp3mp")
+mesh = SubResource("ImmediateMesh_py4bd")
 script = ExtResource("9_iv3b0")
 
 [node name="SetPlayerTargetBT" type="Node" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT" node_paths=PackedStringArray("actor")]

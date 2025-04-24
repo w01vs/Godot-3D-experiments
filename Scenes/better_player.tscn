@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://o45847jxuasr"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_cs6bt"]
-[ext_resource type="Script" path="res://Scripts/interact.gd" id="2_w8m0h"]
+[ext_resource type="Script" uid="uid://c0x0adiepm0ji" path="res://Scripts/Player/player.gd" id="1_cs6bt"]
+[ext_resource type="Script" uid="uid://dhvov6wl41np8" path="res://Scripts/Player/interact.gd" id="2_w8m0h"]
 [ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://Scenes/sword.tscn" id="3_0m5en"]
-[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="4_1qn71"]
-[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="5_7kohf"]
+[ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://Scripts/Components/health_component.gd" id="4_1qn71"]
+[ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://Scripts/Components/hurtbox_component.gd" id="5_7kohf"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x5kv8"]
 
@@ -15,14 +15,14 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="Animation" id="Animation_amry5"]
 resource_name = "slash_attack"
-length = 1.5
+length = 0.85
 tracks/0/type = "position_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("TwistPivot/RightArm/rightarm")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.5, 1, 0, 0, -0.291, 1.3, 1, 0, 0, 0)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.2, 1, 0, 0, -0.291, 0.766667, 1, 0, 0, 0)
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -30,7 +30,7 @@ tracks/1/path = NodePath("TwistPivot/RightArm/rightarm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.5, 0.8, 1.3),
+"times": PackedFloat32Array(0.166667, 0.4, 0.733333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-0.610865, 0, 0), Vector3(0, 0, 0)]
@@ -42,7 +42,7 @@ tracks/2/path = NodePath("TwistPivot/RightArm/rightarm/sword/HitboxComponent:mon
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.5, 1.4),
+"times": PackedFloat32Array(0.3, 0.766667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -50,7 +50,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ip4g"]
 _data = {
-"slash_attack": SubResource("Animation_amry5")
+&"slash_attack": SubResource("Animation_amry5")
 }
 
 [node name="BetterPlayer" type="CharacterBody3D" groups=["Player"]]
@@ -120,7 +120,7 @@ shape = SubResource("ConvexPolygonShape3D_flj5x")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_3ip4g")
+&"": SubResource("AnimationLibrary_3ip4g")
 }
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

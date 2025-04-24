@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://d3123to0n3ynn"]
+
+[ext_resource type="Script" uid="uid://csho28octbu4l" path="res://Scripts/UI/Inventory/item_data.gd" id="1_rghou"]
+[ext_resource type="Texture2D" uid="uid://m586gmxmtocb" path="res://Assets/Items/item_atlas.tres" id="2_kfu1g"]
+
+[resource]
+script = ExtResource("1_rghou")
+name = "Black Sword"
+description = "ooooh spooky...."
+stackable = false
+texture = ExtResource("2_kfu1g")
+metadata/_custom_type_script = "uid://csho28octbu4l"

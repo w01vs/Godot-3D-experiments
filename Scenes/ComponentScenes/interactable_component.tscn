@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bv4np6makeppc"]
 
-[ext_resource type="Script" path="res://Scripts/Components/interactable_component.gd" id="1_yynh1"]
+[ext_resource type="Script" uid="uid://c50xit01ai1en" path="res://Scripts/Components/interactable_component.gd" id="1_yynh1"]
 
 [node name="InteractableComponent" type="StaticBody3D"]
 script = ExtResource("1_yynh1")

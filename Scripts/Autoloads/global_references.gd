@@ -9,3 +9,9 @@ var player: Player
 var map: RID
 
 var world: Node3D
+
+enum HealthChangeType {
+	DOT,
+	INSTANT,
+	NONE,
+}

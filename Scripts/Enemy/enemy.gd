@@ -17,7 +17,7 @@ var sight_box: Area3D
 #@onready var hitbox: HitboxComponent = $CharacterBody3D/sword/HitboxComponent
 
 func _ready() -> void:
-	health_component.died.connect(die)
+	health_component.died.connect(die)	
 	var attack: OnHitInformation = OnHitInformation.new()
 	#hitbox.set_info(attack)
 	calculate_sight_box()

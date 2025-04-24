@@ -1,28 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://p71w1jc720fp"]
 
 [ext_resource type="PackedScene" uid="uid://cjjbk1lj7hf64" path="res://Scenes/health_bar.tscn" id="1_8ya5f"]
-[ext_resource type="Script" path="res://Scripts/player_health_bar.gd" id="2_fince"]
-
-[sub_resource type="Animation" id="Animation_k870g"]
-length = 0.001
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4flyb"]
-bg_color = Color(0, 1, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qfrd"]
-bg_color = Color(0, 0.505882, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.8, 0.8, 0.8, 0)
-corner_radius_top_left = 8
-corner_radius_bottom_left = 8
+[ext_resource type="Script" uid="uid://6q8khks3mwin" path="res://Scripts/Player/player_health_bar.gd" id="2_fince"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hdev"]
 bg_color = Color(0, 0, 0, 0)
@@ -34,6 +13,27 @@ border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4flyb"]
+bg_color = Color(0.719452, 0.130244, 0.170835, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id="Animation_k870g"]
+length = 0.001
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qfrd"]
+bg_color = Color(0.385696, 0.0474473, 0.072007, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56yi4"]
@@ -71,15 +71,17 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_protj"]
 _data = {
-"RESET": SubResource("Animation_k870g"),
-"twinkle": SubResource("Animation_o7kmb")
+&"RESET": SubResource("Animation_k870g"),
+&"twinkle": SubResource("Animation_o7kmb")
 }
 
 [node name="BetterHealthBar" instance=ExtResource("1_8ya5f")]
+theme_override_styles/background = SubResource("StyleBoxFlat_7hdev")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4flyb")
 value = 1.0
 script = ExtResource("2_fince")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="0"]
 libraries = {
-"": SubResource("AnimationLibrary_protj")
+&"": SubResource("AnimationLibrary_protj")
 }

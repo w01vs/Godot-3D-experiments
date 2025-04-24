@@ -3,7 +3,7 @@ class_name BetterHealthBar extends ProgressBar
 var stylebox_1: StyleBoxFlat = StyleBoxFlat.new()
 var stylebox_fill: StyleBoxFlat = StyleBoxFlat.new()
 var prev_fill: float = value
-
+var tween: Tween = create_tween()
 @onready var animator: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
@@ -19,6 +19,7 @@ func _ready() -> void:
 	stylebox_fill.bg_color = Color8(183, 33, 44)
 	stylebox_1.bg_color = Color8(183, 33, 44)
 	value_changed.connect(animate)
+	tween.finished.connect(change_stylebox)
 	change_stylebox(prev_fill)
 
 func _physics_process(delta: float) -> void:
@@ -27,11 +28,9 @@ func _physics_process(delta: float) -> void:
 func animate(new_value: float) -> void:
 	animator.play("twinkle")
 	var duration = animator.current_animation_length
-	var tween: Tween = create_tween()
 	tween.interpolate_value(value,  new_value - value, 0, duration, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
-	change_stylebox(new_value)
 
-func change_stylebox(fill: float):
+func change_stylebox(fill: float = 0):
 	if prev_fill != 1 and fill == 1:
 		remove_theme_stylebox_override("fill")
 		add_theme_stylebox_override("fill", stylebox_1)

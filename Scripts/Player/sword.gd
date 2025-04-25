@@ -7,6 +7,6 @@ var info: OnHitInformation
 func _ready():
 	info = OnHitInformation.new()
 	info.type = DamageSystem.ChangeType.INSTANT
-	info.health_change_total = -10
+	info.health_change_total = -50
 	info.groups = ["enemy"]
 	hitbox.set_info(info) 

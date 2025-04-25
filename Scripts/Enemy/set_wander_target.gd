@@ -6,6 +6,10 @@ extends ActionNodeBT
 @export var actor: SimpleEnemy
 
 func action() -> int:
+	var map: RID = GlobalRefs.map
+	var synced: int = NavigationServer3D.map_get_iteration_id(map)
+	if synced == 0:
+		return FAILED
 	actor.nav_agent.target_position = await get_new_destination()
 	actor.pathfinding = true
 	if not actor.nav_agent.is_target_reachable():
@@ -13,6 +17,7 @@ func action() -> int:
 	return SUCCESS
 
 func get_new_destination() -> Vector3:
+	var map: RID = GlobalRefs.map
 	var u: float = randf_range(0, 1)
 	var v: float = randf_range(0, 1)
 	var _w: float = randf_range(0, 1)
@@ -28,7 +33,6 @@ func get_new_destination() -> Vector3:
 	
 	var target_position: Vector3 = Vector3(x, y, z)
 	
-	var map: RID = GlobalRefs.map
 	await get_tree().physics_frame
 	var closest_point: Vector3 = NavigationServer3D.map_get_closest_point(map, target_position)
 	return closest_point + radius_center

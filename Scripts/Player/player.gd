@@ -19,6 +19,9 @@ var health_chipspeed: float = 2
 @onready var twist_pivot: Node3D = $TwistPivot
 @onready var pitch_pivot: Node3D = $TwistPivot/PitchPivot
 
+# Inventory
+@onready var inventory: Control = $"../PlayerUI/InventoryInterface"
+
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 @onready var hitbox: HitboxComponent = $TwistPivot/RightArm/rightarm/sword/HitboxComponent
@@ -39,6 +42,10 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = 4.5
+		
+	if Input.is_action_just_pressed("inventory"):
+		inventory.visible = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	if is_on_floor():
 		updateVelocity(SPEED)
@@ -51,7 +58,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
+		
 	if Input.is_action_just_pressed("refocus"):
+		inventory.visible = false
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 	if Input.is_action_just_pressed("default_attack"):

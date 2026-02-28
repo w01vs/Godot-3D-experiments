@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://by7on7nhfca2w"]
+[gd_scene format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="Script" uid="uid://du1ht7nmv50hi" path="res://Scripts/world.gd" id="1_lgbn5"]
 [ext_resource type="Script" uid="uid://e83e5af3w8ao" path="res://Scripts/Player/player_ui.gd" id="2_4r7yu"]
@@ -48,20 +48,22 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_35xku"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
-[node name="World" type="Node3D"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_5v1tr"]
+
+[node name="World" type="Node3D" unique_id=1110002956]
 script = ExtResource("1_lgbn5")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1033502004]
 environment = SubResource("Environment_eocis")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1058360828]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="PlayerUI" type="CanvasLayer" parent="."]
+[node name="PlayerUI" type="CanvasLayer" parent="." unique_id=187869415]
 script = ExtResource("2_4r7yu")
 
-[node name="BetterHealthBar" parent="PlayerUI" instance=ExtResource("3_1mcgj")]
+[node name="BetterHealthBar" parent="PlayerUI" unique_id=1345019687 instance=ExtResource("3_1mcgj")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -71,7 +73,7 @@ offset_right = 240.0
 offset_bottom = -31.0
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="PlayerUI"]
+[node name="Label" type="Label" parent="PlayerUI" unique_id=1466062947]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -85,7 +87,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "BUILDING MODE | PRESS Q TO EXIT"
 script = ExtResource("4_etm23")
 
-[node name="crosshair" type="Label" parent="PlayerUI"]
+[node name="crosshair" type="Label" parent="PlayerUI" unique_id=511230354]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -104,7 +106,8 @@ text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InventoryInteface" type="Control" parent="PlayerUI"]
+[node name="InventoryInterface" type="Control" parent="PlayerUI" unique_id=875152714]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,23 +117,23 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Inventory" parent="PlayerUI/InventoryInteface" instance=ExtResource("5_0fj1v")]
+[node name="Inventory" parent="PlayerUI/InventoryInterface" unique_id=2134023614 instance=ExtResource("5_0fj1v")]
 layout_mode = 0
 
-[node name="BaseNavRegion" type="NavigationRegion3D" parent="."]
+[node name="BaseNavRegion" type="NavigationRegion3D" parent="." unique_id=634300098]
 navigation_mesh = SubResource("NavigationMesh_vv4qp")
 
-[node name="Floor" type="MeshInstance3D" parent="BaseNavRegion" groups=["environment"]]
+[node name="Floor" type="MeshInstance3D" parent="BaseNavRegion" unique_id=1346988845 groups=["environment"]]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.00630379, 0.0128107, -0.185878)
 mesh = SubResource("BoxMesh_kcw8a")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/Floor" unique_id=483674248]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D" unique_id=1932336762]
 shape = SubResource("ConcavePolygonShape3D_tijdu")
 
-[node name="HealInteractable" type="Node3D" parent="BaseNavRegion"]
+[node name="HealInteractable" type="Node3D" parent="BaseNavRegion" unique_id=1920823443]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.99061, 2.13419, 0)
 script = ExtResource("5_ghv5m")
 health_change = 30.0
@@ -138,38 +141,43 @@ change_per_tick = 10.0
 time_per_tick = 0.5
 metadata/_custom_type_script = "uid://k857ynoid412"
 
-[node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/HealInteractable"]
+[node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/HealInteractable" unique_id=322668944]
 mesh = SubResource("BoxMesh_cf7fp")
 skeleton = NodePath("../../..")
 
-[node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/HealInteractable"]
+[node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/HealInteractable" unique_id=369009445]
 transform = Transform3D(0.999436, 0.0335913, 0, -0.0335913, 0.999436, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("6_lyyo3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Interactable"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Interactable" unique_id=732372836]
 transform = Transform3D(1, -1.49012e-08, 0, 1.49012e-08, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_gsqyl")
 
-[node name="DamageInteractable2" type="Node3D" parent="BaseNavRegion"]
+[node name="DamageInteractable2" type="Node3D" parent="BaseNavRegion" unique_id=842776941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2326, 0)
 script = ExtResource("5_ghv5m")
 health_change = -30.0
 type = 1
 metadata/_custom_type_script = "uid://k857ynoid412"
 
-[node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/DamageInteractable2"]
+[node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/DamageInteractable2" unique_id=1961764260]
 material_override = SubResource("StandardMaterial3D_gp6bf")
 mesh = SubResource("BoxMesh_h5xwh")
 skeleton = NodePath("../../..")
 
-[node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/DamageInteractable2"]
+[node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/DamageInteractable2" unique_id=1224355251]
 script = ExtResource("6_lyyo3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable2/Interactable"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable2/Interactable" unique_id=742216241]
 shape = SubResource("ConcavePolygonShape3D_35xku")
 
-[node name="BetterPlayer" parent="." groups=["ally", "player"] instance=ExtResource("8_2uxu7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.725407, 1.28765, 4.30354)
+[node name="BetterPlayer" parent="." unique_id=1293619965 groups=["ally", "player"] instance=ExtResource("8_2uxu7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17, 1.288, 4.304)
 
-[node name="BetterEnemy" parent="." instance=ExtResource("9_xqdx1")]
+[node name="BetterEnemy" parent="." unique_id=14835497 instance=ExtResource("9_xqdx1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 1.39856, -4.35614)
+
+[node name="Draw3D" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT" index="0"]
+mesh = SubResource("ImmediateMesh_5v1tr")
+
+[editable path="BetterEnemy"]

@@ -1,6 +1,6 @@
 class_name Inventory extends PanelContainer
 
-const Slot: PackedScene = preload("res://Resources/Inventory/inventory_slot.tscn")
+const Slot: PackedScene = preload("res://Scenes/Inventory/inventory_slot.tscn")
 @onready var item_grid: GridContainer = $MarginContainer/ItemGrid
 func _ready() -> void:
 	var inv_data = preload("res://Resources/Inventory/inventory_data.tres")
@@ -13,3 +13,5 @@ func populate_inv(slots: Array[SlotData]) -> void:
 	for slot_data in slots:
 		var slot = Slot.instantiate()
 		item_grid.add_child(slot)
+		if slot_data:
+			slot.set_data(slot_data)

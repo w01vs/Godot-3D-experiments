@@ -11,7 +11,8 @@ func set_data(data: SlotData) -> void:
 func update_ui() -> void:
 	if slot_data:
 		_img.texture = slot_data.item_data.texture
-		_quantity_label.text = str(slot_data.quantity)
+		if slot_data.item_data.stackable:
+			_quantity_label.text = str(slot_data.quantity)
 	else:
 		_img.texture = null
 		_quantity_label.text = ""

@@ -4,24 +4,33 @@
 
 [node name="Slot" type="PanelContainer" unique_id=310378486]
 custom_minimum_size = Vector2(64, 64)
-offset_right = 64.0
-offset_bottom = 64.0
+anchors_preset = -1
+anchor_right = 0.055555556
+anchor_bottom = 0.09876543
 script = ExtResource("1_0v82l")
-
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1444526372]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=823851195]
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="QuantityLabel" type="Label" parent="." unique_id=345428753]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_constants/outline_size = 3
+
+[node name="Button" type="Button" parent="." unique_id=1664232273]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Button" unique_id=1444526372]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Button/MarginContainer" unique_id=823851195]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5

@@ -118,7 +118,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Inventory" parent="PlayerUI/InventoryInterface" unique_id=2134023614 instance=ExtResource("5_0fj1v")]
-layout_mode = 0
+layout_mode = 1
+anchor_left = 0.3732639
+anchor_top = 0.38734564
+anchor_right = 0.45052084
+anchor_bottom = 0.5154321
+offset_top = 1.5258789e-05
+offset_right = 0.0
+offset_bottom = 0.0
+metadata/_edit_use_anchors_ = true
 
 [node name="BaseNavRegion" type="NavigationRegion3D" parent="." unique_id=634300098]
 navigation_mesh = SubResource("NavigationMesh_vv4qp")

@@ -4,11 +4,11 @@ var mouse_sensitivity: float = 0.001
 var twist_input: float = 0
 var pitch_input: float = 0
 var gravity: float = -9.81
-
+enum UIState{ INVENTORY_OPEN, DEFAULT }
 # Player Stats
 var SPEED: float = 5
 var JUMP_SPEED_REDUCTION: float = 5
-
+var ui_state: UIState = UIState.DEFAULT
 # Health Related
 var health: float
 var health_lerp_timer: float
@@ -32,7 +32,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	health_component.died.connect(died)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	twist_pivot.rotate_y(twist_input)
 	pitch_pivot.rotate_x(pitch_input)
 	pitch_pivot.rotation.x = clamp(pitch_pivot.rotation.x, deg_to_rad(-89), deg_to_rad(89))
@@ -44,8 +44,11 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 4.5
 		
 	if Input.is_action_just_pressed("inventory"):
-		inventory.visible = true
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		match ui_state:
+			UIState.DEFAULT:
+				_open_inventory()
+			UIState.INVENTORY_OPEN:
+				_close_inventory()
 	
 	if is_on_floor():
 		updateVelocity(SPEED)
@@ -60,7 +63,6 @@ func _physics_process(delta: float) -> void:
 		
 		
 	if Input.is_action_just_pressed("refocus"):
-		inventory.visible = false
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 	if Input.is_action_just_pressed("default_attack"):
@@ -92,3 +94,13 @@ func _on_animation_player_animation_finished(anim_name):
 func _on_animation_player_animation_started(anim_name):
 	if anim_name == "slash_attack":
 		hitbox.set_physics_process(true)
+
+func _open_inventory() -> void:
+	ui_state = UIState.INVENTORY_OPEN
+	inventory.visible = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func _close_inventory() -> void:
+	ui_state = UIState.DEFAULT
+	inventory.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

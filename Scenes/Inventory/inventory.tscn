@@ -3,8 +3,13 @@
 [ext_resource type="Script" uid="uid://b6cug2mwrwkf6" path="res://Scripts/UI/Inventory/inventory.gd" id="1_wdn4f"]
 
 [node name="Inventory" type="PanelContainer" unique_id=532195887]
-offset_right = 83.0
-offset_bottom = 89.0
+anchors_preset = -1
+anchor_right = 0.082
+anchor_bottom = 0.15100001
+offset_right = -0.46400452
+offset_bottom = 0.1519928
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_wdn4f")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1342422387]

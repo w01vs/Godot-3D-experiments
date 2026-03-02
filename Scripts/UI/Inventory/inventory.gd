@@ -14,6 +14,5 @@ func populate_inv(slots: Array[SlotData]) -> void:
 		var slot = Slot.instantiate()
 		item_grid.add_child(slot)
 		if slot_data:
-			print_debug(slot_data.item_data.texture)
 			slot.set_data(slot_data)
 			slot.update_ui()

@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0rnm3xgkddt8"]
+[gd_scene format=3 uid="uid://d0rnm3xgkddt8"]
 
 [ext_resource type="ArrayMesh" uid="uid://ehutj3q7t5gf" path="res://Assets/slash_.obj" id="1_b0mf0"]
 [ext_resource type="Script" uid="uid://3xhq4g0vcgpq" path="res://Scripts/Player/slash.gd" id="1_ira6g"]
-[ext_resource type="Shader" uid="uid://wxsalhjas1vy" path="res://Scenes/slash_shader.tres" id="2_3vam7"]
+[ext_resource type="Shader" uid="uid://wxsalhjas1vy" path="res://Resources/slash_shader.tres" id="2_3vam7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hce73"]
 resource_local_to_scene = true

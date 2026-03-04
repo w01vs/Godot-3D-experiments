@@ -13,6 +13,8 @@ func update_ui() -> void:
 		_img.texture = slot_data.item_data.texture
 		if slot_data.item_data.stackable:
 			_quantity_label.text = str(slot_data.quantity)
+		else:
+			_quantity_label.text = ""
 	else:
 		_img.texture = null
 		_quantity_label.text = ""
@@ -38,9 +40,8 @@ func handle_interaction() -> void:
 			else:
 				GlobalRefs.drag_preview.grab_data(null)
 		else:
-			var to_mouse = slot_data
+			GlobalRefs.drag_preview.grab_data(slot_data)
 			slot_data = mouse_data
-			GlobalRefs.drag_preview.grab_data(to_mouse)
 	else:
 		if slot_data != null:
 			GlobalRefs.drag_preview.grab_data(slot_data)

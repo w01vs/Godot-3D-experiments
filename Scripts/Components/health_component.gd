@@ -30,15 +30,16 @@ func _process(delta: float) -> void:
 	decrease_health_over_time(delta)
 
 func update_health(info: OnHitInformation) -> void:
-	if info.type == DamageSystem.ChangeType.NONE:
-		pass
-	elif info.type == DamageSystem.ChangeType.INSTANT:
-		# info.health_change_total should be negative when dealing damage.
-		health += info.health_change_total
-		health_changed.emit(health)
-	else:
-		var ticker = HealthTick.new(self, info)
-		add_child(ticker)
+	match info.type:
+		DamageSystem.ChangeType.NONE:
+			pass
+		DamageSystem.ChangeType.INSTANT:
+			# info.health_change_total should be negative when dealing damage.
+			health += info.health_change_total
+			health_changed.emit(health)
+		DamageSystem.ChangeType.DOT:
+			var ticker = HealthTick.new(self, info)
+			add_child(ticker)
 
 func decrease_health(amount: float, apply_over_time: bool = false, tick_time: float = 0, per_tick: float = 0) -> void:
 	if health > 0:

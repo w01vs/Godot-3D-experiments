@@ -15,6 +15,8 @@ var health_lerp_timer: float
 var health_chipspeed: float = 2
 @onready var health_component: HealthComponent = $HealthComponent
 
+var held_item: Item
+
 # Camera pivots
 @onready var twist_pivot: Node3D = $TwistPivot
 @onready var pitch_pivot: Node3D = $TwistPivot/PitchPivot

@@ -25,8 +25,8 @@ buses/default_bus_layout=""
 
 [autoload]
 
-UniversalHitController="*res://Scripts/Autoloads/universal_hit_controller.gd"
-GlobalRefs="*res://Scripts/Autoloads/global_references.gd"
+UniversalHitController="*res://Scripts/Globals/universal_hit_controller.gd"
+GlobalRefs="*res://Scripts/Globals/global_references.gd"
 DebugMenu="*uid://cggqb75a8w8r"
 
 [display]
@@ -44,7 +44,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/draw3d/plugin.cfg", "res://addons/script-tabs/plugin.cfg", "res://addons/yard/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/draw3d/plugin.cfg", "res://addons/inspector_extender/plugin.cfg", "res://addons/script-tabs/plugin.cfg")
 
 [input]
 

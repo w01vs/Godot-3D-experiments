@@ -1,6 +1,3 @@
-class_name Item extends IVItemTemplate
+@abstract class_name Item extends Node3D
 
-@export var price: int
-
-func _on_hitbox_hit(area: Area3D):
-	pass
+@abstract func use() -> void

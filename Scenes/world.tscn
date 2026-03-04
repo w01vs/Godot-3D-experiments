@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://k857ynoid412" path="res://Scripts/Interactables/health_interactable.gd" id="5_ghv5m"]
 [ext_resource type="PackedScene" uid="uid://da33thcn1ty4r" path="res://Scenes/hotbar.tscn" id="6_0fj1v"]
 [ext_resource type="Script" uid="uid://c50xit01ai1en" path="res://Scripts/Components/interactable_component.gd" id="6_lyyo3"]
+[ext_resource type="PackedScene" uid="uid://wdgcqohl6sqf" path="res://Scenes/Inventory/drag_preview.tscn" id="7_ikia7"]
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://Scenes/better_player.tscn" id="8_2uxu7"]
 [ext_resource type="PackedScene" uid="uid://dga0fjv0a80a8" path="res://Scenes/better_enemy.tscn" id="9_xqdx1"]
 
@@ -49,7 +50,7 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_35xku"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_0fj1v"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ikia7"]
 
 [node name="World" type="Node3D" unique_id=1110002956]
 script = ExtResource("1_lgbn5")
@@ -135,6 +136,8 @@ anchor_top = 0.85030866
 anchor_right = 0.6779514
 anchor_bottom = 0.9675926
 
+[node name="DragPreview" parent="PlayerUI" unique_id=1529233897 instance=ExtResource("7_ikia7")]
+
 [node name="BaseNavRegion" type="NavigationRegion3D" parent="." unique_id=634300098]
 navigation_mesh = SubResource("NavigationMesh_vv4qp")
 
@@ -193,6 +196,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17, 1.288, 4.304)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 1.39856, -4.35614)
 
 [node name="Draw3D" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT" index="0"]
-mesh = SubResource("ImmediateMesh_0fj1v")
+mesh = SubResource("ImmediateMesh_ikia7")
 
 [editable path="BetterEnemy"]

@@ -4,9 +4,8 @@
 
 [node name="Slot" type="PanelContainer" unique_id=310378486]
 custom_minimum_size = Vector2(64, 64)
-anchors_preset = -1
-anchor_right = 0.055555556
-anchor_bottom = 0.09876543
+offset_right = 8.0
+offset_bottom = 23.0
 script = ExtResource("1_0v82l")
 metadata/_edit_use_anchors_ = true
 
@@ -24,6 +23,7 @@ mouse_filter = 1
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
@@ -32,5 +32,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Button/MarginContainer" unique_id=823851195]
 layout_mode = 2
+mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

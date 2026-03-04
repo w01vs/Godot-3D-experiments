@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://425laymvnd48"]
 
 [ext_resource type="Script" uid="uid://cg1g0088onq6g" path="res://Scripts/Build/build_box.gd" id="1_ulq0x"]
-[ext_resource type="Script" uid="uid://2k4d6fecxjyj" path="res://Scripts/box_parent.gd" id="1_vkx3c"]
+[ext_resource type="Script" uid="uid://2k4d6fecxjyj" path="res://Scripts/Build/box_parent.gd" id="1_vkx3c"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_tj3u4"]
 

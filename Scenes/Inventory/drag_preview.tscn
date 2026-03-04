@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://wdgcqohl6sqf"]
+
+[ext_resource type="Script" uid="uid://dtufmco1tnoq7" path="res://Scripts/UI/drag_preview.gd" id="1_kx2n6"]
+
+[node name="DragPreview" type="TextureRect" unique_id=594917163]
+custom_minimum_size = Vector2(48, 48)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("1_kx2n6")
+
+[node name="QuantityLabel" type="Label" parent="." unique_id=1960215650]
+layout_mode = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/outline_size = 3

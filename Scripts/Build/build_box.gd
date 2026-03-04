@@ -2,11 +2,11 @@ class_name BuildBox extends StaticBody3D
 
 @onready var mesh_: MeshInstance3D = $".."
 
-var mat: Material = preload("res://hologram_material.tres")
+var mat: Material = preload("res://Resources/Building/hologram_material.tres")
 
-var default_mat: Material = preload("res://default_material.tres")
+var default_mat: Material = preload("res://Resources/Building/default_material.tres")
 
-var err_mat: Material = preload("res://holo_collidiing_material.tres")
+var err_mat: Material = preload("res://Resources/Building/holo_collidiing_material.tres")
 
 var holo: bool = false
 

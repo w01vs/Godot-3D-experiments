@@ -14,5 +14,6 @@ script = ExtResource("1_touuj")
 name = "Apple"
 description = "Yeet"
 stackable = true
+max_quantity = 15
 texture = SubResource("AtlasTexture_touuj")
 metadata/_custom_type_script = "uid://csho28octbu4l"

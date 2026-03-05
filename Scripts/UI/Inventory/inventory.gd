@@ -1,18 +1,18 @@
-class_name Inventory extends PanelContainer
+class_name Inventory extends Node
 
-const Slot: PackedScene = preload("res://Scenes/Inventory/inventory_slot.tscn")
-@onready var item_grid: GridContainer = $MarginContainer/ItemGrid
+signal inventory_changed(index: int, data: SlotData)
+
+var INVENTORY_SIZE: int = 12
+
+var slots: Array[SlotData] = []
+
 func _ready() -> void:
 	var inv_data = preload("res://Resources/Inventory/inventory_data.tres")
-	populate_inv(inv_data.all_slot_data)
+	slots.resize(INVENTORY_SIZE)
+	slots.fill(null)
+	for i in range(inv_data.all_slot_data.size()):
+		set_slot_data(i, inv_data.all_slot_data[i])
 
-func populate_inv(slots: Array[SlotData]) -> void: 
-	for child in item_grid.get_children():
-		child.queue_free()
-	
-	for slot_data in slots:
-		var slot = Slot.instantiate()
-		item_grid.add_child(slot)
-		if slot_data:
-			slot.set_data(slot_data)
-			slot.update_ui()
+func set_slot_data(index: int, data: SlotData) -> void:
+	slots[index] = data
+	inventory_changed.emit(index, data)

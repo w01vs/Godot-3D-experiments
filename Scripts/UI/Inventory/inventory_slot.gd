@@ -7,6 +7,7 @@ var slot_data: SlotData
 
 func set_data(data: SlotData) -> void:
 	slot_data = data
+	update_ui()
 
 func update_ui() -> void:
 	if slot_data and slot_data.item_data:

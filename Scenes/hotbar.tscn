@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://da33thcn1ty4r"]
 
 [ext_resource type="PackedScene" uid="uid://c3bf1h0lfalix" path="res://Scenes/Inventory/inventory_slot.tscn" id="1_oais3"]
+[ext_resource type="Script" uid="uid://s1ty4f248n7k" path="res://Scenes/hotbar.gd" id="1_w22v5"]
 
 [node name="Hotbar" type="Control" unique_id=1474135417]
 layout_mode = 3
@@ -8,6 +9,7 @@ anchor_right = 0.24305555
 anchor_bottom = 0.11728395
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_w22v5")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=990290917]

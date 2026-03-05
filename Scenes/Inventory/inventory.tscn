@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://qin7imek6ocb"]
 
-[ext_resource type="Script" uid="uid://b6cug2mwrwkf6" path="res://Scripts/UI/Inventory/inventory.gd" id="1_wdn4f"]
+[ext_resource type="Script" uid="uid://6n21c0xxyshj" path="res://Scripts/UI/Inventory/inventory_ui.gd" id="1_lfv3a"]
 
 [node name="Inventory" type="PanelContainer" unique_id=532195887]
 anchors_preset = -1
@@ -10,7 +10,7 @@ offset_right = -0.46400452
 offset_bottom = 0.1519928
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("1_wdn4f")
+script = ExtResource("1_lfv3a")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1342422387]
 layout_mode = 2

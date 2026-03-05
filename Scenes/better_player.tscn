@@ -1,10 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://o45847jxuasr"]
+[gd_scene format=3 uid="uid://o45847jxuasr"]
 
 [ext_resource type="Script" uid="uid://c0x0adiepm0ji" path="res://Scripts/Player/player.gd" id="1_cs6bt"]
 [ext_resource type="Script" uid="uid://dhvov6wl41np8" path="res://Scripts/Player/interact.gd" id="2_w8m0h"]
-[ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://Scenes/sword.tscn" id="3_0m5en"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://Scripts/Components/health_component.gd" id="4_1qn71"]
 [ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://Scripts/Components/hurtbox_component.gd" id="5_7kohf"]
+[ext_resource type="Script" uid="uid://b6cug2mwrwkf6" path="res://Scripts/UI/Inventory/inventory.gd" id="5_gxqt7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x5kv8"]
 
@@ -35,17 +35,19 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-0.610865, 0, 0), Vector3(0, 0, 0)]
 }
-tracks/2/type = "value"
+tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("TwistPivot/RightArm/rightarm/sword/HitboxComponent:monitoring")
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.3, 0.766667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["hitbox_on"],
+"method": &"_on_animation_trigger"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ip4g"]
@@ -53,77 +55,76 @@ _data = {
 &"slash_attack": SubResource("Animation_amry5")
 }
 
-[node name="BetterPlayer" type="CharacterBody3D" groups=["Player"]]
+[node name="BetterPlayer" type="CharacterBody3D" unique_id=1750855292 groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 32
 collision_mask = 49
 script = ExtResource("1_cs6bt")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=590887451]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
 layers = 33
 mesh = SubResource("CapsuleMesh_x5kv8")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1558339957]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
-[node name="TwistPivot" type="Node3D" parent="."]
+[node name="TwistPivot" type="Node3D" parent="." unique_id=1164485217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="PitchPivot" type="Node3D" parent="TwistPivot"]
+[node name="PitchPivot" type="Node3D" parent="TwistPivot" unique_id=368170200]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
+[node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot" unique_id=230448478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
-[node name="Interact" type="RayCast3D" parent="TwistPivot/PitchPivot/Camera3D"]
+[node name="Interact" type="RayCast3D" parent="TwistPivot/PitchPivot/Camera3D" unique_id=1320367002]
 transform = Transform3D(1, 0, 0, 0, -2.98023e-08, -1, 0, 1, -2.98023e-08, 0, 0, 0)
 visible = false
 target_position = Vector3(0, -5, 0)
 collision_mask = 2
 script = ExtResource("2_w8m0h")
 
-[node name="RightArm" type="Node3D" parent="TwistPivot"]
+[node name="RightArm" type="Node3D" parent="TwistPivot" unique_id=706858921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507, -1.484, -0.282355)
 
-[node name="rightarm" type="MeshInstance3D" parent="TwistPivot/RightArm"]
+[node name="rightarm" type="MeshInstance3D" parent="TwistPivot/RightArm" unique_id=825178925]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
-[node name="sword" parent="TwistPivot/RightArm/rightarm" instance=ExtResource("3_0m5en")]
-transform = Transform3D(1.27379e-15, 2.91409e-08, 0.666667, 0.666667, -2.91409e-08, 0, 6.82006e-09, 0.156025, -6.82006e-09, 0, 1.25941, -0.389847)
+[node name="Marker3D" type="Marker3D" parent="TwistPivot/RightArm/rightarm" unique_id=91095739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9999998, 0, 0, -0.43041903)
 
-[node name="LeftArm" type="Node3D" parent="TwistPivot"]
+[node name="LeftArm" type="Node3D" parent="TwistPivot" unique_id=103513899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.507, -1.484, -0.282)
 
-[node name="leftarm" type="MeshInstance3D" parent="TwistPivot/LeftArm"]
+[node name="leftarm" type="MeshInstance3D" parent="TwistPivot/LeftArm" unique_id=1815032788]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=823678617]
 script = ExtResource("4_1qn71")
 
-[node name="HurtboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent" type="Area3D" parent="." unique_id=125058912 node_paths=PackedStringArray("health_component")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("5_7kohf")
 health_component = NodePath("../HealthComponent")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1636775676]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, -1, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_3ip4g")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=640653125]
+libraries/ = SubResource("AnimationLibrary_3ip4g")
+
+[node name="Node" type="Node" parent="." unique_id=895109273]
+script = ExtResource("5_gxqt7")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
-
-[editable path="TwistPivot/RightArm/rightarm/sword"]

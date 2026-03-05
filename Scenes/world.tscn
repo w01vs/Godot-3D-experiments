@@ -109,7 +109,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="InventoryInterface" type="Control" parent="PlayerUI" unique_id=875152714]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,14 +119,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Inventory" parent="PlayerUI/InventoryInterface" unique_id=2134023614 instance=ExtResource("5_0fj1v")]
+visible = false
 layout_mode = 1
 anchor_left = 0.3732639
 anchor_top = 0.38734564
-anchor_right = 0.45052084
-anchor_bottom = 0.5154321
+anchor_right = 0.734375
+anchor_bottom = 0.6095679
 offset_top = 1.5258789e-05
-offset_right = 0.0
-offset_bottom = 0.0
+offset_right = -327.0
+offset_bottom = -61.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Hotbar" parent="PlayerUI" unique_id=1474135417 instance=ExtResource("6_0fj1v")]

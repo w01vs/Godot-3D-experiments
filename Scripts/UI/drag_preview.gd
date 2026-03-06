@@ -13,19 +13,13 @@ func _process(_delta):
 	if held_slot_data != null:
 		global_position -= texture.get_size() / 1.5
 
-func grab_data(data: SlotData) -> void:
+func set_data(data: SlotData) -> void:
 	if data:
-		held_slot_data = data.duplicate()
+		held_slot_data = data
 		is_dragging = true
 		visible = true
 		if held_slot_data and held_slot_data.item_data:
 			texture = held_slot_data.item_data.texture
 	else:
+		texture = null
 		held_slot_data = null
-
-func drop_data() -> SlotData:
-	var data_to_return = held_slot_data
-	held_slot_data = null
-	is_dragging = false
-	visible = false
-	return data_to_return

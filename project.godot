@@ -28,6 +28,7 @@ buses/default_bus_layout=""
 UniversalHitController="*res://Scripts/Globals/universal_hit_controller.gd"
 GlobalRefs="*res://Scripts/Globals/global_references.gd"
 DebugMenu="*uid://cggqb75a8w8r"
+GlobalItem="*uid://c0mhnl7odj08g"
 
 [display]
 

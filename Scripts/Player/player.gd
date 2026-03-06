@@ -16,16 +16,19 @@ var health_chipspeed: float = 2
 @onready var health_component: HealthComponent = $HealthComponent
 
 var held_item: Item
+var hotbar_items: Array[Item]
 
 # Camera pivots
 @onready var twist_pivot: Node3D = $TwistPivot
 @onready var pitch_pivot: Node3D = $TwistPivot/PitchPivot
 
-@onready var inventory: Inventory = $Node
+@onready var inventory: Inventory = $Inventory
+@onready var right_hand_remote: RemoteTransform3D = $TwistPivot/RightArm/rightarm/Marker3D/	RemoteTransform3D
 @onready var right_hand: Marker3D = $TwistPivot/RightArm/rightarm/Marker3D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
+	hotbar_items.resize(inventory.HOTBAR_SIZE)
 	GlobalRefs.player = self
 	GlobalRefs.player_set.emit()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -57,7 +60,7 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("default_attack"):
 		if held_item:
-			held_item.use()
+			held_item.use(anim_player, self)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -78,9 +81,32 @@ func updateVelocity(multiplier: float) -> void:
 		velocity.x = 0
 		velocity.z = 0
 
-func equip_item(item: Item, scene: Node3D) -> void:
-	held_item = item
-	right_hand.add_child(scene)
+func hotbar_load_item(item: Item, index: int) -> void:
+	if hotbar_items[index]:
+		hotbar_items[index].queue_free()
+	hotbar_items[index] = item
+	_update_held_item(index)
+	
+func switch_hotbar_slot(index: int) -> void:
+	var old_item = held_item
+	held_item = hotbar_items[index]
+	if old_item:
+		old_item.process_mode = Node.PROCESS_MODE_DISABLED
+		old_item.hide()
+	if held_item:
+		held_item.process_mode = Node.PROCESS_MODE_ALWAYS
+		held_item.show()
+
+func _update_held_item(index: int) -> void:
+	held_item = hotbar_items[index]
+	if held_item:
+		right_hand.add_child(hotbar_items[index])
+		right_hand_remote.remote_path = right_hand_remote.get_path_to(hotbar_items[index])
+
+func hotbar_unload_item(index: int) -> void:
+	if hotbar_items[index]:
+		hotbar_items[index].hide()
+		hotbar_items[index].queue_free()
 	
 
 func _on_animation_player_animation_finished(anim_name):

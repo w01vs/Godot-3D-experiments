@@ -6,6 +6,7 @@
 custom_minimum_size = Vector2(64, 64)
 offset_right = 8.0
 offset_bottom = 23.0
+focus_behavior_recursive = 1
 script = ExtResource("1_0v82l")
 metadata/_edit_use_anchors_ = true
 

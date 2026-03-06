@@ -1,29 +1,33 @@
 class_name Hotbar extends Control
 
-var active_index: int
-
 @onready var grid: GridContainer = $MarginContainer/ItemGrid
-
+var slot: PackedScene = preload("res://Scenes/Inventory/inventory_slot.tscn")
 var slots: Array[InventorySlot] = []
 
 func _ready() -> void:
-	for slot in grid.get_children():
-		if slot is InventorySlot:
-			slots.append(slot)
-	active_index = 0
-
-func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("scroll_down"):
-		if active_index == 0:
-			active_index = slots.size() - 1
-		else:
-			active_index -= 1
+	if GlobalRefs.player:
+		initialise()
+	else:
+		GlobalRefs.player_set.connect(initialise)
 	
-	if Input.is_action_just_pressed("scroll_up"):
-		if active_index == slots.size() - 1:
-			active_index = 0
-		else:
-			active_index += 1
+func initialise() -> void:
+	GlobalRefs.player.inventory.inventory_changed.connect(update_slot)
+	GlobalRefs.player.inventory.hotbar_active_changed.connect(set_active_slot)
+	slots.resize(GlobalRefs.player.inventory.HOTBAR_SIZE)
+	for i in range(slots.size()):
+		slots[i] = slot.instantiate()
+		slots[i].target = "hotbar"
+		slots[i].index = i
+		grid.add_child(slots[i])
+	display_inventory(GlobalRefs.player.inventory.hotbar_slots)
 
-func get_active_slot() -> InventorySlot:
-	return slots[active_index]
+func set_active_slot(index: int) -> void:
+	pass
+
+func display_inventory(data: Array[SlotData]) -> void:
+	for i in range(data.size()):
+		slots[i].set_data(data[i])
+
+func update_slot(index: int, data: SlotData, target: String) -> void:
+	if target == "hotbar":
+		slots[index].set_data(data)

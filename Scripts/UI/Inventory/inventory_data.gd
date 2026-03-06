@@ -2,4 +2,5 @@ class_name InventoryData extends Resource
 
 
 
-@export var all_slot_data: Array[SlotData]
+@export var main_inventory: Array[SlotData]
+@export var hotbar: Array[SlotData]

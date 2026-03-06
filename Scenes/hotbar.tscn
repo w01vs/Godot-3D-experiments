@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://da33thcn1ty4r"]
 
-[ext_resource type="PackedScene" uid="uid://c3bf1h0lfalix" path="res://Scenes/Inventory/inventory_slot.tscn" id="1_oais3"]
 [ext_resource type="Script" uid="uid://s1ty4f248n7k" path="res://Scenes/hotbar.gd" id="1_w22v5"]
 
 [node name="Hotbar" type="Control" unique_id=1474135417]
@@ -28,15 +27,3 @@ metadata/_edit_use_anchors_ = true
 [node name="ItemGrid" type="GridContainer" parent="MarginContainer" unique_id=1015307041]
 layout_mode = 2
 columns = 4
-
-[node name="Slot" parent="MarginContainer/ItemGrid" unique_id=310378486 instance=ExtResource("1_oais3")]
-layout_mode = 2
-
-[node name="Slot2" parent="MarginContainer/ItemGrid" unique_id=704398995 instance=ExtResource("1_oais3")]
-layout_mode = 2
-
-[node name="Slot3" parent="MarginContainer/ItemGrid" unique_id=1766944187 instance=ExtResource("1_oais3")]
-layout_mode = 2
-
-[node name="Slot4" parent="MarginContainer/ItemGrid" unique_id=1718858949 instance=ExtResource("1_oais3")]
-layout_mode = 2

@@ -1,15 +1,16 @@
 class_name Sword extends Item
 
-var info: OnHitInformation
-
 @onready var hitbox: HitboxComponent = $HitboxComponent
 var hitinfo: OnHitInformation = preload("res://Resources/ItemInfo/sword.tres")
 
 func _ready():
 	hitbox.set_info(hitinfo)
 
-func use() -> void:
-	pass
+func use(animator: AnimationPlayer, player: Player) -> void:
+	animator.play(_get_animation())
+
+func on_equip() -> void:
+	hitbox.set_info(hitinfo)
 
 func on_animation_trigger(event: String) -> void:
 	match event:

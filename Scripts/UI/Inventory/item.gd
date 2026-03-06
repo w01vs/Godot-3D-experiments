@@ -1,7 +1,7 @@
 @abstract class_name Item extends Node3D
 
-@abstract func use() -> void
-
+@abstract func use(animator: AnimationPlayer, player: Player) -> void
+@abstract func on_equip() -> void
 @abstract func on_animation_trigger(event: String) -> void
 
 @abstract func on_animation_start() -> void

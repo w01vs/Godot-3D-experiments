@@ -19,10 +19,12 @@ func initialise() -> void:
 	slots.resize(GlobalRefs.player.inventory.INVENTORY_SIZE)
 	for i in range(slots.size()):
 		slots[i] = slot.instantiate()
+		slots[i].target = "inventory"
+		slots[i].index = i
 		grid.add_child(slots[i])
 	display_inventory(GlobalRefs.player.inventory.slots)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		match ui_state:
 			UIState.DEFAULT:
@@ -30,8 +32,9 @@ func _physics_process(delta: float) -> void:
 			UIState.INVENTORY_OPEN:
 				_close_inventory()
 
-func update_slot(index: int, data: SlotData) -> void:
-	slots[index].set_data(data)
+func update_slot(index: int, data: SlotData, target: String) -> void:
+	if target == "inventory":
+		slots[index].set_data(data)
 
 func display_inventory(data: Array[SlotData]) -> void:
 	for i in range(data.size()):

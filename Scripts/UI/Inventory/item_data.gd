@@ -9,4 +9,4 @@ class_name ItemData extends Resource
 @export var max_quantity: int = 1
 @export var model: PackedScene
 @export_group("UI")
-@export var texture: AtlasTexture
+@export var texture: Texture2D

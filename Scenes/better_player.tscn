@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://Scripts/Components/health_component.gd" id="4_1qn71"]
 [ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://Scripts/Components/hurtbox_component.gd" id="5_7kohf"]
 [ext_resource type="Script" uid="uid://b6cug2mwrwkf6" path="res://Scripts/UI/Inventory/inventory.gd" id="5_gxqt7"]
-[ext_resource type="Script" uid="uid://djad7m6u2x72r" path="res://Scenes/equipment.gd" id="6_6twa2"]
+[ext_resource type="Script" uid="uid://djad7m6u2x72r" path="res://Scripts/equipment.gd" id="6_6twa2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x5kv8"]
 

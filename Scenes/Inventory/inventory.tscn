@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://qin7imek6ocb"]
 
-[ext_resource type="Script" uid="uid://6n21c0xxyshj" path="res://Scripts/UI/Inventory/inventory_ui.gd" id="1_lfv3a"]
+[ext_resource type="Script" uid="uid://6n21c0xxyshj" path="res://Scripts/Inventory/UI/inventory_ui.gd" id="1_lfv3a"]
 
 [node name="Inventory" type="PanelContainer" unique_id=532195887]
 anchors_preset = -1

@@ -1,0 +1,4 @@
+@abstract class_name Tool extends Item
+
+@abstract func can_harvest(resource_type: HarvestableResource.ResourceType) -> bool
+@abstract func harvest(itemdata: ItemData, amount: int) -> void

@@ -128,6 +128,7 @@ scroll_down={
 3d_physics/layer_4="Hitboxes"
 3d_physics/layer_5="Buildable"
 3d_physics/layer_6="Entities"
+3d_physics/layer_7="Harvestable"
 
 [physics]
 

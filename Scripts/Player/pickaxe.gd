@@ -1,4 +1,4 @@
-class_name Sword extends Item
+class_name Pickaxe extends Tool
 
 @onready var hitbox: HitboxComponent = $HitboxComponent
 var hitinfo: OnHitInformation = preload("res://Resources/ItemInfo/sword.tres")
@@ -25,3 +25,11 @@ func on_animation_end() -> void:
 
 func _get_animation() -> String:
 	return "slash_attack"
+
+func can_harvest(resource_type: HarvestableResource.ResourceType) -> bool:
+	if resource_type == HarvestableResource.ResourceType.Diamond:
+		return true
+	return false
+
+func harvest(itemdata: ItemData, amount: int) -> void:
+	pass

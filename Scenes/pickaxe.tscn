@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cegwr0shcxxre"]
+
+[ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://Assets/sword.glb" id="1_gyibd"]
+[ext_resource type="Script" uid="uid://duv86y6w4xbch" path="res://Scripts/Player/sword.gd" id="2_6jtfr"]
+[ext_resource type="Script" uid="uid://b54bwceiwjxdb" path="res://Scripts/Components/hitbox_component.gd" id="3_p4wup"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d6wag"]
+size = Vector3(10.446039, 1.1, 2.3)
+
+[node name="sword" unique_id=1207942515 instance=ExtResource("1_gyibd")]
+top_level = true
+script = ExtResource("2_6jtfr")
+
+[node name="Cube" parent="." index="0" unique_id=463143448]
+transform = Transform3D(-7.430936e-09, -0.17, 7.430936e-09, 0, -7.430936e-09, -0.17, 0.17, -7.430936e-09, 3.2481654e-16, 0, 0.38385987, 0)
+
+[node name="HitboxComponent" type="Area3D" parent="." index="1" unique_id=1618676737]
+transform = Transform3D(-7.430936e-09, -0.17, 0, 0.17, -7.430936e-09, 0, 0, 0, 0.17, 0, 0.38385987, 0)
+collision_layer = 0
+collision_mask = 64
+monitoring = false
+monitorable = false
+script = ExtResource("3_p4wup")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" index="0" unique_id=199022281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.236825, 2.1316282e-14, 1.8632298e-07)
+shape = SubResource("BoxShape3D_d6wag")

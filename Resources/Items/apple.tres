@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cxg3dyja8ulno"]
 
-[ext_resource type="Script" uid="uid://csho28octbu4l" path="res://Scripts/UI/Inventory/item_data.gd" id="1_touuj"]
+[ext_resource type="Script" uid="uid://csho28octbu4l" path="res://Scripts/item_data.gd" id="1_touuj"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y261u"]
 load_path = "res://.godot/imported/#1 - Transparent Icons.png-e9d88ce061f4ccd58f3baf5f87e3eb92.ctex"

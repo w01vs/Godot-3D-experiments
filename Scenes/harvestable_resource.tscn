@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://m6cwlyo5pwwf"]
+
+[ext_resource type="Script" uid="uid://b7u6ndyymx3wb" path="res://harvestable_resource.gd" id="1_ehr8l"]
+[ext_resource type="PackedScene" uid="uid://bun2jr3gulkak" path="res://Scenes/resource.tscn" id="2_t6x33"]
+
+[node name="HarvestableResource" type="Node3D" unique_id=169837699]
+script = ExtResource("1_ehr8l")
+
+[node name="StaticBody3D" parent="." unique_id=1915486170 instance=ExtResource("2_t6x33")]

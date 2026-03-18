@@ -15,3 +15,6 @@ func set_info(info: OnHitInformation) -> void:
 func _on_area_entered(area: Area3D):
 	if area is HurtboxComponent:
 		UniversalHitController.apply_information_to(on_hit_information, area.get_parent())
+	if area.get_parent() is HarvestableResource:
+		if get_parent().can_harvest(area.get_parent().resource_type):
+			get_parent().harvest(GlobalItem.item_library['resource'], 1)

@@ -1,6 +1,6 @@
 extends Node
 
-var item_dir: String = "res://Resources/Items and UI representations/"
+var item_dir: String = "res://Resources/Items/"
 var item_library: Dictionary[String, ItemData] = {}
 
 func _ready() -> void:

@@ -99,3 +99,14 @@ func _execute_merge(index: int, incoming_qty: int, target: String) -> int:
 func set_mouse_data(data: SlotData) -> void:
 	mouse_data = data
 	GlobalRefs.drag_preview.set_data(mouse_data)
+
+func add_item(itemdata: ItemData, amount: int) -> bool:
+	for index in range(INVENTORY_SIZE):
+		if slots[index] == null:
+			push_warning("Not taking into account item stack limits or full inventories etc.")
+			slots[index] = SlotData.new()
+			slots[index].item_data = itemdata
+			slots[index].quantity = amount
+			set_slot_data(index, slots[index], "inventory")
+			return true
+	return false

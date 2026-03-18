@@ -32,4 +32,4 @@ func can_harvest(resource_type: HarvestableResource.ResourceType) -> bool:
 	return false
 
 func harvest(itemdata: ItemData, amount: int) -> void:
-	pass
+	resource_harvested.emit(itemdata, amount)

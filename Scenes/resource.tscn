@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://bun2jr3gulkak"]
 
-[ext_resource type="Script" uid="uid://cweosck0m8mbd" path="res://Scenes/harvestable.gd" id="1_2f3j8"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_w7mum"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbm7w"]
@@ -12,7 +10,6 @@ albedo_color = Color(1, 0.2901961, 1, 1)
 [node name="StaticBody3D" type="StaticBody3D" unique_id=1915486170]
 collision_layer = 96
 collision_mask = 0
-script = ExtResource("1_2f3j8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1844989406]
 mesh = SubResource("BoxMesh_w7mum")

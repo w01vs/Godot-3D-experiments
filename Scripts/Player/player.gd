@@ -86,7 +86,12 @@ func hotbar_load_item(item: Item, index: int) -> void:
 		hotbar_items[index].queue_free()
 	hotbar_items[index] = item
 	_update_held_item(index)
-	
+	if hotbar_items[index] is Tool:
+		hotbar_items[index].resource_harvested.connect(receive_item)
+
+func receive_item(itemdata: ItemData, amount: int) -> void:
+	inventory.add_item(itemdata, amount)
+
 func switch_hotbar_slot(index: int) -> void:
 	var old_item = held_item
 	held_item = hotbar_items[index]
@@ -107,7 +112,6 @@ func hotbar_unload_item(index: int) -> void:
 	if hotbar_items[index]:
 		hotbar_items[index].hide()
 		hotbar_items[index].queue_free()
-	
 
 func _on_animation_player_animation_finished(anim_name):
 	if held_item:

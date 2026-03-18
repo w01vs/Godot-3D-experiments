@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://l3lh4nyuyvcq"]
+
+[ext_resource type="Script" uid="uid://csho28octbu4l" path="res://Scripts/item_data.gd" id="1_1qa4p"]
+[ext_resource type="PackedScene" uid="uid://cegwr0shcxxre" path="res://Scenes/pickaxe.tscn" id="1_cg83o"]
+[ext_resource type="Texture2D" uid="uid://v3i68ayrvyqp" path="res://Assets/item_atlas.tres" id="2_7dmda"]
+
+[resource]
+script = ExtResource("1_1qa4p")
+name = "Pickaxe"
+id = "pickaxe"
+model = ExtResource("1_cg83o")
+texture = ExtResource("2_7dmda")
+metadata/_custom_type_script = "uid://csho28octbu4l"

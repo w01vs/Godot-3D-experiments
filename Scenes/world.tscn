@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://wdgcqohl6sqf" path="res://Scenes/Inventory/drag_preview.tscn" id="7_ikia7"]
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://Scenes/better_player.tscn" id="8_2uxu7"]
 [ext_resource type="PackedScene" uid="uid://dga0fjv0a80a8" path="res://Scenes/better_enemy.tscn" id="9_xqdx1"]
+[ext_resource type="PackedScene" uid="uid://cqhwtcbgjqp63" path="res://Scenes/test_world.tscn" id="10_c5t2i"]
 [ext_resource type="PackedScene" uid="uid://m6cwlyo5pwwf" path="res://Scenes/harvestable_resource.tscn" id="12_7yui6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
@@ -52,7 +53,7 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_35xku"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_7yui6"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_c5t2i"]
 
 [node name="World" type="Node3D" unique_id=1110002956]
 script = ExtResource("1_lgbn5")
@@ -141,6 +142,7 @@ anchor_bottom = 0.9675926
 [node name="DragPreview" parent="PlayerUI" unique_id=1529233897 instance=ExtResource("7_ikia7")]
 
 [node name="BaseNavRegion" type="NavigationRegion3D" parent="." unique_id=634300098]
+transform = Transform3D(0.9999989, 0.0011023232, 0.00091151067, -0.0011021094, 0.99999934, -0.0002297302, -0.000911769, 0.00022870275, 0.9999995, 0, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_vv4qp")
 
 [node name="Floor" type="MeshInstance3D" parent="BaseNavRegion" unique_id=1346988845 groups=["environment"]]
@@ -191,14 +193,17 @@ script = ExtResource("6_lyyo3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable2/Interactable" unique_id=742216241]
 shape = SubResource("ConcavePolygonShape3D_35xku")
 
+[node name="TestWorld" parent="BaseNavRegion" unique_id=881198542 instance=ExtResource("10_c5t2i")]
+transform = Transform3D(1, 9.345058e-11, -5.820766e-11, -4.487788e-11, 1, 0, 5.820766e-11, -1.4551915e-11, 1, 7.4237505e-10, 17.513214, 0)
+
 [node name="BetterPlayer" parent="." unique_id=1293619965 groups=["ally", "player"] instance=ExtResource("8_2uxu7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17, 1.288, 4.304)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17, 3.7366943, 4.304)
 
 [node name="BetterEnemy" parent="." unique_id=14835497 instance=ExtResource("9_xqdx1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 1.39856, -4.35614)
 
 [node name="Draw3D" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT" parent_id_path=PackedInt32Array(14835497, 759978698) index="0" unique_id=645772395]
-mesh = SubResource("ImmediateMesh_7yui6")
+mesh = SubResource("ImmediateMesh_c5t2i")
 
 [node name="HarvestableResource" parent="." unique_id=169837699 instance=ExtResource("12_7yui6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9903088, 0.7753614, -6.917973)

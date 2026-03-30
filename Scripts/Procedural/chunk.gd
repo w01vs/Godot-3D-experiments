@@ -1,9 +1,9 @@
 @tool
-extends MeshInstance3D
+class_name OldChunk extends MeshInstance3D
 
 var height_map = []
 
-func init_chunk(c_pos: Vector2i, size: int, b_noise: FastNoiseLite, m_noise: FastNoiseLite):
+func init_chunk(c_pos: Vector2i, size: int, b_noise: FastNoiseLite, m_noise: FastNoiseLite, cell_noise: FastNoiseLite):
 	height_map.clear()
 	var world_offset = c_pos * size
 	
@@ -20,9 +20,9 @@ func init_chunk(c_pos: Vector2i, size: int, b_noise: FastNoiseLite, m_noise: Fas
 			
 			# BIOME SELECTION
 			if b_val > 0.3: # Mountain Biome
-				h = _calculate_plateau_stack(gx, gy, b_val, 5.0) 
+				h = _calculate_plateau_stack(gx, gy, b_val, 5.0, cell_noise) 
 			elif b_val < -0.2: # Lake Biome
-				h = _calculate_plateau_stack(gx, gy, b_val, -3.0)
+				h = _calculate_plateau_stack(gx, gy, b_val, -3.0, cell_noise)
 			else: # Plains
 				h = m_noise.get_noise_2d(gx, gy) * 0.2
 				
@@ -33,18 +33,16 @@ func init_chunk(c_pos: Vector2i, size: int, b_noise: FastNoiseLite, m_noise: Fas
 
 # This replaces the "AddBump" loop with a pure mathematical check
 # It asks: "Is this point part of a plateau based on a secondary noise?"
-func _calculate_plateau_stack(gx: float, gy: float, biome_strength: float, height_multi: float) -> float:
-	# Use a third noise to create the "Step" shapes
-	# Cellular noise is PERFECT for plateaus/cracks
-	var cell_noise = FastNoiseLite.new()
-	cell_noise.noise_type = FastNoiseLite.TYPE_CELLULAR
-	cell_noise.frequency = 0.02
-	cell_noise.cellular_return_type = FastNoiseLite.CellularReturnType.RETURN_CELL_VALUE
-	
+# Updated signature to receive the shared cellular noise
+func _calculate_plateau_stack(gx: float, gy: float, b_val: float, h_step: float, cell_noise: FastNoiseLite) -> float:
 	var v = cell_noise.get_noise_2d(gx, gy)
-	# Quantize the noise into steps (The "Plateau" look)
-	var steps = floor(abs(v) * 6.0) 
-	return steps * height_multi * abs(biome_strength)
+	var norm_v = (v + 1.0) * 0.5
+	
+	var biome_depth = b_val - 0.3 # Assuming 0.3 is your mountain threshold
+	
+	# The peak logic we discussed: incline + quantized steps
+	var potential_h = (biome_depth * 25.0) + (norm_v * h_step)
+	return floor(potential_h / h_step) * h_step
 
 func _render_chunk(size):
 	var st = SurfaceTool.new()

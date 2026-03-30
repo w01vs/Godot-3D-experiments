@@ -11,7 +11,7 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "worldgen.h"
+#include "terrainchunk.h"
 
 using namespace godot;
 

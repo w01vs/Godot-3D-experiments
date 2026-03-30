@@ -6,27 +6,59 @@
 vertex_color_use_as_albedo = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_skmq4"]
-noise_type = 3
+noise_type = 0
+frequency = 0.0008
+fractal_octaves = 3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_au00k"]
+noise_type = 0
+seed = 1
+frequency = 0.001
+fractal_octaves = 3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_707cn"]
+noise_type = 0
+seed = 2
+frequency = 0.0035
+fractal_octaves = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kt01x"]
+noise_type = 0
+seed = 16
+frequency = 0.015
+fractal_octaves = 3
+cellular_jitter = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mq1bj"]
+noise_type = 0
+seed = 3
 frequency = 0.002
 fractal_octaves = 2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_au00k"]
-noise_type = 3
-seed = 1
-fractal_type = 0
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iwv7r"]
+noise_type = 0
+seed = 4
+frequency = 0.002
+fractal_octaves = 2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_707cn"]
-noise_type = 2
-seed = 2
-fractal_type = 0
-fractal_octaves = 3
-cellular_return_type = 0
+[sub_resource type="PlaneMesh" id="PlaneMesh_skmq4"]
+size = Vector2(999, 999)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_au00k"]
+albedo_color = Color(0, 0.52156866, 0.8, 1)
 
 [node name="TestWorld" type="Node3D" unique_id=881198542]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.513214, 0)
 script = ExtResource("2_au00k")
 color = SubResource("StandardMaterial3D_skmq4")
-render_distance = 8
-biome_noise = SubResource("FastNoiseLite_skmq4")
-plains_noise = SubResource("FastNoiseLite_au00k")
-plateau_noise = SubResource("FastNoiseLite_707cn")
+render_distance = 7
+continentalness_noise = SubResource("FastNoiseLite_skmq4")
+erosion_noise = SubResource("FastNoiseLite_au00k")
+height_noise = SubResource("FastNoiseLite_707cn")
+terrace_noise = SubResource("FastNoiseLite_kt01x")
+temperature_noise = SubResource("FastNoiseLite_mq1bj")
+humidity_noise = SubResource("FastNoiseLite_iwv7r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1299039499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
+mesh = SubResource("PlaneMesh_skmq4")
+surface_material_override/0 = SubResource("StandardMaterial3D_au00k")

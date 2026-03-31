@@ -24,6 +24,7 @@ private:
     Dictionary erosion_spline;
     Dictionary height_spline;
     Dictionary terrace_settings;
+    float tallest_height = 0.0f;
     bool debug_chunk_stats = false;
 
     float get_height(float world_x, float world_z, Dictionary spline_dict);
@@ -59,6 +60,7 @@ public:
         }
     }
     void set_debug_chunk_stats(bool enabled) { debug_chunk_stats = enabled; }
+    void set_tallest_height(float height) { tallest_height = height; }
 
     Ref<FastNoiseLite> get_continentalness_noise() { return continentalness_noise; }
     Ref<FastNoiseLite> get_erosion_noise() { return erosion_noise; }
@@ -74,6 +76,7 @@ public:
     Dictionary get_region_settings() { return region_settings; }
     Dictionary get_terrace_settings() { return terrace_settings; }
     bool get_debug_chunk_stats() { return debug_chunk_stats; }
+    float get_tallest_height() { return tallest_height; }
 
 };
 

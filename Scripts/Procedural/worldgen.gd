@@ -31,31 +31,26 @@ var terrain_shape = \
 {
 	"continentalness": {
 		"values": {
-		  -1.0: -40,    # deep ocean
-		  -0.5: -22,    # shallow ocean
-		   0.0: 0,      # sea-level baseline / flat land
-		   0.5: 40,     # highlands
-		   1.0: 120     # tallest continental peaks
+			-1.0: -60.0,  # Deep Ocean
+			-0.2: 0.0,    # Coast
+			 0.2: 40.0,   # Lowland Plateau
+			 0.5: 100.0,  # Highland Plateau (Huge area is now 100m high)
+			 1.0: 160.0   # Extreme Highland base
 		},
-		"weight": 1.0    # full influence on macro terrain
+		"weight": 1.0
 	},
 	"erosion": {
 		"values": {
-			-1.0: -30,
-			-0.5: -10,
-			 0.0: 0,
-			 0.5: 10,
-			 1.0: 25
+			-1.0: 60.0,   # Low erosion = Sharp peaks ADDED to the base
+			 0.0: 0.0,    # Neutral
+			 1.0: -40.0   # High erosion = Carved valleys SUBTRACTED from base
 		},
 		"weight": 1.0
 	},
 	"height": {
 		"values": {
-			-1.0: -20,
-			-0.5: -5,
-			 0.0: 0,
-			 0.5: 20,
-			 1.0: 60
+			-1.0: -15.0,
+			 1.0: 15.0
 		},
 		"weight": 1.0
 	}
@@ -64,59 +59,45 @@ var terrain_shape = \
 # Biome definitions based on climate ranges
 # temperature and humidity values are expected in [-1,1]
 var biomes = {
-	#"desert": {
-		#"temp_min": 0.4,
-		#"temp_max": 1.0,
-		#"humid_min": -1.0,
-		#"humid_max": -0.1,
-		#"height_mult": 0.3,
-		#"roughness": 0.2
-	#}
-	#,
+	"frozen_peaks": {
+		"temp_min": -1.0, "temp_max": -0.4,
+		"humid_min": -1.0, "humid_max": 1.0,
+		"height_mult": 2.0, "roughness": 1.2,
+		"color": Color(0.9, 0.9, 1.0)
+	},
+	"tundra": {
+		"temp_min": -0.4, "temp_max": 0.0,
+		"humid_min": -1.0, "humid_max": 1.0,
+		"height_mult": 0.6, "roughness": 0.4,
+		"color": Color(0.689, 0.45, 0.28, 1.0)
+	},
 	"plains": {
-		"temp_min": -1,
-		"temp_max": 1,
-		"humid_min": -1,
-		"humid_max": 1,
-		"height_mult": 0.5,
-		"roughness": 0.4
+		"temp_min": 0.0, "temp_max": 0.5,
+		"humid_min": -0.3, "humid_max": 0.3,
+		"height_mult": 0.5, "roughness": 0.3,
+		"color": Color(0.4, 0.7, 0.2)
+	},
+	"desert": {
+		"temp_min": 0.5, "temp_max": 1.0,
+		"humid_min": -1.0, "humid_max": -0.2,
+		"height_mult": 0.4, "roughness": 0.2,
+		"color": Color(0.9, 0.8, 0.4)
+	},
+	"jungle": {
+		"temp_min": 0.4, "temp_max": 1.0,
+		"humid_min": 0.4, "humid_max": 1.0,
+		"height_mult": 1.1, "roughness": 0.7,
+		"color": Color(0.0, 0.3, 0.0)
 	}
-	#,
-	#"forest": {
-		#"temp_min": -0.1,
-		#"temp_max": 0.6,
-		#"humid_min": 0.3,
-		#"humid_max": 1.0,
-		#"height_mult": 0.6,
-		#"roughness": 0.5
-	#}
-	#,
-	#"snow": {
-		#"temp_min": -1.0,
-		#"temp_max": -0.3,
-		#"humid_min": -1.0,
-		#"humid_max": 1.0,
-		#"height_mult": 0.6,
-		#"roughness": 0.4
-	#}
-	#,
-	#"mountains": {
-		#"temp_min": -1.0,
-		#"temp_max": 1.0,
-		#"humid_min": -1.0,
-		#"humid_max": 1.0,
-		#"height_mult": 1.8,
-		#"roughness": 1.0
-	#}
 }
 
 var terrace_settings: Dictionary = \
 {
 	"base_step_height": 2.0,
-	"max_step_multiple": 7,
-	"mountain_start_height": 18.0,
-	"mountain_full_height": 110.0,
-	"control_noise_scale": 0.012
+	"max_step_multiple": 5,
+	"mountain_start_height": 40.0,
+	"mountain_full_height": 120.0,
+	"control_noise_scale": 0.05
 }
 
 func _ready():
@@ -130,13 +111,15 @@ func generate_world():
 			child.queue_free()
 
 	chunks.clear()
-
+	var max_height = 0.0
 	for x in range(-render_distance, render_distance):
 		for y in range(-render_distance, render_distance):
-			create_chunk(Vector2i(x,y))
+			max_height = max(create_chunk(Vector2i(x,y)), max_height)
+	
+	print("Max height in all chunks: ", max_height)
 
 
-func create_chunk(c_pos: Vector2i):
+func create_chunk(c_pos: Vector2i) -> float:
 
 	var chunk = TerrainChunk.new()
 	add_child(chunk)
@@ -163,6 +146,8 @@ func create_chunk(c_pos: Vector2i):
 	chunk.generate_chunk(c_pos, chunk_size, terrain_shape)
 
 	chunks[c_pos] = chunk
+	
+	return chunk.tallest_height
 
 
 func generate_random_world():

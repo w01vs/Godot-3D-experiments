@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cdhu8e721t4e6"]
+
+[ext_resource type="Script" uid="uid://cl7i723hc8147" path="res://test.gd" id="1_1svy8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6wxjl"]
+noise_type = 3
+seed = 1
+frequency = 0.005
+fractal_octaves = 2
+fractal_gain = 0.3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1svy8"]
+resource_local_to_scene = true
+noise_type = 0
+frequency = 0.008
+fractal_lacunarity = 1.8
+domain_warp_amplitude = 15.0
+domain_warp_frequency = 0.04
+domain_warp_fractal_octaves = 1
+
+[sub_resource type="Curve" id="Curve_1svy8"]
+_limits = [-50.0, 120.0, -1.0, 1.0]
+_data = [Vector2(-1, -50), 0.0, 0.0, 0, 0, Vector2(-0.44, -33), 0.0, 0.0, 0, 0, Vector2(-0.34, -22.8), 0.0, 0.0, 0, 0, Vector2(-0.18000002, 2.7000015), 0.0, 0.0, 0, 0, Vector2(0.23999998, 4.4000015), 0.0, 0.0, 0, 0, Vector2(0.61999995, 36.7), 0.0, 0.0, 0, 0, Vector2(0.79999995, 86), 0.0, 0.0, 0, 0, Vector2(1, 120), 0.0, 0.0, 0, 0]
+point_count = 8
+metadata/_snap_enabled = true
+metadata/_snap_count = 100
+
+[node name="TextureRect" type="TextureRect" unique_id=1812375679]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1svy8")
+river_zoom = 1.5
+river_width_smooth = 0.03
+river_mask = 0.5
+river_max_height = 55.0
+noise_river = SubResource("FastNoiseLite_6wxjl")
+noise = SubResource("FastNoiseLite_1svy8")
+curve = SubResource("Curve_1svy8")

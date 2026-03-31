@@ -69,95 +69,105 @@ void TerrainChunk::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_terrace_noise", "noise"), &TerrainChunk::set_terrace_noise);
     ClassDB::bind_method(D_METHOD("get_terrace_noise"), &TerrainChunk::get_terrace_noise);
     ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "terrace_noise", PROPERTY_HINT_RESOURCE_TYPE, "FastNoiseLite"), "set_terrace_noise", "get_terrace_noise");
+
+    ClassDB::bind_method(D_METHOD("set_tallest_height", "height"), &TerrainChunk::set_tallest_height);
+    ClassDB::bind_method(D_METHOD("get_tallest_height"), &TerrainChunk::get_tallest_height);
+    ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "tallest_height"), "set_tallest_height", "get_tallest_height");
 }
 
 float TerrainChunk::evaluate_spline(float noise_val, Dictionary spline_dict) {
     if (spline_dict.is_empty()) return 0.0f;
 
     Array keys = spline_dict.keys();
-    keys.sort(); // Crucial for interpolation
+    keys.sort(); 
 
-    // Clamp if out of bounds
-    if (noise_val <= (float)keys[0]) return spline_dict[keys[0]];
-    if (noise_val >= (float)keys[keys.size() - 1]) return spline_dict[keys[keys.size() - 1]];
+    int size = keys.size();
+    float first_key = (float)keys[0];
+    float last_key = (float)keys[size - 1];
 
-    // Find the segment to interpolate
-    for (int i = 0; i < keys.size() - 1; i++) {
-        float x0 = keys[i];
-        float x1 = keys[i + 1];
+    if (noise_val <= first_key) return (float)spline_dict[keys[0]];
+    if (noise_val >= last_key) return (float)spline_dict[keys[size - 1]];
+
+    for (int i = 0; i < size - 1; i++) {
+        float x0 = (float)keys[i];
+        float x1 = (float)keys[i + 1];
 
         if (noise_val >= x0 && noise_val <= x1) {
-            float y0 = spline_dict[x0];
-            float y1 = spline_dict[x1];
+            float y0 = (float)spline_dict[keys[i]];
+            float y1 = (float)spline_dict[keys[i + 1]];
+
+            // Cubic Hermite Spline calculation
+            // We need 4 points to find tangents for smooth curves
+            float x_prev = (i > 0) ? (float)keys[i-1] : x0 - (x1 - x0);
+            float y_prev = (i > 0) ? (float)spline_dict[keys[i-1]] : y0 - (y1 - y0);
             
-            // Linear interpolation (t = (val - start) / range)
+            float x_next = (i < size - 2) ? (float)keys[i+2] : x1 + (x1 - x0);
+            float y_next = (i < size - 2) ? (float)spline_dict[keys[i+2]] : y1 + (y1 - y0);
+
+            // Tangents (Finite Difference)
+            float m0 = (y1 - y_prev) / (x1 - x_prev);
+            float m1 = (y_next - y0) / (x_next - x0);
+
+            // Interpolate
             float t = (noise_val - x0) / (x1 - x0);
-            return y0 + t * (y1 - y0);
+            float t2 = t * t;
+            float t3 = t2 * t;
+
+            // Hermite Basis Functions
+            float h00 = 2*t3 - 3*t2 + 1;
+            float h10 = t3 - 2*t2 + t;
+            float h01 = -2*t3 + 3*t2;
+            float h11 = t3 - t2;
+
+            return h00 * y0 + h10 * m0 * (x1 - x0) + h01 * y1 + h11 * m1 * (x1 - x0);
         }
     }
     return 0.0f;
 }
 
 float TerrainChunk::get_height(float world_x, float world_z, Dictionary master_splines) {
-    // 1. Sample Raw Noises (-1.0 to 1.0) [cite: 1, 2]
+    // 1. Sample Raw Noises (-1.0 to 1.0)
     float raw_con = continentalness_noise->get_noise_2d(world_x, world_z);
     float raw_ero = erosion_noise->get_noise_2d(world_x, world_z);
     float raw_h   = height_noise->get_noise_2d(world_x, world_z);
-    
-    float temp    = temperature_noise->get_noise_2d(world_x, world_z);
-    float humid   = humidity_noise->get_noise_2d(world_x, world_z);
 
-    // 2. Extract Data and Evaluate Splines
-    // Each entry now has a "values" dict and a "weight" float
+    // 2. Evaluate Splines
     Dictionary con_data = master_splines["continentalness"];
-    float con_val = evaluate_spline(raw_con, con_data["values"]) * (float)con_data["weight"];
+    float base_height = evaluate_spline(raw_con, con_data["values"]) * (float)con_data["weight"];
 
     Dictionary ero_data = master_splines["erosion"];
-    float ero_val = evaluate_spline(raw_ero, ero_data["values"]) * (float)ero_data["weight"];
+    float erosion_val = evaluate_spline(raw_ero, ero_data["values"]) * (float)ero_data["weight"];
 
     Dictionary h_data = master_splines["height"];
-    float h_val = evaluate_spline(raw_h, h_data["values"]) * (float)h_data["weight"];
+    float jitter = evaluate_spline(raw_h, h_data["values"]) * (float)h_data["weight"];
 
-    // 3. Determine Biome Roughness
-    float biome_roughness = 1.0f;
-    Array b_keys = region_settings.keys();
-    for (int i = 0; i < b_keys.size(); i++) {
-        Dictionary b = region_settings[b_keys[i]];
-        if (temp >= (float)b["temp_min"] && temp <= (float)b["temp_max"] &&
-            humid >= (float)b["humid_min"] && humid <= (float)b["humid_max"]) {
-            biome_roughness = (float)b["roughness"];
-            break;
-        }
-    }
+    // 3. The "Highland" Mask
+    // We calculate how 'mountainous' the area is based on continentalness
+    float highland_bias = Math::clamp((base_height - 20.0f) / 80.0f, 0.0f, 1.0f);
 
-    // 4. Final Minecraft-style Composition
-    // Continentalness + Erosion + (Height Detail * Biome Modifier)
-    float final_height = con_val + ero_val + (h_val * biome_roughness);
+    // 4. Composition
+    // Base + Erosion is the main shape.
+    float final_height = base_height + erosion_val;
 
+    // We multiply the jitter by our bias so detail noise is 
+    // much more aggressive in the mountains than the plains.
+    final_height += (jitter * (0.2f + highland_bias * 2.0f));
+
+    // --- YOUR EXISTING TERRACE LOGIC ---
     float base_step_height = (float)terrace_settings["base_step_height"];
     int max_step_multiple = (int)terrace_settings["max_step_multiple"];
     float mountain_start_height = (float)terrace_settings["mountain_start_height"];
     float mountain_full_height = (float)terrace_settings["mountain_full_height"];
     float control_noise_scale = (float)terrace_settings["control_noise_scale"];
 
-    if (base_step_height <= 0.0f) {
-        base_step_height = 2.0f;
-    }
-    if (max_step_multiple < 1) {
-        max_step_multiple = 1;
-    }
+    if (base_step_height <= 0.0f) base_step_height = 2.0f;
+    if (max_step_multiple < 1) max_step_multiple = 1;
 
     float mountain_range = mountain_full_height - mountain_start_height;
-    if (mountain_range <= 0.0f) {
-        mountain_range = 1.0f;
-    }
+    if (mountain_range <= 0.0f) mountain_range = 1.0f;
 
     float mountain_mask = (final_height - mountain_start_height) / mountain_range;
-    if (mountain_mask < 0.0f) {
-        mountain_mask = 0.0f;
-    } else if (mountain_mask > 1.0f) {
-        mountain_mask = 1.0f;
-    }
+    mountain_mask = Math::clamp(mountain_mask, 0.0f, 1.0f);
 
     float terrace_control = terrace_noise->get_noise_2d(world_x * control_noise_scale, world_z * control_noise_scale);
     float normalized_control = (terrace_control + 1.0f) / 2.0f;
@@ -287,12 +297,13 @@ void TerrainChunk::generate_chunk(Vector2i chunk_pos, int chunk_size, Dictionary
             if (debug_chunk_stats) {
                 update_range(height, min_height, max_height);
             }
-
+            
             vertices.push_back(Vector3(x, height, z));
         }
     }
-
-    UtilityFunctions::print("Maximum height: ", maximum_height);
+    
+    tallest_height = maximum_height;
+    UtilityFunctions::print("Maximum height: ", tallest_height);
 
     if (debug_chunk_stats) {
         UtilityFunctions::print(

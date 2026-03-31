@@ -59,6 +59,6 @@ temperature_noise = SubResource("FastNoiseLite_mq1bj")
 humidity_noise = SubResource("FastNoiseLite_iwv7r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1299039499]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.003, 0)
 mesh = SubResource("PlaneMesh_skmq4")
 surface_material_override/0 = SubResource("StandardMaterial3D_au00k")

@@ -1,10 +1,10 @@
-class_name Health_Interactable extends Node3D
+class_name HealthInteractable extends Node3D
 
 @export var health_change: float
 @export var type: DamageSystem.ChangeType
 @export_group("Only with DOT")
-@export var change_per_tick: float = 0
-@export var time_per_tick: float = 0
+@export var change_per_tick: float
+@export var time_per_tick: float
 
 func interact(interacter: Node3D) -> void:
 	var info = OnHitInformation.new()

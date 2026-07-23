@@ -18,7 +18,7 @@ var collider_count: int = 0
 	
 var time_margin: float = 0.08
 
-var timer_running: bool = false
+var timer_running: bool = true
 
 var timer_current: float = 0
 
@@ -28,11 +28,13 @@ var timer_current: float = 0
 
 func _ready() -> void:
 	mesh_.set_surface_override_material(0, default_mat)
+	area.connect("area_entered", _on_area_3d_area_entered)
+	area.connect("area_exited", _on_area_3d_area_exited)
 
 func to_holo() -> void:
 	if not holo:
 		holo = true
-		mesh_.set_surface_override_material(0, mat)
+		place_check()
 
 func place() -> void:
 	if holo:
@@ -42,18 +44,41 @@ func place() -> void:
 		set_collision_layer_value(5, true)
 		area.disconnect("area_entered", _on_area_3d_area_entered)
 		area.disconnect("area_exited", _on_area_3d_area_exited)
-		area.disconnect("body_entered", _on_area_3d_body_entered)
-		area.disconnect("body_exited", _on_area_3d_body_exited)
-		area.disconnect("area_shape_entered", _on_area_3d_area_shape_entered)
-		area.disconnect("area_shape_exited", _on_area_3d_area_shape_exited)
-		area.disconnect("body_shape_entered", _on_area_3d_body_shape_entered)
-		area.disconnect("body_shape_exited", _on_area_3d_body_shape_exited)
 		area.monitorable = true
 		area.monitoring = false
 		area.set_collision_layer_value(1, true)
 
+func place_check() -> void:
+	# In build_box.gd inside can_be_placed():
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsShapeQueryParameters3D.new()
+
+	# Create a slightly shrunk copy of the shape for the query
+	var shape_node = area.get_node("CollisionShape3D")
+	var check_shape = shape_node.shape.duplicate()
+
+	# Prevent collision when reaaaally close to each other
+	if check_shape is BoxShape3D:
+		check_shape.size -= Vector3(0.04, 0.04, 0.04)
+
+	query.shape = check_shape
+	query.transform = global_transform
+	query.collision_mask = area.collision_mask
+	query.exclude = [self.get_rid(), area.get_rid()]
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+
+	var hits = space_state.intersect_shape(query, 1)
+	if hits.size() != 0:
+		print_debug(hits)
+		mesh_.set_surface_override_material(0, err_mat)
+		placeable = false
+		return
+	mesh_.set_surface_override_material(0, mat)
+	placeable = true
+
 func _process(delta: float) -> void:
-	if timer_running:
+	if timer_running and !placed:
 		timer_current += delta
 		if timer_current > time_margin:
 			placeable = true
@@ -65,45 +90,17 @@ func _on_area_3d_area_entered(_area: Area3D):
 	if placeable:
 		placeable = false
 		mesh_.set_surface_override_material(0, err_mat)
+	print_debug(collider_count)
 
 func _on_area_3d_area_exited(_area: Area3D):
 	collider_count -= 1
 	if collider_count == 0:
 		timer_current = 0
 		timer_running = true
+	print_debug(collider_count)
 
-func _on_area_3d_body_entered(_body):
-	collider_count += 1
-	if placeable:
-		mesh_.set_surface_override_material(0, err_mat)
-		placeable = false
-
-func _on_area_3d_body_exited(_body):
-	collider_count -= 1
-	if collider_count == 0:
-		timer_current = 0
-		timer_running = true
-
-func _on_area_3d_area_shape_entered(_area_rid, _area, _area_shape_index, _local_shape_index):
-	collider_count += 1
-	if placeable:
-		placeable = false
-		mesh_.set_surface_override_material(0, err_mat)
-
-func _on_area_3d_area_shape_exited(_area_rid, _area, _area_shape_index, _local_shape_index):
-	collider_count -= 1
-	if collider_count == 0:
-		timer_current = 0
-		timer_running = true
-
-func _on_area_3d_body_shape_entered(_body_rid, _body, _body_shape_index, _local_shape_index):
-	collider_count += 1
-	if placeable:
-		mesh_.set_surface_override_material(0, err_mat)
-		placeable = false
-
-func _on_area_3d_body_shape_exited(_body_rid, _body, _body_shape_index, _local_shape_index):
-	collider_count -= 1
-	if collider_count == 0:
-		timer_current = 0
-		timer_running = true
+func reset_placement_check() -> void:
+	placeable = false
+	timer_running = false
+	timer_current = 0.0
+	place_check()

@@ -5,7 +5,7 @@ func _ready() -> void:
 	assert(children.size() == 1)
 
 func execute() -> int:
-	var res: int = await children[0].execute()
+	var res: int = children[0].execute()
 	if res == SUCCESS:
 		return FAILED
 	elif res == RUNNING:

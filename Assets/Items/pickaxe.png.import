@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxy5dly3rchru"
-path="res://.godot/imported/#1 - Transparent Icons.png-e9d88ce061f4ccd58f3baf5f87e3eb92.ctex"
+uid="uid://imhmtmvqeoem"
+path="res://.godot/imported/pickaxe.png-13de3dc29143e48e4ef24466d317df5d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Items/#1 - Transparent Icons.png"
-dest_files=["res://.godot/imported/#1 - Transparent Icons.png-e9d88ce061f4ccd58f3baf5f87e3eb92.ctex"]
+source_file="res://Assets/Items/pickaxe.png"
+dest_files=["res://.godot/imported/pickaxe.png-13de3dc29143e48e4ef24466d317df5d.ctex"]
 
 [params]
 

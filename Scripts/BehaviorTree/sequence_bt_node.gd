@@ -12,6 +12,7 @@ func iteration(start: int) -> int:
 	last_index = 0
 	var result
 	for i in range(start, children.size()):
+			@warning_ignore("redundant_await")
 			result = await children[i].execute()
 			match result:
 				FAILED:

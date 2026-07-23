@@ -17,6 +17,7 @@ func get_bt_children() -> void:
 func compare(a: BTNode, b: BTNode) -> bool:
 	return a.priority > b.priority
 
+@warning_ignore("redundant_await")
 func execute() -> int:
 	return FAILED
 

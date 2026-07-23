@@ -6,6 +6,8 @@ var slots: Array[InventorySlot]
 enum UIState{ INVENTORY_OPEN, DEFAULT }
 var ui_state: UIState = UIState.DEFAULT
 
+var active_hotbar_index: int = -1
+
 var slot: PackedScene = preload("res://Scenes/Inventory/inventory_slot.tscn")
 
 func _ready() -> void:
@@ -31,6 +33,8 @@ func _physics_process(_delta: float) -> void:
 				_open_inventory()
 			UIState.INVENTORY_OPEN:
 				_close_inventory()
+
+
 
 func update_slot(index: int, data: SlotData, target: String) -> void:
 	if target == "inventory":

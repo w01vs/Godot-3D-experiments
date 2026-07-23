@@ -10,7 +10,7 @@ var slots: Array[SlotData] = []
 var hotbar_slots: Array[SlotData] = []
 var mouse_data: SlotData
 
-var active_index: int
+var active_index: int = 0
 
 @onready var player: Player = $".."
 
@@ -26,25 +26,28 @@ func _ready() -> void:
 		set_slot_data(i, inv_data.main_inventory[i], "inventory")
 	for i in range(inv_data.hotbar.size()):
 		set_slot_data(i, inv_data.hotbar[i], "hotbar")
+	active_index = 0
+	await GlobalRefs.player_set
+	_set_active_item()
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("scroll_down"):
-		if active_index == 0:
-			active_index = HOTBAR_SIZE - 1
-		else:
-			active_index -= 1
-		hotbar_active_changed.emit(active_index)
-		_set_active_item()
-	
-	if Input.is_action_just_pressed("scroll_up"):
 		if active_index == HOTBAR_SIZE - 1:
 			active_index = 0
 		else:
 			active_index += 1
 		hotbar_active_changed.emit(active_index)
 		_set_active_item()
+	
+	if Input.is_action_just_pressed("scroll_up"):
+		if active_index == 0:
+			active_index = HOTBAR_SIZE - 1
+		else:
+			active_index -= 1
+		_set_active_item()
 
 func _set_active_item() -> void:
+	hotbar_active_changed.emit(active_index)
 	player.switch_hotbar_slot(active_index)
 
 func _load_active_item() -> void:

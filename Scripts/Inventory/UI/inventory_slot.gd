@@ -2,6 +2,7 @@ class_name InventorySlot extends PanelContainer
 
 @onready var _img: TextureRect = $Button/MarginContainer/TextureRect
 @onready var _quantity_label: Label = $QuantityLabel
+@onready var _border: Panel = $Button/Panel
 
 var slot_data: SlotData
 var index: int
@@ -28,3 +29,6 @@ func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			GlobalRefs.player.inventory.handle_interaction(index, target)
+
+func toggle_border(on: bool) -> void:
+	_border.visible = on

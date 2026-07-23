@@ -182,6 +182,7 @@ type = 1
 metadata/_custom_type_script = "uid://k857ynoid412"
 
 [node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/DamageInteractable2" unique_id=1961764260]
+transform = Transform3D(1, 9.345058e-11, -5.820766e-11, -4.487788e-11, 1, 0, 5.820766e-11, -1.4551915e-11, 1, -1.3368392, -0.0014734268, -0.0012185522)
 material_override = SubResource("StandardMaterial3D_gp6bf")
 mesh = SubResource("BoxMesh_h5xwh")
 skeleton = NodePath("../../..")
@@ -190,6 +191,7 @@ skeleton = NodePath("../../..")
 script = ExtResource("6_lyyo3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable2/Interactable" unique_id=742216241]
+transform = Transform3D(1, 9.345058e-11, -5.820766e-11, -4.487788e-11, 1, 0, 5.820766e-11, -1.4551915e-11, 1, -1.3357583, -0.0014722347, -0.0012175669)
 shape = SubResource("ConcavePolygonShape3D_35xku")
 
 [node name="BetterPlayer" parent="." unique_id=1293619965 groups=["ally", "player"] instance=ExtResource("8_2uxu7")]

@@ -7,7 +7,7 @@ func _ready():
 	health_component.health_changed.connect(healthChanged)
 	health = health_component.get_max_health()
 
-func _process(delta):
+func _process(_delta: float):
 	health_bar.value = health / health_component.get_max_health()
 
 func healthChanged(amount: float) -> void:

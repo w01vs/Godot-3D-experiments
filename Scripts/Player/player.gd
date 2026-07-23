@@ -52,11 +52,11 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 		
 	move_and_slide()
-	
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if Input.is_action_just_pressed("refocus"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if OS.is_debug_build():
+		if Input.is_action_just_pressed("ui_cancel"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if Input.is_action_just_pressed("refocus"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 	if Input.is_action_just_pressed("default_attack"):
 		if held_item:
@@ -113,11 +113,11 @@ func hotbar_unload_item(index: int) -> void:
 		hotbar_items[index].hide()
 		hotbar_items[index].queue_free()
 
-func _on_animation_player_animation_finished(anim_name):
+func _on_animation_player_animation_finished(_anim_name: String):
 	if held_item:
 		held_item.on_animation_end()
 
-func _on_animation_player_animation_started(anim_name):
+func _on_animation_player_animation_started(_anim_name: String):
 	if held_item:
 		held_item.on_animation_start()
 

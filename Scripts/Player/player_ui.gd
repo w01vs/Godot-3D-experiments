@@ -9,7 +9,7 @@ var player: Player
 func _ready() -> void:
 	GlobalRefs.player_set.connect(initialize_healthbar)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#player_healthbar.value = player_health / player_health_component.get_max_health()
 	pass
 

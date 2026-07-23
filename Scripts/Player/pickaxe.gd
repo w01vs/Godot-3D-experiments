@@ -27,7 +27,7 @@ func _get_animation() -> String:
 	return "slash_attack"
 
 func can_harvest(resource_type: HarvestableResource.ResourceType) -> bool:
-	if resource_type == HarvestableResource.ResourceType.Diamond:
+	if harvestable.find(resource_type) != -1:
 		return true
 	return false
 

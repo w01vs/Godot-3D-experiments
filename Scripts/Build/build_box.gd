@@ -10,7 +10,7 @@ var err_mat: Material = preload("res://Resources/Building/holo_collidiing_materi
 
 var holo: bool = false
 
-var placeable: bool = true
+var placeable: bool = false
 
 var placed: bool = false
 
@@ -60,49 +60,49 @@ func _process(delta: float) -> void:
 			mesh_.set_surface_override_material(0, mat)
 			timer_running = false
 
-func _on_area_3d_area_entered(area):
+func _on_area_3d_area_entered(_area: Area3D):
 	collider_count += 1
 	if placeable:
-		mesh_.set_surface_override_material(0, err_mat)
 		placeable = false
+		mesh_.set_surface_override_material(0, err_mat)
 
-func _on_area_3d_area_exited(area):
+func _on_area_3d_area_exited(_area: Area3D):
 	collider_count -= 1
 	if collider_count == 0:
 		timer_current = 0
 		timer_running = true
 
-func _on_area_3d_body_entered(body):
+func _on_area_3d_body_entered(_body):
 	collider_count += 1
 	if placeable:
 		mesh_.set_surface_override_material(0, err_mat)
 		placeable = false
 
-func _on_area_3d_body_exited(body):
+func _on_area_3d_body_exited(_body):
 	collider_count -= 1
 	if collider_count == 0:
 		timer_current = 0
 		timer_running = true
 
-func _on_area_3d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+func _on_area_3d_area_shape_entered(_area_rid, _area, _area_shape_index, _local_shape_index):
 	collider_count += 1
 	if placeable:
-		mesh_.set_surface_override_material(0, err_mat)
 		placeable = false
+		mesh_.set_surface_override_material(0, err_mat)
 
-func _on_area_3d_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
+func _on_area_3d_area_shape_exited(_area_rid, _area, _area_shape_index, _local_shape_index):
 	collider_count -= 1
 	if collider_count == 0:
 		timer_current = 0
 		timer_running = true
 
-func _on_area_3d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+func _on_area_3d_body_shape_entered(_body_rid, _body, _body_shape_index, _local_shape_index):
 	collider_count += 1
 	if placeable:
 		mesh_.set_surface_override_material(0, err_mat)
 		placeable = false
 
-func _on_area_3d_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+func _on_area_3d_body_shape_exited(_body_rid, _body, _body_shape_index, _local_shape_index):
 	collider_count -= 1
 	if collider_count == 0:
 		timer_current = 0

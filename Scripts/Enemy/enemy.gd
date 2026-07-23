@@ -54,5 +54,5 @@ func calculate_sight_box() -> void:
 	
 	sight_box.body_exited.connect(exit)
 
-func exit(body: Node3D) -> void:
+func exit(_body: Node3D) -> void:
 	velocity = Vector3.ZERO

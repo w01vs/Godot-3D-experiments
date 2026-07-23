@@ -5,5 +5,5 @@ class_name BetterHealthBar extends ProgressBar
 func _ready() -> void:
 	value_changed.connect(animate)
 
-func animate(new_value: float) -> void:
+func animate(_new_value: float) -> void:
 	animator.play("twinkle")

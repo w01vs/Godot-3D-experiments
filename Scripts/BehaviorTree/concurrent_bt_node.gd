@@ -16,6 +16,7 @@ func iteration(index: int) -> int:
 	last_index = 0
 	for i in range(index, children.size()):
 		var child: BTNode = children[i]
+		@warning_ignore("redundant_await")
 		var result: int = await child.execute()
 		var failed_children: int = 0
 		match result:

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://Scenes/sword.tscn" id="1_hmyfh"]
 [ext_resource type="Script" uid="uid://csho28octbu4l" path="res://Scripts/item_data.gd" id="1_rghou"]
-[ext_resource type="Texture2D" uid="uid://m586gmxmtocb" path="res://Assets/Items/item_atlas.tres" id="2_kfu1g"]
+[ext_resource type="Texture2D" uid="uid://if24auc47fio" path="res://Assets/Items/sword.png" id="3_csaa2"]
 
 [resource]
 script = ExtResource("1_rghou")
@@ -10,5 +10,5 @@ name = "Black Sword"
 id = "black_sword"
 description = "ooooh spooky...."
 model = ExtResource("1_hmyfh")
-texture = ExtResource("2_kfu1g")
+texture = ExtResource("3_csaa2")
 metadata/_custom_type_script = "uid://csho28octbu4l"

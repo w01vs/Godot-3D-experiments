@@ -14,6 +14,8 @@ var state : GlobalRefs.PlayerState = GlobalRefs.PlayerState.DEFAULT
 
 var snapping: bool = false
 
+var last_buildx_pos: Vector3
+
 func _process(_delta: float) -> void:
 	match state:
 		GlobalRefs.PlayerState.DEFAULT:
@@ -68,55 +70,37 @@ func _physics_process(_delta: float) -> void:
 	match state:
 		GlobalRefs.PlayerState.BUILD:
 			if is_colliding():
-				if snapping:
-					var object = get_collider()
-					if object is BuildBox:
-						var pt: Vector3 = get_collision_point()
-						var loc: Vector3 = object.global_position
-						var scales: Vector3 = object.scale
-						var offsets: Vector3 = object.scale / 2
-						object.area.monitorable = false
-						# something something side of the object
-						if pt.x > loc.x and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y \
-						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
-							buildx.global_position = Vector3(loc.x + scales.x, loc.y, loc.z)
-						elif pt.x < loc.x and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y \
-						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
-							buildx.global_position = Vector3(loc.x - scales.x, loc.y, loc.z)
-						elif pt.y < loc.y and pt.x < loc.x + offsets.x and pt.x > loc.x - offsets.x \
-						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
-							buildx.global_position = Vector3(loc.x, loc.y - scales.y, loc.z)
-						elif pt.y > loc.y and pt.x < loc.x + offsets.x and pt.x > loc.x - offsets.x \
-						and pt.z < loc.z + offsets.z and pt.z > loc.z - offsets.z:
-							buildx.global_position = Vector3(loc.x, loc.y + scales.y, loc.z)
-						elif pt.z > loc.z and pt.x < loc.x + offsets.x and pt.x > loc.x - offsets.x \
-						and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y:
-							buildx.global_position = Vector3(loc.x, loc.y, loc.z + scales.z)
-						elif pt.z < loc.z and pt.x < loc.x + offsets.x and pt.x > loc.x - offsets.x \
-						and pt.y < loc.y + offsets.y and pt.y > loc.y - offsets.y:
-							buildx.global_position = Vector3(loc.x, loc.y, loc.z - scales.z)
-					else:
-						buildx.global_position = get_collision_point()
-						buildx.global_position = Vector3(buildx.global_position.x,
-													 buildx.global_position.y + buildx.scale.y / 2,
-													 buildx.global_position.z)
+				var hit_object = get_collider()
+				var hit_point = get_collision_point()
+				var hit_normal = get_collision_normal()
+				var target_pos: Vector3 = Vector3.ZERO
+				# 1. Determine target position
+				if snapping and hit_object is BuildBox:
+					# Snap directly adjacent to the hit box along its face normal
+					target_pos = hit_object.global_position + (hit_normal * buildx.scale)
 				else:
-					buildx.global_position = get_collision_point()
-					buildx.global_position = Vector3(buildx.global_position.x,
-													 buildx.global_position.y + buildx.scale.y / 2,
-													 buildx.global_position.z)
+					# Free placement: offset away from wall/floor face by half size
+					target_pos = hit_point + (hit_normal * (buildx.scale / 2.0))
+				
+				# 2. Check if the preview moved to a NEW position
+				if target_pos != last_buildx_pos:
+					buildx.global_position = target_pos
+					last_buildx_pos = target_pos
+					# Run instant placement validity & material color update
+					buildx.body.place_check()
+					
 				buildx.visible = true
-				buildx.to_holo()
+				
+				# 3. Handle placement input
 				if Input.is_action_just_pressed("default_attack"):
 					if buildx.body.placeable:
 						buildx.place()
 						buildx = build_scene.instantiate()
 						GlobalRefs.world.add_child(buildx)
 						buildx.to_holo()
+						last_buildx_pos = Vector3.INF # Force position update on new instance
 			else:
 				buildx.visible = false
+				
 			if Input.is_action_just_pressed("snap"):
-				if snapping:
-					snapping = false
-				else:
-					snapping = true
+				snapping = !snapping

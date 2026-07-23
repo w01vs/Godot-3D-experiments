@@ -1,6 +1,6 @@
 extends RayCast3D
 
-var current_collider: Interactable
+var current_collider: CollisionObject3D
 
 signal ui_switched(state: GlobalRefs.PlayerState)
 
@@ -23,12 +23,12 @@ func _process(_delta: float) -> void:
 
 func collision() -> void:
 	var collider = get_collider()
-	if is_colliding() and collider is Interactable:
+	if is_colliding() and collider.has_meta("interactable"):
 		if current_collider != collider:
 			current_collider = collider
 		
 		if(Input.is_action_just_pressed("interact")):
-			collider.interact(player)
+			collider.get_meta("interactable").interact(player)
 	elif current_collider:
 		current_collider = null
 

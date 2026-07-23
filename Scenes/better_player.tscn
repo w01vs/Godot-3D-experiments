@@ -86,6 +86,7 @@ transform = Transform3D(1, 0, 0, 0, -2.98023e-08, -1, 0, 1, -2.98023e-08, 0, 0, 
 visible = false
 target_position = Vector3(0, -5, 0)
 collision_mask = 2
+collide_with_areas = true
 script = ExtResource("2_w8m0h")
 
 [node name="RightArm" type="Node3D" parent="TwistPivot" unique_id=706858921]

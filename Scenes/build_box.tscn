@@ -9,26 +9,26 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p3b7a"]
 
-[node name="BoxParent" type="MeshInstance3D"]
+[node name="BoxParent" type="MeshInstance3D" unique_id=1097657649]
 mesh = SubResource("BoxMesh_tj3u4")
 script = ExtResource("1_vkx3c")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1015424521]
 collision_layer = 0
 collision_mask = 0
 input_ray_pickable = false
 script = ExtResource("1_ulq0x")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=862899976]
 shape = SubResource("BoxShape3D_nt2pb")
 
-[node name="BuildDetection" type="Area3D" parent="."]
+[node name="BuildDetection" type="Area3D" parent="." unique_id=1885123213]
 collision_layer = 0
 collision_mask = 17
 input_ray_pickable = false
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildDetection"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildDetection" unique_id=1287649448]
 shape = SubResource("BoxShape3D_p3b7a")
 
 [connection signal="area_entered" from="BuildDetection" to="." method="_on_area_3d_area_entered"]

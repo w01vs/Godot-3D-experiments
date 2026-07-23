@@ -158,6 +158,7 @@ shape = SubResource("ConcavePolygonShape3D_tijdu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.99061, 2.13419, 0)
 script = ExtResource("5_ghv5m")
 health_change = 30.0
+type = 1
 change_per_tick = 10.0
 time_per_tick = 0.5
 metadata/_custom_type_script = "uid://k857ynoid412"
@@ -166,33 +167,42 @@ metadata/_custom_type_script = "uid://k857ynoid412"
 mesh = SubResource("BoxMesh_cf7fp")
 skeleton = NodePath("../../..")
 
-[node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/HealInteractable" unique_id=369009445]
-transform = Transform3D(0.999436, 0.0335913, 0, -0.0335913, 0.999436, 0, 0, 0, 1, 0, 0, 0)
-script = ExtResource("6_lyyo3")
+[node name="Area3D" type="Area3D" parent="BaseNavRegion/HealInteractable/Mesh" unique_id=1518810985]
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Interactable" unique_id=732372836]
-transform = Transform3D(1, -1.49012e-08, 0, 1.49012e-08, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Mesh/Area3D" unique_id=732372836]
+transform = Transform3D(0.999436, 0.033591285, -1.1641532e-10, -0.033591278, 0.99943614, 0, 2.3283064e-10, -1.4551915e-11, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_gsqyl")
 
-[node name="DamageInteractable2" type="Node3D" parent="BaseNavRegion" unique_id=842776941]
+[node name="InteractableComponent" type="Node" parent="BaseNavRegion/HealInteractable" unique_id=1821283198 node_paths=PackedStringArray("body")]
+script = ExtResource("6_lyyo3")
+body = NodePath("../Mesh/Area3D")
+metadata/_custom_type_script = "uid://c50xit01ai1en"
+
+[node name="DamageInteractable" type="Node3D" parent="BaseNavRegion" unique_id=842776941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2326, 0)
 script = ExtResource("5_ghv5m")
 health_change = -30.0
-type = 1
+type = 2
 metadata/_custom_type_script = "uid://k857ynoid412"
 
-[node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/DamageInteractable2" unique_id=1961764260]
+[node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/DamageInteractable" unique_id=1961764260]
 transform = Transform3D(1, 9.345058e-11, -5.820766e-11, -4.487788e-11, 1, 0, 5.820766e-11, -1.4551915e-11, 1, -1.3368392, -0.0014734268, -0.0012185522)
 material_override = SubResource("StandardMaterial3D_gp6bf")
 mesh = SubResource("BoxMesh_h5xwh")
 skeleton = NodePath("../../..")
 
-[node name="Interactable" type="StaticBody3D" parent="BaseNavRegion/DamageInteractable2" unique_id=1224355251]
-script = ExtResource("6_lyyo3")
+[node name="Area3D" type="Area3D" parent="BaseNavRegion/DamageInteractable/Mesh" unique_id=1653499554]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable2/Interactable" unique_id=742216241]
-transform = Transform3D(1, 9.345058e-11, -5.820766e-11, -4.487788e-11, 1, 0, 5.820766e-11, -1.4551915e-11, 1, -1.3357583, -0.0014722347, -0.0012175669)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable/Mesh/Area3D" unique_id=742216241]
+transform = Transform3D(1, 2.0990853e-10, -1.1641532e-10, -4.4849457e-11, 1, 0, 1.1641532e-10, -2.910383e-11, 1, 0.0010808706, 1.1920929e-06, 9.853393e-07)
 shape = SubResource("ConcavePolygonShape3D_35xku")
+
+[node name="InteractableComponent" type="Node" parent="BaseNavRegion/DamageInteractable" unique_id=1856137255 node_paths=PackedStringArray("body")]
+script = ExtResource("6_lyyo3")
+body = NodePath("../Mesh/Area3D")
+metadata/_custom_type_script = "uid://c50xit01ai1en"
 
 [node name="BetterPlayer" parent="." unique_id=1293619965 groups=["ally", "player"] instance=ExtResource("8_2uxu7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17, 3.7366943, 4.304)

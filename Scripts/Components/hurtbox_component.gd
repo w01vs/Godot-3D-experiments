@@ -1,10 +1,16 @@
-extends Area3D
-class_name HurtboxComponent
+class_name HurtboxComponent extends Component
 
-@export var health_component: HealthComponent
+@export var area: Area3D
 
-func _ready() -> void:
-	set_collision_layer_value(1, false)
-	set_collision_mask_value(1, false)
-	set_collision_layer_value(3, true)
-	set_collision_mask_value(4, true)
+signal hitbox_collided(hitbox: HitboxComponent)
+
+func _init_component() -> void:
+	type = ComponentType.HURTBOX
+	register(area)
+	area.set_collision_layer_value(1, false)
+	area.set_collision_mask_value(1, false)
+	area.set_collision_layer_value(3, true)
+	area.set_collision_mask_value(4, true)
+
+func hit(hitbox: HitboxComponent) -> void:
+	hitbox_collided.emit(hitbox)

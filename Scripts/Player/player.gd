@@ -13,19 +13,19 @@ var JUMP_SPEED_REDUCTION: float = 5
 var health: float
 var health_lerp_timer: float
 var health_chipspeed: float = 2
-@onready var health_component: HealthComponent = $HealthComponent
+@export var health_component: HealthComponent
 
 var held_item: Item
 var hotbar_items: Array[Item]
 
 # Camera pivots
-@onready var twist_pivot: Node3D = $TwistPivot
-@onready var pitch_pivot: Node3D = $TwistPivot/PitchPivot
+@export var twist_pivot: Node3D
+@export var pitch_pivot: Node3D
 
-@onready var inventory: Inventory = $Inventory
-@onready var right_hand_remote: RemoteTransform3D = $TwistPivot/RightArm/rightarm/Marker3D/	RemoteTransform3D
-@onready var right_hand: Marker3D = $TwistPivot/RightArm/rightarm/Marker3D
-@onready var anim_player: AnimationPlayer = $AnimationPlayer
+@export var inventory: Inventory
+@export var right_hand_remote: RemoteTransform3D
+@export var right_hand: Marker3D
+@export var anim_player: AnimationPlayer
 
 func _ready() -> void:
 	hotbar_items.resize(inventory.HOTBAR_SIZE)

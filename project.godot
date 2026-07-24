@@ -122,7 +122,7 @@ scroll_down={
 
 [layer_names]
 
-3d_physics/layer_1="Main"
+3d_physics/layer_1="Terrain"
 3d_physics/layer_2="Interactable"
 3d_physics/layer_3="Hurtboxes"
 3d_physics/layer_4="Hitboxes"

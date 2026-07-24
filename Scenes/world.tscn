@@ -168,8 +168,6 @@ mesh = SubResource("BoxMesh_cf7fp")
 skeleton = NodePath("../../..")
 
 [node name="Area3D" type="Area3D" parent="BaseNavRegion/HealInteractable/Mesh" unique_id=1518810985]
-collision_layer = 0
-collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Mesh/Area3D" unique_id=732372836]
 transform = Transform3D(0.999436, 0.033591285, -1.1641532e-10, -0.033591278, 0.99943614, 0, 2.3283064e-10, -1.4551915e-11, 1, 0, 0, 0)

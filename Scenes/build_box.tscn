@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://425laymvnd48"]
 
-[ext_resource type="Script" uid="uid://cg1g0088onq6g" path="res://Scripts/Build/build_box.gd" id="1_ulq0x"]
-[ext_resource type="Script" uid="uid://2k4d6fecxjyj" path="res://Scripts/Build/box_parent.gd" id="1_vkx3c"]
+[ext_resource type="Script" uid="uid://canh2ypmaa0b7" path="res://Scripts/structurecomponent.gd" id="3_sggx3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_tj3u4"]
 
@@ -9,33 +8,40 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p3b7a"]
 
-[node name="BoxParent" type="MeshInstance3D" unique_id=1097657649]
-mesh = SubResource("BoxMesh_tj3u4")
-script = ExtResource("1_vkx3c")
+[node name="Node3D" type="Node3D" unique_id=898906963]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1015424521]
+[node name="BoxParent" type="MeshInstance3D" parent="." unique_id=1097657649]
+mesh = SubResource("BoxMesh_tj3u4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BoxParent" unique_id=1015424521]
 collision_layer = 0
 collision_mask = 0
 input_ray_pickable = false
-script = ExtResource("1_ulq0x")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=862899976]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoxParent/StaticBody3D" unique_id=862899976]
 shape = SubResource("BoxShape3D_nt2pb")
 
-[node name="BuildDetection" type="Area3D" parent="." unique_id=1885123213]
+[node name="BuildDetection" type="Area3D" parent="BoxParent" unique_id=1885123213]
 collision_layer = 0
 collision_mask = 17
 input_ray_pickable = false
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BuildDetection" unique_id=1287649448]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoxParent/BuildDetection" unique_id=1287649448]
 shape = SubResource("BoxShape3D_p3b7a")
 
-[connection signal="area_entered" from="BuildDetection" to="." method="_on_area_3d_area_entered"]
-[connection signal="area_exited" from="BuildDetection" to="." method="_on_area_3d_area_exited"]
-[connection signal="area_shape_entered" from="BuildDetection" to="." method="_on_area_3d_area_shape_entered"]
-[connection signal="area_shape_exited" from="BuildDetection" to="." method="_on_area_3d_area_shape_exited"]
-[connection signal="body_entered" from="BuildDetection" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="BuildDetection" to="." method="_on_area_3d_body_exited"]
-[connection signal="body_shape_entered" from="BuildDetection" to="." method="_on_area_3d_body_shape_entered"]
-[connection signal="body_shape_exited" from="BuildDetection" to="." method="_on_area_3d_body_shape_exited"]
+[node name="Node" type="Node" parent="." unique_id=1390679063 node_paths=PackedStringArray("collision_area", "mesh_", "body", "root")]
+script = ExtResource("3_sggx3")
+collision_area = NodePath("../BoxParent/BuildDetection")
+mesh_ = NodePath("../BoxParent")
+body = NodePath("../BoxParent/StaticBody3D")
+root = NodePath("..")
+
+[connection signal="area_entered" from="BoxParent/BuildDetection" to="BoxParent" method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="BoxParent/BuildDetection" to="BoxParent" method="_on_area_3d_area_exited"]
+[connection signal="area_shape_entered" from="BoxParent/BuildDetection" to="BoxParent" method="_on_area_3d_area_shape_entered"]
+[connection signal="area_shape_exited" from="BoxParent/BuildDetection" to="BoxParent" method="_on_area_3d_area_shape_exited"]
+[connection signal="body_entered" from="BoxParent/BuildDetection" to="BoxParent" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="BoxParent/BuildDetection" to="BoxParent" method="_on_area_3d_body_exited"]
+[connection signal="body_shape_entered" from="BoxParent/BuildDetection" to="BoxParent" method="_on_area_3d_body_shape_entered"]
+[connection signal="body_shape_exited" from="BoxParent/BuildDetection" to="BoxParent" method="_on_area_3d_body_shape_exited"]

@@ -56,11 +56,18 @@ _data = {
 &"slash_attack": SubResource("Animation_amry5")
 }
 
-[node name="BetterPlayer" type="CharacterBody3D" unique_id=1750855292 groups=["Player"]]
+[node name="BetterPlayer" type="CharacterBody3D" unique_id=1750855292 node_paths=PackedStringArray("health_component", "twist_pivot", "pitch_pivot", "inventory", "right_hand_remote", "right_hand", "anim_player") groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 32
 collision_mask = 49
 script = ExtResource("1_cs6bt")
+health_component = NodePath("HealthComponent")
+twist_pivot = NodePath("TwistPivot")
+pitch_pivot = NodePath("TwistPivot/PitchPivot")
+inventory = NodePath("Inventory")
+right_hand_remote = NodePath("TwistPivot/RightArm/rightarm/Marker3D/RemoteTransform3D")
+right_hand = NodePath("TwistPivot/RightArm/rightarm/Marker3D")
+anim_player = NodePath("AnimationPlayer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=590887451]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
@@ -113,17 +120,17 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=823678617]
+[node name="HealthComponent" type="Node" parent="." unique_id=823678617 node_paths=PackedStringArray("hurtbox", "root")]
 script = ExtResource("4_1qn71")
+hurtbox = NodePath("../HurtboxComponent")
+root = NodePath("..")
 
-[node name="HurtboxComponent" type="Area3D" parent="." unique_id=125058912 node_paths=PackedStringArray("health_component")]
+[node name="Area3D" type="Area3D" parent="." unique_id=125058912]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 4
 collision_mask = 8
-script = ExtResource("5_7kohf")
-health_component = NodePath("../HealthComponent")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1636775676]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1636775676]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, -1, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
@@ -135,6 +142,11 @@ script = ExtResource("5_gxqt7")
 
 [node name="Equipment" type="Node" parent="." unique_id=1854841210]
 script = ExtResource("6_6twa2")
+
+[node name="HurtboxComponent" type="Node" parent="." unique_id=2124588863 node_paths=PackedStringArray("area")]
+script = ExtResource("5_7kohf")
+area = NodePath("../Area3D")
+metadata/_custom_type_script = "uid://lrvixysacsgx"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

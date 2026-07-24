@@ -15,13 +15,13 @@ func on_equip() -> void:
 func on_animation_trigger(event: String) -> void:
 	match event:
 		"hitbox_on":
-			hitbox.monitoring = true
+			hitbox.set_monitoring(true)
 
 func on_animation_start() -> void:
 	pass
 
 func on_animation_end() -> void:
-	hitbox.monitoring = false
+	hitbox.set_monitoring(false)
 
 func _get_animation() -> String:
 	return "slash_attack"

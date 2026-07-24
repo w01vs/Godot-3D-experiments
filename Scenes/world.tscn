@@ -168,8 +168,15 @@ mesh = SubResource("BoxMesh_cf7fp")
 skeleton = NodePath("../../..")
 
 [node name="Area3D" type="Area3D" parent="BaseNavRegion/HealInteractable/Mesh" unique_id=1518810985]
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Mesh/Area3D" unique_id=732372836]
+transform = Transform3D(0.999436, 0.033591285, -1.1641532e-10, -0.033591278, 0.99943614, 0, 2.3283064e-10, -1.4551915e-11, 1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_gsqyl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/HealInteractable/Mesh" unique_id=809857744]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Mesh/StaticBody3D" unique_id=798087569]
 transform = Transform3D(0.999436, 0.033591285, -1.1641532e-10, -0.033591278, 0.99943614, 0, 2.3283064e-10, -1.4551915e-11, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_gsqyl")
 
@@ -192,8 +199,16 @@ mesh = SubResource("BoxMesh_h5xwh")
 skeleton = NodePath("../../..")
 
 [node name="Area3D" type="Area3D" parent="BaseNavRegion/DamageInteractable/Mesh" unique_id=1653499554]
+collision_layer = 3
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable/Mesh/Area3D" unique_id=742216241]
+transform = Transform3D(1, 2.0990853e-10, -1.1641532e-10, -4.4849457e-11, 1, 0, 1.1641532e-10, -2.910383e-11, 1, 0.0010808706, 1.1920929e-06, 9.853393e-07)
+shape = SubResource("ConcavePolygonShape3D_35xku")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/DamageInteractable/Mesh" unique_id=1904551278]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable/Mesh/StaticBody3D" unique_id=1655965483]
 transform = Transform3D(1, 2.0990853e-10, -1.1641532e-10, -4.4849457e-11, 1, 0, 1.1641532e-10, -2.910383e-11, 1, 0.0010808706, 1.1920929e-06, 9.853393e-07)
 shape = SubResource("ConcavePolygonShape3D_35xku")
 

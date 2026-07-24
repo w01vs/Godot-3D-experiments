@@ -1,10 +1,12 @@
-class_name HealthComponent extends Node
+class_name HealthComponent extends Component
 
 signal health_changed(float)
 signal died()
 
 @export var max_health: float = 100
 
+@export var hurtbox: HurtboxComponent
+@export var root: Node3D
 var health: float
 
 var increasing_over_time: bool = false
@@ -19,9 +21,20 @@ var decrease_tick_time: float = 0
 var decrease_tick_amount: float = 0
 var decrease_total_ticks: float = 0
 
-func _ready() -> void:
+func _init_component() -> void:
+	type = ComponentType.HEALTH
+	register(root)
+	register(hurtbox)
 	health = max_health
 	health_changed.emit(health)
+	hurtbox.hitbox_collided.connect(take_hit)
+
+func take_hit(hitbox: HitboxComponent) -> void:
+	if hitbox.on_hit_information:
+		var info: OnHitInformation = hitbox.on_hit_information
+		for n in info.groups.size():
+			if root.is_in_group(info.groups[n]):
+				update_health(info)
 
 func _process(delta: float) -> void:
 	clamp_health()

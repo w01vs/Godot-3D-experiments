@@ -1,20 +1,27 @@
-class_name HitboxComponent extends Area3D
+class_name HitboxComponent extends Component
 
+@export var _area: Area3D
+ 
 var on_hit_information: OnHitInformation
 
-func _ready() -> void:
-	set_collision_layer_value(1, false)
-	set_collision_mask_value(1, false)
-	set_collision_layer_value(4, true)
-	set_collision_mask_value(3, true)
-	connect("area_entered", _on_area_entered)
+func _init_component() -> void:
+	type = ComponentType.HITBOX
+	register(_area)
+	_area.set_collision_layer_value(1, false)
+	_area.set_collision_mask_value(1, false)
+	_area.set_collision_layer_value(4, true)
+	_area.set_collision_mask_value(3, true)
+	_area.connect("area_entered", _on_area_entered)
 
 func set_info(info: OnHitInformation) -> void:
 	on_hit_information = info
 
 func _on_area_entered(area: Area3D):
-	if area is HurtboxComponent:
-		UniversalHitController.apply_information_to(on_hit_information, area.get_parent())
-	if area.get_parent() is HarvestableResource:
-		if get_parent().can_harvest(area.get_parent().resource_type):
-			get_parent().harvest(GlobalItem.item_library['resource'], 1)
+	if area.has_meta(ComponentType.HURTBOX):
+		area.get_meta(ComponentType.HURTBOX).hit(self)
+
+func set_monitoring(on: bool) -> void:
+	_area.monitoring = on
+
+func set_monitorable(on: bool) -> void:
+	_area.monitorable = on

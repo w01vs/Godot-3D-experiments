@@ -51,12 +51,70 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_6twa2"]
+resource_name = "testing"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ip4g"]
 _data = {
-&"slash_attack": SubResource("Animation_amry5")
+&"slash_attack": SubResource("Animation_amry5"),
+&"testing": SubResource("Animation_6twa2")
 }
 
-[node name="BetterPlayer" type="CharacterBody3D" unique_id=1750855292 node_paths=PackedStringArray("health_component", "twist_pivot", "pitch_pivot", "inventory", "right_hand_remote", "right_hand", "anim_player") groups=["Player"]]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sm6ki"]
+animation = &"slash_attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_arore"]
+animation = &"testing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i1ft5"]
+advance_mode = 2
+advance_expression = "!using_held_item"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wavps"]
+advance_mode = 2
+advance_expression = "using_held_item"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0vode"]
+advance_mode = 2
+advance_expression = "!using_held_item"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6twa2"]
+advance_mode = 2
+advance_expression = "using_held_item"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w6b8a"]
+states/Start/position = Vector2(186, 110)
+states/slash_attack/node = SubResource("AnimationNodeAnimation_sm6ki")
+states/slash_attack/position = Vector2(398, -41)
+states/testing/node = SubResource("AnimationNodeAnimation_arore")
+states/testing/position = Vector2(419, 78)
+transitions = ["Start", "testing", SubResource("AnimationNodeStateMachineTransition_i1ft5"), "testing", "slash_attack", SubResource("AnimationNodeStateMachineTransition_wavps"), "slash_attack", "testing", SubResource("AnimationNodeStateMachineTransition_0vode"), "Start", "slash_attack", SubResource("AnimationNodeStateMachineTransition_6twa2")]
+graph_offset = Vector2(-49, -133)
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_nhuna"]
+input_0/name = "Weapon1H"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "Tool1H"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "Custom"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_vn1u8"]
+graph_offset = Vector2(112.9353, -37.633804)
+nodes/output/position = Vector2(1160, 260)
+nodes/Transition/node = SubResource("AnimationNodeTransition_nhuna")
+nodes/Transition/position = Vector2(880, 220)
+nodes/PlayerOneHander/node = SubResource("AnimationNodeStateMachine_w6b8a")
+nodes/PlayerOneHander/position = Vector2(580, 200)
+node_connections = [&"output", 0, &"Transition", &"Transition", 0, &"PlayerOneHander"]
+
+[node name="BetterPlayer" type="CharacterBody3D" unique_id=1750855292 node_paths=PackedStringArray("health_component", "twist_pivot", "pitch_pivot", "inventory", "right_hand_remote", "right_hand", "anim_player", "anim_tree") groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 32
 collision_mask = 49
@@ -68,6 +126,7 @@ inventory = NodePath("Inventory")
 right_hand_remote = NodePath("TwistPivot/RightArm/rightarm/Marker3D/RemoteTransform3D")
 right_hand = NodePath("TwistPivot/RightArm/rightarm/Marker3D")
 anim_player = NodePath("AnimationPlayer")
+anim_tree = NodePath("AnimationTree")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=590887451]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
@@ -148,5 +207,13 @@ script = ExtResource("5_7kohf")
 area = NodePath("../Area3D")
 metadata/_custom_type_script = "uid://lrvixysacsgx"
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=894092481]
+tree_root = SubResource("AnimationNodeBlendTree_vn1u8")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Transition/current_state = "Weapon1H"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 0
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="animation_started" from="AnimationTree" to="." method="_on_animation_tree_animation_started"]

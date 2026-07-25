@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://m6cwlyo5pwwf"]
 
 [ext_resource type="PackedScene" uid="uid://bun2jr3gulkak" path="res://Scenes/resource.tscn" id="2_t6x33"]
-[ext_resource type="Script" uid="uid://d1lysd3ah5hlu" path="res://Scripts/harvestable_component.gd" id="3_1wrd2"]
+[ext_resource type="Script" uid="uid://d1lysd3ah5hlu" path="res://Scripts/Components/harvestable_component.gd" id="3_1wrd2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t6x33"]
 
@@ -19,6 +19,5 @@ monitoring = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1000171239]
 shape = SubResource("BoxShape3D_t6x33")
 
-[node name="Node" type="Node" parent="." unique_id=1280600735 node_paths=PackedStringArray("root")]
+[node name="Node" type="Node" parent="." unique_id=1280600735]
 script = ExtResource("3_1wrd2")
-root = NodePath("..")

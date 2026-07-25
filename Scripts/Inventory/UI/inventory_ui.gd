@@ -34,8 +34,6 @@ func _physics_process(_delta: float) -> void:
 			UIState.INVENTORY_OPEN:
 				_close_inventory()
 
-
-
 func update_slot(index: int, data: SlotData, target: String) -> void:
 	if target == "inventory":
 		slots[index].set_data(data)

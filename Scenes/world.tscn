@@ -52,7 +52,7 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_35xku"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_7yui6"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_e0ngr"]
 
 [node name="World" type="Node3D" unique_id=1110002956]
 script = ExtResource("1_lgbn5")
@@ -224,7 +224,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17, 3.7366943, 4.304)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 1.39856, -4.35614)
 
 [node name="Draw3D" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT" parent_id_path=PackedInt32Array(14835497, 759978698) index="0" unique_id=645772395]
-mesh = SubResource("ImmediateMesh_7yui6")
+mesh = SubResource("ImmediateMesh_e0ngr")
 
 [node name="HarvestableResource" parent="." unique_id=169837699 instance=ExtResource("12_7yui6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9903088, 0.7753614, -6.917973)

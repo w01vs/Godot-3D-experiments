@@ -30,6 +30,7 @@ func _ready() -> void:
 	await GlobalRefs.player_set
 	_set_active_item()
 
+#hotbar stuff, seperate component
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("scroll_down"):
 		if active_index == HOTBAR_SIZE - 1:
@@ -52,10 +53,11 @@ func _set_active_item() -> void:
 
 func _load_active_item() -> void:
 	if hotbar_slots[active_index]:
-		player.hotbar_load_item(hotbar_slots[active_index].item_data.model.instantiate(), active_index)
+		player.hotbar_load_item(hotbar_slots[active_index].item_data.model.instantiate(), active_index, hotbar_slots[active_index].item_data)
 	else:
-		player.hotbar_load_item(null, active_index)
+		player.hotbar_load_item(null, active_index, hotbar_slots[active_index].item_data)
 
+# inventory stuff
 func set_slot_data(index: int, data: SlotData, target: String) -> void:
 	match target:
 		"inventory":

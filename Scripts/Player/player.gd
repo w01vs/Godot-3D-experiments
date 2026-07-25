@@ -15,8 +15,9 @@ var health_lerp_timer: float
 var health_chipspeed: float = 2
 @export var health_component: HealthComponent
 
-var held_item: Item
-var hotbar_items: Array[Item]
+var held_item: ItemModelComponent
+var using_held_item: bool = false
+var hotbar_items: Array[ItemModelComponent]
 
 # Camera pivots
 @export var twist_pivot: Node3D
@@ -26,6 +27,7 @@ var hotbar_items: Array[Item]
 @export var right_hand_remote: RemoteTransform3D
 @export var right_hand: Marker3D
 @export var anim_player: AnimationPlayer
+@export var anim_tree: AnimationTree
 
 func _ready() -> void:
 	hotbar_items.resize(inventory.HOTBAR_SIZE)
@@ -58,9 +60,10 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("refocus"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
-	if Input.is_action_just_pressed("default_attack"):
+	if Input.is_action_just_pressed("default_attack") and !using_held_item:
 		if held_item:
-			held_item.use(anim_player, self)
+			held_item._execute_use(self)
+			using_held_item = true
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -81,13 +84,17 @@ func updateVelocity(multiplier: float) -> void:
 		velocity.x = 0
 		velocity.z = 0
 
-func hotbar_load_item(item: Item, index: int) -> void:
+func hotbar_load_item(model: Node3D, index: int, itemdata: ItemData) -> void:
 	if hotbar_items[index]:
-		hotbar_items[index].queue_free()
-	hotbar_items[index] = item
-	_update_held_item(index)
-	if hotbar_items[index] is Tool:
-		hotbar_items[index].resource_harvested.connect(receive_item)
+		hotbar_items[index].delete()
+	model.hide()
+	_update_held_item(model)
+	held_item = model.get_meta(ComponentType.ITEM)
+	hotbar_items[index] = held_item
+	held_item._on_equip(self, itemdata)
+	model.show()
+	#if hotbar_items[index] is Tool:
+		#hotbar_items[index].resource_harvested.connect(receive_item)
 
 func receive_item(itemdata: ItemData, amount: int) -> void:
 	inventory.add_item(itemdata, amount)
@@ -102,25 +109,25 @@ func switch_hotbar_slot(index: int) -> void:
 		held_item.process_mode = Node.PROCESS_MODE_ALWAYS
 		held_item.show()
 
-func _update_held_item(index: int) -> void:
-	held_item = hotbar_items[index]
-	if held_item:
-		right_hand.add_child(hotbar_items[index])
-		right_hand_remote.remote_path = right_hand_remote.get_path_to(hotbar_items[index])
+func _update_held_item(model: Node3D) -> void:
+	if model:
+		right_hand.add_child(model)
+		right_hand_remote.remote_path = right_hand_remote.get_path_to(model)
 
 func hotbar_unload_item(index: int) -> void:
 	if hotbar_items[index]:
 		hotbar_items[index].hide()
 		hotbar_items[index].queue_free()
 
-func _on_animation_player_animation_finished(_anim_name: String):
-	if held_item:
-		held_item.on_animation_end()
-
-func _on_animation_player_animation_started(_anim_name: String):
-	if held_item:
-		held_item.on_animation_start()
-
 func _on_animation_trigger(event: String):
 	if held_item:
 		held_item.on_animation_trigger(event)
+
+func _on_animation_tree_animation_finished(_anim_name: StringName) -> void:
+	if held_item:
+		held_item.on_animation_end()
+		using_held_item = false
+
+func _on_animation_tree_animation_started(_anim_name: StringName) -> void:
+	if held_item:
+		held_item.on_animation_start()

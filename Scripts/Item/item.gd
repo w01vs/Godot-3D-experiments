@@ -3,6 +3,8 @@
 @abstract func use(animator: AnimationPlayer, player: Player) -> void
 @abstract func on_equip() -> void
 
+
+# Moved to animationcomponent
 @abstract func on_animation_trigger(event: String) -> void
 
 @abstract func on_animation_start() -> void

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dga0fjv0a80a8"]
 
 [ext_resource type="Script" uid="uid://bw5qaeom038r3" path="res://Scripts/Enemy/enemy.gd" id="1_mjmkq"]
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://Scripts/entity.gd" id="1_ogula"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://Scripts/Components/health_component.gd" id="2_ms8sh"]
 [ext_resource type="PackedScene" uid="uid://4v0ymcds2oi8" path="res://Scenes/health_bar_3d.tscn" id="3_mvyt3"]
 [ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://Scripts/Components/hurtbox_component.gd" id="4_it210"]
@@ -20,6 +21,7 @@
 [ext_resource type="Script" uid="uid://dh3465w6fwasj" path="res://Scripts/Enemy/set_wander_target.gd" id="13_hq04p"]
 [ext_resource type="Script" uid="uid://30m3n7suv43v" path="res://Scripts/Enemy/move_to_bt.gd" id="14_o0fii"]
 [ext_resource type="Script" uid="uid://d1ulleg28gcss" path="res://Scripts/Enemy/is_pathfinding.gd" id="17_vgwb8"]
+[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://Scripts/component_area3d.gd" id="20_3db7f"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vapi6"]
 
@@ -31,9 +33,13 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="SphereMesh" id="SphereMesh_nmfm4"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_py4bd"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_3db7f"]
 
-[node name="BetterEnemy" type="CharacterBody3D" unique_id=1891256974 node_paths=PackedStringArray("eye", "nav_agent") groups=["enemy"]]
+[node name="Enemy" type="Node3D" unique_id=602541275 groups=["enemy"]]
+script = ExtResource("1_ogula")
+metadata/_custom_type_script = "uid://cp7e65rba841n"
+
+[node name="BetterEnemy" type="CharacterBody3D" parent="." unique_id=1891256974 node_paths=PackedStringArray("eye", "nav_agent", "health_component")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 32
 collision_mask = 49
@@ -46,143 +52,146 @@ max_view_distance = 5.0
 eye_angle = 45.0
 SPEED = 2.0
 nav_agent = NodePath("NavigationAgent3D")
+health_component = NodePath("../HealthComponent")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=575984223]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BetterEnemy" unique_id=575984223]
 mesh = SubResource("CapsuleMesh_vapi6")
 surface_material_override/0 = SubResource("StandardMaterial3D_t8po0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1050885466]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BetterEnemy" unique_id=1050885466]
 shape = SubResource("ConvexPolygonShape3D_hml1b")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=160561357 node_paths=PackedStringArray("hurtbox", "root")]
-script = ExtResource("2_ms8sh")
-hurtbox = NodePath("../HurtboxComponent")
-root = NodePath("..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BetterEnemy" unique_id=1932159296]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1932159296]
+[node name="HealthBar3D" parent="BetterEnemy" unique_id=200218904 node_paths=PackedStringArray("health_component") instance=ExtResource("3_mvyt3")]
+health_component = NodePath("../../HealthComponent")
 
-[node name="HealthBar3D" parent="." unique_id=200218904 node_paths=PackedStringArray("health_component") instance=ExtResource("3_mvyt3")]
-health_component = NodePath("../HealthComponent")
-
-[node name="Area3D" type="Area3D" parent="." unique_id=1141415848]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-monitoring = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=852294890]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("ConvexPolygonShape3D_hml1b")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=510034184]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="BetterEnemy" unique_id=510034184]
 path_height_offset = 0.1
 avoidance_enabled = true
 debug_enabled = true
 
-[node name="LaserSpawn" type="Node3D" parent="." unique_id=1266739829]
+[node name="LaserSpawn" type="Node3D" parent="BetterEnemy" unique_id=1266739829]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339192, -0.776076)
 
-[node name="Eye" type="MeshInstance3D" parent="." unique_id=1732248967]
+[node name="Eye" type="MeshInstance3D" parent="BetterEnemy" unique_id=1732248967]
 process_mode = 4
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.651531, -0.412274)
 mesh = SubResource("SphereMesh_nmfm4")
 
-[node name="BTRoot" type="Node" parent="." unique_id=689099945]
+[node name="BTRoot" type="Node" parent="BetterEnemy" unique_id=689099945]
 script = ExtResource("5_7fxlj")
 
-[node name="PrioritySelectorBT" type="Node" parent="BTRoot" unique_id=844165120]
+[node name="PrioritySelectorBT" type="Node" parent="BetterEnemy/BTRoot" unique_id=844165120]
 script = ExtResource("8_ah5be")
 
-[node name="ConcurrentNodeBT" type="Node" parent="BTRoot/PrioritySelectorBT" unique_id=232720672]
+[node name="ConcurrentNodeBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT" unique_id=232720672]
 script = ExtResource("8_315fb")
 priority = 5
 
-[node name="PlayerInViewBT" type="Node" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT" unique_id=759978698 node_paths=PackedStringArray("actor")]
+[node name="PlayerInViewBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT" unique_id=759978698 node_paths=PackedStringArray("actor")]
 script = ExtResource("10_bggwa")
 actor = NodePath("../../../..")
 priority = 5
 
-[node name="Draw3D" type="MeshInstance3D" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT" unique_id=645772395]
-mesh = SubResource("ImmediateMesh_py4bd")
+[node name="Draw3D" type="MeshInstance3D" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT" unique_id=645772395]
+mesh = SubResource("ImmediateMesh_3db7f")
 script = ExtResource("9_iv3b0")
 
-[node name="SetPlayerTargetBT" type="Node" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT" unique_id=1094020474 node_paths=PackedStringArray("actor")]
+[node name="SetPlayerTargetBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT" unique_id=1094020474 node_paths=PackedStringArray("actor")]
 script = ExtResource("9_jcfm8")
 actor = NodePath("../../../..")
 priority = 2
 
-[node name="MoveToNavPointBT" type="Node" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT" unique_id=221104402 node_paths=PackedStringArray("actor")]
+[node name="MoveToNavPointBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT" unique_id=221104402 node_paths=PackedStringArray("actor")]
 script = ExtResource("14_o0fii")
 actor = NodePath("../../../..")
 priority = 1
 
-[node name="InvertNodeBT" type="Node" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT" unique_id=687726534]
+[node name="InvertNodeBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT" unique_id=687726534]
 script = ExtResource("11_n8qiy")
 
-[node name="NavTargetReachedBT" type="Node" parent="BTRoot/PrioritySelectorBT/ConcurrentNodeBT/InvertNodeBT" unique_id=1657446781 node_paths=PackedStringArray("actor")]
+[node name="NavTargetReachedBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT/InvertNodeBT" unique_id=1657446781 node_paths=PackedStringArray("actor")]
 script = ExtResource("12_h5m2t")
 actor = NodePath("../../../../..")
 
-[node name="SequenceNodeBT" type="Node" parent="BTRoot/PrioritySelectorBT" unique_id=568664337]
+[node name="SequenceNodeBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT" unique_id=568664337]
 script = ExtResource("8_3ffs6")
 priority = 1
 
-[node name="SightChangedBT" type="Node" parent="BTRoot/PrioritySelectorBT/SequenceNodeBT" unique_id=876992367 node_paths=PackedStringArray("actor")]
+[node name="SightChangedBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/SequenceNodeBT" unique_id=876992367 node_paths=PackedStringArray("actor")]
 script = ExtResource("12_bi3i3")
 actor = NodePath("../../../..")
 priority = 5
 
-[node name="InvertNodeBT" type="Node" parent="BTRoot/PrioritySelectorBT/SequenceNodeBT" unique_id=1756846324]
+[node name="InvertNodeBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/SequenceNodeBT" unique_id=1756846324]
 script = ExtResource("11_n8qiy")
 
-[node name="ResetVelocityBT" type="Node" parent="BTRoot/PrioritySelectorBT/SequenceNodeBT/InvertNodeBT" unique_id=2004358601 node_paths=PackedStringArray("actor")]
+[node name="ResetVelocityBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/SequenceNodeBT/InvertNodeBT" unique_id=2004358601 node_paths=PackedStringArray("actor")]
 script = ExtResource("13_63ov7")
 actor = NodePath("../../../../..")
 
-[node name="PrioritySelectorBT" type="Node" parent="BTRoot/PrioritySelectorBT" unique_id=357651429]
+[node name="PrioritySelectorBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT" unique_id=357651429]
 script = ExtResource("8_ah5be")
 
-[node name="ConcurrentNodeBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT" unique_id=403250689]
+[node name="ConcurrentNodeBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT" unique_id=403250689]
 script = ExtResource("8_315fb")
 priority = 1
 
-[node name="MoveBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT" unique_id=1912633759 node_paths=PackedStringArray("actor")]
+[node name="MoveBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT" unique_id=1912633759 node_paths=PackedStringArray("actor")]
 script = ExtResource("12_ofl3c")
 actor = NodePath("../../../../..")
 priority = 10
 
-[node name="SequenceNodeBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT" unique_id=1192010892]
+[node name="SequenceNodeBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT" unique_id=1192010892]
 script = ExtResource("8_3ffs6")
 priority = 9
 
-[node name="InvertNodeBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT/SequenceNodeBT" unique_id=1532912831]
+[node name="InvertNodeBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT/SequenceNodeBT" unique_id=1532912831]
 script = ExtResource("11_n8qiy")
 priority = 5
 
-[node name="IsPathfindingBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT/SequenceNodeBT/InvertNodeBT" unique_id=1100766324 node_paths=PackedStringArray("actor")]
+[node name="IsPathfindingBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT/SequenceNodeBT/InvertNodeBT" unique_id=1100766324 node_paths=PackedStringArray("actor")]
 script = ExtResource("17_vgwb8")
 actor = NodePath("../../../../../../..")
 
-[node name="SetWanderTargetBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT/SequenceNodeBT" unique_id=801043980 node_paths=PackedStringArray("actor")]
+[node name="SetWanderTargetBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT/SequenceNodeBT" unique_id=801043980 node_paths=PackedStringArray("actor")]
 script = ExtResource("13_hq04p")
 wander_radius = 10
 actor = NodePath("../../../../../..")
 
-[node name="MoveToNavPointBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT" unique_id=640198473 node_paths=PackedStringArray("actor")]
+[node name="MoveToNavPointBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT" unique_id=640198473 node_paths=PackedStringArray("actor")]
 script = ExtResource("14_o0fii")
 actor = NodePath("../../../../..")
 priority = 4
 
-[node name="InvertNodeBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT" unique_id=1044797800]
+[node name="InvertNodeBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT" unique_id=1044797800]
 script = ExtResource("11_n8qiy")
 
-[node name="NavTargetReachedBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT/InvertNodeBT" unique_id=891557149 node_paths=PackedStringArray("actor")]
+[node name="NavTargetReachedBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT/ConcurrentNodeBT/InvertNodeBT" unique_id=891557149 node_paths=PackedStringArray("actor")]
 script = ExtResource("12_h5m2t")
 actor = NodePath("../../../../../..")
 
-[node name="WaitBT" type="Node" parent="BTRoot/PrioritySelectorBT/PrioritySelectorBT" unique_id=1359597538]
+[node name="WaitBT" type="Node" parent="BetterEnemy/BTRoot/PrioritySelectorBT/PrioritySelectorBT" unique_id=1359597538]
 script = ExtResource("13_2ikyo")
 time_to_wait = 2.0
 
-[node name="HurtboxComponent" type="Node" parent="." unique_id=1463964409 node_paths=PackedStringArray("area")]
+[node name="ComponentArea3D" type="Area3D" parent="BetterEnemy" unique_id=30422322 node_paths=PackedStringArray("entity")]
+script = ExtResource("20_3db7f")
+entity = NodePath("../..")
+metadata/_custom_type_script = "uid://bf01144lxbocj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BetterEnemy/ComponentArea3D" unique_id=852294890]
+shape = SubResource("ConvexPolygonShape3D_hml1b")
+
+[node name="HurtboxComponent" type="Node" parent="." unique_id=1463964409 node_paths=PackedStringArray("area", "entity")]
 script = ExtResource("4_it210")
-area = NodePath("../Area3D")
+area = NodePath("../BetterEnemy/ComponentArea3D")
+entity = NodePath("..")
 metadata/_custom_type_script = "uid://lrvixysacsgx"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=2011996447 node_paths=PackedStringArray("hurtbox", "entity")]
+script = ExtResource("2_ms8sh")
+hurtbox = NodePath("../HurtboxComponent")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bj38naggyrtts"

@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_x726s")
 name = "Black Sword"
-id = "0"
+id = "black_sword"
 description = "edgy black blue swingeeer
 "
 model = ExtResource("1_yksf6")

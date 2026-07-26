@@ -47,6 +47,11 @@ movie_writer/disable_vsync=true
 
 enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/draw3d/plugin.cfg", "res://addons/inspector_extender/plugin.cfg", "res://addons/worldtestplugin/plugin.cfg")
 
+[global_group]
+
+enemy="An entity the player can attack and kill."
+player="A player entity."
+
 [input]
 
 forward={

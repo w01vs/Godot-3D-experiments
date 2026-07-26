@@ -5,13 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://Scenes/player_health_bar.tscn" id="3_1mcgj"]
 [ext_resource type="Script" uid="uid://c8fimqgn8xpvr" path="res://Scripts/Build/build_ui.gd" id="4_etm23"]
 [ext_resource type="PackedScene" uid="uid://qin7imek6ocb" path="res://Scenes/Inventory/inventory.tscn" id="5_0fj1v"]
-[ext_resource type="Script" uid="uid://k857ynoid412" path="res://Scripts/Interactables/health_interactable.gd" id="5_ghv5m"]
 [ext_resource type="PackedScene" uid="uid://da33thcn1ty4r" path="res://Scenes/hotbar.tscn" id="6_0fj1v"]
-[ext_resource type="Script" uid="uid://c50xit01ai1en" path="res://Scripts/Components/interactable_component.gd" id="6_lyyo3"]
 [ext_resource type="PackedScene" uid="uid://wdgcqohl6sqf" path="res://Scenes/Inventory/drag_preview.tscn" id="7_ikia7"]
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://Scenes/better_player.tscn" id="8_2uxu7"]
 [ext_resource type="PackedScene" uid="uid://dga0fjv0a80a8" path="res://Scenes/better_enemy.tscn" id="9_xqdx1"]
-[ext_resource type="PackedScene" uid="uid://m6cwlyo5pwwf" path="res://Scenes/harvestable_resource.tscn" id="12_7yui6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -38,21 +35,6 @@ size = Vector3(100, 0.5, 100)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tijdu"]
 data = PackedVector3Array(-50, 0.25, 50, 50, 0.25, 50, -50, -0.25, 50, 50, 0.25, 50, 50, -0.25, 50, -50, -0.25, 50, 50, 0.25, -50, -50, 0.25, -50, 50, -0.25, -50, -50, 0.25, -50, -50, -0.25, -50, 50, -0.25, -50, 50, 0.25, 50, 50, 0.25, -50, 50, -0.25, 50, 50, 0.25, -50, 50, -0.25, -50, 50, -0.25, 50, -50, 0.25, -50, -50, 0.25, 50, -50, -0.25, -50, -50, 0.25, 50, -50, -0.25, 50, -50, -0.25, -50, 50, 0.25, 50, -50, 0.25, 50, 50, 0.25, -50, -50, 0.25, 50, -50, 0.25, -50, 50, 0.25, -50, -50, -0.25, 50, 50, -0.25, 50, -50, -0.25, -50, 50, -0.25, 50, 50, -0.25, -50, -50, -0.25, -50)
-
-[sub_resource type="BoxMesh" id="BoxMesh_cf7fp"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gsqyl"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gp6bf"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_h5xwh"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_35xku"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
-
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_e0ngr"]
 
 [node name="World" type="Node3D" unique_id=1110002956]
 script = ExtResource("1_lgbn5")
@@ -144,7 +126,7 @@ anchor_bottom = 0.9675926
 transform = Transform3D(0.9999989, 0.0011023232, 0.00091151067, -0.0011021094, 0.99999934, -0.0002297302, -0.000911769, 0.00022870275, 0.9999995, 0, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_vv4qp")
 
-[node name="Floor" type="MeshInstance3D" parent="BaseNavRegion" unique_id=1346988845 groups=["environment"]]
+[node name="Floor" type="MeshInstance3D" parent="BaseNavRegion" unique_id=1346988845]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.00630379, 0.0128107, -0.185878)
 mesh = SubResource("BoxMesh_kcw8a")
 skeleton = NodePath("../..")
@@ -154,79 +136,8 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D" unique_id=1932336762]
 shape = SubResource("ConcavePolygonShape3D_tijdu")
 
-[node name="HealInteractable" type="Node3D" parent="BaseNavRegion" unique_id=1920823443]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.99061, 2.13419, 0)
-script = ExtResource("5_ghv5m")
-health_change = 30.0
-type = 1
-change_per_tick = 10.0
-time_per_tick = 0.5
-metadata/_custom_type_script = "uid://k857ynoid412"
-
-[node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/HealInteractable" unique_id=322668944]
-mesh = SubResource("BoxMesh_cf7fp")
-skeleton = NodePath("../../..")
-
-[node name="Area3D" type="Area3D" parent="BaseNavRegion/HealInteractable/Mesh" unique_id=1518810985]
-collision_layer = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Mesh/Area3D" unique_id=732372836]
-transform = Transform3D(0.999436, 0.033591285, -1.1641532e-10, -0.033591278, 0.99943614, 0, 2.3283064e-10, -1.4551915e-11, 1, 0, 0, 0)
-shape = SubResource("ConcavePolygonShape3D_gsqyl")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/HealInteractable/Mesh" unique_id=809857744]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/HealInteractable/Mesh/StaticBody3D" unique_id=798087569]
-transform = Transform3D(0.999436, 0.033591285, -1.1641532e-10, -0.033591278, 0.99943614, 0, 2.3283064e-10, -1.4551915e-11, 1, 0, 0, 0)
-shape = SubResource("ConcavePolygonShape3D_gsqyl")
-
-[node name="InteractableComponent" type="Node" parent="BaseNavRegion/HealInteractable" unique_id=1821283198 node_paths=PackedStringArray("body")]
-script = ExtResource("6_lyyo3")
-body = NodePath("../Mesh/Area3D")
-metadata/_custom_type_script = "uid://c50xit01ai1en"
-
-[node name="DamageInteractable" type="Node3D" parent="BaseNavRegion" unique_id=842776941]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2326, 0)
-script = ExtResource("5_ghv5m")
-health_change = -30.0
-type = 2
-metadata/_custom_type_script = "uid://k857ynoid412"
-
-[node name="Mesh" type="MeshInstance3D" parent="BaseNavRegion/DamageInteractable" unique_id=1961764260]
-transform = Transform3D(1, 9.345058e-11, -5.820766e-11, -4.487788e-11, 1, 0, 5.820766e-11, -1.4551915e-11, 1, -1.3368392, -0.0014734268, -0.0012185522)
-material_override = SubResource("StandardMaterial3D_gp6bf")
-mesh = SubResource("BoxMesh_h5xwh")
-skeleton = NodePath("../../..")
-
-[node name="Area3D" type="Area3D" parent="BaseNavRegion/DamageInteractable/Mesh" unique_id=1653499554]
-collision_layer = 3
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable/Mesh/Area3D" unique_id=742216241]
-transform = Transform3D(1, 2.0990853e-10, -1.1641532e-10, -4.4849457e-11, 1, 0, 1.1641532e-10, -2.910383e-11, 1, 0.0010808706, 1.1920929e-06, 9.853393e-07)
-shape = SubResource("ConcavePolygonShape3D_35xku")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/DamageInteractable/Mesh" unique_id=1904551278]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/DamageInteractable/Mesh/StaticBody3D" unique_id=1655965483]
-transform = Transform3D(1, 2.0990853e-10, -1.1641532e-10, -4.4849457e-11, 1, 0, 1.1641532e-10, -2.910383e-11, 1, 0.0010808706, 1.1920929e-06, 9.853393e-07)
-shape = SubResource("ConcavePolygonShape3D_35xku")
-
-[node name="InteractableComponent" type="Node" parent="BaseNavRegion/DamageInteractable" unique_id=1856137255 node_paths=PackedStringArray("body")]
-script = ExtResource("6_lyyo3")
-body = NodePath("../Mesh/Area3D")
-metadata/_custom_type_script = "uid://c50xit01ai1en"
-
-[node name="BetterPlayer" parent="." unique_id=1293619965 groups=["ally", "player"] instance=ExtResource("8_2uxu7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.17, 3.7366943, 4.304)
+[node name="BetterPlayer" parent="." unique_id=1293619965 instance=ExtResource("8_2uxu7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2570927, 2.014049)
 
 [node name="BetterEnemy" parent="." unique_id=14835497 instance=ExtResource("9_xqdx1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208892, 1.39856, -4.35614)
-
-[node name="Draw3D" parent="BetterEnemy/BTRoot/PrioritySelectorBT/ConcurrentNodeBT/PlayerInViewBT" parent_id_path=PackedInt32Array(14835497, 759978698) index="0" unique_id=645772395]
-mesh = SubResource("ImmediateMesh_e0ngr")
-
-[node name="HarvestableResource" parent="." unique_id=169837699 instance=ExtResource("12_7yui6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9903088, 0.7753614, -6.917973)
-
-[editable path="BetterEnemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.680928, 0, 0)

@@ -28,6 +28,7 @@ var hotbar_items: Array[ItemModelComponent]
 @export var right_hand: Marker3D
 @export var anim_player: AnimationPlayer
 @export var anim_tree: AnimationTree
+@export var player_entity: Entity
 
 func _ready() -> void:
 	hotbar_items.resize(inventory.HOTBAR_SIZE)
@@ -84,12 +85,12 @@ func updateVelocity(multiplier: float) -> void:
 		velocity.x = 0
 		velocity.z = 0
 
-func hotbar_load_item(model: Node3D, index: int, itemdata: ItemData) -> void:
+func hotbar_load_item(model: Entity, index: int, itemdata: ItemData) -> void:
 	if hotbar_items[index]:
 		hotbar_items[index].delete()
 	model.hide()
 	_update_held_item(model)
-	held_item = model.get_meta(ComponentType.ITEM)
+	held_item = model.get_component(ItemModelComponent)
 	hotbar_items[index] = held_item
 	held_item._on_equip(self, itemdata)
 	model.show()

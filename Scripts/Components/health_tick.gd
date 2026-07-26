@@ -16,10 +16,10 @@ func _init(comp: HealthComponent, info: OnHitInformation) -> void:
 				type = info.type
 				tick = info.time_per_tick
 				tick_change = info.change_per_tick
-				tick_count = int(info.health_change_total / tick_change)
+				tick_count = info.ticks
 				if tick_count < 0:
 					tick_count *= -1
-				assert(tick_change ==  info.health_change_total / tick_count, "Health change does not match with changes per tick * tick count")
+				assert(tick_count > 0, "No ticks on this a DOT effect?")
 			_:
 				pass
 	else:

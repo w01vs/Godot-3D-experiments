@@ -8,7 +8,7 @@
 script = ExtResource("1_vl647")
 harvestable = Array[int]([0])
 name = "Pickaxe"
-id = "3"
+id = "pickaxe"
 description = "cool pickaxe"
 model = ExtResource("1_2s38o")
 texture = ExtResource("3_fheul")

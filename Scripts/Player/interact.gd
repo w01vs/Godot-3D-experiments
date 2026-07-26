@@ -1,40 +1,17 @@
 extends RayCast3D
 
-var current_collider: CollisionObject3D
-
 signal ui_switched(state: GlobalRefs.PlayerState)
-
-@onready var player: Node3D = $"../../../.."
 
 var build_scene: PackedScene = load("res://Scenes/build_box.tscn")
 
-var buildx: Node3D = null
-var structure_comp: StructureComponent = null
+var buildx: Node3D
+var structure_comp: StructureComponent
 
 var snapping: bool = false
 
 var state : GlobalRefs.PlayerState = GlobalRefs.PlayerState.DEFAULT
 
 var last_buildx_pos: Vector3
-
-func _process(_delta: float) -> void:
-	match state:
-		GlobalRefs.PlayerState.DEFAULT:
-			collision()
-		GlobalRefs.PlayerState.BUILD:
-			pass
-
-func collision() -> void:
-	var collider = get_collider()
-	if is_colliding() and collider.has_meta(ComponentType.INTERACTABLE):
-		if current_collider != collider:
-			current_collider = collider
-		
-		if(Input.is_action_just_pressed("interact")):
-			collider.get_meta(ComponentType.INTERACTABLE).interact(player)
-	elif current_collider:
-		current_collider = null
-
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("build"):
@@ -48,7 +25,7 @@ func _physics_process(_delta: float) -> void:
 				set_collision_mask_value(5, true)
 				buildx = build_scene.instantiate()
 				GlobalRefs.world.add_child(buildx)
-				structure_comp = buildx.get_meta(ComponentType.STRUCTURE)
+				structure_comp = buildx.get_component(StructureComponent)
 				structure_comp.to_holo()
 				if is_colliding():
 					structure_comp.set_visible(true)
@@ -76,11 +53,12 @@ func _physics_process(_delta: float) -> void:
 				var hit_point: Vector3 = get_collision_point()
 				var hit_normal: Vector3 = get_collision_normal()
 				var target_pos: Vector3 = Vector3.ZERO
-				structure_comp = buildx.get_meta(ComponentType.STRUCTURE)
+				structure_comp = buildx.get_component(StructureComponent)
 				# 1. Determine target position
-				if snapping and hit_object.has_meta(ComponentType.STRUCTURE):
-					# Snap directly adjacent to the hit box along its face normal
-					target_pos = hit_object.global_position + (hit_normal * buildx.scale)
+				if snapping and hit_object is ComponentArea3D:
+					if hit_object.entity.has_component(StructureComponent):
+						# Snap directly adjacent to the hit box along its face normal
+						target_pos = hit_object.entity.global_position + (hit_normal * buildx.scale)
 				else:
 					# Free placement: offset away from wall/floor face by half size
 					target_pos = hit_point + (hit_normal * (buildx.scale / 2.0))
@@ -100,7 +78,7 @@ func _physics_process(_delta: float) -> void:
 						structure_comp.place()
 						buildx = build_scene.instantiate()
 						GlobalRefs.world.add_child(buildx)
-						structure_comp = buildx.get_meta(ComponentType.STRUCTURE)
+						structure_comp = buildx.get_compoonent(StructureComponent)
 						structure_comp.to_holo()
 						last_buildx_pos = Vector3.INF # Force position update on new instance
 			else:

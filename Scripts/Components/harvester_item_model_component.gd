@@ -1,14 +1,11 @@
-class_name AttackItemModelComponent extends ItemModelComponent
+class_name HarvesterItemModelComponent extends ItemModelComponent
 
 @export var hitbox: HitboxComponent
-@export var hitinfo: OnHitInformation
-
-func _init_component() -> void:
-	hitbox.set_info(hitinfo)
+var player: Player
 
 func _on_equip(_player: Player, itemdata: ItemData) -> void:
 	data = itemdata
-	hitbox.set_info(hitinfo)
+	player = _player
 
 func on_animation_trigger(event: StringName = "") -> void:
 	match event:
@@ -20,3 +17,6 @@ func on_animation_start() -> void:
 
 func on_animation_end() -> void:
 	hitbox.set_monitoring(false)
+
+func harvest() -> void:
+	player.inventory.add_item(GlobalItem.item_library.get("diamond").duplicate(), 1)

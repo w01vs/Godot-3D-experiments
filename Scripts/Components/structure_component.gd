@@ -1,9 +1,8 @@
 class_name StructureComponent extends Component
 
-@export var collision_area: Area3D
+@export var collision_area: ComponentArea3D
 @export var mesh_: GeometryInstance3D
 @export var body: StaticBody3D
-@export var root: Node3D
 
 var mat: Material = preload("res://Resources/Building/hologram_material.tres")
 var default_mat: Material = preload("res://Resources/Building/default_material.tres")
@@ -21,11 +20,6 @@ var time_margin: float = 0.08
 var timer_current: float = 0
 
 func _init_component() -> void:
-	type = ComponentType.STRUCTURE
-	register(collision_area)
-	register(mesh_)
-	register(body)
-	register(root)
 	mesh_.set_surface_override_material(0, default_mat)
 
 func to_holo() -> void:
@@ -84,7 +78,7 @@ func reset_placement_check() -> void:
 	place_check()
 
 func moveto(target: Vector3) -> void:
-	root.global_position = target
+	entity.root3d.global_position = target
 
 func set_visible(on: bool) -> void:
 	mesh_.visible = on

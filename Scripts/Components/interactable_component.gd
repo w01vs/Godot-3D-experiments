@@ -1,14 +1,11 @@
-class_name InteractableComponent extends Component
+@abstract class_name InteractionComponent extends Component
 
-@export var body: CollisionObject3D = null
+@export var area: ComponentArea3D
 
 func _init_component() -> void:
-	type = ComponentType.INTERACTABLE
-	register(body)
-	body.set_collision_layer_value(2, true)
+	area.collision_layer = 0
+	area.set_collision_layer_value(2, true)
+	area.area_entered.connect(_interact)
 
-func unregister() -> void:
-	body.remove_meta(ComponentType.INTERACTABLE)
-
-func interact(interacter: Node3D) -> void:
-	get_parent().interact(interacter)
+func _interact(interacter: Entity) -> void:
+	pass

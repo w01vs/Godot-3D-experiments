@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://2kpyrhr6llgu"]
+
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://Scripts/entity.gd" id="1_mja2j"]
+[ext_resource type="Script" uid="uid://k857ynoid412" path="res://Scripts/Interactables/health_interactable.gd" id="2_64fsb"]
+[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://Scripts/component_area3d.gd" id="3_pl7dr"]
+[ext_resource type="Resource" uid="uid://bbx4d6xxe6l43" path="res://damage_interactable_info.tres" id="4_mja2j"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_poopc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ikia7"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mja2j"]
+
+[node name="DamageInteractable" type="Node3D" unique_id=1420473332]
+script = ExtResource("1_mja2j")
+metadata/_custom_type_script = "uid://cp7e65rba841n"
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=574538779]
+mesh = SubResource("BoxMesh_poopc")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ikia7")
+
+[node name="ComponentArea3D" type="Area3D" parent="Mesh" unique_id=189567328 node_paths=PackedStringArray("entity")]
+script = ExtResource("3_pl7dr")
+entity = NodePath("../..")
+metadata/_custom_type_script = "uid://bf01144lxbocj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/ComponentArea3D" unique_id=1293287283]
+shape = SubResource("BoxShape3D_mja2j")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mesh" unique_id=458604654]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" unique_id=1286531422]
+shape = SubResource("BoxShape3D_mja2j")
+
+[node name="HealthInteractionComponent" type="Node" parent="." unique_id=2109962062 node_paths=PackedStringArray("area", "entity")]
+script = ExtResource("2_64fsb")
+on_hit_info = ExtResource("4_mja2j")
+area = NodePath("../Mesh/ComponentArea3D")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://k857ynoid412"

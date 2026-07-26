@@ -13,10 +13,11 @@ var eye_rad: float
 var cos_angle: float
 var sight_box: Area3D
 
-@onready var health_component: HealthComponent = $HealthComponent
-#@onready var hitbox: HitboxComponent = $CharacterBody3D/sword/HitboxComponent
+@export var health_component: HealthComponent
+#@export var hitbox: HitboxComponent
 
 func _ready() -> void:
+	assert(health_component != null)
 	health_component.died.connect(die)	
 	var attack: OnHitInformation = OnHitInformation.new()
 	#hitbox.set_info(attack)

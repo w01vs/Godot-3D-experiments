@@ -12,7 +12,7 @@ var mouse_data: SlotData
 
 var active_index: int = 0
 
-@onready var player: Player = $".."
+@export var player: Player
 
 func _ready() -> void:
 	var inv_data = preload("res://Resources/Inventory/inventory_data.tres")

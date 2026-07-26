@@ -7,7 +7,7 @@ var player: Player
 @onready var player_healthbar: BetterHealthBar = $BetterHealthBar
 
 func _ready() -> void:
-	GlobalRefs.player_set.connect(initialize_healthbar)
+	GlobalRefs.player_set.connect(get_player_entity)
 
 func _process(_delta: float) -> void:
 	#player_healthbar.value = player_health / player_health_component.get_max_health()
@@ -16,8 +16,11 @@ func _process(_delta: float) -> void:
 func updateHealth(amount: float) -> void:
 	player_healthbar.value = amount / player_health_component.get_max_health()
 
-func initialize_healthbar() -> void:
+func get_player_entity() -> void:
 	player = GlobalRefs.player
-	player_health_component = player.get_node("HealthComponent")
+	player.player_entity.loaded.connect(initialise_healthbar)
+
+func initialise_healthbar() -> void:
+	player_health_component = player.player_entity.get_component(HealthComponent)
 	player_health_component.health_changed.connect(updateHealth)
 	player_health = player_health_component.get_max_health()

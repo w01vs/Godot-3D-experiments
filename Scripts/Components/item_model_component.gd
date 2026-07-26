@@ -1,11 +1,6 @@
 class_name ItemModelComponent extends Component
 
 var data: ItemData
-@export var root: Node3D
-
-func _init_component() -> void:
-	type = ComponentType.ITEM
-	register(root)
 
 func _execute_use(player: Player) -> void:
 	pass
@@ -23,4 +18,4 @@ func on_animation_end() -> void:
 	pass
 
 func delete() -> void:
-	root.queue_free()
+	entity.queue_free()

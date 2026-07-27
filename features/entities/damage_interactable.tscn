@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://2kpyrhr6llgu"]
+
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://scripts/entity.gd" id="1_mja2j"]
+[ext_resource type="Script" uid="uid://k857ynoid412" path="res://features/building/interaction/health_interaction_component.gd" id="2_64fsb"]
+[ext_resource type="Script" uid="uid://dxpaoqwywatwk" path="res://core/components/extensions/c_staticbody3d.gd" id="2_ehbd2"]
+[ext_resource type="Resource" uid="uid://bbx4d6xxe6l43" path="res://features/building/interaction/damage_interactable_info.tres" id="4_mja2j"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_poopc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ikia7"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mja2j"]
+
+[node name="DamageInteractable" type="Node3D" unique_id=1420473332]
+script = ExtResource("1_mja2j")
+metadata/_custom_type_script = "uid://cp7e65rba841n"
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=574538779]
+mesh = SubResource("BoxMesh_poopc")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ikia7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mesh" unique_id=458604654]
+script = ExtResource("2_ehbd2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" unique_id=1286531422]
+shape = SubResource("BoxShape3D_mja2j")
+
+[node name="HealthInteractionComponent" type="Node" parent="." unique_id=2109962062 node_paths=PackedStringArray("entity")]
+script = ExtResource("2_64fsb")
+on_hit_info = ExtResource("4_mja2j")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://k857ynoid412"

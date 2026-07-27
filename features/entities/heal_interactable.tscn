@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bg2ko1e8iq8ne"]
+
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://scripts/entity.gd" id="1_4n15f"]
+[ext_resource type="Script" uid="uid://k857ynoid412" path="res://features/building/interaction/health_interaction_component.gd" id="2_qhbva"]
+[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_5ih8e"]
+[ext_resource type="Resource" uid="uid://bahrrcu008m8q" path="res://features/building/interaction/heal_interactable_info.tres" id="4_5ih8e"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ih8e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ih8e"]
+
+[node name="HealInteractable" type="Node3D" unique_id=2040929709]
+script = ExtResource("1_4n15f")
+metadata/_custom_type_script = "uid://cp7e65rba841n"
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1512958692]
+mesh = SubResource("BoxMesh_5ih8e")
+skeleton = NodePath("../../..")
+
+[node name="ComponentArea3D" type="Area3D" parent="Mesh" unique_id=2042508828 node_paths=PackedStringArray("entity")]
+script = ExtResource("3_5ih8e")
+entity = NodePath("../..")
+metadata/_custom_type_script = "uid://bf01144lxbocj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/ComponentArea3D" unique_id=245253370]
+shape = SubResource("BoxShape3D_5ih8e")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mesh" unique_id=405424245]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" unique_id=530127438]
+shape = SubResource("BoxShape3D_5ih8e")
+
+[node name="HealthInteractionComponent" type="Node" parent="." unique_id=763902668 node_paths=PackedStringArray("area", "entity")]
+script = ExtResource("2_qhbva")
+on_hit_info = ExtResource("4_5ih8e")
+area = NodePath("../Mesh/ComponentArea3D")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://k857ynoid412"

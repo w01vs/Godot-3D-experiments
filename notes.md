@@ -1,21 +1,15 @@
 TO DO:
-	Fix up all existing components etc. to use the new entity stuff. equipping sword/ maybe any item bricks game
-	test harvestableresourece and heal-/damage interactable and sword and building
-	fix file structure its getting a bit cooked
+	Fix up interaction components with eventbus and local eventbus. 
+	then convert to components where possible:
+		enemy
+		player
+		buildcomponent from player/interact.gd -> this may need inputmanager
 	How to do input handling? -> inputmanager with signals
 	How to do UI communication? -> custom eventbus instead of signals for direct dispatch
-	Make Harvester component for pickaxe
-	Make Harvestable component for the resource (diamond)
-	Make equipmentcomponent instead of in player
-	Handle all input in the player
+	then continue fixing the other components:
+		building
+		Make equipmentcomponent instead of in player
+		items
+		harvestable/harvester
+		inventory:
 	Split inventory and hotbar input stuff, inventory is still the owner of the hotbar data
-
-What else could be a component? How far do I go?
-interact.gd?
-input detection? is that worth it?
-camera?
-movement?
-item hold?
-
-eventually think about saving inventory, making inventory more generic and not player inventory per se.
-slotdata/itemdata in inventory UI? maybe just the visual data needed?

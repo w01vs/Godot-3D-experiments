@@ -15,9 +15,9 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Attempt"
-run/main_scene="res://Scenes/world.tscn"
+run/main_scene="res://core/world.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://Assets/icon.svg"
+config/icon="res://editor/icon.svg"
 
 [audio]
 
@@ -25,10 +25,13 @@ buses/default_bus_layout=""
 
 [autoload]
 
-UniversalHitController="*res://Scripts/Globals/universal_hit_controller.gd"
-GlobalRefs="*res://Scripts/Globals/global_references.gd"
+GlobalRefs="*res://globals/global_references.gd"
 DebugMenu="*uid://cggqb75a8w8r"
 GlobalItem="*uid://c0mhnl7odj08g"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
 
 [display]
 
@@ -46,6 +49,16 @@ movie_writer/disable_vsync=true
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/draw3d/plugin.cfg", "res://addons/inspector_extender/plugin.cfg", "res://addons/worldtestplugin/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://core/": "green",
+"res://editor/": "orange",
+"res://features/": "green",
+"res://globals/": "red",
+"res://scripts/": "green"
+}
 
 [global_group]
 

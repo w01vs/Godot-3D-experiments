@@ -1,30 +1,48 @@
-class_name EventBus
+extends Node
 
-var _listeners: Dictionary
+var event_bus: EventBusBase = EventBusBase.new()
 
-func subscribe(event_type: Script, callback: Callable, priority: Event.Priority) -> void:
-	if not _listeners.has(event_type):
-		_listeners[event_type][priority] = []
-	if not _listeners[event_type][priority].has(callback):
-		_listeners[event_type][priority].append(callback)
+func _ready() -> void:
+	subscribe(WorldLoadedEvent, _on_world_loaded)
+
+func _on_world_loaded(_event: WorldLoadedEvent) -> void:
+	event_bus.enable()
+	event_bus.release_events()
+
+func subscribe(event_type: Script, callback: Callable, priority: Event.Priority = Event.Priority.BASE) -> void:
+	assert(callback.get_object() is not Component)
+	assert(event_bus.is_valid_event(event_type, Event))
+	if callback.get_object() is Component:
+		push_error("You cannot subscribe a component to a global event")
+		return
+	elif !event_bus.is_valid_event(event_type, Event):
+		push_error("Event %s is not a valid event" % [ event_type.get_global_name() ])
+		return
+	event_bus.subscribe(event_type, callback, priority)
 
 func unsubscribe(event_type: Script, callback: Callable) -> void:
-	for prio: Event.Priority in _listeners[event_type]:
-		var callbacks: Array[Callable] = _listeners[event_type][prio]
-		for i in range(_listeners[event_type][prio].size()):
-			var cb: Callable = _listeners[event_type].get(prio)
-			if cb == callback:
-				callbacks[i] = callbacks[callbacks.size() - 1]
-				callbacks.pop_back()
+	assert(callback.get_object() is not Component)
+	assert(event_bus.is_valid_event(event_type, Event))
+	if callback.get_object() is Component:
+		push_error("You cannot unsubscribe a component to a global event")
+		return
+	elif !event_bus.is_valid_event(event_type, Event):
+		push_error("Event %s is not a valid event" % [ event_type.get_global_name() ])
+		return
+	event_bus.unsubscribe(event_type, callback)
 
 func raise(event: Event) -> void:
-	var event_type: Script = event.get_script()
-	if _listeners.has(event_type):
-		var callbacks: Array[Callable] = _listeners.get(event_type)
-		for i in range(callbacks.size()):
-			var callback: Callable = callbacks.get(i)
-			if callback.is_valid():
-				callback.call(event)
-			else:
-				callbacks[i] = callbacks[callbacks.size() - 1]
-				callbacks.pop_back()
+	if event.source is Component:
+		push_error("You cannot raise a global event from a component")
+		return
+	event_bus.raise(event)
+
+func is_valid_event(script: Script) -> bool:
+	if script.get_base_script() == Event:
+		return true
+	var current_script: Script = script
+	while current_script != Event:
+		current_script = current_script.get_base_script()
+		if current_script == Event:
+			return true
+	return false

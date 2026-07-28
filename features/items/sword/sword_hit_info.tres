@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="OnHitInformation" format=3 uid="uid://ceb1wkfww1lgw"]
 
-[ext_resource type="Script" uid="uid://cq4yyguxfpvds" path="res://core/components/stats/on_hit_information.gd" id="1_48ydr"]
+[ext_resource type="Script" uid="uid://cq4yyguxfpvds" path="res://core/components/stats/damage_info.gd" id="1_48ydr"]
 
 [resource]
 script = ExtResource("1_48ydr")

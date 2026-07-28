@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://m6cwlyo5pwwf"]
 
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://scripts/entity.gd" id="1_a68vs"]
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_a68vs"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="2_c0tt3"]
 [ext_resource type="PackedScene" uid="uid://bun2jr3gulkak" path="res://features/terrain/resource.tscn" id="3_dcel3"]
 [ext_resource type="Script" uid="uid://d1lysd3ah5hlu" path="res://features/terrain/harvestable_component.gd" id="4_htppu"]

@@ -43,7 +43,7 @@ func calculate_sight_box() -> void:
 	else:
 		sight_box = get_node("SightBox")
 		box_shape = sight_box.get_node("CollisionPolygon3D")
-		box_shape.polygon.clear()
+		box_shape.polygon = PackedVector2Array()
 	
 	var edge: float = max_view_distance * tan(eye_rad)
 	var polygons: PackedVector2Array = [Vector2(0,0), Vector2(max_view_distance, edge), Vector2(max_view_distance, -edge)]

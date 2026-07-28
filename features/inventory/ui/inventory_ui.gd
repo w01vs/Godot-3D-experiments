@@ -11,21 +11,18 @@ var active_hotbar_index: int = -1
 @export var slot: PackedScene
 
 func _ready() -> void:
-	return
-	if GlobalRefs.player:
-		initialise()
-	else:
-		GlobalRefs.player_set.connect(initialise)
+	EventBus.subscribe(PlayerLoadedEvent, initialise)
 	
-func initialise() -> void:
-	GlobalRefs.player.inventory.inventory_changed.connect(update_slot)
-	slots.resize(GlobalRefs.player.inventory.INVENTORY_SIZE)
-	for i in range(slots.size()):
-		slots[i] = slot.instantiate()
-		slots[i].target = "inventory"
-		slots[i].index = i
-		grid.add_child(slots[i])
-	display_inventory(GlobalRefs.player.inventory.slots)
+func initialise(_event: PlayerLoadedEvent) -> void:
+	#GlobalRefs.player.inventory.inventory_changed.connect(update_slot)
+	#slots.resize(GlobalRefs.player.inventory.INVENTORY_SIZE)
+	#for i in range(slots.size()):
+		#slots[i] = slot.instantiate()
+		#slots[i].target = "inventory"
+		#slots[i].index = i
+		#grid.add_child(slots[i])
+	#display_inventory(GlobalRefs.player.inventory.slots)
+	pass
 
 #func _physics_process(_delta: float) -> void:
 	#if Input.is_action_just_pressed("inventory"):

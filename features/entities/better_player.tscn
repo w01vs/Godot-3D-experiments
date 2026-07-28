@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://o45847jxuasr"]
 
 [ext_resource type="Script" uid="uid://c0x0adiepm0ji" path="res://features/player/player.gd" id="1_cs6bt"]
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://scripts/entity.gd" id="1_sm6ki"]
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_sm6ki"]
 [ext_resource type="Script" uid="uid://ccd4wd8ocb43x" path="res://core/components/extensions/c_raycast3d.gd" id="3_6ldnq"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://core/components/stats/health_component.gd" id="4_1qn71"]
-[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="4_malci"]
+[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="4_6ldnq"]
 [ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://core/components/physics/hurtbox_component.gd" id="6_malci"]
 [ext_resource type="Script" uid="uid://dpd66hp3w048d" path="res://features/player/interact_ray_component.gd" id="9_i1ft5"]
 
@@ -171,6 +171,7 @@ collide_with_areas = true
 collide_with_bodies = false
 script = ExtResource("3_6ldnq")
 entity = NodePath("../../../../..")
+target_components = null
 
 [node name="RightArm" type="Node3D" parent="BetterPlayer/TwistPivot" unique_id=706858921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507, -1.484, -0.282355)
@@ -196,15 +197,6 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
-[node name="ComponentArea3D" type="Area3D" parent="BetterPlayer" unique_id=1364111482 node_paths=PackedStringArray("entity")]
-script = ExtResource("4_malci")
-entity = NodePath("../..")
-metadata/_custom_type_script = "uid://bf01144lxbocj"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BetterPlayer/ComponentArea3D" unique_id=1636775676]
-transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_flj5x")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BetterPlayer" unique_id=640653125]
 libraries/ = SubResource("AnimationLibrary_3ip4g")
 
@@ -216,14 +208,24 @@ parameters/Transition/current_state = "Weapon1H"
 parameters/Transition/transition_request = ""
 parameters/Transition/current_index = 0
 
-[node name="HealthComponent" type="Node" parent="." unique_id=823678617 node_paths=PackedStringArray("hurtbox", "entity")]
+[node name="CArea3D" type="Area3D" parent="BetterPlayer" unique_id=2141155532 node_paths=PackedStringArray("entity")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+script = ExtResource("4_6ldnq")
+entity = NodePath("../..")
+target_components = Array[String](["HurtboxComponent"])
+metadata/_custom_type_script = "uid://bf01144lxbocj"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BetterPlayer/CArea3D" unique_id=1671852494]
+transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 1, 0)
+shape = SubResource("ConvexPolygonShape3D_flj5x")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=823678617 node_paths=PackedStringArray("entity")]
 script = ExtResource("4_1qn71")
-hurtbox = NodePath("../HurtboxComponent")
 entity = NodePath("..")
 
 [node name="HurtboxComponent" type="Node" parent="." unique_id=2124588863 node_paths=PackedStringArray("area", "entity")]
 script = ExtResource("6_malci")
-area = NodePath("../BetterPlayer/ComponentArea3D")
+area = NodePath("../BetterPlayer/CArea3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://lrvixysacsgx"
 

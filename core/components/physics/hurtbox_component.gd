@@ -2,18 +2,18 @@ class_name HurtboxComponent extends Component
 
 @export var area: CArea3D
 
-signal hitbox_collided(hitbox: Entity)
-
 func _init_component() -> void:
-	area.set_collision_layer_value(1, false)
-	area.set_collision_mask_value(1, false)
-	area.set_collision_layer_value(3, true)
-	area.set_collision_mask_value(4, true)
-	#area.hit.connect(hit)
-	area.monitoring = false
+	entity.subscribe_local(CollisionShapeRegisteredEntityEvent, _on_area_connected)
 
-func hit(hitbox: Entity) -> void:
-	hitbox_collided.emit(hitbox)
+func _on_area_connected(event: CollisionShapeRegisteredEntityEvent) -> void:
+	if event.source is CArea3D and event.target_components.has(script_name):
+		area.set_collision_layer_value(3, true)
+		area.hit.connect(hit)
+		area.monitorable = true
+
+func hit(data: AreaData) -> void:
+	if data is HitData:
+		entity.raise_local(DamageEntityEvent.new(self, data.info, data.source))
 
 static func _get_tags() -> Set:
 	var tags: Set = Set.new()

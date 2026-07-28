@@ -11,7 +11,6 @@ enum ChangeType {
 
 @export var max_health: float = 100
 
-@export var hurtbox: HurtboxComponent
 var health: float
 
 var increasing_over_time: bool = false
@@ -29,12 +28,16 @@ var decrease_total_ticks: float = 0
 func _init_component() -> void:
 	health = max_health
 	health_changed.emit(health)
-	hurtbox.hitbox_collided.connect(take_hit)
+	#entity.subscribe_local(ComponentRegisteredEntityEvent, _on_hurtbox_registered)
+#
+#func _on_hurtbox_registered(event: ComponentRegisteredEntityEvent) -> void:
+	#if event.source is HurtboxComponent:
+		#event.source.
 
 func take_hit(_entity: Entity) -> void:
 	var hitbox: HitboxComponent = _entity.get_component(HitboxComponent)
-	if hitbox.on_hit_information:
-		var info: OnHitInformation = hitbox.on_hit_information
+	if hitbox.damage_info:
+		var info: DamageInfo = hitbox.damage_info
 		for n in info.groups.size():
 			if entity.is_in_group(info.groups[n]):
 				update_health(info)
@@ -45,7 +48,7 @@ func _process(delta: float) -> void:
 	increase_health_over_time(delta)
 	decrease_health_over_time(delta)
 
-func update_health(info: OnHitInformation) -> void:
+func update_health(info: DamageInfo) -> void:
 	match info.type:
 		ChangeType.NONE:
 			pass

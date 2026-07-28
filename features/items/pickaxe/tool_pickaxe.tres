@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ToolData" format=3 uid="uid://bxj24q810r50n"]
 
 [ext_resource type="PackedScene" uid="uid://cegwr0shcxxre" path="res://features/items/pickaxe/pickaxe.tscn" id="1_2s38o"]
-[ext_resource type="Script" uid="uid://b66uix4s0npvd" path="res://scripts/tool_data.gd" id="1_vl647"]
+[ext_resource type="Script" uid="uid://b66uix4s0npvd" path="res://features/items/tools/tool_data.gd" id="1_vl647"]
 [ext_resource type="Texture2D" uid="uid://imhmtmvqeoem" path="res://features/items/pickaxe/pickaxe.png" id="3_fheul"]
 
 [resource]

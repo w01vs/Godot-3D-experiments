@@ -1,16 +1,16 @@
 extends Label
 
 var player: Player
-var interact: RayCast3D
+var interact: CRayCast3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
-	GlobalRefs.player_set.connect(init)
+	EventBus.subscribe(PlayerLoadedEvent, init, Event.Priority.BASE)
 
-func init() -> void:
-	player = GlobalRefs.player
-	interact = player.get_node("TwistPivot/PitchPivot/Camera3D/Interact")
-	interact.ui_switched.connect(switch)
+func init(event: PlayerLoadedEvent) -> void:
+	player = event.source
+	#interact = player.get_node("TwistPivot/PitchPivot/Camera3D/Interact")
+	#interact.ui_switched.connect(switch)
 	
 func switch(state: GlobalRefs.PlayerState) -> void:
 	match state:

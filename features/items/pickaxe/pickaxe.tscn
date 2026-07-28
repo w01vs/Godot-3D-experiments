@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cegwr0shcxxre"]
 
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://scripts/entity.gd" id="1_gtsso"]
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_gtsso"]
 [ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://features/items/sword/sword.glb" id="2_6474j"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_5k5mh"]
 [ext_resource type="Script" uid="uid://b54bwceiwjxdb" path="res://core/components/physics/hitbox_component.gd" id="4_7cdoh"]

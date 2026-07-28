@@ -13,10 +13,15 @@ var end: Vector3
 @onready var draw: Draw3D = $Draw3D
 
 func _ready() -> void:
-	player = GlobalRefs.player
+	EventBus.subscribe(PlayerLoadedEvent, _grab_player, Event.Priority.BASE)
 	space_state = actor.get_world_3d().direct_space_state
 
+func _grab_player(event: PlayerLoadedEvent) -> void:
+	player = event.source
+
 func condition() -> bool:
+	if !player:
+		return false
 	return sight()
 
 func sight() -> bool:

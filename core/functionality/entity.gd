@@ -1,0 +1,115 @@
+class_name Entity extends Node3D
+
+var components: Dictionary[Script, Component] = {}
+
+var _global_subscriptions: Dictionary[Script, Array] = {}
+
+var event_bus: EventBusBase = EventBusBase.new()
+
+func _ready() -> void:
+	event_bus.enable()
+	event_bus.release_events()
+
+func register(component: Component) -> void:
+	for s in find_bases(component.get_script(), true):
+		components.set(s, component)
+
+func get_component(script: Script) -> Component:
+	return components.get(script)
+
+func has_component(script: Script) -> bool:
+	return components.has(script)
+
+func remove_component(component: Component) -> void:
+	for s in find_bases(component.get_script(), true):
+		if get_component(s) == component:
+			components.erase(component)
+	for event: Script in _global_subscriptions.keys():
+		var callbacks: Array = _global_subscriptions.get(event)
+		for i in range(callbacks.size()):
+			var cb: Callable = callbacks.get(i)
+			if cb.is_valid():
+				if cb.get_object() == component:
+					callbacks[i] = callbacks[callbacks.size() - 1]
+					callbacks.pop_back()
+					if callbacks.size() == 0:
+						_global_subscriptions.erase(event)
+						EventBus.unsubscribe(event, _callback_internal)
+					return
+
+func find_bases(script: Script, removing: bool) -> Array[Script]:
+	var current_script: Script = script
+	var scripts: Array[Script] = []
+	while current_script != Component:
+		assert(!components.has(current_script) || removing)
+		if components.has(current_script):
+			push_error("A component of this type %s has already been registered" % [ current_script.get_global_name() ])
+			return []
+		scripts.append(current_script)
+		current_script = current_script.get_base_script()
+	return scripts
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		for comp: Component in components.values():
+			comp.queue_free()
+
+func subscribe_local(event_type: Script, callback: Callable) -> void:
+	assert(event_bus.is_valid_event(event_type, EntityEvent))
+	if !event_bus.is_valid_event(event_type, EntityEvent):
+		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])
+		return
+	event_bus.subscribe(event_type, callback)
+
+func unsubscribe_local(event_type: Script, callback: Callable) -> void:
+	assert(event_bus.is_valid_event(event_type, EntityEvent))
+	if !event_bus.is_valid_event(event_type, EntityEvent):
+		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])
+	event_bus.unsubscribe(event_type, callback)
+
+func raise_local(event: EntityEvent) -> void:
+	event_bus.raise(event)
+
+func subcribe_global(event_type: Script, callback: Callable) -> void:
+	if !_global_subscriptions.has(event_type):
+		_global_subscriptions[event_type] = []
+	if !_global_subscriptions[event_type].has(callback):
+		_global_subscriptions[event_type].append(callback)
+		EventBus.subscribe(event_type, _callback_internal)
+
+func unsubcribe_global(event_type: Script, callback: Callable) -> void:
+	EventBus.unsubscribe(event_type, callback)
+	var callbacks: Array = _global_subscriptions.get(event_type)
+	for i in range(callbacks.size()):
+		var cb: Callable = callbacks.get(i)
+		if !cb.is_valid():
+			continue
+		if cb == callback:
+			callbacks[i] = callbacks[callbacks.size() - 1]
+			callbacks.pop_back()
+			return
+
+func raise_global(event: Event) -> void:
+	EventBus.raise(event)
+
+func _callback_internal(event: EventBase) -> void:
+	var event_type: Script = event.get_script()
+	if _global_subscriptions.has(event_type):
+		var callbacks: Array = _global_subscriptions.get(event_type)
+		for i in range(callbacks.size()):
+			var callback: Callable = callbacks.get(i)
+			if callback.is_valid():
+				callback.call(event)
+			else:
+				callbacks[i] = callbacks[callbacks.size() - 1]
+				callbacks.pop_back()
+
+func enable() -> void:
+	show()
+	event_bus.enable()
+
+func disable() -> void:
+	hide()
+	event_bus.disable()
+
+	

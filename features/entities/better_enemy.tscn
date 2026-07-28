@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dga0fjv0a80a8"]
 
 [ext_resource type="Script" uid="uid://bw5qaeom038r3" path="res://features/enemy/enemy.gd" id="1_mjmkq"]
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://scripts/entity.gd" id="1_ogula"]
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_ogula"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://core/components/stats/health_component.gd" id="2_ms8sh"]
 [ext_resource type="PackedScene" uid="uid://4v0ymcds2oi8" path="res://core/components/visuals/health_bar_3d.tscn" id="3_mvyt3"]
 [ext_resource type="Script" uid="uid://dob08y15l1djm" path="res://features/behaviortree/root_bt_node.gd" id="4_40b32"]

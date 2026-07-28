@@ -1,7 +1,7 @@
 class_name AttackItemModelComponent extends ItemModelComponent
 
 @export var hitbox: HitboxComponent
-@export var hitinfo: OnHitInformation
+@export var hitinfo: DamageInfo
 
 func _init_component() -> void:
 	assert(hitbox != null)

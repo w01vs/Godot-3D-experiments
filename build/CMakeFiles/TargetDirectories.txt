@@ -1,0 +1,4 @@
+/home/wolv/Coding/Godot/OpenWorldProject/build/CMakeFiles/generate_bindings.dir
+/home/wolv/Coding/Godot/OpenWorldProject/build/CMakeFiles/godot-cpp.dir
+/home/wolv/Coding/Godot/OpenWorldProject/build/CMakeFiles/edit_cache.dir
+/home/wolv/Coding/Godot/OpenWorldProject/build/CMakeFiles/rebuild_cache.dir

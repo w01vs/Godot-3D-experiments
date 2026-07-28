@@ -4,6 +4,7 @@
 @export var entity: Entity
 ## Represents wether a component is functional or not.
 var active: bool = true
+var script_name: String
 
 ## All C-versions are very similar: They store what type of component uses them and emit an event through their entity when they are loaded.
 ## [br]Current C-versions are:
@@ -13,10 +14,13 @@ const C_version: Script = null
 
 ## The [code]_ready()[/code] function should [b]never be overriden[/b] in a component.
 func _ready() -> void:
-	_init_component()
 	assert(entity != null, "Component %s at %s requires an entity it is attached to." % [ name, get_path() ])
 	entity.register(self)
 	entity.subscribe_local(EntityLoadedEvent, _on_entity_load)
+	entity.raise_local(ComponentRegisteredEntityEvent.new(self))
+	script_name = get_script().get_global_name()
+	_init_component()
+	
 
 ## Called when the parent entity finished loading.
 func _on_entity_load(_event: EntityLoadedEvent) -> void:

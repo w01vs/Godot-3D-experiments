@@ -1,12 +1,27 @@
 @tool
 extends Node
 
-func _validate_property(property: Dictionary) -> void:
-	if property.name == "target_component":
-		var non_abstract_classes: Array[String] = InspectorHelp._get_derived_component_classes(CArea3D)
-		var enum_hint_string: String = ",".join(non_abstract_classes)
-		property.hint = PROPERTY_HINT_ENUM
-		property.hint_string = enum_hint_string
+func get_target_components_property(tag: Script) -> Array[Dictionary]:
+	var properties: Array[Dictionary] = []
+	var options: String = get_components_with_tag(tag)
+	properties.append({
+		"name": "target_components",
+		"type": TYPE_ARRAY,
+		"usage": PROPERTY_USAGE_SCRIPT_VARIABLE | PROPERTY_USAGE_DEFAULT,
+		"hint": PROPERTY_HINT_ARRAY_TYPE,
+		"hint_string": "%d/%d:%s" % [TYPE_STRING, PROPERTY_HINT_ENUM, options]
+	})
+	
+	return properties
+
+func get_components_with_tag(tag: Script) -> String:
+	var non_abstract_classes: Array[String] = _get_derived_component_classes(tag)
+	var string_enum_pairs: Array[String] = []
+	for cls in non_abstract_classes:
+		string_enum_pairs.append("%s:%s" % [cls, cls])
+	
+	var enum_hint_string: String = ",".join(non_abstract_classes)
+	return enum_hint_string
 
 func _get_derived_component_classes(required: Script) -> Array[String]:
 	var result: Array[String] = []

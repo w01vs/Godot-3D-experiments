@@ -1,6 +1,6 @@
 class_name HealthTick extends Node
 
-var type: HealthComponent.ChangeType = HealthComponent.ChangeType.NONE
+var type: DamageInfo.Type = DamageInfo.Type.NONE
 var _comp: HealthComponent = null
 
 var timer: float = 0
@@ -8,11 +8,11 @@ var tick: float = 0
 var tick_change: float = 0
 var tick_count: int = 0
 
-func _init(comp: HealthComponent, info: OnHitInformation) -> void:
+func _init(comp: HealthComponent, info: DamageInfo) -> void:
 	if comp.health > 0:
 		_comp = comp
 		match info.type:
-			HealthComponent.ChangeType.DOT:
+			DamageInfo.Type.DOT:
 				type = info.type
 				tick = info.time_per_tick
 				tick_change = info.change_per_tick

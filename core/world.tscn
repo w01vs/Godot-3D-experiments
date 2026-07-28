@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://by7on7nhfca2w"]
 
-[ext_resource type="Script" uid="uid://du1ht7nmv50hi" path="res://scripts/world.gd" id="1_cp1df"]
+[ext_resource type="Script" uid="uid://du1ht7nmv50hi" path="res://core/functionality/world.gd" id="1_cp1df"]
 [ext_resource type="Script" uid="uid://e83e5af3w8ao" path="res://features/player/ui/player_ui.gd" id="2_4bd16"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://features/player/ui/player_health_bar.tscn" id="3_rtxew"]
 [ext_resource type="Script" uid="uid://c8fimqgn8xpvr" path="res://features/building/structures/build_ui.gd" id="4_ueke7"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://wdgcqohl6sqf" path="res://features/inventory/ui/drag_preview.tscn" id="7_3s5gr"]
 [ext_resource type="PackedScene" uid="uid://c3bf1h0lfalix" path="res://features/inventory/ui/inventory_slot.tscn" id="7_if4au"]
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://features/entities/better_player.tscn" id="8_acts3"]
-[ext_resource type="PackedScene" uid="uid://dga0fjv0a80a8" path="res://features/entities/better_enemy.tscn" id="9_42tfs"]
 [ext_resource type="PackedScene" uid="uid://2kpyrhr6llgu" path="res://features/entities/damage_interactable.tscn" id="11_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://bg2ko1e8iq8ne" path="res://features/entities/heal_interactable.tscn" id="12_ysm7w"]
 
@@ -128,28 +127,25 @@ slot = ExtResource("7_if4au")
 
 [node name="DragPreview" parent="PlayerUI" unique_id=1529233897 instance=ExtResource("7_3s5gr")]
 
-[node name="BaseNavRegion" type="NavigationRegion3D" parent="." unique_id=634300098]
-transform = Transform3D(0.9999989, 0.0011023232, 0.00091151067, -0.0011021094, 0.99999934, -0.0002297302, -0.000911769, 0.00022870275, 0.9999995, 0, 0, 0)
-navigation_mesh = SubResource("NavigationMesh_vv4qp")
-
-[node name="Floor" type="MeshInstance3D" parent="BaseNavRegion" unique_id=1346988845]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.00630379, 0.0128107, -0.185878)
-mesh = SubResource("BoxMesh_kcw8a")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/Floor" unique_id=483674248]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D" unique_id=1932336762]
-shape = SubResource("ConcavePolygonShape3D_tijdu")
-
 [node name="BetterPlayer" parent="." unique_id=1293619965 instance=ExtResource("8_acts3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2570927, 2.014049)
-
-[node name="BetterEnemy" parent="." unique_id=14835497 instance=ExtResource("9_42tfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.680928, 0, 0)
 
 [node name="DamageInteractable" parent="." unique_id=1420473332 instance=ExtResource("11_jj2bn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9809012, 1.459693, -2.7595947)
 
 [node name="HealInteractable" parent="." unique_id=2040929709 instance=ExtResource("12_ysm7w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4802756, -2.7595947)
+
+[node name="BaseNavRegion" type="NavigationRegion3D" parent="." unique_id=49940600]
+transform = Transform3D(0.9999989, 0.0011023232, 0.00091151067, -0.0011021094, 0.99999934, -0.0002297302, -0.000911769, 0.00022870275, 0.9999995, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_vv4qp")
+
+[node name="Floor" type="MeshInstance3D" parent="BaseNavRegion" unique_id=703520715]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.00630379, 0.0128107, -0.185878)
+mesh = SubResource("BoxMesh_kcw8a")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/Floor" unique_id=355073486]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D" unique_id=122491301]
+shape = SubResource("ConcavePolygonShape3D_tijdu")

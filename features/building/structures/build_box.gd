@@ -2,11 +2,9 @@ class_name BuildBox extends StaticBody3D
 
 @onready var mesh_: MeshInstance3D = $".."
 
-var mat: Material = preload("res://Resources/Building/hologram_material.tres")
-
-var default_mat: Material = preload("res://Resources/Building/default_material.tres")
-
-var err_mat: Material = preload("res://Resources/Building/holo_collidiing_material.tres")
+const HOLOGRAM_MATERIAL = preload("uid://b1pjmlx7yv3kh")
+const DEFAULT_MATERIAL = preload("uid://db2oa1m56af12")
+const HOLO_COLLIDING_MATERIAL = preload("uid://cifpae7kfm0p8")
 
 var holo: bool = false
 
@@ -27,7 +25,7 @@ var timer_current: float = 0
 @onready var area: Area3D = $"../BuildDetection"
 
 func _ready() -> void:
-	mesh_.set_surface_override_material(0, default_mat)
+	mesh_.set_surface_override_material(0, DEFAULT_MATERIAL)
 	area.connect("area_entered", _on_area_3d_area_entered)
 	area.connect("area_exited", _on_area_3d_area_exited)
 
@@ -40,7 +38,7 @@ func place() -> void:
 	if holo:
 		placed = true
 		holo = false
-		mesh_.set_surface_override_material(0, default_mat)
+		mesh_.set_surface_override_material(0, DEFAULT_MATERIAL)
 		set_collision_layer_value(5, true)
 		area.disconnect("area_entered", _on_area_3d_area_entered)
 		area.disconnect("area_exited", _on_area_3d_area_exited)
@@ -71,10 +69,10 @@ func place_check() -> void:
 	var hits = space_state.intersect_shape(query, 1)
 	if hits.size() != 0:
 		print_debug(hits)
-		mesh_.set_surface_override_material(0, err_mat)
+		mesh_.set_surface_override_material(0, HOLO_COLLIDING_MATERIAL)
 		placeable = false
 		return
-	mesh_.set_surface_override_material(0, mat)
+	mesh_.set_surface_override_material(0, HOLOGRAM_MATERIAL)
 	placeable = true
 
 func _process(delta: float) -> void:
@@ -82,7 +80,7 @@ func _process(delta: float) -> void:
 		timer_current += delta
 		if timer_current > time_margin:
 			placeable = true
-			mesh_.set_surface_override_material(0, mat)
+			mesh_.set_surface_override_material(0, HOLOGRAM_MATERIAL)
 			timer_running = false
 
 func _on_area_3d_area_entered(_area: Area3D):

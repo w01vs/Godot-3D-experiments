@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="OnHitInformation" format=3 uid="uid://bbx4d6xxe6l43"]
+[gd_resource type="Resource" script_class="DamageInfo" format=3 uid="uid://bbx4d6xxe6l43"]
 
-[ext_resource type="Script" uid="uid://cq4yyguxfpvds" path="res://core/components/stats/on_hit_information.gd" id="1_1kv81"]
+[ext_resource type="Script" uid="uid://cq4yyguxfpvds" path="res://core/components/stats/damage_info.gd" id="1_1kv81"]
 
 [resource]
 script = ExtResource("1_1kv81")
 groups = Array[String](["player"])
-type = 2
-health_change_total = 30.0
+type = 1
+health_change_total = -30.0
 metadata/_custom_type_script = "uid://cq4yyguxfpvds"

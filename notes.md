@@ -1,15 +1,7 @@
-TO DO:
-	build an InputManager
-	Fix up interaction components with eventbus and local eventbus. 
-	then convert to components where possible:
-		enemy
-		player
+### TO DO:
+	convert to components where possible:
 		buildcomponent from player/interact.gd
-	How to do input handling? -> inputmanager with signals
-	How to do UI communication? -> custom eventbus instead of signals for direct dispatch
 	then continue fixing the other components:
-		hitbox/hurtbox
-		interaction and derived
 		building -> split into placing and static
 		Make equipmentcomponent instead of in player
 		items
@@ -17,9 +9,11 @@ TO DO:
 		inventory:
 	Split inventory and hotbar input stuff, inventory is still the owner of the hotbar data
 
+eventually I will get around to making a new AI stuffs with a plugin
+then ill also make components for whatever an enemy needs. ill leave it
+as is for now
 
 
-
-# Cool websites
+### Cool websites
 https://docs.godotengine.org/en/stable
 mixamo -> animations

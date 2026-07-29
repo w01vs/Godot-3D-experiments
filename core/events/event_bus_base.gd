@@ -1,6 +1,6 @@
 class_name EventBusBase
 
-var _listeners: Dictionary[Script, Dictionary]
+var listeners_: Dictionary[Script, Dictionary]
 
 var active: bool = true
 var hold: bool = true
@@ -9,18 +9,18 @@ var dispatch_held: Array[EventBase] = []
 
 
 func subscribe(event_type: Script, callback: Callable, priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
-	if not _listeners.has(event_type):
-		_listeners[event_type] = {}
-		_listeners[event_type][priority] = []
-	if not _listeners[event_type][priority].has(callback):
-		_listeners[event_type][priority].append(callback)
+	if not listeners_.has(event_type):
+		listeners_[event_type] = {}
+		listeners_[event_type][priority] = []
+	if not listeners_[event_type][priority].has(callback):
+		listeners_[event_type][priority].append(callback)
 
 func unsubscribe(event_type: Script, callback: Callable) -> void:
-	if _listeners.has(event_type):
-		for prio: Event.Priority in _listeners[event_type]:
-			var callbacks: Array = _listeners[event_type][prio]
-			for i in range(_listeners[event_type][prio].size()):
-				var cb: Callable = _listeners[event_type].get(prio)
+	if listeners_.has(event_type):
+		for prio: Event.Priority in listeners_[event_type]:
+			var callbacks: Array = listeners_[event_type][prio]
+			for i in range(listeners_[event_type][prio].size()):
+				var cb: Callable = listeners_[event_type].get(prio)
 				if cb == callback:
 					callbacks[i] = callbacks[callbacks.size() - 1]
 					callbacks.pop_back()
@@ -32,10 +32,10 @@ func raise(event: EventBase) -> void:
 		dispatch_held.append(event)
 		return
 	var event_type: Script = event.get_script()
-	if _listeners.has(event_type):
+	if listeners_.has(event_type):
 		for prio: EventBase.Priority in [EventBase.Priority.PRE, EventBase.Priority.BASE, EventBase.Priority.POST]:
-			if _listeners.get(event_type).get(prio):
-				var callbacks: Array = _listeners.get(event_type).get(prio)
+			if listeners_.get(event_type).get(prio):
+				var callbacks: Array = listeners_.get(event_type).get(prio)
 				for i: int in range(callbacks.size()):
 					var callback: Callable = callbacks.get(i)
 					if callback.is_valid():
@@ -45,7 +45,7 @@ func raise(event: EventBase) -> void:
 						callbacks.pop_back()
 
 func _raise_held() -> void:
-	for event: EntityEvent in dispatch_held:
+	for event: EventBase in dispatch_held:
 		raise(event)
 	dispatch_held.clear()
 

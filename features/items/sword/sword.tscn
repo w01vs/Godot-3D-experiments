@@ -21,6 +21,7 @@ transform = Transform3D(3.2481654e-16, 7.430936e-09, -0.17, 0.17, -7.430936e-09,
 transform = Transform3D(1.1239325e-14, 5.882353, -2.571258e-07, 2.571258e-07, -2.571258e-07, -5.882353, -5.882353, 6.734627e-22, -2.571258e-07, -2.1117647, 9.230816e-08, -2.417731e-22)
 script = ExtResource("3_7tyby")
 entity = NodePath("../..")
+target_components = Array[String]([])
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sword/ComponentArea3D" unique_id=1397581882]

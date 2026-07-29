@@ -21,8 +21,7 @@ func delete() -> void:
 	entity.queue_free()
 
 func enable() -> void:
-	entity.hide()
-	entity.set_process(false)
+	entity.enable()
 
 func disable() -> void:
-	entity.show()
+	entity.disable()

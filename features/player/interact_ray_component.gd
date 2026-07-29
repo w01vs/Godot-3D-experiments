@@ -1,20 +1,28 @@
 class_name InteractRayComponent extends Component
 
-var current_collider: Object
-@export var ray: RayCast3D
-	
-func _physics_process(_delta: float) -> void:
-	var collider: Object = ray.get_collider()
-	if ray.is_colliding() and collider is CArea3D:
-		if current_collider != collider:
-			current_collider = collider	
-		if(Input.is_action_just_pressed("interact")):
-			collider.hit.emit(entity)
-	elif current_collider:
-		current_collider = null
+var current_collider: CollisionObject3D
 
-func set_mask(layer: int, on: bool) -> void:
-	ray.set_collision_mask_value(layer, on)
+func _init_component() -> void:
+	entity.subscribe_local(RayCastRegisteredEntityEvent, _on_raycast_registered)
+	entity.subscribe_local(RayCastEntityEvent, _on_raycast_hit)
+	InputManager.subscribe(InteractInputEvent, _interact)
 
-func clear_mask() -> void:
-	ray.collision_mask = 0
+func _on_raycast_hit(event: RayCastEntityEvent) -> void:
+	if event.collider is CollisionObject3D:
+		current_collider = event.collider
+		_send_interaction(true)
+
+func _interact(_event: InteractInputEvent) -> void:
+	_send_interaction(false)
+
+func _send_interaction(hover: bool) -> void:
+	if current_collider:
+		if current_collider.get_collision_layer_value(2):
+			if current_collider.get_groups().has(Groups.CUSTOM_COLLISION_OBJECT):
+				current_collider.hit(InteractionData.new(entity, hover))
+
+func _on_raycast_registered(event: RayCastRegisteredEntityEvent) -> void:
+	var ray: CRayCast3D = event.source as CRayCast3D
+	ray.cset_collision_mask_value(2, true)
+	ray.set_area_collision(true)
+	ray.set_body_collision(true)

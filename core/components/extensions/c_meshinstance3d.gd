@@ -1,9 +1,8 @@
-@tool
 class_name CMeshInstance3D extends MeshInstance3D
 
 @export var entity: Entity
-@export var target_component: String
 
-
-func _get_property_list() -> Array[Dictionary]:
-	return InspectorHelp.get_target_components_property(get_script())
+func _ready() -> void:
+	if !Engine.is_editor_hint():
+		#add_to_group("custom_collision_object")
+		pass

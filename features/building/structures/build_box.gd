@@ -48,12 +48,12 @@ func place() -> void:
 
 func place_check() -> void:
 	# In build_box.gd inside can_be_placed():
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsShapeQueryParameters3D.new()
+	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
 
 	# Create a slightly shrunk copy of the shape for the query
-	var shape_node = area.get_node("CollisionShape3D")
-	var check_shape = shape_node.shape.duplicate()
+	var shape_node: CollisionShape3D = area.get_node("CollisionShape3D")
+	var check_shape:  = shape_node.shape.duplicate()
 
 	# Prevent collision when reaaaally close to each other
 	if check_shape is BoxShape3D:
@@ -66,7 +66,7 @@ func place_check() -> void:
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
 
-	var hits = space_state.intersect_shape(query, 1)
+	var hits: Array[Dictionary] = space_state.intersect_shape(query, 1)
 	if hits.size() != 0:
 		print_debug(hits)
 		mesh_.set_surface_override_material(0, HOLO_COLLIDING_MATERIAL)
@@ -83,14 +83,14 @@ func _process(delta: float) -> void:
 			mesh_.set_surface_override_material(0, HOLOGRAM_MATERIAL)
 			timer_running = false
 
-func _on_area_3d_area_entered(_area: Area3D):
+func _on_area_3d_area_entered(_area: Area3D) -> void:
 	collider_count += 1
 	if placeable:
 		placeable = false
-		mesh_.set_surface_override_material(0, err_mat)
+		mesh_.set_surface_override_material(0, HOLO_COLLIDING_MATERIAL)
 	print_debug(collider_count)
 
-func _on_area_3d_area_exited(_area: Area3D):
+func _on_area_3d_area_exited(_area: Area3D) -> void:
 	collider_count -= 1
 	if collider_count == 0:
 		timer_current = 0

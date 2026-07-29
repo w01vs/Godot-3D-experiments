@@ -9,6 +9,6 @@ enum Priority {
 var source: Node
 var id: int
 
-func _init(_source: Node) -> void:
-	source = _source
+func _init(source_: Node) -> void:
+	source = source_ 
 	id = get_script().get_instance_id()

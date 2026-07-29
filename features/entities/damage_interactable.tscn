@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://k857ynoid412" path="res://features/building/interaction/health_interaction_component.gd" id="2_64fsb"]
 [ext_resource type="Script" uid="uid://dxpaoqwywatwk" path="res://core/components/extensions/c_staticbody3d.gd" id="2_ehbd2"]
 [ext_resource type="Resource" uid="uid://bbx4d6xxe6l43" path="res://features/building/interaction/damage_interactable_info.tres" id="4_ehbd2"]
+[ext_resource type="Script" uid="uid://dhe53nqofut4a" path="res://features/terrain/terrain_component.gd" id="5_7ijho"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_poopc"]
 
@@ -24,6 +25,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ikia7")
 [node name="StaticBody3D" type="StaticBody3D" parent="Mesh" unique_id=458604654 node_paths=PackedStringArray("entity")]
 script = ExtResource("2_ehbd2")
 entity = NodePath("../..")
+target_components = Array[String](["HealthInteractionComponent"])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" unique_id=1286531422]
 shape = SubResource("BoxShape3D_mja2j")
@@ -33,3 +35,8 @@ script = ExtResource("2_64fsb")
 damage_info = ExtResource("4_ehbd2")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://k857ynoid412"
+
+[node name="TerrainComponent" type="Node" parent="." unique_id=1749563307 node_paths=PackedStringArray("entity")]
+script = ExtResource("5_7ijho")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://dhe53nqofut4a"

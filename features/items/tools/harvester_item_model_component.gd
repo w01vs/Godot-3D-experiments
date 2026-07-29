@@ -3,9 +3,9 @@ class_name HarvesterItemModelComponent extends ItemModelComponent
 @export var hitbox: HitboxComponent
 var player: Player
 
-func _on_equip(_player: Player, itemdata: ItemData) -> void:
+func _on_equip(player_: Player, itemdata: ItemData) -> void:
 	data = itemdata
-	player = _player
+	player = player_
 
 func on_animation_trigger(event: StringName = "") -> void:
 	match event:

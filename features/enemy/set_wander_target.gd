@@ -20,7 +20,7 @@ func get_new_destination() -> Vector3:
 	var map: RID = GlobalRefs.map
 	var u: float = randf_range(0, 1)
 	var v: float = randf_range(0, 1)
-	var _w: float = randf_range(0, 1)
+	var w_: float = randf_range(0, 1)
 	var volumeRandom: float = randf_range(0, 1)
 	
 	var theta: float = PI * 2 * u

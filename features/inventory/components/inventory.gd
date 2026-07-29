@@ -15,7 +15,7 @@ var active_index: int = 0
 @export var player: Player
 
 func _ready() -> void:
-	var inv_data: InventoryData = preload("res://Resources/Inventory/inventory_data.tres")
+	var inv_data: InventoryData = preload("res://features/inventory/data/inventory_data.tres")
 	slots.resize(INVENTORY_SIZE)
 	hotbar_slots.resize(HOTBAR_SIZE)
 	if inv_data.main_inventory.size() != INVENTORY_SIZE:
@@ -51,7 +51,7 @@ func _set_active_item() -> void:
 	hotbar_active_changed.emit(active_index)
 	player.switch_hotbar_slot(active_index)
 
-func _load_active_item() -> void:
+func load_active_item() -> void:
 	if hotbar_slots[active_index]:
 		player.hotbar_load_item(hotbar_slots[active_index].item_data.model.instantiate(), active_index, hotbar_slots[active_index].item_data)
 	else:

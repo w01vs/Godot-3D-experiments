@@ -2,7 +2,7 @@ class_name Entity extends Node3D
 
 var components: Dictionary[Script, Component] = {}
 
-var _global_subscriptions: Dictionary[Script, Array] = {}
+var global_subscriptions_: Dictionary[Script, Array] = {}
 
 var event_bus: EventBusBase = EventBusBase.new()
 
@@ -24,8 +24,8 @@ func remove_component(component: Component) -> void:
 	for s in find_bases(component.get_script(), true):
 		if get_component(s) == component:
 			components.erase(component)
-	for event: Script in _global_subscriptions.keys():
-		var callbacks: Array = _global_subscriptions.get(event)
+	for event: Script in global_subscriptions_.keys():
+		var callbacks: Array = global_subscriptions_.get(event)
 		for i in range(callbacks.size()):
 			var cb: Callable = callbacks.get(i)
 			if cb.is_valid():
@@ -33,7 +33,7 @@ func remove_component(component: Component) -> void:
 					callbacks[i] = callbacks[callbacks.size() - 1]
 					callbacks.pop_back()
 					if callbacks.size() == 0:
-						_global_subscriptions.erase(event)
+						global_subscriptions_.erase(event)
 						EventBus.unsubscribe(event, _callback_internal)
 					return
 
@@ -71,15 +71,15 @@ func raise_local(event: EntityEvent) -> void:
 	event_bus.raise(event)
 
 func subcribe_global(event_type: Script, callback: Callable) -> void:
-	if !_global_subscriptions.has(event_type):
-		_global_subscriptions[event_type] = []
-	if !_global_subscriptions[event_type].has(callback):
-		_global_subscriptions[event_type].append(callback)
+	if !global_subscriptions_.has(event_type):
+		global_subscriptions_[event_type] = []
+	if !global_subscriptions_[event_type].has(callback):
+		global_subscriptions_[event_type].append(callback)
 		EventBus.subscribe(event_type, _callback_internal)
 
 func unsubcribe_global(event_type: Script, callback: Callable) -> void:
 	EventBus.unsubscribe(event_type, callback)
-	var callbacks: Array = _global_subscriptions.get(event_type)
+	var callbacks: Array = global_subscriptions_.get(event_type)
 	for i in range(callbacks.size()):
 		var cb: Callable = callbacks.get(i)
 		if !cb.is_valid():
@@ -90,12 +90,13 @@ func unsubcribe_global(event_type: Script, callback: Callable) -> void:
 			return
 
 func raise_global(event: Event) -> void:
+	event.source = self
 	EventBus.raise(event)
 
 func _callback_internal(event: EventBase) -> void:
 	var event_type: Script = event.get_script()
-	if _global_subscriptions.has(event_type):
-		var callbacks: Array = _global_subscriptions.get(event_type)
+	if global_subscriptions_.has(event_type):
+		var callbacks: Array = global_subscriptions_.get(event_type)
 		for i in range(callbacks.size()):
 			var callback: Callable = callbacks.get(i)
 			if callback.is_valid():

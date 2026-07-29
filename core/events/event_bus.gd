@@ -35,6 +35,8 @@ func raise(event: Event) -> void:
 	if event.source is Component:
 		push_error("You cannot raise a global event from a component")
 		return
+	if event is WorldLoadedEvent:
+		event_bus.hold = false
 	event_bus.raise(event)
 
 func is_valid_event(script: Script) -> bool:

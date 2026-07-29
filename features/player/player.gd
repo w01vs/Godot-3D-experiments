@@ -10,9 +10,6 @@ var SPEED: float = 5
 var JUMP_SPEED_REDUCTION: float = 5
 
 # Health Related
-var health: float
-var health_lerp_timer: float
-var health_chipspeed: float = 2
 @export var health_component: HealthComponent
 
 #var held_item: ItemModelComponent

@@ -38,14 +38,6 @@ func _notification(what: int) -> void:
 				entity.remove_component(self)
 				pass
 
-## Provides a set of objects that can interact with this component. 
-## [br][br]
-## For example: [br] An InteractionComponent needs a CollisionObject3D. 
-## However, this can only be one of the C-versions ([constant Component.C_version]) that were custom made.
-## Therefore, all these go into the set.
-static func _get_tags() -> Set:
-	return Set.new()
-
 ## Enables the component's functionality.
 func enable() -> void:
 	active = true

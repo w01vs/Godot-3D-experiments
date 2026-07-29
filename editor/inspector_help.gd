@@ -15,7 +15,7 @@ func get_target_components_property(tag: Script) -> Array[Dictionary]:
 	return properties
 
 func get_components_with_tag(tag: Script) -> String:
-	var non_abstract_classes: Array[String] = _get_derived_component_classes(tag)
+	var non_abstract_classes: Array[String] = get_derived_component_classes(tag)
 	var string_enum_pairs: Array[String] = []
 	for cls in non_abstract_classes:
 		string_enum_pairs.append("%s:%s" % [cls, cls])
@@ -23,13 +23,13 @@ func get_components_with_tag(tag: Script) -> String:
 	var enum_hint_string: String = ",".join(non_abstract_classes)
 	return enum_hint_string
 
-func _get_derived_component_classes(required: Script) -> Array[String]:
+func get_derived_component_classes(required: Script) -> Array[String]:
 	var result: Array[String] = []
 	var global_classes: Array[Dictionary] = ProjectSettings.get_global_class_list()
 	
 	for class_info in global_classes:
 		var script_path: String = class_info.path
-		if _inherits_from(script_path, "res://core/components/component.gd"):
+		if inherits_from(script_path, "res://core/components/component.gd"):
 			var script_res: GDScript = load(script_path) as GDScript
 			if script_res and not script_res.is_abstract():
 				var tags: Set = script_res._get_tags()
@@ -37,7 +37,7 @@ func _get_derived_component_classes(required: Script) -> Array[String]:
 					result.append(class_info.class)
 	return result
 
-func _inherits_from(script_path: String, base_path: String) -> bool:
+func inherits_from(script_path: String, base_path: String) -> bool:
 	var current: Script = load(script_path)
 	var target_base: Script = load(base_path)
 	while current != null:

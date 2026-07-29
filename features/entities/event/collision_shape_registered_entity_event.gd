@@ -1,0 +1,1 @@
+class_name CollisionShapeRegisteredEntityEvent extends EntityEvent

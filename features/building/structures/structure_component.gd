@@ -19,7 +19,7 @@ var collider_count: int = 0
 var time_margin: float = 0.08
 var timer_current: float = 0
 
-func _init_component() -> void:
+func init_component() -> void:
 	mesh_.set_surface_override_material(0, DEFAULT_MATERIAL)
 
 func to_holo() -> void:
@@ -82,10 +82,3 @@ func moveto(target: Vector3) -> void:
 
 func set_visible(on: bool) -> void:
 	mesh_.visible = on
-
-static func _get_tags() -> Set:
-	var tags: Set = Set.new()
-	tags.add(CArea3D)
-	tags.add(CMeshInstance3D)
-	tags.add(CStaticBody3D)
-	return tags

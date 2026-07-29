@@ -1,9 +1,9 @@
-class_name Sword extends Item
+class_name Sword extends Node3D
 
 @onready var hitbox: HitboxComponent = $HitboxComponent
-var hitinfo: OnHitInformation = preload("res://Resources/ItemInfo/sword.tres")
+var hitinfo: DamageInfo = preload("res://features/items/sword/sword_hit_info.tres")
 
-func _ready():
+func _ready() -> void:
 	hitbox.set_info(hitinfo)
 
 func use(animator: AnimationPlayer, _player: Player) -> void:

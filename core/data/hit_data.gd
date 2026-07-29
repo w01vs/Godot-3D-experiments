@@ -1,7 +1,7 @@
-class_name HitData extends AreaData
+class_name HitData extends CollisionData
 
 var damage_info: DamageInfo
 
-func _init(_source: Node, _damage_info: DamageInfo) -> void:
-	super(_source)
-	damage_info = _damage_info
+func _init(source_: Entity, damage_info_: DamageInfo) -> void:
+	super(source_)
+	damage_info = damage_info_

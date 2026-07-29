@@ -4,27 +4,41 @@ var context: Context.State = Context.State.GAMEPLAY
 
 var event_bus: EventBusBase = EventBusBase.new()
 
+var movement_vector: Vector2
+
 func _ready() -> void:
 	event_bus.enable()
 	event_bus.release_events()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(_delta: float) -> void:
-	pass
+	movement_vector = Input.get_vector("left", "right", "forward", "backward")
 
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("interact"):
-		event_bus.raise(InteractInputEvent.new(self))
-	if Input.is_action_just_pressed("snap"):
-		event_bus.raise(SnapInputEvent.new(self))
-	if Input.is_action_just_pressed("refocus"):
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-	if Input.is_action_just_pressed("build"):
-		event_bus.raise(BuildInputEvent.new(self))
-	if Input.is_action_just_pressed("jump"):
-		event_bus.raise(BuildInputEvent.new(self))
-	if Input.is_action_just_pressed("inventory"):
-		event_bus.raise(InventoryInputEvent.new(self))
-		
+func _unhandled_key_input(event: InputEvent) -> void:
+	if Input.use_accumulated_input:
+		if event.is_action_pressed("interact"):
+			event_bus.raise(InteractInputEvent.new(self))
+		elif event.is_action_pressed("snap"):
+			event_bus.raise(SnapInputEvent.new(self))
+		elif event.is_action_pressed("ui_cancel") and OS.is_debug_build():
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		elif event.is_action_pressed("refocus") and OS.is_debug_build():
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		elif event.is_action_pressed("build"):
+			event_bus.raise(BuildInputEvent.new(self))
+		elif event.is_action_pressed("jump"):
+			event_bus.raise(BuildInputEvent.new(self))
+		elif event.is_action_pressed("inventory"):
+			event_bus.raise(InventoryInputEvent.new(self))
+		else:
+			return
+		get_viewport().set_input_as_handled()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			event_bus.raise(MouseMotionInputEvent.new(self, event.relative, event.screen_relative))
+		get_viewport().set_input_as_handled()
 
 func enable() -> void:
 	event_bus.enable()
@@ -39,5 +53,5 @@ func subscribe(event_type: Script, callback: Callable) -> void:
 		return
 	event_bus.subscribe(event_type, callback)
 
-
-		
+func get_movement_vector() -> Vector2:
+	return movement_vector

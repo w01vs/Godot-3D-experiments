@@ -4,9 +4,11 @@ class_name HealthInteractionComponent extends InteractionComponent
 
 func _interact(event: CollisionEntityEvent) -> void:
 	if event.data is InteractionData:
-		event.data.source.raise_local(DamageEntityEvent.new(self, damage_info, entity))
+		var data: InteractionData = event.data as InteractionData
+		if !data.hover:
+			event.data.source.raise_local(DamageEntityEvent.new(self, damage_info, entity))
 
-func _on_area_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
-	if event.source.get_groups().has("custom_collision_object") and event.source is CollisionObject3D:
+func _on_collision_shape_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
+	if event.source.get_groups().has(Groups.CUSTOM_COLLISION_OBJECT) and event.source is CollisionObject3D:
 		collision_shape = event.source as CollisionObject3D
 		collision_shape.cset_collision_layer_value(2, true)

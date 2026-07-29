@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://o45847jxuasr"]
 
-[ext_resource type="Script" uid="uid://c0x0adiepm0ji" path="res://features/player/player.gd" id="1_cs6bt"]
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_sm6ki"]
+[ext_resource type="Script" uid="uid://bp68jof6vnwy5" path="res://core/components/extensions/c_characterbody3d.gd" id="2_3vvee"]
 [ext_resource type="Script" uid="uid://ccd4wd8ocb43x" path="res://core/components/extensions/c_raycast3d.gd" id="3_6ldnq"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://core/components/stats/health_component.gd" id="4_1qn71"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="4_6ldnq"]
 [ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://core/components/physics/hurtbox_component.gd" id="6_malci"]
+[ext_resource type="Script" uid="uid://c4qx547gynsx3" path="res://features/player/player_component.gd" id="8_3vvee"]
 [ext_resource type="Script" uid="uid://dpd66hp3w048d" path="res://features/player/interact_ray_component.gd" id="9_i1ft5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ns3u8"]
@@ -128,30 +129,23 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 script = ExtResource("1_sm6ki")
 metadata/_custom_type_script = "uid://cp7e65rba841n"
 
-[node name="BetterPlayer" type="CharacterBody3D" parent="." unique_id=1750855292 node_paths=PackedStringArray("health_component", "twist_pivot", "pitch_pivot", "right_hand_remote", "right_hand", "anim_player", "anim_tree", "player_entity")]
+[node name="CCharacterBody3D" type="CharacterBody3D" parent="." unique_id=1750855292 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 32
 collision_mask = 49
-script = ExtResource("1_cs6bt")
-health_component = NodePath("../HealthComponent")
-twist_pivot = NodePath("TwistPivot")
-pitch_pivot = NodePath("TwistPivot/PitchPivot")
-right_hand_remote = NodePath("TwistPivot/RightArm/rightarm/Marker3D/RemoteTransform3D")
-right_hand = NodePath("TwistPivot/RightArm/rightarm/Marker3D")
-anim_player = NodePath("AnimationPlayer")
-anim_tree = NodePath("AnimationTree")
-player_entity = NodePath("..")
+script = ExtResource("2_3vvee")
+entity = NodePath("..")
 
-[node name="TwistPivot" type="Node3D" parent="BetterPlayer" unique_id=1164485217]
+[node name="TwistPivot" type="Node3D" parent="CCharacterBody3D" unique_id=1164485217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="PitchPivot" type="Node3D" parent="BetterPlayer/TwistPivot" unique_id=368170200]
+[node name="PitchPivot" type="Node3D" parent="CCharacterBody3D/TwistPivot" unique_id=368170200]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="BetterPlayer/TwistPivot/PitchPivot" unique_id=230448478]
+[node name="Camera3D" type="Camera3D" parent="CCharacterBody3D/TwistPivot/PitchPivot" unique_id=230448478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
-[node name="CRayCast3D" type="RayCast3D" parent="BetterPlayer/TwistPivot/PitchPivot/Camera3D" unique_id=1710092562 node_paths=PackedStringArray("entity")]
+[node name="CRayCast3D" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1710092562 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 visible = false
 target_position = Vector3(0, -5, 0)
@@ -160,34 +154,34 @@ script = ExtResource("3_6ldnq")
 entity = NodePath("../../../../..")
 metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
 
-[node name="RightArm" type="Node3D" parent="BetterPlayer/TwistPivot" unique_id=706858921]
+[node name="RightArm" type="Node3D" parent="CCharacterBody3D/TwistPivot" unique_id=706858921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507, -1.484, -0.282355)
 
-[node name="rightarm" type="MeshInstance3D" parent="BetterPlayer/TwistPivot/RightArm" unique_id=825178925]
+[node name="rightarm" type="MeshInstance3D" parent="CCharacterBody3D/TwistPivot/RightArm" unique_id=825178925]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
-[node name="Marker3D" type="Marker3D" parent="BetterPlayer/TwistPivot/RightArm/rightarm" unique_id=1733842171]
+[node name="Marker3D" type="Marker3D" parent="CCharacterBody3D/TwistPivot/RightArm/rightarm" unique_id=1733842171]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999964, 0, 0, -0.32554305)
 gizmo_extents = 1.0
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="BetterPlayer/TwistPivot/RightArm/rightarm/Marker3D" unique_id=906524361]
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="CCharacterBody3D/TwistPivot/RightArm/rightarm/Marker3D" unique_id=906524361]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
 update_scale = false
 
-[node name="LeftArm" type="Node3D" parent="BetterPlayer/TwistPivot" unique_id=103513899]
+[node name="LeftArm" type="Node3D" parent="CCharacterBody3D/TwistPivot" unique_id=103513899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.507, -1.484, -0.282)
 
-[node name="leftarm" type="MeshInstance3D" parent="BetterPlayer/TwistPivot/LeftArm" unique_id=1815032788]
+[node name="leftarm" type="MeshInstance3D" parent="CCharacterBody3D/TwistPivot/LeftArm" unique_id=1815032788]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BetterPlayer" unique_id=640653125]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CCharacterBody3D" unique_id=640653125]
 libraries/ = SubResource("AnimationLibrary_3ip4g")
 
-[node name="AnimationTree" type="AnimationTree" parent="BetterPlayer" unique_id=894092481]
+[node name="AnimationTree" type="AnimationTree" parent="CCharacterBody3D" unique_id=894092481]
 tree_root = SubResource("AnimationNodeBlendTree_vn1u8")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
@@ -195,23 +189,23 @@ parameters/Transition/current_state = "Weapon1H"
 parameters/Transition/transition_request = ""
 parameters/Transition/current_index = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BetterPlayer" unique_id=1558339957]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CCharacterBody3D" unique_id=1558339957]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="BetterPlayer" unique_id=590887451]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CCharacterBody3D" unique_id=590887451]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
 layers = 33
 mesh = SubResource("CapsuleMesh_x5kv8")
 skeleton = NodePath("")
 
-[node name="CArea3D" type="Area3D" parent="BetterPlayer" unique_id=2141155532 node_paths=PackedStringArray("entity")]
+[node name="CArea3D" type="Area3D" parent="CCharacterBody3D" unique_id=2141155532 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("4_6ldnq")
 entity = NodePath("../..")
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="BetterPlayer/CArea3D" unique_id=1671852494]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CCharacterBody3D/CArea3D" unique_id=1671852494]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
@@ -221,7 +215,7 @@ entity = NodePath("..")
 
 [node name="HurtboxComponent" type="Node" parent="." unique_id=2124588863 node_paths=PackedStringArray("area", "entity")]
 script = ExtResource("6_malci")
-area = NodePath("../BetterPlayer/CArea3D")
+area = NodePath("../CCharacterBody3D/CArea3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://lrvixysacsgx"
 
@@ -230,5 +224,12 @@ script = ExtResource("9_i1ft5")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dpd66hp3w048d"
 
-[connection signal="animation_finished" from="BetterPlayer/AnimationTree" to="BetterPlayer" method="_on_animation_tree_animation_finished"]
-[connection signal="animation_started" from="BetterPlayer/AnimationTree" to="BetterPlayer" method="_on_animation_tree_animation_started"]
+[node name="PlayerComponent" type="Node" parent="." unique_id=1967038254 node_paths=PackedStringArray("twist_pivot", "pitch_pivot", "entity")]
+script = ExtResource("8_3vvee")
+twist_pivot = NodePath("../CCharacterBody3D/TwistPivot")
+pitch_pivot = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://c4qx547gynsx3"
+
+[connection signal="animation_finished" from="CCharacterBody3D/AnimationTree" to="CCharacterBody3D" method="_on_animation_tree_animation_finished"]
+[connection signal="animation_started" from="CCharacterBody3D/AnimationTree" to="CCharacterBody3D" method="_on_animation_tree_animation_started"]

@@ -56,28 +56,23 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 		
 	move_and_slide()
-	if OS.is_debug_build():
-		if Input.is_action_just_pressed("ui_cancel"):
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		if Input.is_action_just_pressed("refocus"):
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 	#if Input.is_action_just_pressed("default_attack") and !using_held_item:
 		#if held_item:
 			#held_item._execute_use(self)
 			#using_held_item = true
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			twist_input = -event.relative.x * mouse_sensitivity
-			pitch_input = -event.relative.y * mouse_sensitivity
+#func _input(event: InputEvent) -> void:
+	#if event is InputEventMouseMotion:
+		#if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			#twist_input = -event.relative.x * mouse_sensitivity
+			#pitch_input = -event.relative.y * mouse_sensitivity
 
 func died() -> void:
 	queue_free()
 
 func updateVelocity(multiplier: float) -> void:
-	var input:  Vector2 = Input.get_vector("left", "right", "forward", "backward")
+	var input:  Vector2 = InputManager.get_movement_vector()
 	var direction: Vector3 = (twist_pivot.basis * Vector3(input.x, 0, input.y)).normalized()
 	if direction:
 		velocity.x = direction.x * multiplier

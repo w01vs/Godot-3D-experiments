@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://da33thcn1ty4r" path="res://features/inventory/ui/hotbar.tscn" id="6_yt64i"]
 [ext_resource type="PackedScene" uid="uid://wdgcqohl6sqf" path="res://features/inventory/ui/drag_preview.tscn" id="7_3s5gr"]
 [ext_resource type="PackedScene" uid="uid://c3bf1h0lfalix" path="res://features/inventory/ui/inventory_slot.tscn" id="7_if4au"]
-[ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://features/entities/better_player.tscn" id="8_acts3"]
+[ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://features/entities/player.tscn" id="8_acts3"]
 [ext_resource type="PackedScene" uid="uid://2kpyrhr6llgu" path="res://features/entities/damage_interactable.tscn" id="11_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://bg2ko1e8iq8ne" path="res://features/entities/heal_interactable.tscn" id="12_ysm7w"]
 
@@ -103,6 +103,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="Inventory" parent="PlayerUI/InventoryInterface" unique_id=2134023614 instance=ExtResource("5_yqnmj")]
 visible = false
@@ -123,6 +124,7 @@ anchor_left = 0.43489584
 anchor_top = 0.85030866
 anchor_right = 0.6779514
 anchor_bottom = 0.9675926
+mouse_filter = 1
 slot = ExtResource("7_if4au")
 
 [node name="DragPreview" parent="PlayerUI" unique_id=1529233897 instance=ExtResource("7_3s5gr")]

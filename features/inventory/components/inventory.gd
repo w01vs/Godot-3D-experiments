@@ -65,7 +65,7 @@ func set_slot_data(index: int, data: SlotData, target: String) -> void:
 		"hotbar":
 			hotbar_slots[index] = data
 			if data:
-				_load_active_item()
+				load_active_item()
 	inventory_changed.emit(index, data, target)
 
 func handle_interaction(index: int, target: String) -> void:

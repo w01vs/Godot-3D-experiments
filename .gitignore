@@ -615,3 +615,7 @@ FodyWeavers.xsd
 
 # Custom ignores
 addons/godotty/
+*.windows.*.*.exp
+~*
+*.windows.*.*.lib
+*.dblite    

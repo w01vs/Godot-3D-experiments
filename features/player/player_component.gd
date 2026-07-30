@@ -21,11 +21,28 @@ var pitch_input: float = 0
 
 var body: CCharacterBody3D
 
+var context: PlayerContext
+
 func _init_component() -> void:
 	entity.subscribe_local(CollisionShapeRegisteredEntityEvent, _on_body_registered)
+	EventBus.subscribe(WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
 	InputManager.subscribe(JumpInputEvent, _jump)
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
 	InputManager.subscribe(BuildInputEvent, _on_buildmode)
+	context = PlayerContext.new(PlayerContext.State.GAMEPLAY)
+
+func _on_world_loaded(_event: WorldLoadedEvent) -> void:
+	EventBus.raise(PlayerLoadedEvent.new(self, context))
+
+func _on_inventory(_event: InventoryInputEvent) -> void:
+	if context.state != PlayerContext.State.INVENTORY:
+		context.state = PlayerContext.State.INVENTORY
+		entity.raise_local(InventoryOpenEntityEvent.new(self))
+	else:
+		context.state = PlayerContext.State.GAMEPLAY
+		entity.raise_local(InventoryCloseEntityEvent.new(self))
+	
+	
 
 func _on_buildmode(event: BuildInputEvent) -> void:
 	pass

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6n21c0xxyshj" path="res://features/inventory/ui/inventory_ui.gd" id="1_lfv3a"]
 
-[node name="Inventory" type="PanelContainer" unique_id=532195887]
+[node name="Inventory" type="PanelContainer" unique_id=532195887 node_paths=PackedStringArray("grid")]
 anchors_preset = -1
 anchor_right = 0.082
 anchor_bottom = 0.15100001
@@ -11,6 +11,7 @@ offset_bottom = 0.1519928
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_lfv3a")
+grid = NodePath("MarginContainer/ItemGrid")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1342422387]
 layout_mode = 2

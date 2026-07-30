@@ -1,4 +1,4 @@
-class_name Set extends Resource
+class_name Set extends RefCounted
 
 var map: Dictionary
 const VALUE: bool = true

@@ -26,10 +26,10 @@ func set_active_slot(index: int) -> void:
 	active_hotbar_index = index
 	slots[index].toggle_border(true)
 
-func display_inventory(data: Array[SlotData]) -> void:
+func display_inventory(data: Array[InventoryUISlotData]) -> void:
 	for i in range(data.size()):
 		slots[i].set_data(data[i])
 
-func update_slot(index: int, data: SlotData, target: String) -> void:
+func update_slot(index: int, data: InventoryUISlotData, target: String) -> void:
 	if target == "hotbar":
 		slots[index].set_data(data)

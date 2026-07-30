@@ -29,13 +29,9 @@ var JUMP_SPEED_REDUCTION: float = 5
 
 func _ready() -> void:
 	#hotbar_items.resize(inventory.HOTBAR_SIZE)
-	EventBus.subscribe(WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	health_component.died.connect(died)
-
-func _on_world_loaded(_event: WorldLoadedEvent) -> void:
-	EventBus.raise(PlayerLoadedEvent.new(self))
-	GlobalRefs.player = self
 	
 
 func _process(_delta: float) -> void:

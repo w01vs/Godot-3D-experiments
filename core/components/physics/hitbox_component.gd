@@ -18,7 +18,7 @@ func _on_area_set(event: CollisionShapeRegisteredEntityEvent) -> void:
 func _on_area_entered(area: Area3D) -> void:
 	assert(area is CArea3D)
 	if area is CArea3D:
-		area.hit.emit(HitData.new(entity, damage_info))
+		area.hit(HitData.new(entity, damage_info))
 
 func set_monitoring(on: bool) -> void:
 	area_.monitoring = on

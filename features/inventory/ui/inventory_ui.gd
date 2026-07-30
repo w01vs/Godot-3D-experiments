@@ -1,23 +1,21 @@
 class_name InventoryUI extends PanelContainer
 
-@onready var grid: GridContainer = $MarginContainer/ItemGrid
+@export var grid: GridContainer
 
 var slots: Array[InventorySlot]
 enum UIState{ INVENTORY_OPEN, DEFAULT }
 var ui_state: UIState = UIState.DEFAULT
-
-var active_hotbar_index: int = -1
-
-@export var slot: PackedScene
+const INVENTORY_SLOT = preload("uid://c3bf1h0lfalix")
 
 func _ready() -> void:
 	EventBus.subscribe(PlayerLoadedEvent, initialise)
+
 	
 func initialise(_event: PlayerLoadedEvent) -> void:
 	#GlobalRefs.player.inventory.inventory_changed.connect(update_slot)
 	#slots.resize(GlobalRefs.player.inventory.INVENTORY_SIZE)
 	#for i in range(slots.size()):
-		#slots[i] = slot.instantiate()
+		#slots[i] = INVENTORY_SLOT.instantiate()
 		#slots[i].target = "inventory"
 		#slots[i].index = i
 		#grid.add_child(slots[i])
@@ -32,12 +30,8 @@ func initialise(_event: PlayerLoadedEvent) -> void:
 			#UIState.INVENTORY_OPEN:
 				#_close_inventory()
 
-func update_slot(index: int, data: SlotData, target: String) -> void:
-	if target == "inventory":
-		slots[index].set_data(data)
-
-func display_inventory(data: Array[SlotData]) -> void:
-	for i in range(data.size()):
+func update_visuals(data: Dictionary[int, InventoryUISlotData]) -> void:
+	for i: int in data.keys():
 		slots[i].set_data(data[i])
 
 func _open_inventory() -> void:

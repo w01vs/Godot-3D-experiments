@@ -1,0 +1,1 @@
+class_name InventoryCloseEntityEvent extends EntityEvent

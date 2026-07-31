@@ -1,17 +1,19 @@
 [gd_scene format=3 uid="uid://qin7imek6ocb"]
 
-[ext_resource type="Script" uid="uid://6n21c0xxyshj" path="res://features/inventory/ui/inventory_ui.gd" id="1_lfv3a"]
+[ext_resource type="Script" uid="uid://di6vfbg3sw1st" path="res://features/inventory/ui/inventory_panel.gd" id="1_rd32x"]
 
 [node name="Inventory" type="PanelContainer" unique_id=532195887 node_paths=PackedStringArray("grid")]
+custom_minimum_size = Vector2(372, 492)
 anchors_preset = -1
-anchor_right = 0.082
-anchor_bottom = 0.15100001
-offset_right = -0.46400452
-offset_bottom = 0.1519928
+anchor_right = 0.33333334
+anchor_bottom = 0.5925926
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("1_lfv3a")
+script = ExtResource("1_rd32x")
 grid = NodePath("MarginContainer/ItemGrid")
+metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1342422387]
 layout_mode = 2

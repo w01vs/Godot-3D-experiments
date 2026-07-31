@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var player_health_component: HealthComponent
 var player_health: float
-var player: Player
+var player: Entity
 
 @onready var player_healthbar: PlayerHealthBar = $BetterHealthBar
 
@@ -18,5 +18,5 @@ func get_player_entity(event: PlayerLoadedEvent) -> void:
 	initialise_healthbar()
 
 func initialise_healthbar() -> void:
-	player_health_component = player.player_entity.get_component(HealthComponent)
+	player_health_component = player.get_component(HealthComponent)
 	player_health = player_health_component.get_max_health()

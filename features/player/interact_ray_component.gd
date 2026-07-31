@@ -1,5 +1,6 @@
 class_name InteractRayComponent extends Component
 
+@export var ray: CRayCast3D
 var current_collider: CollisionObject3D
 
 func _init_component() -> void:
@@ -22,7 +23,7 @@ func _send_interaction(hover: bool) -> void:
 				current_collider.hit(InteractionData.new(entity, hover))
 
 func _on_raycast_registered(event: RayCastRegisteredEntityEvent) -> void:
-	var ray: CRayCast3D = event.source as CRayCast3D
-	ray.cset_collision_mask_value(2, true)
-	ray.set_area_collision(true)
-	ray.set_body_collision(true)
+	if ray == event.source:
+		ray.cset_collision_mask_value(CollisionLayer.INTERACTABLE, true)
+		ray.set_area_collision(true)
+		ray.set_body_collision(true)

@@ -7,8 +7,8 @@ enum Priority {
 }
 
 var source: Node
-var id: int
+var debug_id: int
 
 func _init(source_: Node) -> void:
 	source = source_ 
-	id = get_script().get_instance_id()
+	debug_id = get_script().get_instance_id()

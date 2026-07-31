@@ -11,7 +11,8 @@ var dispatch_held: Array[EventBase] = []
 func subscribe(event_type: Script, callback: Callable, priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
 	if not listeners_.has(event_type):
 		listeners_[event_type] = {}
-		listeners_[event_type][priority] = []
+		for prio: EventBase.Priority in [EventBase.Priority.PRE, EventBase.Priority.BASE, EventBase.Priority.POST]:
+			listeners_[event_type].set(prio, [])
 	if not listeners_[event_type][priority].has(callback):
 		listeners_[event_type][priority].append(callback)
 
@@ -20,10 +21,12 @@ func unsubscribe(event_type: Script, callback: Callable) -> void:
 		for prio: Event.Priority in listeners_[event_type]:
 			var callbacks: Array = listeners_[event_type][prio]
 			for i in range(listeners_[event_type][prio].size()):
-				var cb: Callable = listeners_[event_type].get(prio)
-				if cb == callback:
+				var cb: Callable = listeners_[event_type][prio][i]
+				if cb == callback || !cb.is_valid():
 					callbacks[i] = callbacks[callbacks.size() - 1]
 					callbacks.pop_back()
+					
+					
 
 func raise(event: EventBase) -> void:
 	if !active: 

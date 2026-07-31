@@ -25,13 +25,15 @@ entity = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" unique_id=530127438]
 shape = SubResource("BoxShape3D_5ih8e")
 
-[node name="HealthInteractionComponent" type="Node" parent="." unique_id=763902668 node_paths=PackedStringArray("entity")]
+[node name="HealthInteractionComponent" type="Node" parent="." unique_id=763902668 node_paths=PackedStringArray("collision_shape", "entity")]
 script = ExtResource("2_qhbva")
 damage_info = ExtResource("4_5ih8e")
+collision_shape = NodePath("../Mesh/StaticBody3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://k857ynoid412"
 
-[node name="TerrainComponent" type="Node" parent="." unique_id=92066286 node_paths=PackedStringArray("entity")]
+[node name="TerrainComponent" type="Node" parent="." unique_id=92066286 node_paths=PackedStringArray("body", "entity")]
 script = ExtResource("5_vux85")
+body = NodePath("../Mesh/StaticBody3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dhe53nqofut4a"

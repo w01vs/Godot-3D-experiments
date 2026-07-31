@@ -13,7 +13,7 @@ func _ready() -> void:
 	EventBus.subscribe(PlayerLoadedEvent, _on_player_loaded, EventBase.Priority.PRE)
 
 func _on_player_loaded(event: PlayerLoadedEvent) -> void:
-	context.player_context = event.context
+	context.player_context = event.player_context
 
 func _physics_process(_delta: float) -> void:
 	movement_vector = Input.get_vector("left", "right", "forward", "backward")

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dg4bw4q1jno8y"]
+
+[ext_resource type="PackedScene" uid="uid://qin7imek6ocb" path="res://features/inventory/ui/inventory_panel.tscn" id="1_pohso"]
+[ext_resource type="Script" uid="uid://6n21c0xxyshj" path="res://features/inventory/ui/inventory_ui.gd" id="1_psafj"]
+
+[node name="Inventory" type="Control" unique_id=1362168628 node_paths=PackedStringArray("player_panel", "static_panel")]
+layout_mode = 3
+anchor_right = 0.39000002
+anchor_bottom = 0.45600003
+offset_right = -748.80005
+offset_bottom = -492.48004
+script = ExtResource("1_psafj")
+player_panel = NodePath("PanelContainer/HBoxContainer/PlayerInventory")
+static_panel = NodePath("PanelContainer/HBoxContainer/StaticInventory")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1561827228]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=532100831]
+layout_mode = 2
+
+[node name="PlayerInventory" parent="PanelContainer/HBoxContainer" unique_id=532195887 instance=ExtResource("1_pohso")]
+layout_mode = 2
+
+[node name="StaticInventory" parent="PanelContainer/HBoxContainer" unique_id=1306798603 instance=ExtResource("1_pohso")]
+layout_mode = 2

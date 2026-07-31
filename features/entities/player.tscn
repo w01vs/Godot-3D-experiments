@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="4_6ldnq"]
 [ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://core/components/physics/hurtbox_component.gd" id="6_malci"]
 [ext_resource type="Script" uid="uid://c4qx547gynsx3" path="res://features/player/player_component.gd" id="8_3vvee"]
+[ext_resource type="Script" uid="uid://b6cug2mwrwkf6" path="res://features/inventory/components/inventory.gd" id="9_0fqka"]
 [ext_resource type="Script" uid="uid://dpd66hp3w048d" path="res://features/player/interact_ray_component.gd" id="9_i1ft5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ns3u8"]
@@ -219,17 +220,24 @@ area = NodePath("../CCharacterBody3D/CArea3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://lrvixysacsgx"
 
-[node name="InteractRayComponent" type="Node" parent="." unique_id=1412276942 node_paths=PackedStringArray("entity")]
+[node name="InteractRayComponent" type="Node" parent="." unique_id=1412276942 node_paths=PackedStringArray("ray", "entity")]
 script = ExtResource("9_i1ft5")
+ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/CRayCast3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dpd66hp3w048d"
 
-[node name="PlayerComponent" type="Node" parent="." unique_id=1967038254 node_paths=PackedStringArray("twist_pivot", "pitch_pivot", "entity")]
+[node name="PlayerComponent" type="Node" parent="." unique_id=1967038254 node_paths=PackedStringArray("twist_pivot", "pitch_pivot", "body", "entity")]
 script = ExtResource("8_3vvee")
 twist_pivot = NodePath("../CCharacterBody3D/TwistPivot")
 pitch_pivot = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot")
+body = NodePath("../CCharacterBody3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://c4qx547gynsx3"
+
+[node name="InventoryComponent" type="Node" parent="." unique_id=270277734 node_paths=PackedStringArray("entity")]
+script = ExtResource("9_0fqka")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://b6cug2mwrwkf6"
 
 [connection signal="animation_finished" from="CCharacterBody3D/AnimationTree" to="CCharacterBody3D" method="_on_animation_tree_animation_finished"]
 [connection signal="animation_started" from="CCharacterBody3D/AnimationTree" to="CCharacterBody3D" method="_on_animation_tree_animation_started"]

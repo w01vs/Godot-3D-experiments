@@ -16,8 +16,11 @@ corner_radius_bottom_left = 3
 
 [node name="Slot" type="PanelContainer" unique_id=310378486 node_paths=PackedStringArray("img", "quantity_label", "border")]
 custom_minimum_size = Vector2(64, 64)
-offset_right = 8.0
-offset_bottom = 23.0
+anchors_preset = -1
+anchor_right = 0.033333335
+anchor_bottom = 0.05925926
+offset_right = -56.0
+offset_bottom = -41.0
 focus_behavior_recursive = 1
 script = ExtResource("1_4hxd0")
 img = NodePath("Button/MarginContainer/TextureRect")

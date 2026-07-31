@@ -25,8 +25,7 @@ metadata/_custom_type_script = "uid://bf01144lxbocj"
 transform = Transform3D(-7.430936e-09, -0.17, 0, 0.17, -7.4309363e-09, 0, 5.6336193e-16, -3.718781e-38, 0.17, -3.1483577e-08, 1.1041201, 3.167491e-08)
 shape = SubResource("BoxShape3D_d6wag")
 
-[node name="HitboxComponent" type="Node" parent="." unique_id=372733020 node_paths=PackedStringArray("_area", "entity")]
+[node name="HitboxComponent" type="Node" parent="." unique_id=372733020 node_paths=PackedStringArray("entity")]
 script = ExtResource("4_7cdoh")
-_area = NodePath("../sword/ComponentArea3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://b54bwceiwjxdb"

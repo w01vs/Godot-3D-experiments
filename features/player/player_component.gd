@@ -19,37 +19,45 @@ var pitch_input: float = 0
 #var right_hand_remote: RemoteTransform3D
 #var right_hand: Marker3D
 
-var body: CCharacterBody3D
+@export var body: CCharacterBody3D
 
 var context: PlayerContext
 
 func _init_component() -> void:
 	entity.subscribe_local(CollisionShapeRegisteredEntityEvent, _on_body_registered)
-	EventBus.subscribe(WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
+	entity.subscribe_global(WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
+	entity.subscribe_local(SetPlayerContextEntityEvent, _set_state)
 	InputManager.subscribe(JumpInputEvent, _jump)
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
 	InputManager.subscribe(BuildInputEvent, _on_buildmode)
+	InputManager.subscribe(InventoryInputEvent, _on_inventory)
 	context = PlayerContext.new(PlayerContext.State.GAMEPLAY)
 
+
 func _on_world_loaded(_event: WorldLoadedEvent) -> void:
-	EventBus.raise(PlayerLoadedEvent.new(self, context))
+	entity.raise_global(PlayerLoadedEvent.new(self, context))
+
+func _set_state(event: SetPlayerContextEntityEvent) -> void:
+	context.state = event.state
 
 func _on_inventory(_event: InventoryInputEvent) -> void:
 	if context.state != PlayerContext.State.INVENTORY:
 		context.state = PlayerContext.State.INVENTORY
-		entity.raise_local(InventoryOpenEntityEvent.new(self))
+		entity.raise_local(InventoryOpenEntityEvent.new(self, true))
 	else:
 		context.state = PlayerContext.State.GAMEPLAY
 		entity.raise_local(InventoryCloseEntityEvent.new(self))
-	
-	
 
 func _on_buildmode(event: BuildInputEvent) -> void:
 	pass
 
 func _on_body_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
-	if event.source is CCharacterBody3D:
-		body = event.source
+	if body == event.source:
+		body.cset_collision_layer_value(CollisionLayer.ENTITY, true)
+		body.cset_collision_mask_value(CollisionLayer.ENTITY, true)
+		body.cset_collision_mask_value(CollisionLayer.TERRAIN, true)
+		body.cset_collision_mask_value(CollisionLayer.HARVESTABLE, true)
+		body.cset_collision_mask_value(CollisionLayer.STRUCTURE, true)
 
 func _jump(_event: JumpInputEvent) -> void:
 	if body.is_on_floor():

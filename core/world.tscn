@@ -4,12 +4,13 @@
 [ext_resource type="Script" uid="uid://e83e5af3w8ao" path="res://features/player/ui/player_ui.gd" id="2_4bd16"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://features/player/ui/player_health_bar.tscn" id="3_rtxew"]
 [ext_resource type="Script" uid="uid://c8fimqgn8xpvr" path="res://features/building/structures/build_ui.gd" id="4_ueke7"]
-[ext_resource type="PackedScene" uid="uid://qin7imek6ocb" path="res://features/inventory/ui/inventory.tscn" id="5_yqnmj"]
 [ext_resource type="PackedScene" uid="uid://da33thcn1ty4r" path="res://features/inventory/ui/hotbar.tscn" id="6_yt64i"]
 [ext_resource type="PackedScene" uid="uid://wdgcqohl6sqf" path="res://features/inventory/ui/drag_preview.tscn" id="7_3s5gr"]
 [ext_resource type="PackedScene" uid="uid://c3bf1h0lfalix" path="res://features/inventory/ui/inventory_slot.tscn" id="7_if4au"]
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://features/entities/player.tscn" id="8_acts3"]
+[ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://inventory.tscn" id="8_iiydy"]
 [ext_resource type="PackedScene" uid="uid://2kpyrhr6llgu" path="res://features/entities/damage_interactable.tscn" id="11_jj2bn"]
+[ext_resource type="PackedScene" uid="uid://60ymc70tglcd" path="res://chest.tscn" id="12_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://bg2ko1e8iq8ne" path="res://features/entities/heal_interactable.tscn" id="12_ysm7w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
@@ -94,30 +95,6 @@ text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InventoryInterface" type="Control" parent="PlayerUI" unique_id=875152714]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 1
-
-[node name="Inventory" parent="PlayerUI/InventoryInterface" unique_id=2134023614 instance=ExtResource("5_yqnmj")]
-visible = false
-layout_mode = 1
-anchor_left = 0.3732639
-anchor_top = 0.38734564
-anchor_right = 0.45052084
-anchor_bottom = 0.5154321
-offset_top = 1.5258789e-05
-offset_right = 0.0
-offset_bottom = 0.0
-slot = ExtResource("7_if4au")
-metadata/_edit_use_anchors_ = true
-
 [node name="Hotbar" parent="PlayerUI" unique_id=1474135417 instance=ExtResource("6_yt64i")]
 visible = false
 anchor_left = 0.43489584
@@ -127,7 +104,20 @@ anchor_bottom = 0.9675926
 mouse_filter = 1
 slot = ExtResource("7_if4au")
 
+[node name="Inventory" parent="PlayerUI" unique_id=1362168628 instance=ExtResource("8_iiydy")]
+visible = false
+offset_left = 586.0
+offset_top = 421.0
+offset_right = 586.0
+offset_bottom = 421.0
+
 [node name="DragPreview" parent="PlayerUI" unique_id=1529233897 instance=ExtResource("7_3s5gr")]
+anchor_left = 0.00052083336
+anchor_top = -0.0009259259
+anchor_right = 0.050520834
+anchor_bottom = 0.08796296
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="BetterPlayer" parent="." unique_id=1293619965 instance=ExtResource("8_acts3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2570927, -0.12676299)
@@ -151,3 +141,6 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D" unique_id=122491301]
 shape = SubResource("ConcavePolygonShape3D_tijdu")
+
+[node name="Entity" parent="." unique_id=1882066182 instance=ExtResource("12_jj2bn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.206, 0.7674469, 0)

@@ -9,6 +9,7 @@ var event_bus: EventBusBase = EventBusBase.new()
 func _ready() -> void:
 	event_bus.enable()
 	event_bus.release_events()
+	raise_local(EntityLoadedEvent.new(self))
 
 func register(component: Component) -> void:
 	for s in find_bases(component.get_script(), true):
@@ -70,12 +71,12 @@ func unsubscribe_local(event_type: Script, callback: Callable) -> void:
 func raise_local(event: EntityEvent) -> void:
 	event_bus.raise(event)
 
-func subcribe_global(event_type: Script, callback: Callable) -> void:
+func subscribe_global(event_type: Script, callback: Callable, priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
 	if !global_subscriptions_.has(event_type):
 		global_subscriptions_[event_type] = []
 	if !global_subscriptions_[event_type].has(callback):
 		global_subscriptions_[event_type].append(callback)
-		EventBus.subscribe(event_type, _callback_internal)
+		EventBus.subscribe(event_type, _callback_internal, priority)
 
 func unsubcribe_global(event_type: Script, callback: Callable) -> void:
 	EventBus.unsubscribe(event_type, callback)

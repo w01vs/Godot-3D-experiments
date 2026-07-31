@@ -4,7 +4,6 @@
 @export var entity: Entity
 ## Represents wether a component is functional or not.
 var active: bool = true
-var script_name: String
 
 ## All C-versions are very similar: They store what type of component uses them and emit an event through their entity when they are loaded.
 ## [br]Current C-versions are:
@@ -18,7 +17,6 @@ func _ready() -> void:
 	entity.register(self)
 	entity.subscribe_local(EntityLoadedEvent, _on_entity_load)
 	entity.raise_local(ComponentRegisteredEntityEvent.new(self))
-	script_name = get_script().get_global_name()
 	_init_component()
 	
 
@@ -33,7 +31,6 @@ func _init_component() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
 		if !Engine.is_editor_hint():
-			print_debug("This entity is deleted" % [self])
 			if entity:
 				entity.remove_component(self)
 				pass
@@ -55,3 +52,4 @@ func disable() -> void:
 ## Called when the component is disabled.
 func _on_disable() -> void:
 	pass
+	

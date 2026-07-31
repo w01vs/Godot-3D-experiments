@@ -13,6 +13,6 @@ id = "black_sword"
 description = "edgy black blue swingeeer
 "
 model = ExtResource("1_yksf6")
-texture = ExtResource("3_x2r2j")
+icon = ExtResource("3_x2r2j")
 has_animation = true
 metadata/_custom_type_script = "uid://dfs852dkqw0ye"

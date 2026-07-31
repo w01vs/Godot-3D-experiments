@@ -11,6 +11,5 @@ name = "Pickaxe"
 id = "pickaxe"
 description = "cool pickaxe"
 model = ExtResource("1_2s38o")
-texture = ExtResource("3_fheul")
-has_animation = true
+icon = ExtResource("3_fheul")
 metadata/_custom_type_script = "uid://b66uix4s0npvd"

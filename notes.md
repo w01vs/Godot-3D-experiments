@@ -1,13 +1,20 @@
 ### TO DO:
-	convert to components where possible:
-		buildcomponent from player/interact.gd
-	then continue fixing the other components:
-		building -> split into placing and static
-		Make equipmentcomponent instead of in player
-		items
-		harvestable/harvester
-		inventory:
-	Split inventory and hotbar input stuff, inventory is still the owner of the hotbar data
+	Inventory:
+		- fix holding item when closing inventory
+		- close chest when walking away
+		- maybe lock player to inventory at chests?
+		- Hotbar
+		- Equipment -> Make equipmentcomponent instead of in player
+		- Item components + In-world items
+	Structures:
+		buildcomponent from build_interact.gd
+		- Placement component
+		- Placeable interactable?
+		- Harvestable Resource
+	Items: 
+		- Pickaxe
+		- Sword
+		
 
 eventually I will get around to making a new AI stuffs with a plugin
 then ill also make components for whatever an enemy needs. ill leave it

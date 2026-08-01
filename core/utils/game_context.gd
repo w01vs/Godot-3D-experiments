@@ -1,11 +1,21 @@
 class_name GameContext
 
-enum GameState { MAIN_MENU, IN_WORLD }
+enum State { NONE, MAIN_MENU, IN_WORLD, UNFOCUSED }
 
-var state: GameState
+var state_stack: Array[State]
 
-var player_context: PlayerContext
+func _init(state_: State) -> void:
+	state_stack.append(state_)
 
-func _init(state_: GameState, player_context_: PlayerContext) -> void:
-	state = state_
-	player_context = player_context_
+func push_state(state_: State) -> void:
+	state_stack.push_back(state_)
+
+func pop_state() -> void:
+	if state_stack.size() > 1:
+		state_stack.pop_back()
+
+func get_state(offset: int = 0) -> State:
+	if state_stack.size() > offset:
+		return state_stack[state_stack.size() - 1 - offset]
+	push_error("State offset does not exist")
+	return State.NONE

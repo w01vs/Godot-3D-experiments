@@ -2,10 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_x7mpe"]
 [ext_resource type="Script" uid="uid://dxpaoqwywatwk" path="res://core/components/extensions/c_staticbody3d.gd" id="2_bv3sb"]
+[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="2_day8l"]
 [ext_resource type="Script" uid="uid://ccau7wq71bntj" path="res://core/components/extensions/c_meshinstance3d.gd" id="3_day8l"]
 [ext_resource type="Script" uid="uid://b6cug2mwrwkf6" path="res://features/inventory/components/inventory.gd" id="4_t3ekh"]
 [ext_resource type="Script" uid="uid://byvyjassigei" path="res://features/building/interaction/chest_interaction.gd" id="5_x6u83"]
 [ext_resource type="Script" uid="uid://dhe53nqofut4a" path="res://features/terrain/terrain_component.gd" id="6_bv3sb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rwfxr"]
+radius = 3.318432
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v4ow6"]
 
@@ -17,6 +21,14 @@ albedo_color = Color(0.62352943, 0.46666667, 0.16078432, 1)
 [node name="Entity" type="Node3D" unique_id=1882066182]
 script = ExtResource("1_x7mpe")
 metadata/_custom_type_script = "uid://cp7e65rba841n"
+
+[node name="CArea3D" type="Area3D" parent="." unique_id=2065155919 node_paths=PackedStringArray("entity")]
+script = ExtResource("2_day8l")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bf01144lxbocj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CArea3D" unique_id=156895950]
+shape = SubResource("SphereShape3D_rwfxr")
 
 [node name="CStaticBody3D" type="StaticBody3D" parent="." unique_id=560992190 node_paths=PackedStringArray("entity")]
 script = ExtResource("2_bv3sb")
@@ -38,8 +50,9 @@ script = ExtResource("4_t3ekh")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://b6cug2mwrwkf6"
 
-[node name="ChestInteraction" type="Node" parent="." unique_id=447029155 node_paths=PackedStringArray("collision_shape", "entity")]
+[node name="ChestInteraction" type="Node" parent="." unique_id=447029155 node_paths=PackedStringArray("interactable_area", "collision_shape", "entity")]
 script = ExtResource("5_x6u83")
+interactable_area = NodePath("../CArea3D")
 collision_shape = NodePath("../CStaticBody3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://byvyjassigei"

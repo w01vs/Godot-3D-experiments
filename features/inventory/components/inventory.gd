@@ -12,20 +12,44 @@ var bindings: InventoryBindings
 
 signal inventory_updated(data: InventoryData)
 
+var open: bool = false
+
 func _init_component() -> void:
 	entity.subscribe_local(InventoryOpenEntityEvent, _on_open)
 	entity.subscribe_local(InventoryCloseEntityEvent, _on_close)
+	InputManager.subscribe(UICloseInputEvent, _on_close_ui)
+	InputManager.subscribe(InventoryInputEvent, _on_player_inventory)
 	bindings = InventoryBindings.new(grab_drop, inventory_updated)
 	inventory.resize(inventory_size)
 
-func _on_open(event: InventoryOpenEntityEvent) -> void:
-	if event.is_player:
+func _on_player_inventory(_event: InventoryInputEvent) -> void:
+	if open:
+		_close()
+	else:
+		_open(true)
+
+func _open(player: bool) -> void:
+	if player:
 		entity.raise_global(InventoryOpenUIEvent.new(self, bindings))
+		ContextManager.push_player_state(PlayerContext.State.INVENTORY)
 	else:
 		entity.raise_global(InventoryOpenUIEvent.new(self, bindings, _get_data()))
+		ContextManager.push_player_state(PlayerContext.State.STATIC_INVENTORY)
+	open = !open
+
+func _on_open(event: InventoryOpenEntityEvent) -> void:
+	_open(event.is_player)
+
+func _on_close_ui(_event: UICloseInputEvent) -> void:
+	_close()
 
 func _on_close(_event: InventoryCloseEntityEvent) -> void:
+	_close()
+
+func _close() -> void:
 	entity.raise_global(InventoryCloseUIEvent.new(self))
+	ContextManager.pop_player_state()
+	open = !open
 
 func _on_entity_load(_event: EntityLoadedEvent) -> void:
 	if entity.has_component(PlayerComponent):
@@ -37,6 +61,8 @@ func _on_entity_load(_event: EntityLoadedEvent) -> void:
 			set_slot_data(i, inv_save.main_inventory[i])
 		entity.raise_global(PlayerInventoryLoadedEvent.new(self, _get_data(), bindings))
 
+func is_open() -> bool:
+	return open
 #hotbar stuff, seperate component
 #func _physics_process(_delta: float) -> void:
 	#if Input.is_action_just_pressed("scroll_down"):

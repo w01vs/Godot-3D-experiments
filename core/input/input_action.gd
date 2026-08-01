@@ -1,0 +1,20 @@
+@tool
+class_name InputAction extends Resource
+
+@export var name: StringName
+@export var debug: bool = false:
+	set(value):
+		debug = value
+		notify_property_list_changed()
+
+@export var player_requirements: Array[PlayerContext.State]
+@export var game_requirements: Array[GameContext.State]
+@export var event: CustomInputEvent
+
+var event_script: Script
+
+
+func _validate_property(property: Dictionary) -> void:
+	if property.name in ["player_requirements", "game_requirements", "event"]:
+		if debug:
+			property.usage = PROPERTY_USAGE_NO_EDITOR

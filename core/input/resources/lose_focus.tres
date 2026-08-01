@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://d1jg7gqvqgn2h"]
+
+[ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/input_action.gd" id="1_41tpl"]
+
+[resource]
+script = ExtResource("1_41tpl")
+name = &"lose_focus"
+debug = true
+metadata/_custom_type_script = "uid://ddiprs3aeynd7"

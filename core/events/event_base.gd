@@ -1,4 +1,4 @@
-@abstract class_name EventBase extends RefCounted
+@abstract class_name EventBase extends Resource
 
 enum Priority { 
 	PRE = -1,
@@ -11,4 +11,6 @@ var debug_id: int
 
 func _init(source_: Node) -> void:
 	source = source_ 
-	debug_id = get_script().get_instance_id()
+	var scr: Script = get_script()
+	if scr:
+		debug_id = scr.get_instance_id()

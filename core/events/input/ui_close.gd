@@ -1,0 +1,1 @@
+class_name UICloseInputEvent extends CustomInputEvent

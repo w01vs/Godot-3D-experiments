@@ -21,32 +21,16 @@ var pitch_input: float = 0
 
 @export var body: CCharacterBody3D
 
-var context: PlayerContext
-
 func _init_component() -> void:
 	entity.subscribe_local(CollisionShapeRegisteredEntityEvent, _on_body_registered)
 	entity.subscribe_global(WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
-	entity.subscribe_local(SetPlayerContextEntityEvent, _set_state)
 	InputManager.subscribe(JumpInputEvent, _jump)
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
 	InputManager.subscribe(BuildInputEvent, _on_buildmode)
-	InputManager.subscribe(InventoryInputEvent, _on_inventory)
-	context = PlayerContext.new(PlayerContext.State.GAMEPLAY)
 
 
 func _on_world_loaded(_event: WorldLoadedEvent) -> void:
-	entity.raise_global(PlayerLoadedEvent.new(self, context))
-
-func _set_state(event: SetPlayerContextEntityEvent) -> void:
-	context.state = event.state
-
-func _on_inventory(_event: InventoryInputEvent) -> void:
-	if context.state != PlayerContext.State.INVENTORY:
-		context.state = PlayerContext.State.INVENTORY
-		entity.raise_local(InventoryOpenEntityEvent.new(self, true))
-	else:
-		context.state = PlayerContext.State.GAMEPLAY
-		entity.raise_local(InventoryCloseEntityEvent.new(self))
+	entity.raise_global(PlayerLoadedEvent.new(self))
 
 func _on_buildmode(event: BuildInputEvent) -> void:
 	pass
@@ -86,7 +70,7 @@ func _apply_rotations() -> void:
 	twist_input = 0
 
 func update_velocity(multiplier: float) -> void:
-	var input:  Vector2 = Input.get_vector("left", "right", "forward", "backward")
+	var input:  Vector2 = InputManager.get_movement_vector()
 	var direction: Vector3 = (twist_pivot.basis * Vector3(input.x, 0, input.y)).normalized()
 	if direction:
 		body.velocity.x = direction.x * multiplier

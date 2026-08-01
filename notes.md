@@ -1,8 +1,6 @@
 ### TO DO:
 	Inventory:
 		- fix holding item when closing inventory
-		- close chest when walking away
-		- maybe lock player to inventory at chests?
 		- Hotbar
 		- Equipment -> Make equipmentcomponent instead of in player
 		- Item components + In-world items

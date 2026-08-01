@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://bun2mmva3wfcx"]
+
+[ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/input_action.gd" id="1_aipbj"]
+[ext_resource type="Script" uid="uid://c6180kxrgtek" path="res://core/events/input/ui_close.gd" id="1_kx5bi"]
+
+[sub_resource type="Resource" id="Resource_jj2bn"]
+script = ExtResource("1_kx5bi")
+metadata/_custom_type_script = "uid://c6180kxrgtek"
+
+[resource]
+script = ExtResource("1_aipbj")
+name = &"ui_close"
+player_requirements = Array[int]([2, 3])
+game_requirements = Array[int]([2])
+event = SubResource("Resource_jj2bn")
+metadata/_custom_type_script = "uid://ddiprs3aeynd7"

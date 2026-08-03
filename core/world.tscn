@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://features/entities/player.tscn" id="8_acts3"]
 [ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://inventory.tscn" id="8_iiydy"]
 [ext_resource type="PackedScene" uid="uid://2kpyrhr6llgu" path="res://features/entities/damage_interactable.tscn" id="11_jj2bn"]
-[ext_resource type="PackedScene" uid="uid://60ymc70tglcd" path="res://chest.tscn" id="12_jj2bn"]
+[ext_resource type="PackedScene" uid="uid://60ymc70tglcd" path="res://features/building/structures/chest.tscn" id="12_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://bg2ko1e8iq8ne" path="res://features/entities/heal_interactable.tscn" id="12_ysm7w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
@@ -21,7 +21,6 @@ ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 sky_material = SubResource("ProceduralSkyMaterial_ggqjs")
 
 [sub_resource type="Environment" id="Environment_eocis"]
-background_mode = 2
 sky = SubResource("Sky_s6q7e")
 tonemap_mode = 2
 glow_enabled = true
@@ -47,6 +46,8 @@ environment = SubResource("Environment_eocis")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1058360828]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_color = Color(1, 1, 0.9514076, 1)
+light_energy = 0.98
 shadow_enabled = true
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=187869415]

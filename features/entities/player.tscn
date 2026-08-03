@@ -5,10 +5,12 @@
 [ext_resource type="Script" uid="uid://ccd4wd8ocb43x" path="res://core/components/extensions/c_raycast3d.gd" id="3_6ldnq"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://core/components/stats/health_component.gd" id="4_1qn71"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="4_6ldnq"]
+[ext_resource type="PackedScene" uid="uid://rsqjs7m5ykxs" path="res://features/spells/laser/laser.tscn" id="5_n0cgk"]
 [ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://core/components/physics/hurtbox_component.gd" id="6_malci"]
 [ext_resource type="Script" uid="uid://c4qx547gynsx3" path="res://features/player/player_component.gd" id="8_3vvee"]
 [ext_resource type="Script" uid="uid://b6cug2mwrwkf6" path="res://features/inventory/components/inventory.gd" id="9_0fqka"]
 [ext_resource type="Script" uid="uid://dpd66hp3w048d" path="res://features/player/interact_ray_component.gd" id="9_i1ft5"]
+[ext_resource type="Script" uid="uid://kmh74icasv6b" path="res://features/spells/laser/laser_component.gd" id="11_7471s"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ns3u8"]
 
@@ -179,6 +181,9 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
+[node name="Laser" parent="CCharacterBody3D/TwistPivot" unique_id=846373636 instance=ExtResource("5_n0cgk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2402484, -1.0052155)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CCharacterBody3D" unique_id=640653125]
 libraries/ = SubResource("AnimationLibrary_3ip4g")
 
@@ -238,6 +243,12 @@ metadata/_custom_type_script = "uid://c4qx547gynsx3"
 script = ExtResource("9_0fqka")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://b6cug2mwrwkf6"
+
+[node name="LaserComponent" type="Node" parent="." unique_id=783096986 node_paths=PackedStringArray("laser", "entity")]
+script = ExtResource("11_7471s")
+laser = NodePath("../CCharacterBody3D/TwistPivot/Laser")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://kmh74icasv6b"
 
 [connection signal="animation_finished" from="CCharacterBody3D/AnimationTree" to="CCharacterBody3D" method="_on_animation_tree_animation_finished"]
 [connection signal="animation_started" from="CCharacterBody3D/AnimationTree" to="CCharacterBody3D" method="_on_animation_tree_animation_started"]

@@ -32,7 +32,7 @@ func _init_component() -> void:
 func _on_world_loaded(_event: WorldLoadedEvent) -> void:
 	entity.raise_global(PlayerLoadedEvent.new(self))
 
-func _on_buildmode(event: BuildInputEvent) -> void:
+func _on_buildmode(_event: BuildInputEvent) -> void:
 	pass
 
 func _on_body_registered(event: CollisionShapeRegisteredEntityEvent) -> void:

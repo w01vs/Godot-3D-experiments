@@ -1,6 +1,6 @@
 extends RayCast3D
 
-signal ui_switched(state: GlobalRefs.PlayerState)
+signal ui_switched(state: int)
 
 @export var build_box: PackedScene
 
@@ -9,7 +9,7 @@ var structure_comp: StructureComponent
 
 var snapping: bool = false
 
-var state : GlobalRefs.PlayerState = GlobalRefs.PlayerState.DEFAULT
+var state: int = 1
 
 var last_buildx_pos: Vector3
 

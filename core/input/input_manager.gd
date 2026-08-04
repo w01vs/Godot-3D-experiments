@@ -60,10 +60,10 @@ func handle_event(event: InputEvent) -> void:
 				event_bus.raise(input_event)
 
 func handle_debug_input(action: InputAction) -> void:
-	if action.name == "lose_focus" and OS.is_debug_build():
+	if action.name == "lose_focus" and OS.is_debug_build() and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		ContextManager.push_game_state(GameContext.State.UNFOCUSED)
-	elif action.name == "refocus" and OS.is_debug_build():
+	elif action.name == "refocus" and OS.is_debug_build() and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		ContextManager.pop_game_state()
 

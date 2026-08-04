@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://mur0ykrfjtsc"]
+
+[ext_resource type="PackedScene" uid="uid://ds6ul77m6v5pi" path="res://features/terrain/trees/pinetree.glb" id="1_vnqp7"]
+[ext_resource type="Script" uid="uid://dhe53nqofut4a" path="res://features/terrain/terrain_component.gd" id="2_2v65y"]
+
+[node name="pinetree2_root" unique_id=1030872161 instance=ExtResource("1_vnqp7")]
+
+[node name="CollisionShape3D" parent="CStaticBody3D" parent_id_path=PackedInt32Array(891839148) index="0" unique_id=106684079]
+visible = false
+
+[node name="@CollisionShape3D@50117" parent="CStaticBody3D" parent_id_path=PackedInt32Array(891839148) index="1" unique_id=863847493]
+visible = false
+
+[node name="@CollisionShape3D@50118" parent="CStaticBody3D" parent_id_path=PackedInt32Array(891839148) index="2" unique_id=395656802]
+visible = false
+
+[node name="@CollisionShape3D@50119" parent="CStaticBody3D" parent_id_path=PackedInt32Array(891839148) index="3" unique_id=1982279072]
+visible = false
+
+[node name="TerrainComponent" type="Node" parent="." index="2" unique_id=1029062611 node_paths=PackedStringArray("body", "entity")]
+script = ExtResource("2_2v65y")
+body = NodePath("../CStaticBody3D")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://dhe53nqofut4a"

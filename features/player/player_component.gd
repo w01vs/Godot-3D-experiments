@@ -70,7 +70,11 @@ func _apply_rotations() -> void:
 
 func update_velocity(multiplier: float) -> void:
 	var input:  Vector2 = InputManager.get_movement_vector()
-	var direction: Vector3 = (twist_pivot.basis * Vector3(input.x, 0, input.y)).normalized()
+	var cam_basis: Basis = twist_pivot.global_transform.basis
+	cam_basis.x.y = 0
+	cam_basis.z.y = 0
+	cam_basis = cam_basis.orthonormalized()
+	var direction: Vector3 = (cam_basis * Vector3(input.x, 0, input.y)).normalized()
 	if direction:
 		body.velocity.x = direction.x * multiplier
 		body.velocity.z = direction.z * multiplier

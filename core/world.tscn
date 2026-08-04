@@ -12,31 +12,19 @@
 [ext_resource type="PackedScene" uid="uid://2kpyrhr6llgu" path="res://features/entities/damage_interactable.tscn" id="11_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://60ymc70tglcd" path="res://features/building/structures/chest.tscn" id="12_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://bg2ko1e8iq8ne" path="res://features/entities/heal_interactable.tscn" id="12_ysm7w"]
+[ext_resource type="PackedScene" uid="uid://bpxjulxc58g34" path="res://features/terrain/terrain3d/terrain.scn" id="16_c78f7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_s6q7e"]
+[sub_resource type="Sky" id="Sky_c053r"]
 sky_material = SubResource("ProceduralSkyMaterial_ggqjs")
 
 [sub_resource type="Environment" id="Environment_eocis"]
-sky = SubResource("Sky_s6q7e")
+sky = SubResource("Sky_c053r")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_vv4qp"]
-vertices = PackedVector3Array(-49.506306, 0.7628063, -49.68588, -49.506306, 0.7628063, 49.31412, 49.493694, 0.7628063, 49.31412, 49.493694, 0.7628063, -49.68588)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-agent_height = 2.0
-agent_max_climb = 0.05
-filter_walkable_low_height_spans = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_kcw8a"]
-size = Vector3(100, 0.5, 100)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tijdu"]
-data = PackedVector3Array(-50, 0.25, 50, 50, 0.25, 50, -50, -0.25, 50, 50, 0.25, 50, 50, -0.25, 50, -50, -0.25, 50, 50, 0.25, -50, -50, 0.25, -50, 50, -0.25, -50, -50, 0.25, -50, -50, -0.25, -50, 50, -0.25, -50, 50, 0.25, 50, 50, 0.25, -50, 50, -0.25, 50, 50, 0.25, -50, 50, -0.25, -50, 50, -0.25, 50, -50, 0.25, -50, -50, 0.25, 50, -50, -0.25, -50, -50, 0.25, 50, -50, -0.25, 50, -50, -0.25, -50, 50, 0.25, 50, -50, 0.25, 50, 50, 0.25, -50, -50, 0.25, 50, -50, 0.25, -50, 50, 0.25, -50, -50, -0.25, 50, 50, -0.25, 50, -50, -0.25, -50, 50, -0.25, 50, 50, -0.25, -50, -50, -0.25, -50)
 
 [node name="World" type="Node3D" unique_id=1110002956]
 script = ExtResource("1_cp1df")
@@ -129,19 +117,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9809012, 1.459693, -2.7595
 [node name="HealInteractable" parent="." unique_id=2040929709 instance=ExtResource("12_ysm7w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4802756, -2.7595947)
 
-[node name="BaseNavRegion" type="NavigationRegion3D" parent="." unique_id=49940600]
-transform = Transform3D(0.9999989, 0.0011023232, 0.00091151067, -0.0011021094, 0.99999934, -0.0002297302, -0.000911769, 0.00022870275, 0.9999995, 0, 0, 0)
-navigation_mesh = SubResource("NavigationMesh_vv4qp")
-
-[node name="Floor" type="MeshInstance3D" parent="BaseNavRegion" unique_id=703520715]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.00630379, 0.0128107, -0.185878)
-mesh = SubResource("BoxMesh_kcw8a")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="BaseNavRegion/Floor" unique_id=355073486]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BaseNavRegion/Floor/StaticBody3D" unique_id=122491301]
-shape = SubResource("ConcavePolygonShape3D_tijdu")
-
-[node name="Entity" parent="." unique_id=1882066182 instance=ExtResource("12_jj2bn")]
+[node name="Chest" parent="." unique_id=1882066182 instance=ExtResource("12_jj2bn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.206, 0.7674469, 0)
+
+[node name="Terrain3D" parent="." unique_id=607667561 instance=ExtResource("16_c78f7")]

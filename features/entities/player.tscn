@@ -157,6 +157,9 @@ script = ExtResource("3_6ldnq")
 entity = NodePath("../../../../..")
 metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
 
+[node name="Laser" parent="CCharacterBody3D/TwistPivot/PitchPivot" unique_id=846373636 instance=ExtResource("5_n0cgk")]
+transform = Transform3D(1, 0, 0, 0, 0.96592563, -0.25881892, 0, 0.25881892, 0.96592563, 0, -0.9378189, -1.2919631)
+
 [node name="RightArm" type="Node3D" parent="CCharacterBody3D/TwistPivot" unique_id=706858921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507, -1.484, -0.282355)
 
@@ -180,9 +183,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.507, -1.484, -0.282)
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
-
-[node name="Laser" parent="CCharacterBody3D/TwistPivot" unique_id=846373636 instance=ExtResource("5_n0cgk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2402484, -1.0052155)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CCharacterBody3D" unique_id=640653125]
 libraries/ = SubResource("AnimationLibrary_3ip4g")
@@ -246,7 +246,7 @@ metadata/_custom_type_script = "uid://b6cug2mwrwkf6"
 
 [node name="LaserComponent" type="Node" parent="." unique_id=783096986 node_paths=PackedStringArray("laser", "entity")]
 script = ExtResource("11_7471s")
-laser = NodePath("../CCharacterBody3D/TwistPivot/Laser")
+laser = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Laser")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://kmh74icasv6b"
 

@@ -28,7 +28,6 @@ func _init_component() -> void:
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
 	InputManager.subscribe(BuildInputEvent, _on_buildmode)
 
-
 func _on_world_loaded(_event: WorldLoadedEvent) -> void:
 	entity.raise_global(PlayerLoadedEvent.new(self))
 

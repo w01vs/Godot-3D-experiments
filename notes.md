@@ -1,8 +1,7 @@
 ### TO DO:
 	Inventory:
 		- fix holding item when closing inventory
-		- Hotbar
-		- Equipment -> Make equipmentcomponent instead of in player
+    - fix items detaching from hand but not invisible
 		- Item components + In-world items
 	Structures:
 		buildcomponent from build_interact.gd

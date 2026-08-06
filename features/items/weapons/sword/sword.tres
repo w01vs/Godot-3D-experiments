@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://g64r7qaictss"]
+
+[ext_resource type="Resource" uid="uid://ceb1wkfww1lgw" path="res://features/items/weapons/sword/sword_hit_info.tres" id="1_ulyro"]
+[ext_resource type="Texture2D" uid="uid://if24auc47fio" path="res://features/items/weapons/sword/sword.png" id="2_2pjpg"]
+[ext_resource type="PackedScene" uid="uid://pru6l4blxa6u" path="res://features/items/weapons/sword/sword.tscn" id="3_dk6a2"]
+[ext_resource type="Script" uid="uid://dfs852dkqw0ye" path="res://features/items/_general/weapon_data.gd" id="4_aw0y3"]
+
+[resource]
+script = ExtResource("4_aw0y3")
+hit_info = ExtResource("1_ulyro")
+name = "Black Sword"
+id = "black_sword"
+description = "edgy black blue swingeeer
+"
+model = ExtResource("3_dk6a2")
+icon = ExtResource("2_2pjpg")
+has_animation = true
+animation_type = &"Weapon1H"
+metadata/_custom_type_script = "uid://dfs852dkqw0ye"

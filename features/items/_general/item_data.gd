@@ -1,7 +1,5 @@
 @abstract class_name ItemData extends Resource
 
-enum AnimationType { WEAPON1H, TOOL1H, CUSTOM}
-
 @export_group("Item Info")
 @export var name: String
 @export var id: String
@@ -13,5 +11,5 @@ enum AnimationType { WEAPON1H, TOOL1H, CUSTOM}
 @export var icon: Texture2D
 @export_group("Animations")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "Does this item have animations?") var has_animation: bool = false
-@export var animation_type: AnimationType
-@export var anim: StringName
+@export var animation_type: StringName = AnimationType.CUSTOM
+@export var animation_name: StringName

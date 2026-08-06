@@ -1,36 +1,36 @@
 [gd_scene format=3 uid="uid://pru6l4blxa6u"]
 
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_rywao"]
-[ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://features/items/sword/sword.glb" id="2_wsty1"]
+[ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://features/items/weapons/sword/sword.glb" id="2_wsty1"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_7tyby"]
 [ext_resource type="Script" uid="uid://b54bwceiwjxdb" path="res://core/components/physics/hitbox_component.gd" id="4_qfwc1"]
 [ext_resource type="Script" uid="uid://j5p15uhru2yv" path="res://features/items/weapons/attack_item_model_component.gd" id="5_kx4pl"]
-[ext_resource type="Resource" uid="uid://ceb1wkfww1lgw" path="res://features/items/sword/sword_hit_info.tres" id="6_0hbbe"]
+[ext_resource type="Resource" uid="uid://ceb1wkfww1lgw" path="res://features/items/weapons/sword/sword_hit_info.tres" id="6_0hbbe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d6wag"]
 size = Vector3(10.446039, 1.1, 2.3)
 
 [node name="Entity" type="Node3D" unique_id=1930340954]
+top_level = true
 script = ExtResource("1_rywao")
 metadata/_custom_type_script = "uid://cp7e65rba841n"
 
 [node name="sword" parent="." unique_id=744820849 instance=ExtResource("2_wsty1")]
-transform = Transform3D(3.2481654e-16, 7.430936e-09, -0.17, 0.17, -7.430936e-09, 0, -7.430936e-09, -0.17, -7.430936e-09, 0, 0.359, 0)
+transform = Transform3D(1.9106857e-16, 4.371139e-09, -0.1, 0.1, -4.371139e-09, 1.557046e-23, -4.371139e-09, -0.1, -4.371139e-09, 0, 0.359, 0)
 
 [node name="ComponentArea3D" type="Area3D" parent="sword" unique_id=447653521 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1.1239325e-14, 5.882353, -2.571258e-07, 2.571258e-07, -2.571258e-07, -5.882353, -5.882353, 6.734627e-22, -2.571258e-07, -2.1117647, 9.230816e-08, -2.417731e-22)
 script = ExtResource("3_7tyby")
 entity = NodePath("../..")
-target_components = Array[String]([])
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sword/ComponentArea3D" unique_id=1397581882]
 transform = Transform3D(-7.430936e-09, -0.17, 0, 0.17, -7.4309363e-09, 0, 5.6336193e-16, -3.718781e-38, 0.17, -3.1483577e-08, 1.1041201, 3.167491e-08)
 shape = SubResource("BoxShape3D_d6wag")
 
-[node name="HitboxComponent" type="Node" parent="." unique_id=673788132 node_paths=PackedStringArray("_area", "entity")]
+[node name="HitboxComponent" type="Node" parent="." unique_id=673788132 node_paths=PackedStringArray("area", "entity")]
 script = ExtResource("4_qfwc1")
-_area = NodePath("../sword/ComponentArea3D")
+area = NodePath("../sword/ComponentArea3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://b54bwceiwjxdb"
 
@@ -40,9 +40,3 @@ hitbox = NodePath("../HitboxComponent")
 hitinfo = ExtResource("6_0hbbe")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://j5p15uhru2yv"
-
-[node name="HitboxComponent2" type="Node" parent="." unique_id=1473913155 node_paths=PackedStringArray("_area", "entity")]
-script = ExtResource("4_qfwc1")
-_area = NodePath("../sword/ComponentArea3D")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://b54bwceiwjxdb"

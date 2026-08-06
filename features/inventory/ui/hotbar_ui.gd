@@ -50,8 +50,6 @@ func display_hotbar(data: Dictionary[int, InventoryUISlotData]) -> void:
 		for i in range(slots.size()):
 			if data.has(i):
 				slots[i].set_data(data[i])
-			else:
-				slots[i].set_data(null)
 
 func _update_hotbar(data: InventoryData) -> void:
 	if data.hotbar:

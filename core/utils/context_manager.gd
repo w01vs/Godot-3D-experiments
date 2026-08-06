@@ -26,12 +26,10 @@ func is_game_state(state: GameContext.State) -> bool:
 	return state == get_game_state()
 
 func push_player_state(state_: PlayerContext.State) -> void:
-	print_debug("pushed")
 	player_context_changed.emit(state_, player_context.get_state())
 	player_context.push_state(state_)
 
 func pop_player_state() -> void:
-	print_debug("popped")
 	player_context_changed.emit(player_context.get_state(), player_context.get_state(1))
 	player_context.pop_state()
 

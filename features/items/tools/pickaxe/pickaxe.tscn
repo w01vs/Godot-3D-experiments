@@ -1,14 +1,16 @@
 [gd_scene format=3 uid="uid://cegwr0shcxxre"]
 
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_gtsso"]
-[ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://features/items/sword/sword.glb" id="2_6474j"]
+[ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://features/items/weapons/sword/sword.glb" id="2_6474j"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_5k5mh"]
 [ext_resource type="Script" uid="uid://b54bwceiwjxdb" path="res://core/components/physics/hitbox_component.gd" id="4_7cdoh"]
+[ext_resource type="Script" uid="uid://dv10pdq2oaoph" path="res://features/items/tools/harvester_item_model_component.gd" id="5_8es2e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d6wag"]
 size = Vector3(10.446039, 1.1, 2.3)
 
 [node name="Pickaxe" type="Node3D" unique_id=1929155436]
+top_level = true
 script = ExtResource("1_gtsso")
 metadata/_custom_type_script = "uid://cp7e65rba841n"
 
@@ -25,7 +27,14 @@ metadata/_custom_type_script = "uid://bf01144lxbocj"
 transform = Transform3D(-7.430936e-09, -0.17, 0, 0.17, -7.4309363e-09, 0, 5.6336193e-16, -3.718781e-38, 0.17, -3.1483577e-08, 1.1041201, 3.167491e-08)
 shape = SubResource("BoxShape3D_d6wag")
 
-[node name="HitboxComponent" type="Node" parent="." unique_id=372733020 node_paths=PackedStringArray("entity")]
+[node name="HitboxComponent" type="Node" parent="." unique_id=372733020 node_paths=PackedStringArray("area", "entity")]
 script = ExtResource("4_7cdoh")
+area = NodePath("../sword/ComponentArea3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://b54bwceiwjxdb"
+
+[node name="HarvesterItemModelComponent" type="Node" parent="." unique_id=169956937 node_paths=PackedStringArray("hitbox", "entity")]
+script = ExtResource("5_8es2e")
+hitbox = NodePath("../HitboxComponent")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://dv10pdq2oaoph"

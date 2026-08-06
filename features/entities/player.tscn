@@ -11,42 +11,51 @@
 [ext_resource type="Script" uid="uid://b6cug2mwrwkf6" path="res://features/inventory/components/inventory.gd" id="9_0fqka"]
 [ext_resource type="Script" uid="uid://dpd66hp3w048d" path="res://features/player/interact_ray_component.gd" id="9_i1ft5"]
 [ext_resource type="Script" uid="uid://kmh74icasv6b" path="res://features/spells/laser/laser_component.gd" id="11_7471s"]
+[ext_resource type="Script" uid="uid://dxwson43xm1pg" path="res://features/player/equipment.gd" id="12_7471s"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ns3u8"]
+
+[sub_resource type="Animation" id="Animation_7471s"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_amry5"]
 resource_name = "slash_attack"
 length = 0.85
-tracks/0/type = "position_3d"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TwistPivot/RightArm/rightarm")
+tracks/0/path = NodePath("TwistPivot/RightArm/rightarm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.2, 1, 0, 0, -0.291, 0.766667, 1, 0, 0, 0)
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.56, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.48171088, 0, 0), Vector3(-0.13264503, 0, 0), Vector3(0, 0, 0)]
+}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TwistPivot/RightArm/rightarm:rotation")
+tracks/1/path = NodePath("TwistPivot/RightArm/rightarm:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.166667, 0.4, 0.733333),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.33333334, 0.57, 0.81),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.610865, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, 0.09612751, 0.060932398), Vector3(0, 0.048, -0.129), Vector3(0, 0, 0)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath("../EquipmentComponent")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": ["hitbox_on"],
+"args": [&"hitbox_on"],
 "method": &"_on_animation_trigger"
 }]
 }
@@ -56,15 +65,16 @@ resource_name = "testing"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ip4g"]
 _data = {
+&"RESET": SubResource("Animation_7471s"),
 &"slash_attack": SubResource("Animation_amry5"),
 &"testing": SubResource("Animation_6twa2")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i1ft5"]
-animation = &"testing"
+animation = &"RESET"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wavps"]
-animation = &"testing"
+animation = &"RESET"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sm6ki"]
 animation = &"slash_attack"
@@ -95,7 +105,7 @@ states/slash_attack/position = Vector2(398, -41)
 states/testing/node = SubResource("AnimationNodeAnimation_arore")
 states/testing/position = Vector2(419, 78)
 transitions = ["Start", "testing", SubResource("AnimationNodeStateMachineTransition_i1ft5"), "testing", "slash_attack", SubResource("AnimationNodeStateMachineTransition_wavps"), "slash_attack", "testing", SubResource("AnimationNodeStateMachineTransition_0vode"), "Start", "slash_attack", SubResource("AnimationNodeStateMachineTransition_6twa2")]
-graph_offset = Vector2(-49, -133)
+graph_offset = Vector2(15, -137)
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_nhuna"]
 input_0/name = "Weapon1H"
@@ -112,9 +122,10 @@ input_2/break_loop_at_end = false
 input_2/reset = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_vn1u8"]
+graph_offset = Vector2(410.9051, 244.193)
 nodes/output/position = Vector2(1160, 260)
 nodes/Transition/node = SubResource("AnimationNodeTransition_nhuna")
-nodes/Transition/position = Vector2(880, 220)
+nodes/Transition/position = Vector2(900, 260)
 nodes/PlayerOneHander/node = SubResource("AnimationNodeStateMachine_w6b8a")
 nodes/PlayerOneHander/position = Vector2(580, 200)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_wavps")
@@ -164,7 +175,7 @@ transform = Transform3D(1, 0, 0, 0, 0.96592563, -0.25881892, 0, 0.25881892, 0.96
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507, -1.484, -0.282355)
 
 [node name="rightarm" type="MeshInstance3D" parent="CCharacterBody3D/TwistPivot/RightArm" unique_id=825178925]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.640924, 0, 0, 0)
+transform = Transform3D(0.14999999, 0, 0, 0, 0.14999998, 0, 0, 0, 0.6409238, 0, 0, 0)
 mesh = SubResource("BoxMesh_ns3u8")
 skeleton = NodePath("../..")
 
@@ -189,11 +200,11 @@ libraries/ = SubResource("AnimationLibrary_3ip4g")
 
 [node name="AnimationTree" type="AnimationTree" parent="CCharacterBody3D" unique_id=894092481]
 tree_root = SubResource("AnimationNodeBlendTree_vn1u8")
-advance_expression_base_node = NodePath("..")
+advance_expression_base_node = NodePath("../../EquipmentComponent")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Transition/current_state = "Weapon1H"
+parameters/Transition/current_state = "Custom"
 parameters/Transition/transition_request = ""
-parameters/Transition/current_index = 0
+parameters/Transition/current_index = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CCharacterBody3D" unique_id=1558339957]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 0, 0)
@@ -250,5 +261,13 @@ laser = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Laser")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://kmh74icasv6b"
 
-[connection signal="animation_finished" from="CCharacterBody3D/AnimationTree" to="CCharacterBody3D" method="_on_animation_tree_animation_finished"]
-[connection signal="animation_started" from="CCharacterBody3D/AnimationTree" to="CCharacterBody3D" method="_on_animation_tree_animation_started"]
+[node name="EquipmentComponent" type="Node" parent="." unique_id=1330994814 node_paths=PackedStringArray("marker", "remote_transform", "animation_tree", "entity")]
+script = ExtResource("12_7471s")
+marker = NodePath("../CCharacterBody3D/TwistPivot/RightArm/rightarm/Marker3D")
+remote_transform = NodePath("../CCharacterBody3D/TwistPivot/RightArm/rightarm/Marker3D/RemoteTransform3D")
+animation_tree = NodePath("../CCharacterBody3D/AnimationTree")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://dxwson43xm1pg"
+
+[connection signal="animation_finished" from="CCharacterBody3D/AnimationTree" to="EquipmentComponent" method="_on_animation_end"]
+[connection signal="animation_started" from="CCharacterBody3D/AnimationTree" to="EquipmentComponent" method="_on_animation_start"]

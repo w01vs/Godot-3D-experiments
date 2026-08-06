@@ -6,6 +6,8 @@ var global_subscriptions_: Dictionary[Script, Array] = {}
 
 var event_bus: EventBusBase = EventBusBase.new()
 
+var active: bool = true
+
 func _ready() -> void:
 	event_bus.enable()
 	event_bus.release_events()
@@ -24,7 +26,7 @@ func has_component(script: Script) -> bool:
 func remove_component(component: Component) -> void:
 	for s in find_bases(component.get_script(), true):
 		if get_component(s) == component:
-			components.erase(component)
+			components.erase(component.get_script())
 	for event: Script in global_subscriptions_.keys():
 		var callbacks: Array = global_subscriptions_.get(event)
 		for i in range(callbacks.size()):
@@ -43,17 +45,17 @@ func find_bases(script: Script, removing: bool) -> Array[Script]:
 	var scripts: Array[Script] = []
 	while current_script != Component:
 		assert(!components.has(current_script) || removing)
-		if components.has(current_script):
+		if components.has(current_script) && !removing:
 			push_error("A component of this type %s has already been registered" % [ current_script.get_global_name() ])
 			return []
 		scripts.append(current_script)
 		current_script = current_script.get_base_script()
 	return scripts
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_PREDELETE:
-		for comp: Component in components.values():
-			comp.queue_free()
+#func _notification(what: int) -> void:
+	#if what == NOTIFICATION_PREDELETE:
+		#for comp: Component in components.values():
+			#comp.queue_free()
 
 func subscribe_local(event_type: Script, callback: Callable) -> void:
 	assert(event_bus.is_valid_event(event_type, EntityEvent))
@@ -69,6 +71,8 @@ func unsubscribe_local(event_type: Script, callback: Callable) -> void:
 	event_bus.unsubscribe(event_type, callback)
 
 func raise_local(event: EntityEvent) -> void:
+	if !active:
+		return
 	event_bus.raise(event)
 
 func subscribe_global(event_type: Script, callback: Callable, priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
@@ -91,6 +95,8 @@ func unsubcribe_global(event_type: Script, callback: Callable) -> void:
 			return
 
 func raise_global(event: Event) -> void:
+	if !active:
+		return
 	event.source = self
 	EventBus.raise(event)
 
@@ -108,10 +114,12 @@ func _callback_internal(event: EventBase) -> void:
 
 func enable() -> void:
 	show()
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	event_bus.enable()
+	active = true
 
 func disable() -> void:
 	hide()
+	process_mode = Node.PROCESS_MODE_DISABLED
 	event_bus.disable()
-
-	
+	active = false

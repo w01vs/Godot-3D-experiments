@@ -125,10 +125,10 @@ tracks/0/path = NodePath(".:material_override:shader_parameter/draw_progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1.0666667, 1.4, 2.9666667, 3.3066666),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1.0666667, 1.4, 2.9666667, 3.3066666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.400000019, 1.0, 1.0, 0.4]
+"values": [0.0, 0.400000019, 1.0, 1.0, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -308,7 +308,7 @@ alpha_curve = SubResource("CurveTexture_g4sr0")
 script = ExtResource("1_rccfa")
 metadata/_custom_type_script = "uid://cp7e65rba841n"
 
-[node name="Laser" type="RayCast3D" parent="." unique_id=1207216729 node_paths=PackedStringArray("anim", "beam_out", "beam_in", "beam_cap", "fade")]
+[node name="Laser" type="RayCast3D" parent="." unique_id=1207216729 node_paths=PackedStringArray("anim", "beam_out", "beam_in", "beam_cap", "fade", "entity")]
 target_position = Vector3(0, 0, -15)
 script = ExtResource("1_ngp0y")
 anim = NodePath("../AnimationPlayer")
@@ -316,6 +316,7 @@ beam_out = NodePath("../beam_outside")
 beam_in = NodePath("../beam_inside")
 beam_cap = NodePath("../beam_cap")
 fade = NodePath("../fade")
+entity = NodePath("..")
 metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
 
 [node name="circle" type="MeshInstance3D" parent="." unique_id=1140003151]

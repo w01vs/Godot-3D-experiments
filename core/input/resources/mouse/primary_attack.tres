@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MouseInputAction" format=3 uid="uid://bltyg3ve7s86m"]
+
+[ext_resource type="Script" uid="uid://biv6bo64aduqn" path="res://core/events/input/primary_attack_input_event.gd" id="1_1nhu3"]
+[ext_resource type="Script" uid="uid://jd2bn4oouvye" path="res://core/input/mouse_input_action.gd" id="1_hbj4t"]
+
+[sub_resource type="Resource" id="Resource_1nhu3"]
+script = ExtResource("1_1nhu3")
+metadata/_custom_type_script = "uid://biv6bo64aduqn"
+
+[resource]
+script = ExtResource("1_hbj4t")
+name = &"default_attack"
+player_requirements = Array[int]([1])
+game_requirements = Array[int]([2])
+event = SubResource("Resource_1nhu3")
+metadata/_custom_type_script = "uid://jd2bn4oouvye"

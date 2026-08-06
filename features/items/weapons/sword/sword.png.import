@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://imhmtmvqeoem"
-path="res://.godot/imported/pickaxe.png-dfc5d490d46fe67e68f99382dacafb2b.ctex"
+uid="uid://if24auc47fio"
+path="res://.godot/imported/sword.png-b83f4800d0132730fe7e8625151c32ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://features/items/pickaxe/pickaxe.png"
-dest_files=["res://.godot/imported/pickaxe.png-dfc5d490d46fe67e68f99382dacafb2b.ctex"]
+source_file="res://features/items/weapons/sword/sword.png"
+dest_files=["res://.godot/imported/sword.png-b83f4800d0132730fe7e8625151c32ae.ctex"]
 
 [params]
 

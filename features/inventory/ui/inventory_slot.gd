@@ -6,11 +6,17 @@ class_name InventorySlot extends PanelContainer
 
 var slot_data: InventoryUISlotData
 var index: int
-var panel: InventoryPanel
+var bindings: InventoryBindings
 
 func set_data(data: InventoryUISlotData) -> void:
 	slot_data = data
 	update_ui()
+
+func bind(bindings_: InventoryBindings) -> void:
+	bindings = bindings_
+
+func unbind() -> void:
+	bindings = null
 
 func update_ui() -> void:
 	if slot_data and slot_data.icon:
@@ -26,7 +32,7 @@ func update_ui() -> void:
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		# grab / drop item
-		panel.bindings.grab_drop.call(index)
+			bindings.grab_drop.call(index)
 
 func toggle_border(on: bool) -> void:
 	border.visible = on

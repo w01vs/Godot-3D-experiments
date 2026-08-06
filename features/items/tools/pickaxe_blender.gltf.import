@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c4po6os36tsyg"
-path="res://.godot/imported/pickaxe_blender.gltf-4c91a7d95702a9d83e05f66d3396c0a4.scn"
+valid=false
 
 [deps]
 
-source_file="res://pickaxe_blender.gltf"
-dest_files=["res://.godot/imported/pickaxe_blender.gltf-4c91a7d95702a9d83e05f66d3396c0a4.scn"]
+source_file="res://features/items/tools/pickaxe_blender.gltf"
 
 [params]
 

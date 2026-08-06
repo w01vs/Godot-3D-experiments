@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MouseInputAction" format=3 uid="uid://b82421hinq2jn"]
+
+[ext_resource type="Script" uid="uid://bl8pd2gx1a02l" path="res://core/events/input/next_hotbar.gd" id="1_6ds10"]
+[ext_resource type="Script" uid="uid://jd2bn4oouvye" path="res://core/input/mouse_input_action.gd" id="1_h0v0e"]
+
+[sub_resource type="Resource" id="Resource_6ds10"]
+script = ExtResource("1_6ds10")
+metadata/_custom_type_script = "uid://bl8pd2gx1a02l"
+
+[resource]
+script = ExtResource("1_h0v0e")
+name = &"next_hotbar"
+player_requirements = Array[int]([1])
+game_requirements = Array[int]([2])
+event = SubResource("Resource_6ds10")
+on_release = true
+metadata/_custom_type_script = "uid://jd2bn4oouvye"

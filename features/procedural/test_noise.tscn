@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cdhu8e721t4e6"]
 
-[ext_resource type="Script" uid="uid://cl7i723hc8147" path="res://test.gd" id="1_1svy8"]
+[ext_resource type="Script" uid="uid://cl7i723hc8147" path="res://features/procedural/test.gd" id="1_1svy8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6wxjl"]
 noise_type = 3

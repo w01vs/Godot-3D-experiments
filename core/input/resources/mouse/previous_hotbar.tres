@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MouseInputAction" format=3 uid="uid://vjlg7qg4s8qd"]
+
+[ext_resource type="Script" uid="uid://bjoyyw7l3g48p" path="res://core/events/input/previous_hotbar.gd" id="1_c5pwe"]
+[ext_resource type="Script" uid="uid://jd2bn4oouvye" path="res://core/input/mouse_input_action.gd" id="1_k8vj4"]
+
+[sub_resource type="Resource" id="Resource_vxb6u"]
+script = ExtResource("1_c5pwe")
+metadata/_custom_type_script = "uid://bjoyyw7l3g48p"
+
+[resource]
+script = ExtResource("1_k8vj4")
+name = &"previous_hotbar"
+player_requirements = Array[int]([1])
+game_requirements = Array[int]([2])
+event = SubResource("Resource_vxb6u")
+on_release = true
+metadata/_custom_type_script = "uid://jd2bn4oouvye"

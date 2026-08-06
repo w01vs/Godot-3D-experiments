@@ -4,11 +4,10 @@
 [ext_resource type="Script" uid="uid://e83e5af3w8ao" path="res://features/player/ui/player_ui.gd" id="2_4bd16"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://features/player/ui/player_health_bar.tscn" id="3_rtxew"]
 [ext_resource type="Script" uid="uid://c8fimqgn8xpvr" path="res://features/building/structures/build_ui.gd" id="4_ueke7"]
+[ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://features/inventory/ui/inventory.tscn" id="6_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://da33thcn1ty4r" path="res://features/inventory/ui/hotbar.tscn" id="6_yt64i"]
 [ext_resource type="PackedScene" uid="uid://wdgcqohl6sqf" path="res://features/inventory/ui/drag_preview.tscn" id="7_3s5gr"]
-[ext_resource type="PackedScene" uid="uid://c3bf1h0lfalix" path="res://features/inventory/ui/inventory_slot.tscn" id="7_if4au"]
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://features/entities/player.tscn" id="8_acts3"]
-[ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://inventory.tscn" id="8_iiydy"]
 [ext_resource type="PackedScene" uid="uid://2kpyrhr6llgu" path="res://features/entities/damage_interactable.tscn" id="11_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://60ymc70tglcd" path="res://features/building/structures/chest.tscn" id="12_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://bg2ko1e8iq8ne" path="res://features/entities/heal_interactable.tscn" id="12_ysm7w"]
@@ -85,20 +84,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Hotbar" parent="PlayerUI" unique_id=1474135417 instance=ExtResource("6_yt64i")]
-visible = false
 anchor_left = 0.43489584
 anchor_top = 0.85030866
 anchor_right = 0.6779514
 anchor_bottom = 0.9675926
 mouse_filter = 1
-slot = ExtResource("7_if4au")
 
-[node name="Inventory" parent="PlayerUI" unique_id=1362168628 instance=ExtResource("8_iiydy")]
-visible = false
-offset_left = 586.0
-offset_top = 421.0
-offset_right = 586.0
-offset_bottom = 421.0
+[node name="Inventory" parent="PlayerUI" unique_id=1362168628 instance=ExtResource("6_jj2bn")]
+anchor_left = 0.30520833
+anchor_top = 0.28611112
+anchor_right = 0.30520833
+anchor_bottom = 0.28611112
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="DragPreview" parent="PlayerUI" unique_id=1529233897 instance=ExtResource("7_3s5gr")]
 anchor_left = 0.00052083336

@@ -1,5 +1,5 @@
 @tool
-class_name InputAction extends Resource
+class_name KeyInputAction extends Resource
 
 @export var name: StringName
 @export var debug: bool = false:

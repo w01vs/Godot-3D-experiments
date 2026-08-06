@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://yxuw2hbk4ee3"]
 
-[ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/input_action.gd" id="1_3lv0k"]
+[ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_3lv0k"]
 [ext_resource type="Script" uid="uid://dw26ttou7ylyq" path="res://core/events/input/spell_input.gd" id="1_lseto"]
 
 [sub_resource type="Resource" id="Resource_lseto"]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://dc7htxexp8u0x"]
 
 [ext_resource type="Script" uid="uid://da3f1r3fnr6i5" path="res://core/events/input/inventory_input_event.gd" id="1_8il1r"]
-[ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/input_action.gd" id="1_ul74q"]
+[ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_ul74q"]
 
 [sub_resource type="Resource" id="Resource_8il1r"]
 script = ExtResource("1_8il1r")

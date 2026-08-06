@@ -1,9 +1,12 @@
 class_name InventoryComponent extends Component
 
 @export var inventory_size: int = 12
-var HOTBAR_SIZE: int = 4
+@export var hotbar_size: int = 4
 
 var inventory: Array[InventorySlotData]
+var hotbar: Array[InventorySlotData]
+
+var active_index: int = 0
 
 static var mouse_data: InventorySlotData
 var last_index: int
@@ -16,15 +19,21 @@ var open: bool = false
 
 func _init_component() -> void:
 	entity.subscribe_local(InventoryOpenEntityEvent, _on_open)
-	entity.subscribe_local(InventoryCloseEntityEvent, _on_close)
-	InputManager.subscribe(UICloseInputEvent, _on_close_ui)
-	InputManager.subscribe(InventoryInputEvent, _on_player_inventory)
+	entity.subscribe_local(InventoryCloseEntityEvent, _close)
+	InputManager.subscribe(UICloseInputEvent, _close)
 	bindings = InventoryBindings.new(grab_drop, inventory_updated)
+	entity.subscribe_global(PlayerLoadedEvent, _on_player_load)
 	inventory.resize(inventory_size)
 
+func _on_player_load(_event: PlayerLoadedEvent) -> void:
+	if entity.has_component(PlayerComponent):
+		InputManager.subscribe(NextHotbarInputEvent, _next_hotbar)
+		InputManager.subscribe(InventoryInputEvent, _on_player_inventory)
+		InputManager.subscribe(PreviousHotbarInputEvent, _previous_hotbar)
+	
 func _on_player_inventory(_event: InventoryInputEvent) -> void:
 	if open:
-		_close()
+		_close(null)
 	else:
 		_open(true)
 
@@ -34,73 +43,60 @@ func _open(player: bool) -> void:
 		ContextManager.push_player_state(PlayerContext.State.INVENTORY)
 	else:
 		entity.raise_global(InventoryOpenUIEvent.new(self, bindings, _get_data()))
-		ContextManager.push_player_state(PlayerContext.State.STATIC_INVENTORY)
 	open = !open
 
 func _on_open(event: InventoryOpenEntityEvent) -> void:
 	_open(event.is_player)
 
-func _on_close_ui(_event: UICloseInputEvent) -> void:
-	_close()
-
-func _on_close(_event: InventoryCloseEntityEvent) -> void:
-	_close()
-
-func _close() -> void:
-	entity.raise_global(InventoryCloseUIEvent.new(self))
-	ContextManager.pop_player_state()
-	open = !open
+func _close(_event: CustomInputEvent) -> void:
+	if open:
+		entity.raise_global(InventoryCloseUIEvent.new(self))
+		ContextManager.pop_player_state()
+		open = !open
 
 func _on_entity_load(_event: EntityLoadedEvent) -> void:
 	if entity.has_component(PlayerComponent):
 		var inv_save: InventorySave = preload("uid://b5oqc4fvtmllc")
 		inventory.resize(inventory_size)
+		hotbar.resize(hotbar_size)
 		if inv_save.main_inventory.size() != inventory_size:
 			push_warning("Inventory data does not match inventory size. Crashes might occur.")
 		for i in range(inv_save.main_inventory.size()):
 			set_slot_data(i, inv_save.main_inventory[i])
-		entity.raise_global(PlayerInventoryLoadedEvent.new(self, _get_data(), bindings))
+		entity.raise_global(PlayerInventoryLoadedEvent.new(self, _get_data(), bindings, _get_hotbar_data()))
+		entity.raise_global(HotbarChangedEvent.new(self, 0, 0))
 
 func is_open() -> bool:
 	return open
-#hotbar stuff, seperate component
-#func _physics_process(_delta: float) -> void:
-	#if Input.is_action_just_pressed("scroll_down"):
-		#if active_index == HOTBAR_SIZE - 1:
-			#active_index = 0
-		#else:
-			#active_index += 1
-		##hotbar active changed event
-		#_set_active_item()
-	#
-	#if Input.is_action_just_pressed("scroll_up"):
-		#if active_index == 0:
-			#active_index = HOTBAR_SIZE - 1
-		#else:
-			#active_index -= 1
-		#_set_active_item()
-#
-#func _set_active_item() -> void:
-	##hotbar active changed event
-	#player.switch_hotbar_slot(active_index)
-#
-#func load_active_item() -> void:
-	#if hotbar_slots[active_index]:
-		#player.hotbar_load_item(hotbar_slots[active_index].item_data.model.instantiate(), active_index, hotbar_slots[active_index].item_data)
-	#else:
-		#player.hotbar_load_item(null, active_index, hotbar_slots[active_index].item_data)
 
-# inventory stuff
+func _next_hotbar(_event: NextHotbarInputEvent) -> void:
+	var old: int = active_index
+	if active_index == hotbar_size - 1:
+		active_index = 0
+	else:
+		active_index += 1
+	_set_active_item(active_index, old)
+
+func _previous_hotbar(_event: PreviousHotbarInputEvent) -> void:
+	var old: int = active_index
+	if active_index == 0:
+		active_index = hotbar_size - 1
+	else:
+		active_index -= 1
+	_set_active_item(active_index, old)
+
+
+func _set_active_item(index: int, old_index: int) -> void:
+	entity.raise_global(HotbarChangedEvent.new(self, index, old_index))
+	#player.switch_hotbar_slot(active_index)
+
 func set_slot_data(index: int, data: InventorySlotData) -> void:
-	inventory[index] = data
-	var inv_data: InventoryData = InventoryData.new({index: _to_ui_data(data)}, inventory_size)
+	_set_index(index, data)
+	var inv_data: InventoryData = _to_inventory_data(index, data)
 	inventory_updated.emit(inv_data)
-	#if data:
-		#load_active_item()
 
 func grab_drop(index: int) -> void:
-	var current_array: Array[InventorySlotData] = inventory
-	var target_data: InventorySlotData = current_array[index]
+	var target_data: InventorySlotData = _get_index(index)
 	if mouse_data:
 		if target_data == null:
 			set_slot_data(index, mouse_data)
@@ -121,9 +117,19 @@ func grab_drop(index: int) -> void:
 			set_mouse_data(target_data)
 			set_slot_data(index, null)
 
+func _get_index(index: int) -> InventorySlotData:
+	if index >= inventory_size:
+		return hotbar[index-inventory_size]
+	return inventory[index]
+
+func _set_index(index: int, data: InventorySlotData) -> void:
+	if index >= inventory_size:
+		hotbar[index-inventory_size] = data
+	else:
+		inventory[index] = data
+
 func _execute_merge(index: int, incoming_qty: int) -> int:
-	var current_array: Array[InventorySlotData] = inventory
-	var slot: InventorySlotData = current_array[index]
+	var slot: InventorySlotData = _get_index(index)
 	var max_stack: int = slot.item_data.max_quantity
 	var space_left: int = max_stack - slot.quantity
 	var amount_to_take: int = min(incoming_qty, space_left)
@@ -153,6 +159,20 @@ func _get_data() -> InventoryData:
 			dict.set(i, _to_ui_data(inventory[i]))
 	var data: InventoryData = InventoryData.new(dict, inventory_size)
 	return data
+
+func _get_hotbar_data() -> InventoryData:
+	var dict: Dictionary[int, InventoryUISlotData] = {}
+	for i in range(hotbar.size()):
+		if hotbar[i]:
+			dict.set(i, _to_ui_data(hotbar[i]))
+	var data: InventoryData = InventoryData.new(dict, hotbar_size, true)
+	return data
+
+func _to_inventory_data(index: int, data: InventorySlotData) -> InventoryData:
+	if index >= inventory_size:
+		index -= inventory_size
+		return InventoryData.new({index: _to_ui_data(data)}, hotbar_size, true)
+	return InventoryData.new({index: _to_ui_data(data)}, inventory_size)
 
 func _to_ui_data(inv_data: InventorySlotData) -> InventoryUISlotData:
 	if inv_data and inv_data.item_data:

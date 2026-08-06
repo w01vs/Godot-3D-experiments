@@ -1,35 +1,58 @@
-class_name Hotbar extends Control
+class_name HotbarUI extends Control
 
-@onready var grid: GridContainer = $MarginContainer/ItemGrid
-@export var slot: PackedScene
+@export var grid: GridContainer
+const INVENTORY_SLOT = preload("uid://c3bf1h0lfalix")
 
-var slots: Array[InventorySlot] = []
-var active_hotbar_index: int = -1
+var bindings: InventoryBindings
+
+var slots: Array[InventorySlot]
+
 func _ready() -> void:
-	EventBus.subscribe(PlayerLoadedEvent, initialise)
+	EventBus.subscribe(PlayerInventoryLoadedEvent, initialise)
+	EventBus.subscribe(HotbarChangedEvent, _set_active_slot)
 
-func initialise(_event: PlayerLoadedEvent) -> void:
-	#GlobalRefs.player.inventory.inventory_changed.connect(update_slot)
-	#GlobalRefs.player.inventory.hotbar_active_changed.connect(set_active_slot)
-	#slots.resize(GlobalRefs.player.inventory.HOTBAR_SIZE)
-	#for i in range(slots.size()):
-		#slots[i] = slot.instantiate()
-		#slots[i].target = "hotbar"
-		#slots[i].index = i
-		#grid.add_child(slots[i])
-	#display_inventory(GlobalRefs.player.inventory.hotbar_slots)
-	pass
+func initialise(event: PlayerInventoryLoadedEvent) -> void:
+	set_slot_count(event.hotbar_data.size, event.data.size)
+	display_hotbar(event.hotbar_data.data)
+	bind(event.bindings)
 
-func set_active_slot(index: int) -> void:
-	if active_hotbar_index != -1:
-		slots[active_hotbar_index].toggle_border(false)
-	active_hotbar_index = index
-	slots[index].toggle_border(true)
+func set_slot_count(slot_count: int, inventory_slot_count: int) -> void:
+	if slot_count < slots.size():
+		for i in range(slot_count, slots.size()):
+			slots[i].hide()
+	if slot_count > slots.size():
+		slots.resize(slot_count)
+		for i in range(slot_count):
+			if !slots[i]:
+				slots[i] = INVENTORY_SLOT.instantiate()
+				slots[i].index = i + inventory_slot_count
+				grid.add_child(slots[i])
+			if !slots[i].visible:
+				slots[i].show()
 
-func display_inventory(data: Array[InventoryUISlotData]) -> void:
-	for i in range(data.size()):
-		slots[i].set_data(data[i])
+func bind(bindings_: InventoryBindings) -> void:
+	bindings = bindings_
+	for slot in slots:
+		slot.bind(bindings)
+	bindings.inventory_changed.connect(_update_hotbar)
 
-func update_slot(index: int, data: InventoryUISlotData, target: String) -> void:
-	if target == "hotbar":
-		slots[index].set_data(data)
+func unbind() -> void:
+	bindings = null
+	for slot in slots:
+		slot.unbind()
+	bindings.inventory_changed.disconnect(_update_hotbar)
+
+func _set_active_slot(event: HotbarChangedEvent) -> void:
+	slots[event.old_index].toggle_border(false)
+	slots[event.index].toggle_border(true)
+
+func display_hotbar(data: Dictionary[int, InventoryUISlotData]) -> void:
+		for i in range(slots.size()):
+			if data.has(i):
+				slots[i].set_data(data[i])
+			else:
+				slots[i].set_data(null)
+
+func _update_hotbar(data: InventoryData) -> void:
+	if data.hotbar:
+		display_hotbar(data.data)

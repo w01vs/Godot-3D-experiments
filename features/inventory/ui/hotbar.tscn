@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://s1ty4f248n7k" path="res://features/inventory/ui/hotbar_ui.gd" id="1_w22v5"]
 
-[node name="Hotbar" type="Control" unique_id=1474135417]
+[node name="Hotbar" type="Control" unique_id=1474135417 node_paths=PackedStringArray("grid")]
 layout_mode = 3
 anchor_right = 0.24305555
 anchor_bottom = 0.11728395
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w22v5")
+grid = NodePath("MarginContainer/ItemGrid")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=990290917]

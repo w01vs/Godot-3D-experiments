@@ -1,7 +1,7 @@
 class_name Pickaxe extends Node3D
 
 @onready var hitbox: HitboxComponent = $HitboxComponent
-var hitinfo: WeaponData = preload("res://features/items/sword/sword.tres")
+var hitinfo: WeaponData = preload("res://features/items/weapons/sword/sword.tres")
 
 func _ready() -> void:
 	hitbox.set_info(hitinfo.hit_info)

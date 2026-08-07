@@ -107,7 +107,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 
 [node name="BetterPlayer" parent="." unique_id=1293619965 instance=ExtResource("8_acts3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2570927, -0.12676299)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2570927, 7.8765607)
 
 [node name="DamageInteractable" parent="." unique_id=1420473332 instance=ExtResource("11_jj2bn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9809012, 1.459693, -2.7595947)

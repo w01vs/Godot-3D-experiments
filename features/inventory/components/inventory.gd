@@ -19,11 +19,11 @@ signal equipment_updated(index: int, data: ItemData)
 var open: bool = false
 
 func _init_component() -> void:
-	entity.subscribe_local(InventoryOpenEntityEvent, _on_open)
-	entity.subscribe_local(InventoryCloseEntityEvent, _close)
+	entity.subscribe_local(self, InventoryOpenEntityEvent, _on_open)
+	entity.subscribe_local(self, InventoryCloseEntityEvent, _close)
 	InputManager.subscribe(UICloseInputEvent, _close)
 	bindings = InventoryBindings.new(grab_drop, inventory_updated, equipment_updated)
-	entity.subscribe_global(PlayerLoadedEvent, _on_player_load)
+	entity.subscribe_global(self, PlayerLoadedEvent, _on_player_load)
 	inventory.resize(inventory_size)
 
 func _on_player_load(_event: PlayerLoadedEvent) -> void:

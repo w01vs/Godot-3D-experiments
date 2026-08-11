@@ -5,9 +5,9 @@
 
 ## Dont override this function!!
 func _init_component() -> void:
-	entity.subscribe_local(CollisionShapeRegisteredEntityEvent, _on_collision_shape_registered)
-	entity.subscribe_local(CollisionShapeRegisteredEntityEvent, _config_collision_shape)
-	entity.subscribe_local(CollisionEntityEvent, _interact)
+	entity.subscribe_local(self, CollisionShapeRegisteredEntityEvent, _on_collision_shape_registered)
+	entity.subscribe_local(self, CollisionShapeRegisteredEntityEvent, _config_collision_shape)
+	entity.subscribe_local(self, CollisionEntityEvent, _interact)
 
 func _config_collision_shape(event: CollisionShapeRegisteredEntityEvent) -> void:
 	if collision_shape == event.source:

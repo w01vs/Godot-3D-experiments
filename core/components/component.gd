@@ -7,7 +7,7 @@ var active: bool = true
 
 ## All C-versions are very similar: They store what type of component uses them and emit an event through their entity when they are loaded.
 ## [br]Current C-versions are:
-## [br][b]CollisionObject3D[/b]: [CArea3D] - [CStaticBody3D]
+## [br][b]CollisionObject3D[/b]: [CArea3D] - [CStaticBody3D] - [CCharacterBody3D]
 ## [br][b]RayCast3D[/b]: [CRayCast3D]
 const C_version: Script = null
 
@@ -16,7 +16,7 @@ func _ready() -> void:
 	assert(entity != null, "Component %s at %s requires an entity it is attached to." % [ name, get_path() ])
 	assert(entity.is_ancestor_of(self), "Component %s at %s requires its entity to be an ancestor."% [ name, get_path() ] )
 	entity.register(self)
-	entity.subscribe_local(EntityLoadedEvent, _on_entity_load)
+	entity.subscribe_local(self, EntityLoadedEvent, _on_entity_load)
 	entity.raise_local(ComponentRegisteredEntityEvent.new(self))
 	_init_component()
 	
@@ -35,6 +35,9 @@ func _notification(what: int) -> void:
 			if entity:
 				entity.remove_component(self)
 				pass
+
+func is_active() -> bool:
+	return active
 
 ## Enables the component's functionality.
 func enable() -> void:

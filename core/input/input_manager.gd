@@ -54,17 +54,17 @@ func _physics_process(_delta: float) -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if Input.use_accumulated_input:
-		handle_event(event)
-		get_viewport().set_input_as_handled()
+		if handle_event(event):
+			get_viewport().set_input_as_handled()
 
-func handle_event(event: InputEvent) -> void:
-	var game_flag: bool = false
-	var player_flag: bool = false
+func handle_event(event: InputEvent) -> bool:
 	for action in key_inputs:
-		if event.is_action_pressed(action.name):
+		var game_flag: bool = false
+		var player_flag: bool = false
+		if event.is_action_pressed(action.name) and not event.is_echo():
 			if action.debug:
 				handle_debug_input(action)
-				return
+				return true
 			for state in action.game_requirements:
 				if ContextManager.is_game_state(state):
 					game_flag = true
@@ -76,6 +76,8 @@ func handle_event(event: InputEvent) -> void:
 			if player_flag and game_flag:
 				var input_event: CustomInputEvent = action.event_script.new(self)
 				event_bus.raise(input_event)
+				return true
+	return false
 
 func handle_debug_input(action: KeyInputAction) -> void:
 	if action.name == "lose_focus" and OS.is_debug_build() and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -91,13 +93,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			event_bus.raise(MouseMotionInputEvent.new(self, event.relative, event.screen_relative))
 			get_viewport().set_input_as_handled()
 	else:
-		handle_mouse_input(event)
-		get_viewport().set_input_as_handled()
+		if handle_mouse_input(event):
+			get_viewport().set_input_as_handled()
 
-func handle_mouse_input(event: InputEvent) -> void:
-	var game_flag: bool = false
-	var player_flag: bool = false
+func handle_mouse_input(event: InputEvent) -> bool:
 	for action in mouse_inputs:
+		var game_flag: bool = false
+		var player_flag: bool = false
 		var action_flag: bool = false
 		if action.on_release:
 			action_flag = event.is_action_released(action.name)
@@ -115,6 +117,8 @@ func handle_mouse_input(event: InputEvent) -> void:
 			if player_flag and game_flag:
 				var input_event: CustomInputEvent = action.event_script.new(self)
 				event_bus.raise(input_event)
+				return true
+	return false
 
 func enable() -> void:
 	event_bus.enable()
@@ -127,7 +131,10 @@ func subscribe(event_type: Script, callback: Callable) -> void:
 	if !event_bus.is_valid_event(event_type, CustomInputEvent):
 		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])
 		return
-	event_bus.subscribe(event_type, callback)
+	event_bus.subscribe(event_type, callback, def)
+
+func def() -> bool:
+	return true
 
 func get_movement_vector() -> Vector2:
 	return movement_vector

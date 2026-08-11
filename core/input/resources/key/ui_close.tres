@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://bun2mmva3wfcx"]
+[gd_resource type="Resource" script_class="KeyInputAction" format=3 uid="uid://bun2mmva3wfcx"]
 
 [ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_aipbj"]
 [ext_resource type="Script" uid="uid://c6180kxrgtek" path="res://core/events/input/ui_close.gd" id="1_kx5bi"]

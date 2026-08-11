@@ -7,24 +7,35 @@ var hold: bool = true
 
 var dispatch_held: Array[EventBase] = []
 
+class Subscriber:
+	var callback: Callable
+	var conditions: Callable
+	var object: Object
+	func _init(callback_: Callable, conditions_: Callable) -> void:
+		callback = callback_
+		conditions = conditions_
+		object = callback.get_object()
 
-func subscribe(event_type: Script, callback: Callable, priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
+
+func subscribe(event_type: Script, callback: Callable, conditions: Callable,  priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
 	if not listeners_.has(event_type):
 		listeners_[event_type] = {}
 		for prio: EventBase.Priority in [EventBase.Priority.PRE, EventBase.Priority.BASE, EventBase.Priority.POST]:
-			listeners_[event_type].set(prio, [])
-	if not listeners_[event_type][priority].has(callback):
-		listeners_[event_type][priority].append(callback)
+			var arr: Array[Subscriber] = []
+			listeners_[event_type].set(prio, arr)
+	var sub: Subscriber = Subscriber.new(callback, conditions)
+	if not has_callback(listeners_[event_type][priority], callback):
+		listeners_[event_type][priority].append(sub)
 
 func unsubscribe(event_type: Script, callback: Callable) -> void:
 	if listeners_.has(event_type):
 		for prio: Event.Priority in listeners_[event_type]:
-			var callbacks: Array = listeners_[event_type][prio]
+			var subscribers: Array = listeners_[event_type][prio]
 			for i in range(listeners_[event_type][prio].size()):
-				var cb: Callable = listeners_[event_type][prio][i]
+				var cb: Callable = listeners_[event_type][prio][i].callback
 				if cb == callback || !cb.is_valid():
-					callbacks[i] = callbacks[callbacks.size() - 1]
-					callbacks.pop_back()
+					subscribers[i] = subscribers[subscribers.size() - 1]
+					subscribers.pop_back()
 					
 					
 
@@ -38,14 +49,16 @@ func raise(event: EventBase) -> void:
 	if listeners_.has(event_type):
 		for prio: EventBase.Priority in [EventBase.Priority.PRE, EventBase.Priority.BASE, EventBase.Priority.POST]:
 			if listeners_.get(event_type).get(prio):
-				var callbacks: Array = listeners_.get(event_type).get(prio)
-				for i: int in range(callbacks.size()):
-					var callback: Callable = callbacks.get(i)
-					if callback.is_valid():
-						callback.call(event)
+				var subscribers: Array = listeners_.get(event_type).get(prio)
+				for i: int in range(subscribers.size()):
+					var callback: Callable = subscribers.get(i).callback
+					var condition: Callable = subscribers.get(i).conditions
+					if callback.is_valid() and condition.is_valid():
+						if condition.call():
+							callback.call(event)
 					else:
-						callbacks[i] = callbacks[callbacks.size() - 1]
-						callbacks.pop_back()
+						subscribers[i] = subscribers[subscribers.size() - 1]
+						subscribers.pop_back()
 
 func _raise_held() -> void:
 	for event: EventBase in dispatch_held:
@@ -72,5 +85,11 @@ func is_valid_event(event: Script, valid_event: Script) -> bool:
 	while current_script != valid_event:
 		current_script = current_script.get_base_script()
 		if current_script == valid_event:
+			return true
+	return false
+
+func has_callback(array: Array[Subscriber], callback: Callable) -> bool:
+	for sub in array:
+		if sub.callback == callback:
 			return true
 	return false

@@ -22,8 +22,8 @@ var pitch_input: float = 0
 @export var body: CCharacterBody3D
 
 func _init_component() -> void:
-	entity.subscribe_local(CollisionShapeRegisteredEntityEvent, _on_body_registered)
-	entity.subscribe_global(WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
+	entity.subscribe_local(self, CollisionShapeRegisteredEntityEvent, _on_body_registered)
+	entity.subscribe_global(self, WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
 	InputManager.subscribe(JumpInputEvent, _jump)
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
 	InputManager.subscribe(BuildInputEvent, _on_buildmode)

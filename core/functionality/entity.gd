@@ -57,12 +57,12 @@ func find_bases(script: Script, removing: bool) -> Array[Script]:
 		#for comp: Component in components.values():
 			#comp.queue_free()
 
-func subscribe_local(event_type: Script, callback: Callable) -> void:
+func subscribe_local(component: Component, event_type: Script, callback: Callable, prio: EventBase.Priority = EventBase.Priority.BASE) -> void:
 	assert(event_bus.is_valid_event(event_type, EntityEvent))
 	if !event_bus.is_valid_event(event_type, EntityEvent):
 		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])
 		return
-	event_bus.subscribe(event_type, callback)
+	event_bus.subscribe(event_type, callback, component.is_active, prio)
 
 func unsubscribe_local(event_type: Script, callback: Callable) -> void:
 	assert(event_bus.is_valid_event(event_type, EntityEvent))
@@ -75,12 +75,12 @@ func raise_local(event: EntityEvent) -> void:
 		return
 	event_bus.raise(event)
 
-func subscribe_global(event_type: Script, callback: Callable, priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
+func subscribe_global(component: Component, event_type: Script, callback: Callable, priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
 	if !global_subscriptions_.has(event_type):
 		global_subscriptions_[event_type] = []
 	if !global_subscriptions_[event_type].has(callback):
 		global_subscriptions_[event_type].append(callback)
-		EventBus.subscribe(event_type, _callback_internal, priority)
+		EventBus.subscribe(event_type, _callback_internal, priority, component.is_active)
 
 func unsubcribe_global(event_type: Script, callback: Callable) -> void:
 	EventBus.unsubscribe(event_type, callback)

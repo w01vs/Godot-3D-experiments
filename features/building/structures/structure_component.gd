@@ -1,6 +1,5 @@
 class_name StructureComponent extends Component
 
-@export var collision_area: CArea3D
 @export var mesh_: GeometryInstance3D
 @export var body: StaticBody3D
 

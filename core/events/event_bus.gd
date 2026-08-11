@@ -9,7 +9,7 @@ func _on_world_loaded(_event: WorldLoadedEvent) -> void:
 	event_bus.enable()
 	event_bus.release_events()
 
-func subscribe(event_type: Script, callback: Callable, priority: Event.Priority = Event.Priority.BASE) -> void:
+func subscribe(event_type: Script, callback: Callable, priority: Event.Priority = Event.Priority.BASE, condition: Callable = func() -> bool: return true) -> void:
 	assert(callback.get_object() is not Component)
 	assert(event_bus.is_valid_event(event_type, Event))
 	if callback.get_object() is Component:
@@ -18,7 +18,7 @@ func subscribe(event_type: Script, callback: Callable, priority: Event.Priority 
 	elif !event_bus.is_valid_event(event_type, Event):
 		push_error("Event %s is not a valid event" % [ event_type.get_global_name() ])
 		return
-	event_bus.subscribe(event_type, callback, priority)
+	event_bus.subscribe(event_type, callback, condition, priority)
 
 func unsubscribe(event_type: Script, callback: Callable) -> void:
 	assert(callback.get_object() is not Component)

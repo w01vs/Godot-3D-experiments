@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_wnas3"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="2_55g4n"]
 [ext_resource type="Script" uid="uid://canh2ypmaa0b7" path="res://features/building/structures/structure_component.gd" id="3_bypis"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_p3b7a"]
+[ext_resource type="Script" uid="uid://bktfcwecr8sif" path="res://features/building/structures/placeable_component.gd" id="3_o2su3"]
+[ext_resource type="Script" uid="uid://dxpaoqwywatwk" path="res://core/components/extensions/c_staticbody3d.gd" id="5_nl0dp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_tj3u4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p3b7a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nt2pb"]
 
@@ -14,29 +16,36 @@
 script = ExtResource("1_wnas3")
 metadata/_custom_type_script = "uid://cp7e65rba841n"
 
-[node name="ComponentArea3D" type="Area3D" parent="." unique_id=571325363 node_paths=PackedStringArray("entity")]
-script = ExtResource("2_55g4n")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://bf01144lxbocj"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ComponentArea3D" unique_id=1287649448]
-shape = SubResource("BoxShape3D_p3b7a")
-
 [node name="BoxParent" type="MeshInstance3D" parent="." unique_id=1097657649]
 mesh = SubResource("BoxMesh_tj3u4")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="BoxParent" unique_id=1015424521]
-collision_layer = 0
-collision_mask = 0
-input_ray_pickable = false
+[node name="CArea3D" type="Area3D" parent="." unique_id=1404011214 node_paths=PackedStringArray("entity")]
+script = ExtResource("2_55g4n")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bf01144lxbocj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BoxParent/StaticBody3D" unique_id=862899976]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CArea3D" unique_id=1287649448]
+shape = SubResource("BoxShape3D_p3b7a")
+
+[node name="CStaticBody3D" type="StaticBody3D" parent="." unique_id=1323737116 node_paths=PackedStringArray("entity")]
+script = ExtResource("5_nl0dp")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://dxpaoqwywatwk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CStaticBody3D" unique_id=862899976]
 shape = SubResource("BoxShape3D_nt2pb")
 
 [node name="StructureComponent" type="Node" parent="." unique_id=1390679063 node_paths=PackedStringArray("collision_area", "mesh_", "body", "entity")]
 script = ExtResource("3_bypis")
-collision_area = NodePath("../ComponentArea3D")
+collision_area = NodePath("../CStaticBody3D")
 mesh_ = NodePath("../BoxParent")
-body = NodePath("../BoxParent/StaticBody3D")
+body = NodePath("../CStaticBody3D")
 entity = NodePath("..")
+
+[node name="PlaceableComponent" type="Node" parent="." unique_id=675502928 node_paths=PackedStringArray("boundingbox", "mesh", "entity")]
+script = ExtResource("3_o2su3")
+boundingbox = NodePath("../CArea3D")
+mesh = NodePath("../BoxParent")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bktfcwecr8sif"

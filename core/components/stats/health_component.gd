@@ -30,7 +30,7 @@ var decrease_total_ticks: float = 0
 
 func _init_component() -> void:
 	health = max_health
-	entity.subscribe_local(DamageEntityEvent, take_hit)
+	entity.subscribe_local(self, DamageEntityEvent, take_hit)
 
 func take_hit(event: DamageEntityEvent) -> void:
 	if event.damage_info:

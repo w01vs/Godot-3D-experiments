@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="KeyInputAction" format=3 uid="uid://b2fd0grmr0q3p"]
+
+[ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_jell1"]
+[ext_resource type="Script" uid="uid://de2otdbtt00r5" path="res://core/events/input/build_input_event.gd" id="1_ynafv"]
+
+[sub_resource type="Resource" id="Resource_ynafv"]
+script = ExtResource("1_ynafv")
+metadata/_custom_type_script = "uid://de2otdbtt00r5"
+
+[resource]
+script = ExtResource("1_jell1")
+name = &"build"
+player_requirements = Array[int]([1])
+game_requirements = Array[int]([2])
+event = SubResource("Resource_ynafv")
+metadata/_custom_type_script = "uid://ddiprs3aeynd7"

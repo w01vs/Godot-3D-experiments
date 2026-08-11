@@ -1,6 +1,6 @@
 class_name PlayerContext
 
-enum State { NONE, GAMEPLAY, INVENTORY, STATIC_INVENTORY }
+enum State { NONE, GAMEPLAY, INVENTORY, STATIC_INVENTORY, BUILDING }
 
 var state_stack: Array[State]
 

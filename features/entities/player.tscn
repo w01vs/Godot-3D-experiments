@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dpd66hp3w048d" path="res://features/player/interact_ray_component.gd" id="9_i1ft5"]
 [ext_resource type="Script" uid="uid://kmh74icasv6b" path="res://features/spells/laser/laser_component.gd" id="11_7471s"]
 [ext_resource type="Script" uid="uid://dxwson43xm1pg" path="res://features/player/equipment.gd" id="12_7471s"]
+[ext_resource type="Script" uid="uid://dj1ra631i0o8q" path="res://features/building/structures/placeable/builder.gd" id="13_alkvy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ns3u8"]
 
@@ -268,6 +269,11 @@ remote_transform = NodePath("../CCharacterBody3D/TwistPivot/RightArm/rightarm/Ma
 animation_tree = NodePath("../CCharacterBody3D/AnimationTree")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dxwson43xm1pg"
+
+[node name="BuilderComponent" type="Node" parent="." unique_id=1468051129 node_paths=PackedStringArray("entity")]
+script = ExtResource("13_alkvy")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://dj1ra631i0o8q"
 
 [connection signal="animation_finished" from="CCharacterBody3D/AnimationTree" to="EquipmentComponent" method="_on_animation_end"]
 [connection signal="animation_started" from="CCharacterBody3D/AnimationTree" to="EquipmentComponent" method="_on_animation_start"]

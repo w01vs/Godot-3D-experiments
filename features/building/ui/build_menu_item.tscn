@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://b62t6dkge6ats"]
+
+[ext_resource type="Texture2D" uid="uid://bu8a7qk4q0tr6" path="res://features/items/resources/diamond/diamond.png" id="1_0152c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0152c"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[node name="PanelContainer" type="PanelContainer" unique_id=1902789537]
+custom_minimum_size = Vector2(96, 128)
+anchors_preset = -1
+anchor_right = 0.05
+anchor_bottom = 0.11851852
+offset_right = -96.0
+offset_bottom = -128.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0152c")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1125654295]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer" unique_id=1750346015]
+layout_mode = 2
+texture = ExtResource("1_0152c")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=838075002]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Build Box"
+horizontal_alignment = 1
+vertical_alignment = 1

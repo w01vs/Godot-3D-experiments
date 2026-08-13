@@ -1,5 +1,10 @@
 [gd_scene format=3 uid="uid://bgr7r2yqhdoxx"]
 
+[ext_resource type="PackedScene" uid="uid://c4wbtid2ym8j" path="res://features/building/ui/build_menu_group.tscn" id="1_evi27"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evi27"]
+bg_color = Color(0.28060427, 0.28060427, 0.28060427, 0.76400006)
+
 [node name="Control" type="Control" unique_id=417597389]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +12,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2040667740]
+layout_mode = 0
+anchor_left = 0.24739583
+anchor_top = 0.17777778
+anchor_right = 0.75364584
+anchor_bottom = 0.7740741
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=802357973]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=690372385]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HBoxContainer2" unique_id=2077064695]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_evi27")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=201395312]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FoldableContainer" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=800014440 instance=ExtResource("1_evi27")]
+layout_mode = 2
+title = "Test Group 1"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1959457160]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/HBoxContainer/HBoxContainer" unique_id=1906466642]
+layout_mode = 2
+size_flags_horizontal = 3

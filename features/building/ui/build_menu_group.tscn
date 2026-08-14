@@ -30,6 +30,7 @@ theme_override_styles/focus = ExtResource("1_ns2fi")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ifdb3")
 script = ExtResource("3_ns2fi")
 grid = NodePath("MarginContainer/GridContainer")
+item = ExtResource("4_qhsmw")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=303841154]

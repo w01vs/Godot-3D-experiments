@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bgr7r2yqhdoxx"]
 
 [ext_resource type="PackedScene" uid="uid://c4wbtid2ym8j" path="res://features/building/ui/build_menu_group.tscn" id="1_evi27"]
+[ext_resource type="Script" uid="uid://b32uy5faxx0k1" path="res://features/building/ui/build_menu.gd" id="1_kq8yo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evi27"]
 bg_color = Color(0.28060427, 0.28060427, 0.28060427, 0.76400006)
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_kq8yo")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=2040667740]
 layout_mode = 0

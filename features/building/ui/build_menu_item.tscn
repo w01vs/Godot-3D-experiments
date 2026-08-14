@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b62t6dkge6ats"]
 
 [ext_resource type="Texture2D" uid="uid://bu8a7qk4q0tr6" path="res://features/items/resources/diamond/diamond.png" id="1_0152c"]
+[ext_resource type="Script" uid="uid://dqhs1di5j05w7" path="res://features/building/ui/build_menu_item.gd" id="1_mm0jb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0152c"]
 content_margin_left = 0.0
@@ -18,17 +19,23 @@ offset_bottom = -128.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0152c")
+script = ExtResource("1_mm0jb")
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1125654295]
+[node name="Button" type="Button" parent="." unique_id=1622905358]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer" unique_id=1750346015]
+[node name="VBoxContainer" type="VBoxContainer" parent="Button" unique_id=1125654295]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="Button/VBoxContainer" unique_id=1750346015]
 layout_mode = 2
 texture = ExtResource("1_0152c")
 expand_mode = 4
 
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=838075002]
+[node name="Label" type="Label" parent="Button/VBoxContainer" unique_id=838075002]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Build Box"

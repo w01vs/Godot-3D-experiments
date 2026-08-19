@@ -5,6 +5,8 @@ var groups: Set = Set.new()
 @export var group_scene: PackedScene
 var group_ui: Dictionary[BuildGroup, BuildMenuGroup]
 
+var bindings: BuildBindings
+
 func set_title(title: StringName) -> void:
 	label.text = title
 
@@ -14,10 +16,17 @@ func add_group(group: BuildGroup, control: Control) -> void:
 	gr.set_group(group)
 	control.add_child(gr)
 	group_ui.set(group, gr)
+	gr.hide()
+
+func bind(bindings_: BuildBindings) -> void:
+	bindings = bindings_
+
+func unbind() -> void:
+	bindings = null
 
 func add_item_to_group(item: UIBuildItemView, group: BuildGroup) -> void:
 	if groups.contains(group):
-		group_ui[group].add_item(item)
+		group_ui[group].add_item(item, bindings)
 
 func has_group(group: BuildGroup) -> bool:
 	return groups.contains(group)
@@ -27,9 +36,11 @@ func remove_group(group: BuildGroup) -> void:
 	group_ui[group].queue_free()
 
 func show_groups() -> void:
+	add_theme_color_override("icon_normal_color", Color.RED)
 	for gr: BuildMenuGroup in group_ui.values():
 		gr.show()
 
 func hide_groups() -> void:
+	remove_theme_color_override("icon_normal_color")
 	for gr: BuildMenuGroup in group_ui.values():
 		gr.hide()

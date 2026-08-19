@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bgr7r2yqhdoxx"]
 
-[ext_resource type="PackedScene" uid="uid://c4wbtid2ym8j" path="res://features/building/ui/build_menu_group.tscn" id="1_evi27"]
 [ext_resource type="Script" uid="uid://b32uy5faxx0k1" path="res://features/building/ui/build_menu.gd" id="1_kq8yo"]
 [ext_resource type="PackedScene" uid="uid://oilisltfgfan" path="res://features/building/ui/build_category.tscn" id="2_rwnq4"]
 
@@ -49,17 +48,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kuux6")
 
-[node name="Category" parent="PanelContainer/HBoxContainer/CategoryContainer/Categories" unique_id=453114510 instance=ExtResource("2_rwnq4")]
-layout_mode = 2
-text = "First category"
-
 [node name="Groups" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=201395312]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="FoldableContainer" parent="PanelContainer/HBoxContainer/Groups" unique_id=800014440 instance=ExtResource("1_evi27")]
-layout_mode = 2
-title = "Test Group 1"
 
 [node name="Description" type="HBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1959457160]
 custom_minimum_size = Vector2(320, 0)

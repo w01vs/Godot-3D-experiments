@@ -17,7 +17,7 @@ anchor_right = 0.27291667
 anchor_bottom = 0.26666668
 offset_right = -524.0
 offset_bottom = -288.0
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/hover_font_color = Color(0, 0, 0, 1)
@@ -45,33 +45,3 @@ layout_mode = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 4
 columns = 5
-
-[node name="PanelContainer" parent="MarginContainer/GridContainer" unique_id=1902789537 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer2" parent="MarginContainer/GridContainer" unique_id=697421633 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer3" parent="MarginContainer/GridContainer" unique_id=1267710954 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer4" parent="MarginContainer/GridContainer" unique_id=134315750 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer5" parent="MarginContainer/GridContainer" unique_id=1065909540 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer6" parent="MarginContainer/GridContainer" unique_id=412756302 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer7" parent="MarginContainer/GridContainer" unique_id=1510063638 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer8" parent="MarginContainer/GridContainer" unique_id=1766145724 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer9" parent="MarginContainer/GridContainer" unique_id=2110409712 instance=ExtResource("4_qhsmw")]
-layout_mode = 2
-
-[node name="PanelContainer10" parent="MarginContainer/GridContainer" unique_id=1449927735 instance=ExtResource("4_qhsmw")]
-layout_mode = 2

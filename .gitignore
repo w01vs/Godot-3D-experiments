@@ -619,3 +619,4 @@ addons/godotty/
 ~*
 *.windows.*.*.lib
 *.dblite    
+addons/discord-rpc-gd

@@ -133,6 +133,12 @@ func subscribe(event_type: Script, callback: Callable) -> void:
 		return
 	event_bus.subscribe(event_type, callback, def)
 
+func capture_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func release_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
 func def() -> bool:
 	return true
 

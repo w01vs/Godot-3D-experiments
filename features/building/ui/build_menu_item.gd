@@ -6,9 +6,6 @@ var id: int
 @export var icon: TextureRect
 @export var label: Label
 
-func initialise(event: BuildComponentReadyEvent) -> void:
-	bind(event.bindings)
-
 func set_ui(item: UIBuildItemView) -> void:
 	icon.texture = item.icon
 	id = item.id

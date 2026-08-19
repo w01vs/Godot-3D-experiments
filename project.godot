@@ -32,6 +32,7 @@ EventBus="*uid://dcdvfxul4hiv5"
 InspectorHelp="*uid://bock4nrdwe45u"
 InputManager="*uid://o8fdhq8y0jbb"
 ContextManager="*uid://ciknjta4wyty7"
+DiscordRPCLoader="*uid://bn0fy3uve2n6l"
 
 [debug]
 
@@ -55,7 +56,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/draw3d/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/worldtestplugin/plugin.cfg")
+enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/draw3d/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/worldtestplugin/plugin.cfg")
 
 [file_customization]
 

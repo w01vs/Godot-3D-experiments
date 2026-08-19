@@ -9,7 +9,7 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 
-[node name="PanelContainer" type="PanelContainer" unique_id=1902789537 node_paths=PackedStringArray("label")]
+[node name="PanelContainer" type="PanelContainer" unique_id=1902789537 node_paths=PackedStringArray("icon", "label")]
 custom_minimum_size = Vector2(96, 128)
 anchors_preset = -1
 anchor_right = 0.05
@@ -20,6 +20,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0152c")
 script = ExtResource("1_mm0jb")
+icon = NodePath("Button/VBoxContainer/TextureRect")
 label = NodePath("Button/VBoxContainer/Label")
 metadata/_edit_use_anchors_ = true
 

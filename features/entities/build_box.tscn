@@ -36,10 +36,8 @@ metadata/_custom_type_script = "uid://dxpaoqwywatwk"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CStaticBody3D" unique_id=862899976]
 shape = SubResource("BoxShape3D_nt2pb")
 
-[node name="StructureComponent" type="Node" parent="." unique_id=1390679063 node_paths=PackedStringArray("collision_area", "mesh_", "body", "entity")]
+[node name="StructureComponent" type="Node" parent="." unique_id=1390679063 node_paths=PackedStringArray("body", "entity")]
 script = ExtResource("3_bypis")
-collision_area = NodePath("../CStaticBody3D")
-mesh_ = NodePath("../BoxParent")
 body = NodePath("../CStaticBody3D")
 entity = NodePath("..")
 

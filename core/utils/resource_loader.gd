@@ -1,17 +1,18 @@
 class_name ResourceManager extends RefCounted
 
-static func load(path: StringName, filetype: StringName = "tres") -> Array[Resource]:
+static func load_structures(path: StringName) -> Array[BuildResource]:
 	var dir: DirAccess = DirAccess.open(path)
-	var resources: Array[Resource]
+	var resources: Array[BuildResource]
 	dir.list_dir_begin()
 	var file_name: String = dir.get_next()
+	var filetype: StringName = ".tres"
+	var id: int = 0
 	while file_name != "":
-		if file_name.ends_with("." + filetype):
+		if file_name.ends_with(filetype):
 			var full_path: String = path + file_name
-			var resource: Resource = load(full_path)
+			var resource: BuildResource = load(full_path) as BuildResource
+			resource.id = id
+			id += 1
 			resources.append(resource)
-			if !resource.debug:
-				resource.event_script = resource.event.get_script()
-				resource.event = null
-	file_name = dir.get_next()
+		file_name = dir.get_next()
 	return resources

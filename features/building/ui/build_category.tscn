@@ -10,6 +10,7 @@ anchor_right = 0.004166667
 anchor_bottom = 0.05925926
 offset_bottom = -56.0
 size_flags_vertical = 0
+mouse_filter = 1
 script = ExtResource("1_80oka")
 label = NodePath("Category")
 group_scene = ExtResource("2_ksu0v")

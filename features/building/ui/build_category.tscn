@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://oilisltfgfan"]
+
+[ext_resource type="Script" uid="uid://g0nuhq8cv5rm" path="res://features/building/ui/build_category.gd" id="1_80oka"]
+[ext_resource type="PackedScene" uid="uid://c4wbtid2ym8j" path="res://features/building/ui/build_menu_group.tscn" id="2_ksu0v"]
+
+[node name="Button" type="Button" unique_id=1788672196 node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(0, 64)
+anchors_preset = -1
+anchor_right = 0.004166667
+anchor_bottom = 0.05925926
+offset_bottom = -56.0
+size_flags_vertical = 0
+script = ExtResource("1_80oka")
+label = NodePath("Category")
+group_scene = ExtResource("2_ksu0v")
+metadata/_edit_use_anchors_ = true
+
+[node name="Category" type="Label" parent="." unique_id=453114510]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.020833334
+anchor_bottom = 0.05925926
+offset_bottom = -41.0
+size_flags_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

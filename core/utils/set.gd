@@ -5,10 +5,12 @@ const VALUE: bool = true
 var start: int
 var current: int
 
-func _init() -> void:
+func _init(arr: Array[Variant] = []) -> void:
 	map = Dictionary()
 	self.start = 0
 	self.current = 0
+	for element: Variant in arr:
+		add(element)
 
 func add(element: Variant) -> void:
 	map[element] = VALUE

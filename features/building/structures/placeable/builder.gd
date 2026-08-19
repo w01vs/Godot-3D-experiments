@@ -23,5 +23,5 @@ func _open_build_menu(_event: BuildInputEvent) -> void:
 		ContextManager.pop_player_state()
 	open = !open
 
-func set_structure(event) -> void:
-	structure = event.scene.instantiate()
+func set_structure(id: int) -> void:
+	pass

@@ -2,11 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://c4wbtid2ym8j" path="res://features/building/ui/build_menu_group.tscn" id="1_evi27"]
 [ext_resource type="Script" uid="uid://b32uy5faxx0k1" path="res://features/building/ui/build_menu.gd" id="1_kq8yo"]
+[ext_resource type="PackedScene" uid="uid://oilisltfgfan" path="res://features/building/ui/build_category.tscn" id="2_rwnq4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evi27"]
-bg_color = Color(0.28060427, 0.28060427, 0.28060427, 0.76400006)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwnq4"]
 
-[node name="Control" type="Control" unique_id=417597389]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kuux6"]
+
+[node name="Control" type="Control" unique_id=417597389 node_paths=PackedStringArray("category_control", "group_control")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +16,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kq8yo")
+category_control = NodePath("PanelContainer/HBoxContainer/CategoryContainer/Categories")
+category_scene = ExtResource("2_rwnq4")
+group_control = NodePath("PanelContainer/HBoxContainer/Groups")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=2040667740]
 layout_mode = 0
@@ -27,27 +32,39 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=690372385]
+[node name="CategoryContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=427403942]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HBoxContainer2" unique_id=2077064695]
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/HBoxContainer/CategoryContainer" unique_id=1871110128]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rwnq4")
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/CategoryContainer/PanelContainer2" unique_id=1791261878]
+layout_mode = 2
+text = "Categories"
+
+[node name="Categories" type="PanelContainer" parent="PanelContainer/HBoxContainer/CategoryContainer" unique_id=2077064695]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_evi27")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kuux6")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=201395312]
+[node name="Category" parent="PanelContainer/HBoxContainer/CategoryContainer/Categories" unique_id=453114510 instance=ExtResource("2_rwnq4")]
+layout_mode = 2
+text = "First category"
+
+[node name="Groups" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=201395312]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FoldableContainer" parent="PanelContainer/HBoxContainer/VBoxContainer" unique_id=800014440 instance=ExtResource("1_evi27")]
+[node name="FoldableContainer" parent="PanelContainer/HBoxContainer/Groups" unique_id=800014440 instance=ExtResource("1_evi27")]
 layout_mode = 2
 title = "Test Group 1"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1959457160]
+[node name="Description" type="HBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1959457160]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="PanelContainer/HBoxContainer/HBoxContainer" unique_id=1906466642]
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/HBoxContainer/Description" unique_id=1906466642]
 layout_mode = 2
 size_flags_horizontal = 3

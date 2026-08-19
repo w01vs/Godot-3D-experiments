@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildGroup" format=3 uid="uid://cw216jdlwf5h"]
+
+[ext_resource type="Script" uid="uid://bhcfendvqp1bf" path="res://features/building/build_group.gd" id="1_7ewvw"]
+[ext_resource type="Resource" uid="uid://bpqd7xkvolmg5" path="res://features/building/resources/categories/primary.tres" id="1_tqir2"]
+
+[resource]
+script = ExtResource("1_7ewvw")
+name = &"Buildings"
+category = ExtResource("1_tqir2")
+metadata/_custom_type_script = "uid://bhcfendvqp1bf"

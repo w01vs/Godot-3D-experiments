@@ -2,14 +2,9 @@ class_name BuilderComponent extends Component
 
 var structure: Entity
 
-# data for available structures?
-# StructureResource
-# scene
-# name
-# functionality?
-# category?
-# group?
+var structures: Array[BuildResource]
 
+var structure_scene: PackedScene
 var open: bool = false
 
 func _init_component() -> void:
@@ -25,3 +20,6 @@ func _open_build_menu(_event: BuildInputEvent) -> void:
 
 func set_structure(id: int) -> void:
 	pass
+
+#func load_structures() -> void:
+	#structures = ResourceManager.load("res://features/building/resources/items/")

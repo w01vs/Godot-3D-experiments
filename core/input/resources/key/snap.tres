@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="KeyInputAction" format=3 uid="uid://b0atqcgdgqeye"]
+
+[ext_resource type="Script" uid="uid://cialnocufsyuq" path="res://core/events/input/snap_input_event.gd" id="1_04g08"]
+[ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_onm0f"]
+[ext_resource type="Script" uid="uid://b2b5rqh84y5or" path="res://core/utils/context/query/context_query.gd" id="2_0ah7t"]
+[ext_resource type="Script" uid="uid://c0qbogjjw3pqb" path="res://core/utils/context/query/game_query.gd" id="3_v8dvi"]
+[ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_4va3x"]
+[ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="5_bjdrs"]
+
+[sub_resource type="Resource" id="Resource_onm0f"]
+script = ExtResource("1_04g08")
+metadata/_custom_type_script = "uid://cialnocufsyuq"
+
+[sub_resource type="Resource" id="Resource_tbuvx"]
+script = ExtResource("3_v8dvi")
+state = 2
+metadata/_custom_type_script = "uid://c0qbogjjw3pqb"
+
+[sub_resource type="Resource" id="Resource_bg3kl"]
+script = ExtResource("4_4va3x")
+state = 4
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_ucmjl"]
+script = ExtResource("5_bjdrs")
+queries = Array[ExtResource("2_0ah7t")]([SubResource("Resource_tbuvx"), SubResource("Resource_bg3kl")])
+metadata/_custom_type_script = "uid://cy6k2oxdef355"
+
+[resource]
+script = ExtResource("1_onm0f")
+name = &"snap"
+requirements = SubResource("Resource_ucmjl")
+event = SubResource("Resource_onm0f")
+metadata/_custom_type_script = "uid://ddiprs3aeynd7"

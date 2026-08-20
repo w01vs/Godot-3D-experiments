@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="AndQuery" format=3 uid="uid://xfl6miyghvq0"]
+
+[ext_resource type="Script" uid="uid://b2b5rqh84y5or" path="res://core/utils/context/query/context_query.gd" id="1_ll5er"]
+[ext_resource type="Script" uid="uid://c0qbogjjw3pqb" path="res://core/utils/context/query/game_query.gd" id="2_2b2x7"]
+[ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="2_8gjul"]
+[ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="3_ku481"]
+[ext_resource type="Script" uid="uid://cxbypbu3uvy0g" path="res://core/utils/context/query/or.gd" id="4_qhjs0"]
+
+[sub_resource type="Resource" id="Resource_sdhnw"]
+script = ExtResource("2_2b2x7")
+state = 2
+metadata/_custom_type_script = "uid://c0qbogjjw3pqb"
+
+[sub_resource type="Resource" id="Resource_ku481"]
+script = ExtResource("3_ku481")
+state = 1
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_qhjs0"]
+script = ExtResource("3_ku481")
+state = 3
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_ryxjw"]
+script = ExtResource("3_ku481")
+state = 4
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_2b2x7"]
+script = ExtResource("4_qhjs0")
+queries = Array[ExtResource("1_ll5er")]([SubResource("Resource_ku481"), SubResource("Resource_qhjs0"), SubResource("Resource_ryxjw")])
+metadata/_custom_type_script = "uid://cxbypbu3uvy0g"
+
+[resource]
+script = ExtResource("2_8gjul")
+queries = Array[ExtResource("1_ll5er")]([SubResource("Resource_sdhnw"), SubResource("Resource_2b2x7")])
+metadata/_custom_type_script = "uid://cy6k2oxdef355"

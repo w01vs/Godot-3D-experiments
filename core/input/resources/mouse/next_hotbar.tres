@@ -2,16 +2,50 @@
 
 [ext_resource type="Script" uid="uid://bl8pd2gx1a02l" path="res://core/events/input/next_hotbar.gd" id="1_6ds10"]
 [ext_resource type="Script" uid="uid://jd2bn4oouvye" path="res://core/input/mouse_input_action.gd" id="1_h0v0e"]
+[ext_resource type="Script" uid="uid://b2b5rqh84y5or" path="res://core/utils/context/query/context_query.gd" id="2_wl1br"]
+[ext_resource type="Script" uid="uid://c0qbogjjw3pqb" path="res://core/utils/context/query/game_query.gd" id="3_6dak1"]
+[ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_2yga4"]
+[ext_resource type="Script" uid="uid://cxbypbu3uvy0g" path="res://core/utils/context/query/or.gd" id="5_lfs2i"]
+[ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="6_m74eg"]
 
 [sub_resource type="Resource" id="Resource_6ds10"]
 script = ExtResource("1_6ds10")
 metadata/_custom_type_script = "uid://bl8pd2gx1a02l"
 
+[sub_resource type="Resource" id="Resource_sj6wi"]
+script = ExtResource("3_6dak1")
+state = 2
+metadata/_custom_type_script = "uid://c0qbogjjw3pqb"
+
+[sub_resource type="Resource" id="Resource_u8igv"]
+script = ExtResource("4_2yga4")
+state = 2
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_nk5rn"]
+script = ExtResource("4_2yga4")
+state = 1
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_ogbey"]
+script = ExtResource("4_2yga4")
+state = 3
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_lw331"]
+script = ExtResource("5_lfs2i")
+queries = Array[ExtResource("2_wl1br")]([SubResource("Resource_u8igv"), SubResource("Resource_nk5rn"), SubResource("Resource_ogbey")])
+metadata/_custom_type_script = "uid://cxbypbu3uvy0g"
+
+[sub_resource type="Resource" id="Resource_tfn6y"]
+script = ExtResource("6_m74eg")
+queries = Array[ExtResource("2_wl1br")]([SubResource("Resource_sj6wi"), SubResource("Resource_lw331")])
+metadata/_custom_type_script = "uid://cy6k2oxdef355"
+
 [resource]
 script = ExtResource("1_h0v0e")
 name = &"next_hotbar"
-player_requirements = Array[int]([1])
-game_requirements = Array[int]([2])
+requirements = SubResource("Resource_tfn6y")
 event = SubResource("Resource_6ds10")
 on_release = true
 metadata/_custom_type_script = "uid://jd2bn4oouvye"

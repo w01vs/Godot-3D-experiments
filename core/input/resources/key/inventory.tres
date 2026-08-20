@@ -2,15 +2,44 @@
 
 [ext_resource type="Script" uid="uid://da3f1r3fnr6i5" path="res://core/events/input/inventory_input_event.gd" id="1_8il1r"]
 [ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_ul74q"]
+[ext_resource type="Script" uid="uid://b2b5rqh84y5or" path="res://core/utils/context/query/context_query.gd" id="2_dp464"]
+[ext_resource type="Script" uid="uid://c0qbogjjw3pqb" path="res://core/utils/context/query/game_query.gd" id="3_gxm1f"]
+[ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_2b2rv"]
+[ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="5_avc0y"]
+[ext_resource type="Script" uid="uid://cxbypbu3uvy0g" path="res://core/utils/context/query/or.gd" id="5_gxm1f"]
 
 [sub_resource type="Resource" id="Resource_8il1r"]
 script = ExtResource("1_8il1r")
 metadata/_custom_type_script = "uid://da3f1r3fnr6i5"
 
+[sub_resource type="Resource" id="Resource_4nnjo"]
+script = ExtResource("3_gxm1f")
+state = 2
+metadata/_custom_type_script = "uid://c0qbogjjw3pqb"
+
+[sub_resource type="Resource" id="Resource_2b2rv"]
+script = ExtResource("4_2b2rv")
+state = 1
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_eaut5"]
+script = ExtResource("4_2b2rv")
+state = 2
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_4nt8k"]
+script = ExtResource("5_gxm1f")
+queries = Array[ExtResource("2_dp464")]([SubResource("Resource_2b2rv"), SubResource("Resource_eaut5")])
+metadata/_custom_type_script = "uid://cxbypbu3uvy0g"
+
+[sub_resource type="Resource" id="Resource_avc0y"]
+script = ExtResource("5_avc0y")
+queries = Array[ExtResource("2_dp464")]([SubResource("Resource_4nnjo"), SubResource("Resource_4nt8k")])
+metadata/_custom_type_script = "uid://cy6k2oxdef355"
+
 [resource]
 script = ExtResource("1_ul74q")
 name = &"inventory"
-player_requirements = Array[int]([2, 1])
-game_requirements = Array[int]([2])
+requirements = SubResource("Resource_avc0y")
 event = SubResource("Resource_8il1r")
 metadata/_custom_type_script = "uid://ddiprs3aeynd7"

@@ -7,8 +7,7 @@ class_name KeyInputAction extends Resource
 		debug = value
 		notify_property_list_changed()
 
-@export var player_requirements: Array[PlayerContext.State]
-@export var game_requirements: Array[GameContext.State]
+@export var requirements: ContextQuery
 @export var event: CustomInputEvent
 
 var event_script: Script

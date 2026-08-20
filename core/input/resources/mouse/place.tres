@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="MouseInputAction" format=3 uid="uid://ntcxtweq3kw7"]
+
+[ext_resource type="Script" uid="uid://jd2bn4oouvye" path="res://core/input/mouse_input_action.gd" id="1_fl4wf"]
+[ext_resource type="Script" uid="uid://c7v45sf01e7g0" path="res://core/events/input/place_input.gd" id="1_hamay"]
+[ext_resource type="Script" uid="uid://b2b5rqh84y5or" path="res://core/utils/context/query/context_query.gd" id="2_2qmqe"]
+[ext_resource type="Script" uid="uid://c0qbogjjw3pqb" path="res://core/utils/context/query/game_query.gd" id="3_foup1"]
+[ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_mdjq0"]
+[ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="5_tf6a6"]
+
+[sub_resource type="Resource" id="Resource_1nhu3"]
+script = ExtResource("1_hamay")
+metadata/_custom_type_script = "uid://c7v45sf01e7g0"
+
+[sub_resource type="Resource" id="Resource_yp764"]
+script = ExtResource("3_foup1")
+state = 2
+metadata/_custom_type_script = "uid://c0qbogjjw3pqb"
+
+[sub_resource type="Resource" id="Resource_7j6vj"]
+script = ExtResource("4_mdjq0")
+state = 4
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_uva3e"]
+script = ExtResource("5_tf6a6")
+queries = Array[ExtResource("2_2qmqe")]([SubResource("Resource_yp764"), SubResource("Resource_7j6vj")])
+metadata/_custom_type_script = "uid://cy6k2oxdef355"
+
+[resource]
+script = ExtResource("1_fl4wf")
+name = &"place"
+requirements = SubResource("Resource_uva3e")
+event = SubResource("Resource_1nhu3")
+metadata/_custom_type_script = "uid://jd2bn4oouvye"

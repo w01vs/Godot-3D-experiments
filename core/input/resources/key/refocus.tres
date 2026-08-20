@@ -1,9 +1,16 @@
-[gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://c2v8hto47aic2"]
+[gd_resource type="Resource" script_class="KeyInputAction" format=3 uid="uid://c2v8hto47aic2"]
 
 [ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_if2f7"]
+[ext_resource type="Script" uid="uid://c0qbogjjw3pqb" path="res://core/utils/context/query/game_query.gd" id="1_jtkkd"]
+
+[sub_resource type="Resource" id="Resource_x8ua3"]
+script = ExtResource("1_jtkkd")
+state = 3
+metadata/_custom_type_script = "uid://c0qbogjjw3pqb"
 
 [resource]
 script = ExtResource("1_if2f7")
 name = &"refocus"
 debug = true
+requirements = SubResource("Resource_x8ua3")
 metadata/_custom_type_script = "uid://ddiprs3aeynd7"

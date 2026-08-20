@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BuildResource" format=3 uid="uid://njwmisnhkamw"]
+
+[ext_resource type="Resource" uid="uid://vmkl0p1xlebj" path="res://features/building/resources/groups/empty.tres" id="1_8j3je"]
+[ext_resource type="Script" uid="uid://bmtsi8ddyy01i" path="res://features/building/build_resource.gd" id="1_mj3v0"]
+
+[sub_resource type="Gradient" id="Gradient_ipfaj"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ipfaj"]
+gradient = SubResource("Gradient_ipfaj")
+
+[resource]
+script = ExtResource("1_mj3v0")
+icon = SubResource("GradientTexture1D_ipfaj")
+group = ExtResource("1_8j3je")
+metadata/_custom_type_script = "uid://bmtsi8ddyy01i"

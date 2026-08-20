@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BuildCategory" format=3 uid="uid://cuftt35ukn7w2"]
+
+[ext_resource type="Script" uid="uid://b7u3tdhurkweu" path="res://features/building/build_category.gd" id="1_ea1xm"]
+
+[resource]
+script = ExtResource("1_ea1xm")
+name = &"Secondary"
+metadata/_custom_type_script = "uid://b7u3tdhurkweu"

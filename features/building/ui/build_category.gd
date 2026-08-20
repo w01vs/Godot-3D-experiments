@@ -1,46 +1,49 @@
 class_name BuildMenuCategory extends Button
 
 @export var label: Label
-var groups: Set = Set.new()
 @export var group_scene: PackedScene
-var group_ui: Dictionary[BuildGroup, BuildMenuGroup]
+var groups: Dictionary[BuildGroup, BuildMenuGroup]
+var category: BuildCategory
 
-var bindings: BuildBindings
+var select: Callable
 
-func set_title(title: StringName) -> void:
-	label.text = title
+func set_category(category_: BuildCategory) -> void:
+	label.text = category_.name
+	category = category_
 
 func add_group(group: BuildGroup, control: Control) -> void:
-	groups.add(group)
 	var gr: BuildMenuGroup = group_scene.instantiate()
 	gr.set_group(group)
 	control.add_child(gr)
-	group_ui.set(group, gr)
+	groups.set(group, gr)
 	gr.hide()
 
-func bind(bindings_: BuildBindings) -> void:
-	bindings = bindings_
+func bind(binding: Callable) -> void:
+	select = binding
 
 func unbind() -> void:
-	bindings = null
+	select = func() -> void: return
 
-func add_item_to_group(item: UIBuildItemView, group: BuildGroup) -> void:
-	if groups.contains(group):
-		group_ui[group].add_item(item, bindings)
+func add_item_to_group(item: UIBuildItemView, bindings: BuildBindings, group: BuildGroup) -> void:
+	if groups.has(group):
+		groups[group].add_item(item, bindings)
 
 func has_group(group: BuildGroup) -> bool:
-	return groups.contains(group)
+	return groups.has(group)
 
 func remove_group(group: BuildGroup) -> void:
-	groups.remove(group)
-	group_ui[group].queue_free()
+	groups.erase(group)
 
 func show_groups() -> void:
 	add_theme_color_override("icon_normal_color", Color.RED)
-	for gr: BuildMenuGroup in group_ui.values():
+	for gr: BuildMenuGroup in groups.values():
 		gr.show()
 
 func hide_groups() -> void:
 	remove_theme_color_override("icon_normal_color")
-	for gr: BuildMenuGroup in group_ui.values():
+	for gr: BuildMenuGroup in groups.values():
 		gr.hide()
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		select.call(category)

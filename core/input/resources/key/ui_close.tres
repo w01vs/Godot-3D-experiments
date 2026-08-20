@@ -2,15 +2,49 @@
 
 [ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_aipbj"]
 [ext_resource type="Script" uid="uid://c6180kxrgtek" path="res://core/events/input/ui_close.gd" id="1_kx5bi"]
+[ext_resource type="Script" uid="uid://b2b5rqh84y5or" path="res://core/utils/context/query/context_query.gd" id="2_flnd1"]
+[ext_resource type="Script" uid="uid://c0qbogjjw3pqb" path="res://core/utils/context/query/game_query.gd" id="3_vv4ka"]
+[ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_qpg70"]
+[ext_resource type="Script" uid="uid://cxbypbu3uvy0g" path="res://core/utils/context/query/or.gd" id="5_gd8ri"]
+[ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="6_uqnnp"]
 
 [sub_resource type="Resource" id="Resource_jj2bn"]
 script = ExtResource("1_kx5bi")
 metadata/_custom_type_script = "uid://c6180kxrgtek"
 
+[sub_resource type="Resource" id="Resource_vjpy2"]
+script = ExtResource("3_vv4ka")
+state = 2
+metadata/_custom_type_script = "uid://c0qbogjjw3pqb"
+
+[sub_resource type="Resource" id="Resource_exe5s"]
+script = ExtResource("4_qpg70")
+state = 2
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_ee8t8"]
+script = ExtResource("4_qpg70")
+state = 3
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_lkaba"]
+script = ExtResource("4_qpg70")
+state = 4
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_586ne"]
+script = ExtResource("5_gd8ri")
+queries = Array[ExtResource("2_flnd1")]([SubResource("Resource_exe5s"), SubResource("Resource_ee8t8"), SubResource("Resource_lkaba")])
+metadata/_custom_type_script = "uid://cxbypbu3uvy0g"
+
+[sub_resource type="Resource" id="Resource_p8omk"]
+script = ExtResource("6_uqnnp")
+queries = Array[ExtResource("2_flnd1")]([SubResource("Resource_vjpy2"), SubResource("Resource_586ne")])
+metadata/_custom_type_script = "uid://cy6k2oxdef355"
+
 [resource]
 script = ExtResource("1_aipbj")
 name = &"ui_close"
-player_requirements = Array[int]([2, 3])
-game_requirements = Array[int]([2])
+requirements = SubResource("Resource_p8omk")
 event = SubResource("Resource_jj2bn")
 metadata/_custom_type_script = "uid://ddiprs3aeynd7"

@@ -3,12 +3,11 @@
 [ext_resource type="Script" uid="uid://du1ht7nmv50hi" path="res://core/functionality/world.gd" id="1_cp1df"]
 [ext_resource type="Script" uid="uid://e83e5af3w8ao" path="res://features/player/ui/player_ui.gd" id="2_4bd16"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://features/player/ui/player_health_bar.tscn" id="3_rtxew"]
-[ext_resource type="Script" uid="uid://c8fimqgn8xpvr" path="res://features/building/structures/build_ui.gd" id="4_ueke7"]
 [ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://features/inventory/ui/inventory.tscn" id="6_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://da33thcn1ty4r" path="res://features/inventory/ui/hotbar.tscn" id="6_yt64i"]
 [ext_resource type="PackedScene" uid="uid://wdgcqohl6sqf" path="res://features/inventory/ui/drag_preview.tscn" id="7_3s5gr"]
 [ext_resource type="PackedScene" uid="uid://o45847jxuasr" path="res://features/entities/player.tscn" id="8_acts3"]
-[ext_resource type="PackedScene" uid="uid://bgr7r2yqhdoxx" path="res://core/input/resources/key/build_menu.tscn" id="8_ysm7w"]
+[ext_resource type="PackedScene" uid="uid://bgr7r2yqhdoxx" path="res://features/building/ui/build_menu.tscn" id="8_ysm7w"]
 [ext_resource type="PackedScene" uid="uid://2kpyrhr6llgu" path="res://features/entities/damage_interactable.tscn" id="11_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://60ymc70tglcd" path="res://features/building/structures/chest.tscn" id="12_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://bg2ko1e8iq8ne" path="res://features/entities/heal_interactable.tscn" id="12_ysm7w"]
@@ -50,20 +49,6 @@ offset_top = -61.0
 offset_right = 240.0
 offset_bottom = -31.0
 grow_vertical = 0
-
-[node name="Label" type="Label" parent="PlayerUI" unique_id=1466062947]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -136.5
-offset_top = 51.0
-offset_right = 136.5
-offset_bottom = 74.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "BUILDING MODE | PRESS Q TO EXIT"
-script = ExtResource("4_ueke7")
 
 [node name="crosshair" type="Label" parent="PlayerUI" unique_id=511230354]
 anchors_preset = 8

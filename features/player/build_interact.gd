@@ -48,42 +48,4 @@ func _physics_process(_delta: float) -> void:
 				
 	match state:
 		GlobalRefs.PlayerState.BUILD:
-			if is_colliding():
-				var hit_object: Node3D = get_collider()
-				var hit_point: Vector3 = get_collision_point()
-				var hit_normal: Vector3 = get_collision_normal()
-				var target_pos: Vector3 = Vector3.ZERO
-				structure_comp = buildx.get_component(StructureComponent)
-				# 1. Determine target position
-				if snapping and hit_object is CArea3D:
-					if hit_object.entity.has_component(StructureComponent):
-						# Snap directly adjacent to the hit box along its face normal
-						target_pos = hit_object.entity.global_position + (hit_normal * buildx.scale)
-				else:
-					# Free placement: offset away from wall/floor face by half size
-					target_pos = hit_point + (hit_normal * (buildx.scale / 2.0))
-				
-				# 2. Check if the preview moved to a NEW position
-				if target_pos != last_buildx_pos:
-					structure_comp.moveto(target_pos)
-					last_buildx_pos = target_pos
-					# Run instant placement validity & material color update
-					structure_comp.place_check()
-					
-				structure_comp.set_visible(true)
-				
-				# 3. Handle placement input
-				if Input.is_action_just_pressed("default_attack"):
-					if structure_comp.placeable:
-						structure_comp.place()
-						buildx = build_box.instantiate()
-						GlobalRefs.world.add_child(buildx)
-						structure_comp = buildx.get_compoonent(StructureComponent)
-						structure_comp.to_holo()
-						last_buildx_pos = Vector3.INF # Force position update on new instance
-			else:
-				structure_comp.set_visible(false)
-				
-			if Input.is_action_just_pressed("snap"):
-				snapping = !snapping
-				structure_comp.snapping = snapping
+			

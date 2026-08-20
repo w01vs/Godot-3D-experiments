@@ -25,13 +25,12 @@ buses/default_bus_layout=""
 
 [autoload]
 
-GlobalRefs="*res://globals/global_references.gd"
-DebugMenu="*uid://cggqb75a8w8r"
-GlobalItem="*uid://c0mhnl7odj08g"
 EventBus="*uid://dcdvfxul4hiv5"
+InputManager="*uid://fjrfeeuqou28"
+GlobalItem="*uid://c0mhnl7odj08g"
 InspectorHelp="*uid://bock4nrdwe45u"
-InputManager="*uid://o8fdhq8y0jbb"
 ContextManager="*uid://ciknjta4wyty7"
+DebugMenu="*uid://cggqb75a8w8r"
 DiscordRPCLoader="*uid://bn0fy3uve2n6l"
 
 [debug]
@@ -154,6 +153,11 @@ next_hotbar={
 previous_hotbar={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":8,"position":Vector2(167, 10),"global_position":Vector2(176, 58),"factor":1.0,"button_index":4,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+place={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(186, 11),"global_position":Vector2(195, 59),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
 

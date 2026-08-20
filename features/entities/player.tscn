@@ -160,7 +160,16 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 [node name="Camera3D" type="Camera3D" parent="CCharacterBody3D/TwistPivot/PitchPivot" unique_id=230448478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
-[node name="CRayCast3D" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1710092562 node_paths=PackedStringArray("entity")]
+[node name="InteractRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1710092562 node_paths=PackedStringArray("entity")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+visible = false
+target_position = Vector3(0, -5, 0)
+collision_mask = 2
+script = ExtResource("3_6ldnq")
+entity = NodePath("../../../../..")
+metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
+
+[node name="BuildRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1795242167 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 visible = false
 target_position = Vector3(0, -5, 0)
@@ -239,7 +248,7 @@ metadata/_custom_type_script = "uid://lrvixysacsgx"
 
 [node name="InteractRayComponent" type="Node" parent="." unique_id=1412276942 node_paths=PackedStringArray("ray", "entity")]
 script = ExtResource("9_i1ft5")
-ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/CRayCast3D")
+ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/InteractRay")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dpd66hp3w048d"
 
@@ -270,8 +279,9 @@ animation_tree = NodePath("../CCharacterBody3D/AnimationTree")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dxwson43xm1pg"
 
-[node name="BuilderComponent" type="Node" parent="." unique_id=1468051129 node_paths=PackedStringArray("entity")]
+[node name="BuilderComponent" type="Node" parent="." unique_id=1468051129 node_paths=PackedStringArray("ray", "entity")]
 script = ExtResource("13_alkvy")
+ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/BuildRay")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dj1ra631i0o8q"
 

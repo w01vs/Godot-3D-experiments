@@ -2,15 +2,44 @@
 
 [ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_jell1"]
 [ext_resource type="Script" uid="uid://de2otdbtt00r5" path="res://core/events/input/build_input_event.gd" id="1_ynafv"]
+[ext_resource type="Script" uid="uid://b2b5rqh84y5or" path="res://core/utils/context/query/context_query.gd" id="2_pcl1j"]
+[ext_resource type="Script" uid="uid://c0qbogjjw3pqb" path="res://core/utils/context/query/game_query.gd" id="3_km1kb"]
+[ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_38fok"]
+[ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="5_7cm6h"]
+[ext_resource type="Script" uid="uid://cxbypbu3uvy0g" path="res://core/utils/context/query/or.gd" id="5_km1kb"]
 
 [sub_resource type="Resource" id="Resource_ynafv"]
 script = ExtResource("1_ynafv")
 metadata/_custom_type_script = "uid://de2otdbtt00r5"
 
+[sub_resource type="Resource" id="Resource_nl0dp"]
+script = ExtResource("3_km1kb")
+state = 2
+metadata/_custom_type_script = "uid://c0qbogjjw3pqb"
+
+[sub_resource type="Resource" id="Resource_38fok"]
+script = ExtResource("4_38fok")
+state = 1
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_qcscb"]
+script = ExtResource("4_38fok")
+state = 4
+metadata/_custom_type_script = "uid://cjbba6hvuaoqo"
+
+[sub_resource type="Resource" id="Resource_o2su3"]
+script = ExtResource("5_km1kb")
+queries = Array[ExtResource("2_pcl1j")]([SubResource("Resource_38fok"), SubResource("Resource_qcscb")])
+metadata/_custom_type_script = "uid://cxbypbu3uvy0g"
+
+[sub_resource type="Resource" id="Resource_7cm6h"]
+script = ExtResource("5_7cm6h")
+queries = Array[ExtResource("2_pcl1j")]([SubResource("Resource_nl0dp"), SubResource("Resource_o2su3")])
+metadata/_custom_type_script = "uid://cy6k2oxdef355"
+
 [resource]
 script = ExtResource("1_jell1")
 name = &"build"
-player_requirements = Array[int]([1])
-game_requirements = Array[int]([2])
+requirements = SubResource("Resource_7cm6h")
 event = SubResource("Resource_ynafv")
 metadata/_custom_type_script = "uid://ddiprs3aeynd7"

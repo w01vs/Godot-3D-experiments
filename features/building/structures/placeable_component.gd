@@ -3,9 +3,9 @@ class_name PlaceableComponent extends Component
 @export var boundingbox: CArea3D
 @export var mesh: MeshInstance3D
 
-const HOLOGRAM_MATERIAL = preload("uid://b1pjmlx7yv3kh")
+@export var HOLOGRAM_MATERIAL: StandardMaterial3D
 var default_material: StandardMaterial3D
-const HOLO_COLLIDING_MATERIAL = preload("uid://cifpae7kfm0p8")
+@export var HOLO_COLLIDING_MATERIAL: StandardMaterial3D
 
 var placed: bool = false
 var holo: bool = true

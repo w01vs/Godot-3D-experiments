@@ -24,11 +24,9 @@ func _open_inventory(event: InventoryOpenUIEvent) -> void:
 		static_panel.update_visuals(event.static_inventory.data, true)
 		static_panel.show()
 	player_panel.show()
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _close_inventory(_event: InventoryCloseUIEvent) -> void:
 	static_panel.unbind()
 	hide()
 	player_panel.hide()
 	static_panel.hide()
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

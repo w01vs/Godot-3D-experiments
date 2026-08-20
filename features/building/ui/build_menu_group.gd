@@ -2,9 +2,11 @@ class_name BuildMenuGroup extends FoldableContainer
 
 @export var grid: GridContainer
 @export var item: PackedScene
+var group: BuildGroup
 
 func set_group(data: BuildGroup) -> void:
 	title = data.name
+	group = data
 
 func add_item(data: UIBuildItemView, bindings: BuildBindings) -> void:
 	var new: BuildMenuItem = item.instantiate()

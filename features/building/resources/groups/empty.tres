@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildGroup" format=3 uid="uid://vmkl0p1xlebj"]
+
+[ext_resource type="Resource" uid="uid://cuftt35ukn7w2" path="res://features/building/resources/categories/secondary.tres" id="1_1mfct"]
+[ext_resource type="Script" uid="uid://bhcfendvqp1bf" path="res://features/building/build_group.gd" id="1_3pyeb"]
+
+[resource]
+script = ExtResource("1_3pyeb")
+name = &"empty"
+category = ExtResource("1_1mfct")
+metadata/_custom_type_script = "uid://bhcfendvqp1bf"

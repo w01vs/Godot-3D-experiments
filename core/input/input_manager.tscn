@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://fjrfeeuqou28"]
+
+[ext_resource type="Script" uid="uid://o8fdhq8y0jbb" path="res://core/input/input_manager.gd" id="1_tal8i"]
+[ext_resource type="Resource" uid="uid://xfl6miyghvq0" path="res://core/input/movement_query.tres" id="2_7kfmx"]
+
+[node name="InputManager" type="Node" unique_id=1013146176]
+script = ExtResource("1_tal8i")
+movement_query = ExtResource("2_7kfmx")
+metadata/_custom_type_script = "uid://o8fdhq8y0jbb"

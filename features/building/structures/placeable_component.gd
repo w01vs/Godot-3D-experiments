@@ -2,6 +2,7 @@ class_name PlaceableComponent extends Component
 
 @export var boundingbox: CArea3D
 @export var mesh: MeshInstance3D
+@export var body: CStaticBody3D
 
 @export var HOLOGRAM_MATERIAL: StandardMaterial3D
 var default_material: StandardMaterial3D
@@ -21,10 +22,6 @@ func place() -> void:
 		placed = true
 		holo = false
 		mesh.set_surface_override_material(0, default_material)
-		boundingbox.cset_collision_layer_value(5, true)
-		boundingbox.monitorable = true
-		boundingbox.monitoring = false
-		boundingbox.set_collision_layer_value(5, true)
 
 func place_check() -> void:
 	# In build_box.gd inside can_be_placed():
@@ -41,8 +38,8 @@ func place_check() -> void:
 
 	query.shape = check_shape
 	query.transform = boundingbox.global_transform
-	query.collision_mask = boundingbox.collision_mask
-	query.exclude = [boundingbox.get_rid(), boundingbox.get_rid()]
+	query.collision_mask = (1 << (CollisionLayer.TERRAIN - 1)) | (1 << (CollisionLayer.STRUCTURE - 1))
+	query.exclude = [boundingbox.get_rid(), body.get_rid()]
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
 	

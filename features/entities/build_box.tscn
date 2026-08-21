@@ -3,7 +3,10 @@
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_wnas3"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="2_55g4n"]
 [ext_resource type="Script" uid="uid://canh2ypmaa0b7" path="res://features/building/structures/structure_component.gd" id="3_bypis"]
+[ext_resource type="Script" uid="uid://bktfcwecr8sif" path="res://features/building/structures/placeable_component.gd" id="5_jxag6"]
 [ext_resource type="Script" uid="uid://dxpaoqwywatwk" path="res://core/components/extensions/c_staticbody3d.gd" id="5_nl0dp"]
+[ext_resource type="Material" uid="uid://b1pjmlx7yv3kh" path="res://features/building/structures/placeable/hologram_material.tres" id="6_dcwsf"]
+[ext_resource type="Material" uid="uid://cifpae7kfm0p8" path="res://features/building/structures/placeable/holo_colliding_material.tres" id="7_2d58t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_tj3u4"]
 
@@ -19,23 +22,33 @@ metadata/_custom_type_script = "uid://cp7e65rba841n"
 mesh = SubResource("BoxMesh_tj3u4")
 skeleton = NodePath("")
 
-[node name="CArea3D" type="Area3D" parent="." unique_id=1404011214 node_paths=PackedStringArray("entity")]
+[node name="BoundingBox" type="Area3D" parent="." unique_id=1404011214 node_paths=PackedStringArray("entity")]
 script = ExtResource("2_55g4n")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CArea3D" unique_id=1287649448]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoundingBox" unique_id=1287649448]
 shape = SubResource("BoxShape3D_p3b7a")
 
-[node name="CStaticBody3D" type="StaticBody3D" parent="." unique_id=1323737116 node_paths=PackedStringArray("entity")]
+[node name="Collider" type="StaticBody3D" parent="." unique_id=1323737116 node_paths=PackedStringArray("entity")]
 script = ExtResource("5_nl0dp")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dxpaoqwywatwk"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CStaticBody3D" unique_id=862899976]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collider" unique_id=862899976]
 shape = SubResource("BoxShape3D_nt2pb")
 
 [node name="StructureComponent" type="Node" parent="." unique_id=1390679063 node_paths=PackedStringArray("body", "entity")]
 script = ExtResource("3_bypis")
-body = NodePath("../CStaticBody3D")
+body = NodePath("../Collider")
 entity = NodePath("..")
+
+[node name="PlaceableComponent" type="Node" parent="." unique_id=930188364 node_paths=PackedStringArray("boundingbox", "mesh", "body", "entity")]
+script = ExtResource("5_jxag6")
+boundingbox = NodePath("../BoundingBox")
+mesh = NodePath("../BoxParent")
+body = NodePath("../Collider")
+HOLOGRAM_MATERIAL = ExtResource("6_dcwsf")
+HOLO_COLLIDING_MATERIAL = ExtResource("7_2d58t")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bktfcwecr8sif"

@@ -172,8 +172,8 @@ metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
 [node name="BuildRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1795242167 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 visible = false
-target_position = Vector3(0, -5, 0)
-collision_mask = 2
+target_position = Vector3(0, -15, 0)
+collision_mask = 0
 script = ExtResource("3_6ldnq")
 entity = NodePath("../../../../..")
 metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
@@ -226,13 +226,13 @@ layers = 33
 mesh = SubResource("CapsuleMesh_x5kv8")
 skeleton = NodePath("")
 
-[node name="CArea3D" type="Area3D" parent="CCharacterBody3D" unique_id=2141155532 node_paths=PackedStringArray("entity")]
+[node name="gert" type="Area3D" parent="CCharacterBody3D" unique_id=2141155532 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("4_6ldnq")
 entity = NodePath("../..")
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CCharacterBody3D/CArea3D" unique_id=1671852494]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CCharacterBody3D/gert" unique_id=1671852494]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
@@ -242,7 +242,7 @@ entity = NodePath("..")
 
 [node name="HurtboxComponent" type="Node" parent="." unique_id=2124588863 node_paths=PackedStringArray("area", "entity")]
 script = ExtResource("6_malci")
-area = NodePath("../CCharacterBody3D/CArea3D")
+area = NodePath("../CCharacterBody3D/gert")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://lrvixysacsgx"
 

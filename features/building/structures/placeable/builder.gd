@@ -27,6 +27,11 @@ func _init_component() -> void:
 	entity.subscribe_local(self, RayCastRegisteredEntityEvent, _on_raycast_registered)
 	InputManager.subscribe(PlaceInputEvent, place)
 	InputManager.subscribe(SnapInputEvent, _snap)
+	ray.target_position.y = -15
+	ray.cset_collision_mask_value(CollisionLayer.TERRAIN, true)
+	ray.cset_collision_mask_value(CollisionLayer.STRUCTURE, true)
+	ray.set_area_collision(true)
+	ray.set_body_collision(true)
 
 func set_world(event: WorldLoadedEvent) -> void:
 	world = event.source
@@ -40,6 +45,9 @@ func _open_build_menu(_event: BuildInputEvent) -> void:
 		ContextManager.pop_player_state()
 		entity.raise_global(BuildMenuCloseEvent.new(self))
 		InputManager.capture_mouse()
+		building = false
+		if structure:
+			structure.queue_free()
 	open = !open
 
 func set_structure(id: int) -> void:
@@ -47,6 +55,11 @@ func set_structure(id: int) -> void:
 	structure = structures[id].scene.instantiate()
 	world.add_child(structure)
 	placeable_component = structure.get_component(PlaceableComponent)
+	structure_comp = structure.get_component(StructureComponent)
+	structure_comp.set_collision(false)
+	building = true
+	entity.raise_global(BuildMenuCloseEvent.new(self))
+	InputManager.capture_mouse()
 
 func load_structures() -> void:
 	structures = ResourceManager.load_structures("res://features/building/resources/items/")
@@ -75,14 +88,10 @@ func _physics_process(_delta: float) -> void:
 		if target_pos != last_build_position:
 			structure.global_position = target_pos
 			last_build_position = target_pos
-			structure_comp.place_check()
+			placeable_component.place_check()
 		structure_comp.show()
 	else:
 		structure_comp.hide()
-		
-	if Input.is_action_just_pressed("snap"):
-		snapping = !snapping
-		structure_comp.snapping = snapping
 
 func _snap(_event: SnapInputEvent) -> void:
 	snapping = !snapping
@@ -90,7 +99,8 @@ func _snap(_event: SnapInputEvent) -> void:
 func place(_event: PlaceInputEvent) -> void:
 	if placeable_component.placeable:
 		placeable_component.place()
-		structure = structures[structure_id].instantiate()
+		structure_comp.set_collision(true)
+		structure = structures[structure_id].scene.instantiate()
 		world.add_child(structure)
 		structure_comp = structure.get_component(StructureComponent)
 		last_build_position = Vector3.INF

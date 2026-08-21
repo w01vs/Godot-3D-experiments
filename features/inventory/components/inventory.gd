@@ -43,10 +43,9 @@ func _open(player: bool) -> void:
 	if player:
 		entity.raise_global(InventoryOpenUIEvent.new(self, bindings))
 		ContextManager.push_player_state(PlayerContext.State.INVENTORY)
-		InputManager.release_mouse()
 	else:
 		entity.raise_global(InventoryOpenUIEvent.new(self, bindings, _get_data()))
-		InputManager.capture_mouse()
+	InputManager.release_mouse()
 	open = !open
 
 func _on_open(event: InventoryOpenEntityEvent) -> void:

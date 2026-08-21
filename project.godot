@@ -62,8 +62,7 @@ enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg", 
 folder_colors={
 "res://core/": "green",
 "res://editor/": "orange",
-"res://features/": "green",
-"res://globals/": "red"
+"res://features/": "green"
 }
 
 [global_group]

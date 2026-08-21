@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="Script" uid="uid://du1ht7nmv50hi" path="res://core/functionality/world.gd" id="1_cp1df"]
-[ext_resource type="Script" uid="uid://e83e5af3w8ao" path="res://features/player/ui/player_ui.gd" id="2_4bd16"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://features/player/ui/player_health_bar.tscn" id="3_rtxew"]
 [ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://features/inventory/ui/inventory.tscn" id="6_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://da33thcn1ty4r" path="res://features/inventory/ui/hotbar.tscn" id="6_yt64i"]
@@ -38,7 +37,6 @@ light_energy = 0.98
 shadow_enabled = true
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=187869415]
-script = ExtResource("2_4bd16")
 
 [node name="BetterHealthBar" parent="PlayerUI" unique_id=1345019687 instance=ExtResource("3_rtxew")]
 anchors_preset = 2

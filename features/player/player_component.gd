@@ -39,7 +39,6 @@ func _on_body_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
 		body.cset_collision_layer_value(CollisionLayer.ENTITY, true)
 		body.cset_collision_mask_value(CollisionLayer.ENTITY, true)
 		body.cset_collision_mask_value(CollisionLayer.TERRAIN, true)
-		body.cset_collision_mask_value(CollisionLayer.HARVESTABLE, true)
 		body.cset_collision_mask_value(CollisionLayer.STRUCTURE, true)
 
 func _jump(_event: JumpInputEvent) -> void:

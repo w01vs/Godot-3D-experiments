@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildResource" format=3 uid="uid://d33t46mugksif"]
+
+[ext_resource type="Script" uid="uid://bmtsi8ddyy01i" path="res://features/building/build_resource.gd" id="1_a12b3"]
+[ext_resource type="Resource" uid="uid://cw216jdlwf5h" path="res://features/building/resources/groups/buildings.tres" id="1_f8ehg"]
+[ext_resource type="PackedScene" uid="uid://diu3ohw6jf7jr" path="res://features/building/structures/placeable/scenes/clay_crucible.tscn" id="2_lw25r"]
+[ext_resource type="Texture2D" uid="uid://bhv7p35gmv0y4" path="res://features/building/resources/icons/icon2.png" id="2_sub13"]
+
+[resource]
+script = ExtResource("1_a12b3")
+name = &"Clay Crucible"
+icon = ExtResource("2_sub13")
+group = ExtResource("1_f8ehg")
+scene = ExtResource("2_lw25r")
+metadata/_custom_type_script = "uid://bmtsi8ddyy01i"

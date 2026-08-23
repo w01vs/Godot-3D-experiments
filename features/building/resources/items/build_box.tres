@@ -2,13 +2,13 @@
 
 [ext_resource type="Resource" uid="uid://cw216jdlwf5h" path="res://features/building/resources/groups/buildings.tres" id="1_6kuto"]
 [ext_resource type="Script" uid="uid://bmtsi8ddyy01i" path="res://features/building/build_resource.gd" id="1_lrth1"]
-[ext_resource type="Texture2D" uid="uid://b2iqowwb7rrr8" path="res://features/spells/laser/laser_circle.png" id="2_j0d1t"]
+[ext_resource type="Texture2D" uid="uid://bbsvfj8o41emr" path="res://features/building/resources/icons/icon1.png" id="2_6kuto"]
 [ext_resource type="PackedScene" uid="uid://425laymvnd48" path="res://features/entities/build_box.tscn" id="3_p74v6"]
 
 [resource]
 script = ExtResource("1_lrth1")
 name = &"BuildBox"
-icon = ExtResource("2_j0d1t")
+icon = ExtResource("2_6kuto")
 group = ExtResource("1_6kuto")
 scene = ExtResource("3_p74v6")
 metadata/_custom_type_script = "uid://bmtsi8ddyy01i"

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://diu3ohw6jf7jr"]
+
+[ext_resource type="PackedScene" uid="uid://bg20aveovrasv" path="res://features/building/structures/placeable/assets/clay_crucible.glb" id="1_vcmbb"]
+[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="2_0a4h2"]
+[ext_resource type="Script" uid="uid://canh2ypmaa0b7" path="res://features/building/structures/structure_component.gd" id="3_rmtmm"]
+[ext_resource type="Script" uid="uid://bktfcwecr8sif" path="res://features/building/structures/placeable_component.gd" id="4_y0acs"]
+[ext_resource type="Material" uid="uid://b1pjmlx7yv3kh" path="res://features/building/structures/placeable/hologram_material.tres" id="5_vxk24"]
+[ext_resource type="Material" uid="uid://cifpae7kfm0p8" path="res://features/building/structures/placeable/holo_colliding_material.tres" id="6_ujndc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0a4h2"]
+size = Vector3(2, 2, 2)
+
+[node name="clay_crucible" unique_id=1031043929 instance=ExtResource("1_vcmbb")]
+
+[node name="BoundingBox" type="Area3D" parent="." index="3" unique_id=653177974 node_paths=PackedStringArray("entity")]
+script = ExtResource("2_0a4h2")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bf01144lxbocj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoundingBox" index="0" unique_id=1436747105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07328606, 0)
+shape = SubResource("BoxShape3D_0a4h2")
+
+[node name="PlaceableComponent" type="Node" parent="." index="4" unique_id=2067818831 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "hidden_while_placing", "body", "entity")]
+script = ExtResource("4_y0acs")
+boundingbox = NodePath("../BoundingBox")
+boundingbox_shape = NodePath("../BoundingBox/CollisionShape3D")
+meshes = [NodePath("../crucible")]
+hidden_while_placing = [NodePath("../filling")]
+body = NodePath("../CStaticBody3D")
+HOLOGRAM_MATERIAL = ExtResource("5_vxk24")
+HOLO_COLLIDING_MATERIAL = ExtResource("6_ujndc")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bktfcwecr8sif"
+
+[node name="StructureComponent" type="Node" parent="." index="5" unique_id=2059748834 node_paths=PackedStringArray("body", "entity")]
+script = ExtResource("3_rmtmm")
+body = NodePath("../CStaticBody3D")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://canh2ypmaa0b7"

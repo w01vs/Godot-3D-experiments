@@ -20,7 +20,7 @@ func _interact(event: CollisionEntityEvent) -> void:
 
 func _on_collision_shape_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
 	if event.source == interactable_area:
-		interactable_area.cset_collision_mask_value(CollisionLayer.ENTITY, true)
+		interactable_area.cset_collision_mask_value(CollisionLayer.LIVING, true)
 		interactable_area.body_exited.connect(_range_check)
 		interactable_area.monitoring = true
 

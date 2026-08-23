@@ -43,10 +43,11 @@ script = ExtResource("3_bypis")
 body = NodePath("../Collider")
 entity = NodePath("..")
 
-[node name="PlaceableComponent" type="Node" parent="." unique_id=930188364 node_paths=PackedStringArray("boundingbox", "mesh", "body", "entity")]
+[node name="PlaceableComponent" type="Node" parent="." unique_id=930188364 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "body", "entity")]
 script = ExtResource("5_jxag6")
 boundingbox = NodePath("../BoundingBox")
-mesh = NodePath("../BoxParent")
+boundingbox_shape = NodePath("../BoundingBox/CollisionShape3D")
+meshes = [NodePath("../BoxParent")]
 body = NodePath("../Collider")
 HOLOGRAM_MATERIAL = ExtResource("6_dcwsf")
 HOLO_COLLIDING_MATERIAL = ExtResource("7_2d58t")

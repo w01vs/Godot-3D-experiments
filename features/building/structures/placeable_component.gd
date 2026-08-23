@@ -1,52 +1,66 @@
 class_name PlaceableComponent extends Component
 
 @export var boundingbox: CArea3D
-@export var mesh: MeshInstance3D
+@export var boundingbox_shape: CollisionShape3D
+var box_shape: BoxShape3D
+@export var meshes: Array[MeshInstance3D]
+@export var hidden_while_placing: Array[MeshInstance3D]
 @export var body: CStaticBody3D
 
 @export var HOLOGRAM_MATERIAL: StandardMaterial3D
-var default_material: StandardMaterial3D
+var default_mats: Array[StandardMaterial3D]
 @export var HOLO_COLLIDING_MATERIAL: StandardMaterial3D
 
 var placed: bool = false
 var holo: bool = true
 var placeable: bool = false
 
-func _init_component() -> void:
-	default_material = mesh.material_override
+func _on_entity_load(_event: EntityLoadedEvent) -> void:
 	if !entity.has_component(StructureComponent):
 		push_error("Cannot place an entity that does not have a structurecomponent")
+	default_mats.resize(meshes.size())
+	for i in meshes.size():
+		default_mats[i] = meshes[i].material_override
+	for mesh in hidden_while_placing:
+		mesh.hide()
+	if !boundingbox_shape.shape is BoxShape3D:
+		push_error("Bounding box is not a BoxShape3D at %s" % [str(self)])
+	assert(boundingbox_shape.shape is BoxShape3D)
+	box_shape = boundingbox_shape.shape
+
 
 func place() -> void:
 	if placeable and holo and !placed:
 		placed = true
 		holo = false
-		mesh.set_surface_override_material(0, default_material)
+		for i in meshes.size():
+			meshes[i].set_surface_override_material(0, default_mats[i])
+		for mesh in hidden_while_placing:
+			mesh.show()
 
 func place_check() -> void:
-	# In build_box.gd inside can_be_placed():
-	var space_state: PhysicsDirectSpaceState3D = mesh.get_world_3d().direct_space_state
+	var space_state: PhysicsDirectSpaceState3D = boundingbox.get_world_3d().direct_space_state
 	var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
-
-	# Create a slightly shrunk copy of the shape for the query
-	var shape_node: CollisionShape3D = boundingbox.get_node("CollisionShape3D") as CollisionShape3D
-	var check_shape: Shape3D = shape_node.shape.duplicate()
-
-	# Prevent collision when reaaaally close to each other
-	if check_shape is BoxShape3D:
-		check_shape.size -= Vector3(0.02, 0.02, 0.02)
+	var check_shape: BoxShape3D = box_shape.duplicate_deep()
+	check_shape.size -= Vector3(0.01, 0.01, 0.01)
 
 	query.shape = check_shape
 	query.transform = boundingbox.global_transform
-	query.collision_mask = (1 << (CollisionLayer.TERRAIN - 1)) | (1 << (CollisionLayer.STRUCTURE - 1))
+	query.collision_mask = (1 << (CollisionLayer.TERRAIN - 1))  \
+	| (1 << (CollisionLayer.STRUCTURE - 1)) 					\
+	| (1 << CollisionLayer.LIVING - 1)
 	query.exclude = [boundingbox.get_rid(), body.get_rid()]
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
 	
 	var hits: Array[Dictionary] = space_state.intersect_shape(query, 1)
 	if hits.size() != 0:
-		mesh.set_surface_override_material(0, HOLO_COLLIDING_MATERIAL)
+		set_meshes_material(HOLO_COLLIDING_MATERIAL)
 		placeable = false
 		return
 	placeable = true
-	mesh.set_surface_override_material(0, HOLOGRAM_MATERIAL)
+	set_meshes_material(HOLOGRAM_MATERIAL)
+
+func set_meshes_material(mat: StandardMaterial3D) -> void:
+	for i in meshes.size():
+		meshes[i].set_surface_override_material(0, mat)

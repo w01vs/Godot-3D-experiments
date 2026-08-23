@@ -24,7 +24,6 @@ func _init_component() -> void:
 	InputManager.subscribe(BuildInputEvent, _open_build_menu)
 	entity.raise_global(BuildComponentReadyEvent.new(self, bindings, _get_ui_data()))
 	entity.subscribe_global(self, WorldLoadedEvent, set_world)
-	entity.subscribe_local(self, RayCastRegisteredEntityEvent, _on_raycast_registered)
 	InputManager.subscribe(PlaceInputEvent, place)
 	InputManager.subscribe(SnapInputEvent, _snap)
 	ray.target_position.y = -15
@@ -79,11 +78,11 @@ func _physics_process(_delta: float) -> void:
 		var hit_normal: Vector3 = ray.get_collision_normal()
 		var target_pos: Vector3 = Vector3.ZERO
 		structure_comp = structure.get_component(StructureComponent)
-		if snapping and hit_object is CArea3D:
+		if snapping and (hit_object is CStaticBody3D or hit_object is CArea3D):
 			if hit_object.entity.has_component(StructureComponent):
 				target_pos = hit_object.entity.global_position + (hit_normal * structure.scale)
 		else:
-			target_pos = hit_point + (hit_normal * (structure.scale / 2.0))
+			target_pos = hit_point + (hit_normal * (placeable_component.box_shape.size / 2.0))
 		
 		if target_pos != last_build_position:
 			structure.global_position = target_pos
@@ -100,16 +99,4 @@ func place(_event: PlaceInputEvent) -> void:
 	if placeable_component.placeable:
 		placeable_component.place()
 		structure_comp.set_collision(true)
-		structure = structures[structure_id].scene.instantiate()
-		world.add_child(structure)
-		structure_comp = structure.get_component(StructureComponent)
-		last_build_position = Vector3.INF
-		placeable_component = structure.get_component(PlaceableComponent)
-		placeable_component.place_check()
-
-func _on_raycast_registered(event: RayCastRegisteredEntityEvent) -> void:
-	if ray == event.source:
-		ray.cset_collision_mask_value(CollisionLayer.STRUCTURE, true)
-		ray.cset_collision_mask_value(CollisionLayer.TERRAIN, true)
-		ray.set_area_collision(true)
-		ray.set_body_collision(true)
+		set_structure(structure_id)

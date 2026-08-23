@@ -2,6 +2,8 @@ class_name CArea3D extends Area3D
 
 @export var entity: Entity
 
+var shapes: Array[CollisionShape3D]
+
 func _ready() -> void:
 	if !Engine.is_editor_hint():
 		assert(entity != null)
@@ -11,7 +13,12 @@ func _ready() -> void:
 		monitorable = false
 		monitoring = false
 		add_to_group(Groups.CUSTOM_COLLISION_OBJECT)
-
+		var nodes: Array[Node] = find_children("*", "CollisionShape3D", true, true)
+		for node in nodes:
+			shapes.append(node)
+		if shapes.size() > 1:
+			push_warning("CArea3D with more than 1 CollisionShape3D at %s" % [str(self)])
+		
 func hit(data: CollisionData) -> void:
 	entity.raise_local(CollisionEntityEvent.new(self, data))
 

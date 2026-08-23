@@ -26,18 +26,14 @@ func _init_component() -> void:
 	entity.subscribe_global(self, WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
 	InputManager.subscribe(JumpInputEvent, _jump)
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
-	InputManager.subscribe(BuildInputEvent, _on_buildmode)
 
 func _on_world_loaded(_event: WorldLoadedEvent) -> void:
 	entity.raise_global(PlayerLoadedEvent.new(self))
 
-func _on_buildmode(_event: BuildInputEvent) -> void:
-	pass
-
 func _on_body_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
 	if body == event.source:
-		body.cset_collision_layer_value(CollisionLayer.ENTITY, true)
-		body.cset_collision_mask_value(CollisionLayer.ENTITY, true)
+		body.cset_collision_layer_value(CollisionLayer.LIVING, true)
+		body.cset_collision_mask_value(CollisionLayer.LIVING, true)
 		body.cset_collision_mask_value(CollisionLayer.TERRAIN, true)
 		body.cset_collision_mask_value(CollisionLayer.STRUCTURE, true)
 

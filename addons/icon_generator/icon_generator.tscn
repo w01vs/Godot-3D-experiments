@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://8cq2htcm1bow"]
+
+[ext_resource type="Script" uid="uid://dl8n2eq58duce" path="res://editor/render_1024.gd" id="1_frdya"]
+
+[node name="Screenshot" type="Node3D" unique_id=1786199037]
+script = ExtResource("1_frdya")
+metadata/_custom_type_script = "uid://dl8n2eq58duce"
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1012753491]
+transform = Transform3D(0.8517603, 0.23598799, -0.46777555, 0, 0.89281803, 0.45041758, 0.52393156, -0.38364783, 0.760467, -3.7058632, 3.5515351, 6.4580765)

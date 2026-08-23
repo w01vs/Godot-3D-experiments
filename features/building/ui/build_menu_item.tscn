@@ -36,6 +36,7 @@ anchor_bottom = 1.0
 layout_mode = 2
 texture = ExtResource("1_0152c")
 expand_mode = 4
+stretch_mode = 2
 
 [node name="Label" type="Label" parent="Button/VBoxContainer" unique_id=838075002]
 layout_mode = 2

@@ -11,8 +11,6 @@ class_name MouseInputAction extends Resource
 @export var event: CustomInputEvent
 @export var on_release: bool
 
-var event_script: Script
-
 
 func _validate_property(property: Dictionary) -> void:
 	if property.name in ["player_requirements", "game_requirements", "event"]:

@@ -1,3 +1,4 @@
+@tool
 class_name Entity extends Node3D
 
 var components: Dictionary[Script, Component] = {}
@@ -9,9 +10,10 @@ var event_bus: EventBusBase = EventBusBase.new()
 var active: bool = true
 
 func _ready() -> void:
-	event_bus.enable()
-	event_bus.release_events()
-	raise_local(EntityLoadedEvent.new(self))
+	if !Engine.is_editor_hint():
+		event_bus.enable()
+		event_bus.release_events()
+		raise_local(EntityLoadedEvent.new(self))
 
 func register(component: Component) -> void:
 	for s in find_bases(component.get_script(), true):
@@ -51,11 +53,6 @@ func find_bases(script: Script, removing: bool) -> Array[Script]:
 		scripts.append(current_script)
 		current_script = current_script.get_base_script()
 	return scripts
-
-#func _notification(what: int) -> void:
-	#if what == NOTIFICATION_PREDELETE:
-		#for comp: Component in components.values():
-			#comp.queue_free()
 
 func subscribe_local(component: Component, event_type: Script, callback: Callable, prio: EventBase.Priority = EventBase.Priority.BASE) -> void:
 	assert(event_bus.is_valid_event(event_type, EntityEvent))

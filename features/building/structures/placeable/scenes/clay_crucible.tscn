@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bktfcwecr8sif" path="res://features/building/structures/placeable_component.gd" id="4_y0acs"]
 [ext_resource type="Material" uid="uid://b1pjmlx7yv3kh" path="res://features/building/structures/placeable/hologram_material.tres" id="5_vxk24"]
 [ext_resource type="Material" uid="uid://cifpae7kfm0p8" path="res://features/building/structures/placeable/holo_colliding_material.tres" id="6_ujndc"]
+[ext_resource type="Script" uid="uid://dw0j5a7b3rwve" path="res://features/building/structures/foundation_marker.gd" id="7_rmtmm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0a4h2"]
 size = Vector3(2, 2, 2)
@@ -18,10 +19,10 @@ entity = NodePath("..")
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoundingBox" index="0" unique_id=1436747105]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07328606, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.016557693, 0)
 shape = SubResource("BoxShape3D_0a4h2")
 
-[node name="PlaceableComponent" type="Node" parent="." index="4" unique_id=2067818831 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "hidden_while_placing", "body", "entity")]
+[node name="PlaceableComponent" type="Node" parent="." index="4" unique_id=2067818831 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "hidden_while_placing", "body", "foundation", "entity")]
 script = ExtResource("4_y0acs")
 boundingbox = NodePath("../BoundingBox")
 boundingbox_shape = NodePath("../BoundingBox/CollisionShape3D")
@@ -30,6 +31,8 @@ hidden_while_placing = [NodePath("../filling")]
 body = NodePath("../CStaticBody3D")
 HOLOGRAM_MATERIAL = ExtResource("5_vxk24")
 HOLO_COLLIDING_MATERIAL = ExtResource("6_ujndc")
+use_foundation = true
+foundation = NodePath("../FoundationMarker")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://bktfcwecr8sif"
 
@@ -38,3 +41,25 @@ script = ExtResource("3_rmtmm")
 body = NodePath("../CStaticBody3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://canh2ypmaa0b7"
+
+[node name="FoundationMarker" type="Node3D" parent="." index="6" unique_id=411178180 node_paths=PackedStringArray("box_shape_node")]
+script = ExtResource("7_rmtmm")
+box_shape_node = NodePath("../BoundingBox/CollisionShape3D")
+metadata/_custom_type_script = "uid://dw0j5a7b3rwve"
+
+[node name="CornerMarkers" type="Node3D" parent="FoundationMarker" index="0" unique_id=1351891221]
+
+[node name="CornerMarker1" type="Marker3D" parent="FoundationMarker/CornerMarkers" index="0" unique_id=2098054904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.91015625, -0.6)
+
+[node name="CornerMarker2" type="Marker3D" parent="FoundationMarker/CornerMarkers" index="1" unique_id=1494621994]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.91015625, -0.6)
+
+[node name="CornerMarker3" type="Marker3D" parent="FoundationMarker/CornerMarkers" index="2" unique_id=880875547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.91015625, 0.6)
+
+[node name="CornerMarker4" type="Marker3D" parent="FoundationMarker/CornerMarkers" index="3" unique_id=524223955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.91015625, 0.6)
+
+[node name="CornerMarker5" type="Marker3D" parent="FoundationMarker/CornerMarkers" index="4" unique_id=1544048912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.91015625, 0)

@@ -1,23 +1,24 @@
 extends Node
 
 var game_context: GameContext
-
 var player_context: PlayerContext
+@export var start_game_context: GameContext.State
+@export var start_player_context: PlayerContext.State
 
-signal game_context_changed(new_context: GameContext.State, old_context: GameContext.State)
-signal player_context_changed(new_context: PlayerContext.State, old_context: PlayerContext.State)
+signal context_changed()
 
 func _ready() -> void:
-	game_context = GameContext.new(GameContext.State.IN_WORLD)
-	player_context = PlayerContext.new(PlayerContext.State.GAMEPLAY)
+	game_context = GameContext.new(start_game_context)
+	player_context = PlayerContext.new(start_player_context)
+	context_changed.emit()
 
 func push_game_state(state_: GameContext.State) -> void:
-	game_context_changed.emit(state_, game_context.get_state())
 	game_context.push_state(state_)
+	context_changed.emit()
 
 func pop_game_state() -> void:
-	game_context_changed.emit(game_context.get_state(), game_context.get_state(1))
 	game_context.pop_state()
+	context_changed.emit()
 
 func get_game_state(offset: int = 0) -> GameContext.State:
 	return game_context.get_state(offset)
@@ -26,12 +27,12 @@ func is_game_state(state: GameContext.State) -> bool:
 	return state == get_game_state()
 
 func push_player_state(state_: PlayerContext.State) -> void:
-	player_context_changed.emit(state_, player_context.get_state())
 	player_context.push_state(state_)
+	context_changed.emit()
 
 func pop_player_state() -> void:
-	player_context_changed.emit(player_context.get_state(), player_context.get_state(1))
 	player_context.pop_state()
+	context_changed.emit()
 
 func get_player_state(offset: int = 0) -> PlayerContext.State:
 	return player_context.get_state(offset)

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dxpaoqwywatwk" path="res://core/components/extensions/c_staticbody3d.gd" id="5_nl0dp"]
 [ext_resource type="Material" uid="uid://b1pjmlx7yv3kh" path="res://features/building/structures/placeable/hologram_material.tres" id="6_dcwsf"]
 [ext_resource type="Material" uid="uid://cifpae7kfm0p8" path="res://features/building/structures/placeable/holo_colliding_material.tres" id="7_2d58t"]
+[ext_resource type="Script" uid="uid://dw0j5a7b3rwve" path="res://features/building/structures/foundation_marker.gd" id="8_dcwsf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_tj3u4"]
 
@@ -43,7 +44,7 @@ script = ExtResource("3_bypis")
 body = NodePath("../Collider")
 entity = NodePath("..")
 
-[node name="PlaceableComponent" type="Node" parent="." unique_id=930188364 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "body", "entity")]
+[node name="PlaceableComponent" type="Node" parent="." unique_id=930188364 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "body", "foundation", "entity")]
 script = ExtResource("5_jxag6")
 boundingbox = NodePath("../BoundingBox")
 boundingbox_shape = NodePath("../BoundingBox/CollisionShape3D")
@@ -51,5 +52,29 @@ meshes = [NodePath("../BoxParent")]
 body = NodePath("../Collider")
 HOLOGRAM_MATERIAL = ExtResource("6_dcwsf")
 HOLO_COLLIDING_MATERIAL = ExtResource("7_2d58t")
+use_foundation = true
+foundation = NodePath("../FoundationMarker")
+support_range = 0.30000000000000004
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://bktfcwecr8sif"
+
+[node name="FoundationMarker" type="Node3D" parent="." unique_id=1182480639 node_paths=PackedStringArray("box_shape_node")]
+script = ExtResource("8_dcwsf")
+box_shape_node = NodePath("../BoundingBox/CollisionShape3D")
+
+[node name="CornerMarkers" type="Node3D" parent="FoundationMarker" unique_id=1627157904]
+
+[node name="CornerMarker1" type="Marker3D" parent="FoundationMarker/CornerMarkers" unique_id=1058096443]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.5, -0.4)
+
+[node name="CornerMarker2" type="Marker3D" parent="FoundationMarker/CornerMarkers" unique_id=1148102821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.5, -0.4)
+
+[node name="CornerMarker3" type="Marker3D" parent="FoundationMarker/CornerMarkers" unique_id=181943292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.5, 0.4)
+
+[node name="CornerMarker4" type="Marker3D" parent="FoundationMarker/CornerMarkers" unique_id=1586435128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.5, 0.4)
+
+[node name="CornerMarker5" type="Marker3D" parent="FoundationMarker/CornerMarkers" unique_id=2004256831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

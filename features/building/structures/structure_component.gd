@@ -4,7 +4,7 @@ class_name StructureComponent extends Component
 var id: int
 
 func set_id(id_: int) -> void:
-	id
+	id = id_
 
 func _init_component() -> void:
 	enable()

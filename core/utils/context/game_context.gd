@@ -1,4 +1,4 @@
-class_name GameContext
+class_name GameContext extends RefCounted
 
 enum State { NONE, MAIN_MENU, IN_WORLD, UNFOCUSED }
 

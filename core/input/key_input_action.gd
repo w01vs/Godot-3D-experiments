@@ -10,9 +10,6 @@ class_name KeyInputAction extends Resource
 @export var requirements: ContextQuery
 @export var event: CustomInputEvent
 
-var event_script: Script
-
-
 func _validate_property(property: Dictionary) -> void:
 	if property.name in ["player_requirements", "game_requirements", "event"]:
 		if debug:

@@ -1,15 +1,11 @@
 ### TO DO:
+  Player stuff: 
+    - Fix player velocity cancelling when switching PlayerContext
 	Inventory:
 		- fix holding item when closing inventory
     - fix items detaching from hand but not invisible
 		- Item components + In-world items
 	Structures:
-		buildcomponent from build_interact.gd
-    - building menu:
-      - bindings for selecting category and structure.
-      - dont eat the inputs.... no keyboard input anymore?? -> set the structure context to allow moving?
-		- Placement component
-		- Placeable interactable?
 		- Harvestable Resource
 	Items: 
 		- Pickaxe

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://biu65bkiehrus"]
+
+[ext_resource type="Script" uid="uid://ciknjta4wyty7" path="res://core/utils/context/context_manager.gd" id="1_k1mgm"]
+
+[node name="Node" type="Node" unique_id=1918973600]
+script = ExtResource("1_k1mgm")
+start_game_context = 2
+start_player_context = 1

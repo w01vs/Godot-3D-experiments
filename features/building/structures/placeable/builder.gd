@@ -88,14 +88,15 @@ func _physics_process(_delta: float) -> void:
 			structure.global_position = target_pos
 			last_build_position = target_pos
 			placeable_component.place_check()
-		structure_comp.show()
 	else:
-		structure_comp.hide()
+		placeable_component.set_meshes_material(placeable_component.HOLO_COLLIDING_MATERIAL)
+		structure.global_position = ray.global_transform * (ray.position + ray.target_position) 
 
 func _snap(_event: SnapInputEvent) -> void:
 	snapping = !snapping
 
 func place(_event: PlaceInputEvent) -> void:
+	placeable_component.place_check()
 	if placeable_component.placeable:
 		placeable_component.place()
 		structure_comp.set_collision(true)

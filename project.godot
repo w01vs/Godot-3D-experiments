@@ -29,9 +29,9 @@ EventBus="*uid://dcdvfxul4hiv5"
 InputManager="*uid://fjrfeeuqou28"
 GlobalItem="*uid://c0mhnl7odj08g"
 InspectorHelp="*uid://bock4nrdwe45u"
-ContextManager="*uid://ciknjta4wyty7"
 DebugMenu="*uid://cggqb75a8w8r"
 DiscordRPCLoader="*uid://bn0fy3uve2n6l"
+ContextManager="*uid://biu65bkiehrus"
 
 [debug]
 

@@ -4,9 +4,10 @@ class_name PlayerComponent extends Component
 var mouse_sensitivity: float = 0.001
 
 # please make these into a resource......
-var gravity: float = -9.81
-var SPEED: float = 5
-var JUMP_SPEED_REDUCTION: float = 5
+const GRAVITY: float = -9.81
+const SPEED: float = 5
+const JUMP_SPEED_REDUCTION: float = 3
+const JUMP_VELOCITY = 4.5
 # ----------------------------------------
 
 var twist_input: float = 0
@@ -39,7 +40,7 @@ func _on_body_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
 
 func _jump(_event: JumpInputEvent) -> void:
 	if body.is_on_floor():
-		body.velocity.y = 4.5
+		body.velocity.y = JUMP_VELOCITY
 
 func _on_mouse_moved(event: MouseMotionInputEvent) -> void:
 	twist_input = -event.screen_relative.x * mouse_sensitivity
@@ -48,12 +49,14 @@ func _on_mouse_moved(event: MouseMotionInputEvent) -> void:
 func _process(_delta: float) -> void:
 	_apply_rotations()
 
+# Fix velocity resetting when going to different PlayerContext
 func _physics_process(delta: float) -> void:
-	if body.is_on_floor():
-		update_velocity(SPEED)
-	else:
-		update_velocity(JUMP_SPEED_REDUCTION)
-		body.velocity.y += gravity * delta
+	if ContextManager.is_player_state(PlayerContext.State.GAMEPLAY):
+		if body.is_on_floor():
+			update_velocity(SPEED)
+		else:
+			update_velocity(JUMP_SPEED_REDUCTION)
+			body.velocity.y += GRAVITY * delta
 	body.move_and_slide()
 
 func _apply_rotations() -> void:

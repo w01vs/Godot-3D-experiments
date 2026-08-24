@@ -1,5 +1,4 @@
-class_name PlayerContext
-
+class_name PlayerContext extends RefCounted
 enum State { NONE, GAMEPLAY, INVENTORY, STATIC_INVENTORY, BUILDING }
 
 var state_stack: Array[State]

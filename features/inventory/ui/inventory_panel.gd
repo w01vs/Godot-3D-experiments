@@ -48,4 +48,3 @@ func unbind() -> void:
 		bindings = null
 		for slot in slots:
 			slot.unbind()
-	

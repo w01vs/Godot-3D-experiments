@@ -1,9 +1,9 @@
 class_name PlayerComponent extends Component
 
-# this should be a setting through a seperate resource too maybe?
+# TODO this should be a setting through a seperate resource too maybe?
 var mouse_sensitivity: float = 0.001
 
-# please make these into a resource......
+# TODO please make these into a resource......
 const GRAVITY: float = -9.81
 const SPEED: float = 8
 const JUMP_SPEED_REDUCTION: float = 8
@@ -16,11 +16,6 @@ var pitch_input: float = 0
 
 @export var twist_pivot: Node3D
 @export var pitch_pivot: Node3D
-
-# port to HeldItemComponent
-#var right_hand_remote: RemoteTransform3D
-#var right_hand: Marker3D
-
 @export var body: CCharacterBody3D
 
 func _init_component() -> void:

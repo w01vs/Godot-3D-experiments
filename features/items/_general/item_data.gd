@@ -6,7 +6,9 @@
 @export_multiline var description: String
 @export var stackable: bool = false
 @export var max_quantity: int = 1
+# TODO Probably load these somewhere else
 @export var model: PackedScene
+@export var dropped_model: PackedScene
 @export_group("UI")
 @export var icon: Texture2D
 @export_group("Animations")

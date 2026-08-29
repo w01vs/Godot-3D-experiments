@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bhylqctimrlvv"]
+
+[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_nm33o"]
+[ext_resource type="PackedScene" uid="uid://drel3y2jtn4uc" path="res://features/items/resources/rock_base/rock_base_item.glb" id="1_okjfq"]
+[ext_resource type="Shader" uid="uid://bbh5glh5klwkc" path="res://features/items/item_float.gdshader" id="2_p42yc"]
+[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_m1ap5"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8wi4a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n7rjw"]
+render_priority = 0
+shader = ExtResource("2_p42yc")
+shader_parameter/outline_color = Color(0.92704755, 0.8356356, 0, 1)
+shader_parameter/fresnel_power = 2.5250001166776204
+shader_parameter/core_transparency = 0.10000000475
+shader_parameter/rim_smoothness = 0.400000019
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nm33o"]
+
+[node name="ItemFloat" type="Node3D" unique_id=1132575804]
+script = ExtResource("1_nm33o")
+metadata/_custom_type_script = "uid://cp7e65rba841n"
+
+[node name="rock_base_item" parent="." unique_id=301672523 instance=ExtResource("1_okjfq")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1692516364]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 0, 0, 0)
+mesh = SubResource("SphereMesh_8wi4a")
+surface_material_override/0 = SubResource("ShaderMaterial_n7rjw")
+
+[node name="CArea3D" type="Area3D" parent="." unique_id=1287798368 node_paths=PackedStringArray("entity")]
+script = ExtResource("3_m1ap5")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bf01144lxbocj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CArea3D" unique_id=1578370550]
+transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 0, 0, 0)
+shape = SubResource("SphereShape3D_nm33o")

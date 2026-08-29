@@ -5,25 +5,32 @@
 
 [node name="Inventory" type="Control" unique_id=1362168628 node_paths=PackedStringArray("player_panel", "static_panel")]
 layout_mode = 3
-anchor_right = 0.39000002
-anchor_bottom = 0.45600003
-offset_right = -748.80005
-offset_bottom = -492.48004
+anchor_right = 19.324558
+anchor_bottom = 12.862483
+offset_right = -35183.152
+offset_bottom = -12811.481
 script = ExtResource("1_psafj")
-player_panel = NodePath("PanelContainer/HBoxContainer/PlayerInventory")
-static_panel = NodePath("PanelContainer/HBoxContainer/StaticInventory")
+player_panel = NodePath("CenterContainer/HBoxContainer/PlayerInventory")
+static_panel = NodePath("CenterContainer/HBoxContainer/StaticInventory")
 metadata/_edit_use_anchors_ = true
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1561827228]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1896304568]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=532100831]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=532100831]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="PlayerInventory" parent="CenterContainer/HBoxContainer" unique_id=532195887 instance=ExtResource("1_pohso")]
 layout_mode = 2
 
-[node name="PlayerInventory" parent="PanelContainer/HBoxContainer" unique_id=532195887 instance=ExtResource("1_pohso")]
+[node name="StaticInventory" parent="CenterContainer/HBoxContainer" unique_id=1306798603 instance=ExtResource("1_pohso")]
 layout_mode = 2
 
-[node name="StaticInventory" parent="PanelContainer/HBoxContainer" unique_id=1306798603 instance=ExtResource("1_pohso")]
-layout_mode = 2
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

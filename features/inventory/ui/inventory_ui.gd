@@ -10,7 +10,8 @@ func _ready() -> void:
 	hide()
 	player_panel.hide()
 	static_panel.hide()
-	
+	assert(player_panel.size == static_panel.size)
+
 func initialise(event: PlayerInventoryLoadedEvent) -> void:
 	player_panel.set_slot_count(event.data.size)
 	player_panel.bind(event.bindings)
@@ -30,3 +31,9 @@ func _close_inventory(_event: InventoryCloseUIEvent) -> void:
 	hide()
 	player_panel.hide()
 	static_panel.hide()
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		#player_panel.bindings.drop.call()
+		pass

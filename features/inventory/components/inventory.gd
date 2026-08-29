@@ -22,9 +22,15 @@ func _init_component() -> void:
 	entity.subscribe(self, InventoryOpenEntityEvent, _on_open)
 	entity.subscribe(self, InventoryCloseEntityEvent, _close)
 	InputManager.subscribe(UICloseInputEvent, _close)
-	bindings = InventoryBindings.new(grab_drop, inventory_updated, equipment_updated)
+	bindings = InventoryBindings.new(grab_drop, inventory_updated, equipment_updated, _drop)
 	entity.subscribe_global(self, PlayerLoadedEvent, _on_player_load)
 	inventory.resize(inventory_size)
+
+func _drop() -> void:
+	var drop: Entity = mouse_data.item_data.dropped_model.instantiate()
+	# TODO: drop from chest if it is a chest otherwise drop from player
+	entity.raise_global(DragPreviewChangedEvent.new(self, null))
+	
 
 func _on_player_load(_event: PlayerLoadedEvent) -> void:
 	if entity.has_component(PlayerComponent):

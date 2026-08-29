@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="Script" uid="uid://du1ht7nmv50hi" path="res://core/functionality/world.gd" id="1_cp1df"]
+[ext_resource type="Script" uid="uid://dnfyonyldr0v2" path="res://core/crosshair.gd" id="3_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://features/player/ui/player_health_bar.tscn" id="3_rtxew"]
 [ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://features/inventory/ui/inventory.tscn" id="6_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://da33thcn1ty4r" path="res://features/inventory/ui/hotbar.tscn" id="6_yt64i"]
@@ -54,10 +55,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -4.0
+offset_top = -28.0
+offset_right = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -66,6 +66,7 @@ theme_override_font_sizes/font_size = 20
 text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("3_jj2bn")
 
 [node name="Hotbar" parent="PlayerUI" unique_id=1474135417 instance=ExtResource("6_yt64i")]
 anchor_left = 0.43489584
@@ -73,14 +74,6 @@ anchor_top = 0.85030866
 anchor_right = 0.6779514
 anchor_bottom = 0.9675926
 mouse_filter = 1
-
-[node name="Inventory" parent="PlayerUI" unique_id=1362168628 instance=ExtResource("6_jj2bn")]
-anchor_left = 0.30520833
-anchor_top = 0.28611112
-anchor_right = 0.30520833
-anchor_bottom = 0.28611112
-offset_right = 0.0
-offset_bottom = 0.0
 
 [node name="DragPreview" parent="PlayerUI" unique_id=1529233897 instance=ExtResource("7_3s5gr")]
 anchor_left = 0.00052083336
@@ -90,7 +83,9 @@ anchor_bottom = 0.08796296
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="Control" parent="PlayerUI" unique_id=417597389 instance=ExtResource("8_ysm7w")]
+[node name="BuildMenu" parent="PlayerUI" unique_id=417597389 instance=ExtResource("8_ysm7w")]
+
+[node name="Inventory" parent="PlayerUI" unique_id=1362168628 instance=ExtResource("6_jj2bn")]
 
 [node name="BetterPlayer" parent="." unique_id=1293619965 instance=ExtResource("8_acts3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2570927, 7.8765607)

@@ -4,8 +4,8 @@ class_name InteractRayComponent extends Component
 var current_collider: CollisionObject3D
 
 func _init_component() -> void:
-	entity.subscribe_local(self, RayCastRegisteredEntityEvent, _on_raycast_registered)
-	entity.subscribe_local(self, RayCastEntityEvent, _on_raycast_hit)
+	entity.subscribe(self, RayCastRegisteredEntityEvent, _on_raycast_registered)
+	entity.subscribe(self, RayCastEntityEvent, _on_raycast_hit)
 	InputManager.subscribe(InteractInputEvent, _interact)
 
 func _on_raycast_hit(event: RayCastEntityEvent) -> void:

@@ -16,7 +16,7 @@ func _ready() -> void:
 	assert(entity != null, "Component %s at %s requires an entity it is attached to." % [ name, get_path() ])
 	assert(entity.is_ancestor_of(self), "Component %s at %s requires its entity to be an ancestor."% [ name, get_path() ] )
 	entity.register(self)
-	entity.subscribe_local(self, EntityLoadedEvent, _on_entity_load)
+	entity.subscribe(self, EntityLoadedEvent, _on_entity_load)
 	entity.raise_local(ComponentRegisteredEntityEvent.new(self))
 	_init_component()
 	
@@ -56,3 +56,6 @@ func disable() -> void:
 ## Called when the component is disabled.
 func _on_disable() -> void:
 	pass
+
+func subscribe(event: Script, callback: Callable, prio: EventBase.Priority = EventBase.Priority.BASE) -> void:
+	entity.subscribe(self, event, callback, prio)

@@ -3,7 +3,7 @@ class_name TerrainComponent extends Component
 @export var body: CStaticBody3D
 
 func _init_component() -> void:
-	entity.subscribe_local(self, CollisionShapeRegisteredEntityEvent, _on_collision_shape_registered)
+	entity.subscribe(self, CollisionShapeRegisteredEntityEvent, _on_collision_shape_registered)
 
 func _on_collision_shape_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
 	if body == event.source:

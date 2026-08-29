@@ -5,7 +5,7 @@ class_name HitboxComponent extends Component
 var damage_info: DamageInfo
 
 func _init_component() -> void:
-	entity.subscribe_local(self, CollisionShapeRegisteredEntityEvent, _on_area_set)
+	entity.subscribe(self, CollisionShapeRegisteredEntityEvent, _on_area_set)
 
 func _on_area_set(event: CollisionShapeRegisteredEntityEvent) -> void:
 	if area == event.source:

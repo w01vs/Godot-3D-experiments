@@ -1,4 +1,3 @@
-@tool
 class_name Entity extends Node3D
 
 var components: Dictionary[Script, Component] = {}
@@ -54,14 +53,14 @@ func find_bases(script: Script, removing: bool) -> Array[Script]:
 		current_script = current_script.get_base_script()
 	return scripts
 
-func subscribe_local(component: Component, event_type: Script, callback: Callable, prio: EventBase.Priority = EventBase.Priority.BASE) -> void:
+func subscribe(component: Component, event_type: Script, callback: Callable, prio: EventBase.Priority = EventBase.Priority.BASE) -> void:
 	assert(event_bus.is_valid_event(event_type, EntityEvent))
 	if !event_bus.is_valid_event(event_type, EntityEvent):
 		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])
 		return
 	event_bus.subscribe(event_type, callback, component.is_active, prio)
 
-func unsubscribe_local(event_type: Script, callback: Callable) -> void:
+func unsubscribe(event_type: Script, callback: Callable) -> void:
 	assert(event_bus.is_valid_event(event_type, EntityEvent))
 	if !event_bus.is_valid_event(event_type, EntityEvent):
 		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])

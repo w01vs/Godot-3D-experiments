@@ -6,9 +6,8 @@ enum ResourceType { Diamond, Emerald }
 @export var resource_type: ResourceType = ResourceType.Diamond
 
 func _init_component() -> void:
-	hurtbox.hitbox_collided.connect(_on_hit)
+	subscribe(DamageEntityEvent, _harvest, EventBase.Priority.PRE)
 
-func _on_hit(_entity: Entity) -> void:
-	if _entity.has_component(HarvesterItemModelComponent):
-		var harvester: HarvesterItemModelComponent = _entity.get_component(HarvesterItemModelComponent)
-		harvester.harvest()
+func _harvest(event: DamageEntityEvent) -> void:
+	event.damage_info
+	event.damage_source

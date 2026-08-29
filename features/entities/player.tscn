@@ -226,13 +226,13 @@ layers = 33
 mesh = SubResource("CapsuleMesh_x5kv8")
 skeleton = NodePath("")
 
-[node name="gert" type="Area3D" parent="CCharacterBody3D" unique_id=2141155532 node_paths=PackedStringArray("entity")]
+[node name="CArea3D" type="Area3D" parent="CCharacterBody3D" unique_id=389225742 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("4_6ldnq")
 entity = NodePath("../..")
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CCharacterBody3D/gert" unique_id=1671852494]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CCharacterBody3D/CArea3D" unique_id=367625082]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
@@ -242,7 +242,7 @@ entity = NodePath("..")
 
 [node name="HurtboxComponent" type="Node" parent="." unique_id=2124588863 node_paths=PackedStringArray("area", "entity")]
 script = ExtResource("6_malci")
-area = NodePath("../CCharacterBody3D/gert")
+area = NodePath("../CCharacterBody3D/CArea3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://lrvixysacsgx"
 

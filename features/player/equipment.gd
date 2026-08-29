@@ -13,7 +13,7 @@ func _init_component() -> void:
 	entity.subscribe_global(self, PlayerInventoryLoadedEvent, initialise)
 	entity.subscribe_global(self, HotbarChangedEvent, swap_item)
 	entity.subscribe_global(self, WorldLoadedEvent, _link_input)
-	entity.subscribe_local(self, AnimationTypeChangeEntityEvent, _set_animation_type)
+	entity.subscribe(self, AnimationTypeChangeEntityEvent, _set_animation_type)
 
 func _set_animation_type(event: AnimationTypeChangeEntityEvent) -> void:
 	animation_tree.set("parameters/Transition/transition_request", event.type)

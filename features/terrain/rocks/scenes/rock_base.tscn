@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b3qeaiwiqn838"]
+
+[ext_resource type="PackedScene" uid="uid://dpi55tevhmyk3" path="res://features/terrain/rocks/assets/rock_base.glb" id="1_2v1pc"]
+[ext_resource type="Script" uid="uid://d1lysd3ah5hlu" path="res://features/terrain/harvestable_component.gd" id="2_4scq8"]
+[ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://core/components/physics/hurtbox_component.gd" id="3_obr6a"]
+[ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://core/components/stats/health_component.gd" id="4_obr6a"]
+
+[node name="rock_base_root" unique_id=552998870 instance=ExtResource("1_2v1pc")]
+
+[node name="HarvestableComponent" type="Node" parent="." index="2" unique_id=1710392146 node_paths=PackedStringArray("hurtbox", "entity")]
+script = ExtResource("2_4scq8")
+hurtbox = NodePath("../HurtboxComponent")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://d1lysd3ah5hlu"
+
+[node name="HurtboxComponent" type="Node" parent="." index="3" unique_id=357527546 node_paths=PackedStringArray("area", "entity")]
+script = ExtResource("3_obr6a")
+area = NodePath("../CStaticBody3D")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://lrvixysacsgx"
+
+[node name="HealthComponent" type="Node" parent="." index="4" unique_id=1120861329 node_paths=PackedStringArray("entity")]
+script = ExtResource("4_obr6a")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://bj38naggyrtts"

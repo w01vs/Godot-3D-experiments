@@ -63,8 +63,6 @@ func filter_mouse(mouse: MouseInputAction) -> bool:
 func _physics_process(_delta: float) -> void:
 	if movement_query.validate():
 		movement_vector = Input.get_vector("left", "right", "forward", "backward")
-	else:
-		movement_vector = Vector2.ZERO
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if handle_event(event):

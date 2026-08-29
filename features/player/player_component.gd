@@ -5,9 +5,10 @@ var mouse_sensitivity: float = 0.001
 
 # please make these into a resource......
 const GRAVITY: float = -9.81
-const SPEED: float = 5
-const JUMP_SPEED_REDUCTION: float = 3
-const JUMP_VELOCITY = 4.5
+const SPEED: float = 8
+const JUMP_SPEED_REDUCTION: float = 8
+const JUMP_VELOCITY = 5
+const VELOCITY_DECAY = -8
 # ----------------------------------------
 
 var twist_input: float = 0
@@ -23,7 +24,7 @@ var pitch_input: float = 0
 @export var body: CCharacterBody3D
 
 func _init_component() -> void:
-	entity.subscribe_local(self, CollisionShapeRegisteredEntityEvent, _on_body_registered)
+	entity.subscribe(self, CollisionShapeRegisteredEntityEvent, _on_body_registered)
 	entity.subscribe_global(self, WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
 	InputManager.subscribe(JumpInputEvent, _jump)
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
@@ -49,14 +50,26 @@ func _on_mouse_moved(event: MouseMotionInputEvent) -> void:
 func _process(_delta: float) -> void:
 	_apply_rotations()
 
+func _velocity_decay(delta: float) -> void:
+	body.velocity.x = move_toward_zero(body.velocity.x, VELOCITY_DECAY * delta)
+	body.velocity.z = move_toward_zero(body.velocity.z, VELOCITY_DECAY * delta)
+	if !body.is_on_floor():
+		body.velocity.y += GRAVITY * delta
+
+func move_toward_zero(value: float, amount: float) -> float:
+	amount = abs(amount)
+	if abs(value) <= amount:
+		return 0.0
+	return value - (sign(value) * amount)
+
 # Fix velocity resetting when going to different PlayerContext
 func _physics_process(delta: float) -> void:
+	_velocity_decay(delta)
 	if ContextManager.is_player_state(PlayerContext.State.GAMEPLAY):
 		if body.is_on_floor():
 			update_velocity(SPEED)
 		else:
 			update_velocity(JUMP_SPEED_REDUCTION)
-			body.velocity.y += GRAVITY * delta
 	body.move_and_slide()
 
 func _apply_rotations() -> void:

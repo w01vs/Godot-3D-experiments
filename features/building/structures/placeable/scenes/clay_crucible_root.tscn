@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://j2yix6u2lfhv"]
+
+[ext_resource type="PackedScene" uid="uid://bg20aveovrasv" path="res://features/building/structures/placeable/assets/clay_crucible.glb" id="1_6rei0"]
+
+[node name="ClayCrucible_root" unique_id=899927404 instance=ExtResource("1_6rei0")]

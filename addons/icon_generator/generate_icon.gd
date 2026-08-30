@@ -9,7 +9,7 @@ func _enter_tree() -> void:
 	btn.text = "Make Icon"
 	btn.flat = true
 	btn.pressed.connect(_on_render_pressed)
-	add_control_to_container(CONTAINER_CANVAS_EDITOR_MENU, btn)
+	add_control_to_container(CONTAINER_SPATIAL_EDITOR_MENU, btn)
 
 func _exit_tree() -> void:
 	if btn:

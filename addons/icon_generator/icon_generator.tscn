@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://8cq2htcm1bow"]
 
 [ext_resource type="Script" uid="uid://dl8n2eq58duce" path="res://editor/render_1024.gd" id="1_frdya"]
+[ext_resource type="PackedScene" uid="uid://b3qeaiwiqn838" path="res://features/terrain/rocks/scenes/rock_base.tscn" id="2_64psc"]
 
 [node name="Screenshot" type="Node3D" unique_id=1786199037]
 script = ExtResource("1_frdya")
@@ -8,3 +9,10 @@ metadata/_custom_type_script = "uid://dl8n2eq58duce"
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1012753491]
 transform = Transform3D(0.8517603, 0.23598799, -0.46777555, 0, 0.89281803, 0.45041758, 0.52393156, -0.38364783, 0.760467, -3.7058632, 3.5515351, 6.4580765)
+
+[node name="rock_base_root" parent="." unique_id=552998870 instance=ExtResource("2_64psc")]
+transform = Transform3D(0.8840702, 0, -0.46735415, 0, 1, 0, 0.46735415, 0, 0.8840702, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=803327223]
+transform = Transform3D(0.85176027, 0.23598798, -0.46777555, 0, 0.89281803, 0.45041755, 0.5239315, -0.3836478, 0.760467, -3.7058632, 3.5515351, 6.4580765)
+fov = 26.416502

@@ -9,10 +9,9 @@ var event_bus: EventBusBase = EventBusBase.new()
 var active: bool = true
 
 func _ready() -> void:
-	if !Engine.is_editor_hint():
-		event_bus.enable()
-		event_bus.release_events()
-		raise_local(EntityLoadedEvent.new(self))
+	event_bus.enable()
+	event_bus.release_events()
+	raise_local(EntityLoadedEvent.new(self))
 
 func register(component: Component) -> void:
 	for s in find_bases(component.get_script(), true):

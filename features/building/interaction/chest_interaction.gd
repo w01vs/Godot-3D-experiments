@@ -1,10 +1,11 @@
-class_name ChestInteraction extends InteractionComponent
+class_name ChestInteractionComponent extends InteractionComponent
 
 var inv: InventoryComponent
 
 @export var interactable_area: CArea3D
 
 func _on_entity_load(_event: EntityLoadedEvent) -> void:
+	_init_area()
 	if entity.has_component(InventoryComponent):
 		inv = entity.get_component(InventoryComponent)
 	else:
@@ -18,11 +19,10 @@ func _interact(event: CollisionEntityEvent) -> void:
 			entity.raise_local(InventoryOpenEntityEvent.new(self, false))
 			ContextManager.push_player_state(PlayerContext.State.STATIC_INVENTORY)
 
-func _on_collision_shape_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
-	if event.source == interactable_area:
-		interactable_area.cset_collision_mask_value(CollisionLayer.LIVING, true)
-		interactable_area.body_exited.connect(_range_check)
-		interactable_area.monitoring = true
+func _init_area() -> void:
+	interactable_area.cset_collision_mask_value(CollisionLayer.LIVING, true)
+	interactable_area.body_exited.connect(_range_check)
+	interactable_area.monitoring = true
 
 
 func _range_check(body: Node3D) -> void:

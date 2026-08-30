@@ -7,6 +7,3 @@ func _interact(event: CollisionEntityEvent) -> void:
 		var data: InteractionData = event.data as InteractionData
 		if !data.hover:
 			event.data.source.raise_local(DamageEntityEvent.new(self, damage_info, entity))
-
-func _on_collision_shape_registered(_event: CollisionShapeRegisteredEntityEvent) -> void:
-	pass

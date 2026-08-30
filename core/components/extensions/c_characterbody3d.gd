@@ -4,7 +4,6 @@ class_name CCharacterBody3D extends CharacterBody3D
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():
-		entity.raise_local(CollisionShapeRegisteredEntityEvent.new(self))
 		collision_layer = 0
 		collision_mask = 0
 		add_to_group(Groups.CUSTOM_COLLISION_OBJECT)

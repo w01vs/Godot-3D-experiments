@@ -5,13 +5,12 @@ class_name HitboxComponent extends Component
 var damage_info: DamageInfo
 
 func _init_component() -> void:
-	entity.subscribe(self, CollisionShapeRegisteredEntityEvent, _on_area_set)
+	_init_area()
 
-func _on_area_set(event: CollisionShapeRegisteredEntityEvent) -> void:
-	if area == event.source:
-		area.set_collision_mask_value(CollisionLayer.HURTBOX, true)
-		area.area_entered.connect(_on_area_entered)
-		area.body_entered.connect(_on_body_entered)
+func _init_area() -> void:
+	area.set_collision_mask_value(CollisionLayer.HURTBOX, true)
+	area.area_entered.connect(_on_area_entered)
+	area.body_entered.connect(_on_body_entered)
 
 func _on_area_entered(area_: Area3D) -> void:
 	if area_ is CArea3D:

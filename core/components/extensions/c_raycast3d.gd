@@ -3,10 +3,6 @@ class_name CRayCast3D extends RayCast3D
 @export var entity: Entity
 var current_collider: Object
 
-func _ready() -> void:
-	if !Engine.is_editor_hint():
-		entity.raise_local(RayCastRegisteredEntityEvent.new(self))
-
 func _physics_process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
 		var collider: Object = get_collider()

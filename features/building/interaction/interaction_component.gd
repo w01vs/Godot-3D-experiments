@@ -5,16 +5,10 @@
 
 ## Dont override this function!!
 func _init_component() -> void:
-	entity.subscribe(self, CollisionShapeRegisteredEntityEvent, _on_collision_shape_registered)
-	entity.subscribe(self, CollisionShapeRegisteredEntityEvent, _config_collision_shape)
 	entity.subscribe(self, CollisionEntityEvent, _interact)
+	_config_collision_shape()
 
-func _config_collision_shape(event: CollisionShapeRegisteredEntityEvent) -> void:
-	if collision_shape == event.source:
-		collision_shape = event.source as CollisionObject3D
-		collision_shape.cset_collision_layer_value(CollisionLayer.INTERACTABLE, true)
-
-## [method _on_area_registered] is required and fires when a collision object is registered.
-@abstract func _on_collision_shape_registered(event: CollisionShapeRegisteredEntityEvent) -> void
+func _config_collision_shape() -> void:
+	collision_shape.cset_collision_layer_value(CollisionLayer.INTERACTABLE, true)
 
 @abstract func _interact(event: CollisionEntityEvent) -> void

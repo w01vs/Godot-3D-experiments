@@ -19,20 +19,19 @@ var pitch_input: float = 0
 @export var body: CCharacterBody3D
 
 func _init_component() -> void:
-	entity.subscribe(self, CollisionShapeRegisteredEntityEvent, _on_body_registered)
 	entity.subscribe_global(self, WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
 	InputManager.subscribe(JumpInputEvent, _jump)
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
+	_init_body()
 
 func _on_world_loaded(_event: WorldLoadedEvent) -> void:
 	entity.raise_global(PlayerLoadedEvent.new(self))
 
-func _on_body_registered(event: CollisionShapeRegisteredEntityEvent) -> void:
-	if body == event.source:
-		body.cset_collision_layer_value(CollisionLayer.LIVING, true)
-		body.cset_collision_mask_value(CollisionLayer.LIVING, true)
-		body.cset_collision_mask_value(CollisionLayer.TERRAIN, true)
-		body.cset_collision_mask_value(CollisionLayer.STRUCTURE, true)
+func _init_body() -> void:
+	body.cset_collision_layer_value(CollisionLayer.LIVING, true)
+	body.cset_collision_mask_value(CollisionLayer.LIVING, true)
+	body.cset_collision_mask_value(CollisionLayer.TERRAIN, true)
+	body.cset_collision_mask_value(CollisionLayer.STRUCTURE, true)
 
 func _jump(_event: JumpInputEvent) -> void:
 	if body.is_on_floor():

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ResourceData" format=3 uid="uid://bof1p71fryofx"]
+
+[ext_resource type="Script" uid="uid://b35ocd2hh7njt" path="res://features/items/_general/resource_data.gd" id="1_8au0c"]
+[ext_resource type="PackedScene" uid="uid://drel3y2jtn4uc" path="res://features/items/resources/rock_base/rock_base_item.glb" id="1_eu6aq"]
+[ext_resource type="Texture2D" uid="uid://dblolnvboyw1w" path="res://features/items/resources/rock_base/rock.png" id="2_amsy2"]
+
+[resource]
+script = ExtResource("1_8au0c")
+name = "Rock"
+id = "rock"
+stackable = true
+max_quantity = 10
+model = ExtResource("1_eu6aq")
+dropped_model = ExtResource("1_eu6aq")
+icon = ExtResource("2_amsy2")
+metadata/_custom_type_script = "uid://b35ocd2hh7njt"

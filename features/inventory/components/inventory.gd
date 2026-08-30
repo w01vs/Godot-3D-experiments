@@ -28,7 +28,12 @@ func _init_component() -> void:
 
 func _drop() -> void:
 	var drop: Entity = mouse_data.item_data.dropped_model.instantiate()
-	# TODO: drop from chest if it is a chest otherwise drop from player
+	if entity.has_component(PlayerComponent):
+	# TODO: drop from player
+		pass
+	else:
+	# TODO: drop from chest
+		pass
 	entity.raise_global(DragPreviewChangedEvent.new(self, null))
 	
 
@@ -155,12 +160,17 @@ func _execute_merge(index: int, incoming_qty: int) -> int:
 	set_slot_data(index, slot) 
 	return incoming_qty - amount_to_take
 
+func has_item(itemdata: ItemData) -> bool:
+	# TODO: implement querying for a specific item
+	return false
+
 func set_mouse_data(data: InventorySlotData) -> void:
 	mouse_data = data
 	entity.raise_global(DragPreviewChangedEvent.new(self, _to_ui_data(data)))
 
 func add_item(itemdata: ItemData, amount: int) -> bool:
 	for index in range(inventory_size):
+		# TODO: implement proper merging of stacks when adding items
 		if inventory[index] == null:
 			push_warning("Not taking into account item stack limits or full inventories etc.")
 			inventory[index] = InventorySlotData.new()

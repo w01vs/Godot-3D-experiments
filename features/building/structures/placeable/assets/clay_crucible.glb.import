@@ -13,8 +13,8 @@ dest_files=["res://.godot/imported/clay_crucible.glb-2f891fc7b54ee055d43b9941fd4
 
 [params]
 
-nodes/root_type="res://core/functionality/entity.gd"
-nodes/root_name="ClayCrucible"
+nodes/root_type="Node3D"
+nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
 array_mesh/deduplicate_surfaces=true

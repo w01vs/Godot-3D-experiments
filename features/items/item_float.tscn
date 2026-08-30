@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://bhylqctimrlvv"]
 
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_nm33o"]
-[ext_resource type="PackedScene" uid="uid://drel3y2jtn4uc" path="res://features/items/resources/rock_base/rock_base_item.glb" id="1_okjfq"]
 [ext_resource type="Shader" uid="uid://bbh5glh5klwkc" path="res://features/items/item_float.gdshader" id="2_p42yc"]
+[ext_resource type="Script" uid="uid://ccau7wq71bntj" path="res://core/components/extensions/c_meshinstance3d.gd" id="3_ggmqp"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_m1ap5"]
+[ext_resource type="Script" uid="uid://dyumppeihqtwd" path="res://features/items/item_float_component.gd" id="5_7iu4f"]
+[ext_resource type="Script" uid="uid://dn5en33odr4tg" path="res://features/items/dropped_item_interaction.gd" id="6_ggmqp"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_8wi4a"]
 
@@ -16,17 +18,19 @@ shader_parameter/core_transparency = 0.10000000475
 shader_parameter/rim_smoothness = 0.400000019
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nm33o"]
+radius = 1.0
 
-[node name="ItemFloat" type="Node3D" unique_id=1132575804]
+[node name="Entity" type="Node3D" unique_id=17313904]
 script = ExtResource("1_nm33o")
 metadata/_custom_type_script = "uid://cp7e65rba841n"
 
-[node name="rock_base_item" parent="." unique_id=301672523 instance=ExtResource("1_okjfq")]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1692516364]
-transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 0, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=986424694 node_paths=PackedStringArray("entity")]
 mesh = SubResource("SphereMesh_8wi4a")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_n7rjw")
+script = ExtResource("3_ggmqp")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://ccau7wq71bntj"
 
 [node name="CArea3D" type="Area3D" parent="." unique_id=1287798368 node_paths=PackedStringArray("entity")]
 script = ExtResource("3_m1ap5")
@@ -36,3 +40,14 @@ metadata/_custom_type_script = "uid://bf01144lxbocj"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CArea3D" unique_id=1578370550]
 transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 0, 0, 0)
 shape = SubResource("SphereShape3D_nm33o")
+
+[node name="ItemFloatComponent" type="Node" parent="." unique_id=2134467742 node_paths=PackedStringArray("area", "entity")]
+script = ExtResource("5_7iu4f")
+area = NodePath("../CArea3D")
+entity = NodePath("..")
+
+[node name="DroppedItemInteractionComponent" type="Node" parent="." unique_id=1473197495 node_paths=PackedStringArray("collision_shape", "entity")]
+script = ExtResource("6_ggmqp")
+collision_shape = NodePath("../CArea3D")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://dn5en33odr4tg"

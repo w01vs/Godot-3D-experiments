@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="Script" uid="uid://du1ht7nmv50hi" path="res://core/functionality/world.gd" id="1_cp1df"]
+[ext_resource type="PackedScene" uid="uid://bhylqctimrlvv" path="res://features/items/item_float.tscn" id="2_m7mcb"]
 [ext_resource type="Script" uid="uid://dnfyonyldr0v2" path="res://core/crosshair.gd" id="3_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://features/player/ui/player_health_bar.tscn" id="3_rtxew"]
 [ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://features/inventory/ui/inventory.tscn" id="6_jj2bn"]
@@ -11,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://2kpyrhr6llgu" path="res://features/entities/damage_interactable.tscn" id="11_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://60ymc70tglcd" path="res://features/building/structures/chest.tscn" id="12_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://bg2ko1e8iq8ne" path="res://features/entities/heal_interactable.tscn" id="12_ysm7w"]
+[ext_resource type="PackedScene" uid="uid://b3qeaiwiqn838" path="res://features/terrain/rocks/scenes/rock_base.tscn" id="13_ysm7w"]
 [ext_resource type="PackedScene" uid="uid://bpxjulxc58g34" path="res://features/terrain/terrain3d/terrain.scn" id="16_c78f7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
@@ -25,8 +27,10 @@ sky = SubResource("Sky_c053r")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="World" type="Node3D" unique_id=1110002956]
+[node name="World" type="Node3D" unique_id=1110002956 node_paths=PackedStringArray("dropped_items")]
 script = ExtResource("1_cp1df")
+dropped_items = NodePath("DroppedItemsContainer")
+floating_item = ExtResource("2_m7mcb")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1033502004]
 environment = SubResource("Environment_eocis")
@@ -68,6 +72,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_jj2bn")
 
+[node name="BuildMenu" parent="PlayerUI" unique_id=417597389 instance=ExtResource("8_ysm7w")]
+
+[node name="Inventory" parent="PlayerUI" unique_id=1362168628 instance=ExtResource("6_jj2bn")]
+
 [node name="Hotbar" parent="PlayerUI" unique_id=1474135417 instance=ExtResource("6_yt64i")]
 anchor_left = 0.43489584
 anchor_top = 0.85030866
@@ -83,10 +91,6 @@ anchor_bottom = 0.08796296
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="BuildMenu" parent="PlayerUI" unique_id=417597389 instance=ExtResource("8_ysm7w")]
-
-[node name="Inventory" parent="PlayerUI" unique_id=1362168628 instance=ExtResource("6_jj2bn")]
-
 [node name="BetterPlayer" parent="." unique_id=1293619965 instance=ExtResource("8_acts3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2570927, 7.8765607)
 
@@ -100,3 +104,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4802756, -2.7595947)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.206, 0.7674469, 0)
 
 [node name="Terrain3D" parent="." unique_id=607667561 instance=ExtResource("16_c78f7")]
+
+[node name="DroppedItemsContainer" type="Node" parent="." unique_id=1990628631]
+
+[node name="rock_base_root" parent="." unique_id=552998870 instance=ExtResource("13_ysm7w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)

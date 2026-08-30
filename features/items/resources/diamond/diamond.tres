@@ -10,5 +10,5 @@ id = "diamond"
 description = "oooh shiny!"
 stackable = true
 max_quantity = 16
-texture = ExtResource("3_o32ep")
+icon = ExtResource("3_o32ep")
 metadata/_custom_type_script = "uid://b35ocd2hh7njt"

@@ -13,7 +13,7 @@ size = Vector3(2, 2, 2)
 
 [node name="clay_crucible" unique_id=1031043929 instance=ExtResource("1_vcmbb")]
 
-[node name="BoundingBox" type="Area3D" parent="." index="3" unique_id=653177974 node_paths=PackedStringArray("entity")]
+[node name="BoundingBox" type="Area3D" parent="." index="0" unique_id=653177974 node_paths=PackedStringArray("entity")]
 script = ExtResource("2_0a4h2")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://bf01144lxbocj"
@@ -22,13 +22,12 @@ metadata/_custom_type_script = "uid://bf01144lxbocj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.016557693, 0)
 shape = SubResource("BoxShape3D_0a4h2")
 
-[node name="PlaceableComponent" type="Node" parent="." index="4" unique_id=2067818831 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "hidden_while_placing", "body", "foundation", "entity")]
+[node name="PlaceableComponent" type="Node" parent="." index="1" unique_id=2067818831 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "hidden_while_placing", "foundation", "entity")]
 script = ExtResource("4_y0acs")
 boundingbox = NodePath("../BoundingBox")
 boundingbox_shape = NodePath("../BoundingBox/CollisionShape3D")
-meshes = [NodePath("../crucible")]
-hidden_while_placing = [NodePath("../filling")]
-body = NodePath("../CStaticBody3D")
+meshes = [null]
+hidden_while_placing = [null]
 HOLOGRAM_MATERIAL = ExtResource("5_vxk24")
 HOLO_COLLIDING_MATERIAL = ExtResource("6_ujndc")
 use_foundation = true
@@ -36,13 +35,12 @@ foundation = NodePath("../FoundationMarker")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://bktfcwecr8sif"
 
-[node name="StructureComponent" type="Node" parent="." index="5" unique_id=2059748834 node_paths=PackedStringArray("body", "entity")]
+[node name="StructureComponent" type="Node" parent="." index="2" unique_id=2059748834 node_paths=PackedStringArray("entity")]
 script = ExtResource("3_rmtmm")
-body = NodePath("../CStaticBody3D")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://canh2ypmaa0b7"
 
-[node name="FoundationMarker" type="Node3D" parent="." index="6" unique_id=411178180 node_paths=PackedStringArray("box_shape_node")]
+[node name="FoundationMarker" type="Node3D" parent="." index="3" unique_id=411178180 node_paths=PackedStringArray("box_shape_node")]
 script = ExtResource("7_rmtmm")
 box_shape_node = NodePath("../BoundingBox/CollisionShape3D")
 metadata/_custom_type_script = "uid://dw0j5a7b3rwve"

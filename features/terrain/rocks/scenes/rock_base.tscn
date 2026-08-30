@@ -2,24 +2,44 @@
 
 [ext_resource type="PackedScene" uid="uid://dpi55tevhmyk3" path="res://features/terrain/rocks/assets/rock_base.glb" id="1_2v1pc"]
 [ext_resource type="Script" uid="uid://d1lysd3ah5hlu" path="res://features/terrain/harvestable_component.gd" id="2_4scq8"]
-[ext_resource type="Script" uid="uid://lrvixysacsgx" path="res://core/components/physics/hurtbox_component.gd" id="3_obr6a"]
+[ext_resource type="Script" uid="uid://dvo51e8xdwoec" path="res://addons/mesh-rings/ribbon_mesh.gd" id="2_b8gsh"]
+[ext_resource type="Resource" uid="uid://bof1p71fryofx" path="res://features/items/resources/rock_base/rock.tres" id="3_3xqkf"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://core/components/stats/health_component.gd" id="4_obr6a"]
+[ext_resource type="Script" uid="uid://dhe53nqofut4a" path="res://features/terrain/terrain_component.gd" id="5_3xqkf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8gsh"]
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_7dg4j"]
 
 [node name="rock_base_root" unique_id=552998870 instance=ExtResource("1_2v1pc")]
 
-[node name="HarvestableComponent" type="Node" parent="." index="2" unique_id=1710392146 node_paths=PackedStringArray("hurtbox", "entity")]
+[node name="rock" parent="." index="0" unique_id=2104378565]
+metadata/ring = PackedVector3Array(0.24901, -0.17047656, -1.79563, -0.32849, -0.17047656, -1.63913, -0.47514, -0.17047656, -1.58097, -1.18224, -0.17047656, -1.20337, -1.49637, -0.17047656, -0.86055, -1.70607, -0.17047656, -0.36895, -1.731, -0.17047656, -0.30096, -1.9092, -0.17047656, 0.27574, -1.9404, -0.17047656, 0.4824, -1.9404, -0.17047656, 0.5155, -1.6185, -0.17047656, 1.1046, -0.9504, -0.17047656, 1.5334, -0.84027, -0.17047656, 1.59098, -0.41337, -0.17047656, 1.76788, 0.12249, -0.17047656, 1.76791, 0.82959, -0.17047656, 1.47501, 1.13719, -0.17047656, 1.22682, 1.71999, -0.17047656, 0.38522, 1.79121, -0.17047656, -0.2812, 1.55401, -0.17047656, -0.8538, 1.43027, -0.17047656, -1.0512, 0.95507, -0.17047656, -1.5853)
+
+[node name="RingRenderer" type="MeshInstance3D" parent="rock" index="0" unique_id=1812093675]
+material_override = SubResource("StandardMaterial3D_b8gsh")
+mesh = SubResource("ImmediateMesh_7dg4j")
+script = ExtResource("2_b8gsh")
+
+[node name="HarvestableComponent" type="Node" parent="." index="2" unique_id=1710392146 node_paths=PackedStringArray("body", "mesh", "entity")]
 script = ExtResource("2_4scq8")
-hurtbox = NodePath("../HurtboxComponent")
+item = ExtResource("3_3xqkf")
+quantity = 2
+body = NodePath("../CStaticBody3D")
+mesh = NodePath("../rock")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://d1lysd3ah5hlu"
 
-[node name="HurtboxComponent" type="Node" parent="." index="3" unique_id=357527546 node_paths=PackedStringArray("area", "entity")]
-script = ExtResource("3_obr6a")
-area = NodePath("../CStaticBody3D")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://lrvixysacsgx"
-
-[node name="HealthComponent" type="Node" parent="." index="4" unique_id=1120861329 node_paths=PackedStringArray("entity")]
+[node name="HealthComponent" type="Node" parent="." index="3" unique_id=1120861329 node_paths=PackedStringArray("entity")]
 script = ExtResource("4_obr6a")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://bj38naggyrtts"
+
+[node name="TerrainComponent" type="Node" parent="." index="4" unique_id=1887708995 node_paths=PackedStringArray("body", "entity")]
+script = ExtResource("5_3xqkf")
+body = NodePath("../CStaticBody3D")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://dhe53nqofut4a"

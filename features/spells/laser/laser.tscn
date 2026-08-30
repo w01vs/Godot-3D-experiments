@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_rccfa"]
 [ext_resource type="Shader" uid="uid://1exioniqb4cg" path="res://features/spells/laser/magic_circle.tres" id="2_got70"]
 [ext_resource type="Texture2D" uid="uid://b2iqowwb7rrr8" path="res://features/spells/laser/laser_circle.png" id="3_htfng"]
-[ext_resource type="Shader" uid="uid://ccdc8vyot4y5k" path="res://features/spells/laser/magic_circle_fade.tres" id="4_got70"]
 [ext_resource type="Texture2D" uid="uid://5uu8pkcweu2t" path="res://features/spells/laser/magic_fade_noise.tres" id="4_rccfa"]
 [ext_resource type="ArrayMesh" uid="uid://dt7d70c5qk5if" path="res://features/spells/laser/circle_fade.obj" id="5_os0af"]
+[ext_resource type="Shader" uid="uid://ccdc8vyot4y5k" path="res://features/spells/laser/magic_circle_fade.tres" id="5_rccfa"]
 [ext_resource type="FastNoiseLite" uid="uid://bd1g5y8p0hg64" path="res://features/spells/laser/laser_noise.tres" id="6_7b7jn"]
 [ext_resource type="Shader" uid="uid://b5xp2r878uc77" path="res://features/spells/laser/laser.gdshader" id="7_htfng"]
 [ext_resource type="ArrayMesh" uid="uid://bg03fdrtxpao2" path="res://features/spells/laser/laser.obj" id="7_je0x7"]
@@ -29,28 +29,22 @@ colors = PackedColorArray(0, 0, 0, 1, 0.033853278, 0.033853278, 0.033853274, 1, 
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8nfkc"]
 gradient = SubResource("Gradient_bnll2")
-fill_from = Vector2(0.5, 1)
-fill_to = Vector2(0.5, 0)
+fill_from = Vector2(0.53846157, 1)
+fill_to = Vector2(0.47008547, 0)
 
 [sub_resource type="Gradient" id="Gradient_st2as"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ew2c4"]
 gradient = SubResource("Gradient_st2as")
-fill_from = Vector2(0.45726496, 0.02991453)
+fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.55128205, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n2jxk"]
 render_priority = 0
-shader = ExtResource("4_got70")
-shader_parameter/Color = Color(0, 0.827451, 1, 1)
+shader = ExtResource("5_rccfa")
 shader_parameter/gradient = SubResource("GradientTexture2D_8nfkc")
-shader_parameter/top_noise = 1.0
-shader_parameter/Speed = Vector2(0.08, -0.055)
-shader_parameter/Scale = Vector2(1, 1)
 shader_parameter/fadenoise = ExtResource("4_rccfa")
 shader_parameter/gradient_fade = SubResource("GradientTexture2D_ew2c4")
-shader_parameter/draw_progress = 1.0
-shader_parameter/emission = 0.0
 
 [sub_resource type="Animation" id="Animation_138ca"]
 length = 3.0000000000000004
@@ -329,6 +323,11 @@ skeleton = NodePath("")
 [node name="fade" type="MeshInstance3D" parent="." unique_id=7040620]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0, 0.9954494)
 material_override = SubResource("ShaderMaterial_n2jxk")
+instance_shader_parameters/Color = Color(0, 0.827451, 1, 1)
+instance_shader_parameters/Speed = Vector2(0.3, 0.04)
+instance_shader_parameters/draw_progress = 0.0
+instance_shader_parameters/emission = 0.0
+instance_shader_parameters/top_noise = 0.2
 mesh = ExtResource("5_os0af")
 skeleton = NodePath("../Laser")
 

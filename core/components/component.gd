@@ -19,7 +19,6 @@ func _ready() -> void:
 	entity.subscribe(self, EntityLoadedEvent, _on_entity_load)
 	entity.raise_local(ComponentRegisteredEntityEvent.new(self))
 	_init_component()
-	
 
 ## Called when the parent entity finished loading.
 func _on_entity_load(_event: EntityLoadedEvent) -> void:

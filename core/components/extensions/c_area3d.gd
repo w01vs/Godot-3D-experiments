@@ -9,8 +9,8 @@ func _ready() -> void:
 		assert(entity != null)
 		collision_layer = 0
 		collision_mask = 0
-		monitorable = false
-		monitoring = false
+		set_deferred("monitorable", false)
+		set_deferred("monitoring", false)
 		add_to_group(Groups.CUSTOM_COLLISION_OBJECT)
 		var nodes: Array[Node] = find_children("*", "CollisionShape3D", true, true)
 		for node in nodes:

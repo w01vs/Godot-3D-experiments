@@ -16,15 +16,20 @@
 [ext_resource type="PackedScene" uid="uid://bpxjulxc58g34" path="res://features/terrain/terrain3d/terrain.scn" id="16_c78f7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqjs"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_top_color = Color(0.25747293, 0.46916252, 0.6407464, 1)
+sky_horizon_color = Color(0.55707103, 0.67196536, 0.7599676, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
 [sub_resource type="Sky" id="Sky_c053r"]
 sky_material = SubResource("ProceduralSkyMaterial_ggqjs")
 
 [sub_resource type="Environment" id="Environment_eocis"]
+background_mode = 2
 sky = SubResource("Sky_c053r")
+ambient_light_source = 3
+ambient_light_color = Color(1.0494983, 0.8162656, 0, 1)
 tonemap_mode = 2
+ssao_enabled = true
 glow_enabled = true
 
 [node name="World" type="Node3D" unique_id=1110002956 node_paths=PackedStringArray("dropped_items")]
@@ -40,6 +45,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 light_color = Color(1, 1, 0.9514076, 1)
 light_energy = 0.98
 shadow_enabled = true
+shadow_blur = 2.0
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=187869415]
 

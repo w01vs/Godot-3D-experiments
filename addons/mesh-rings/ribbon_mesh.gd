@@ -35,10 +35,11 @@ func _rebuild() -> void:
 	var imm_mesh := mesh as ImmediateMesh
 	imm_mesh.clear_surfaces()
 	imm_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
+	var inverse: Transform3D = global_transform.affine_inverse()
 	var point_count := global_ring.size()
 	for i in range(point_count + 1):
-		var p := global_ring[i % point_count]
-		var next_p := global_ring[(i + 1) % point_count]
+		var p := inverse * global_ring[i % point_count] 
+		var next_p := inverse * global_ring[(i + 1) % point_count]
 		var dir := (next_p - p).normalized()
 		var normal: Vector3 = Vector3(-dir.z, 0, dir.x) * (line_width * 0.5)
 		imm_mesh.surface_add_vertex(p - normal)

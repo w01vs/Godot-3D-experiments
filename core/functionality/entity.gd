@@ -1,6 +1,6 @@
 class_name Entity extends Node3D
 
-var components: Dictionary[Script, Component] = {}
+var component_map: Dictionary[Script, Component] = {}
 
 var global_subscriptions_: Dictionary[Script, Array] = {}
 
@@ -15,18 +15,18 @@ func _ready() -> void:
 
 func register(component: Component) -> void:
 	for s in find_bases(component.get_script(), true):
-		components.set(s, component)
+		component_map.set(s, component)
 
 func get_component(script: Script) -> Component:
-	return components.get(script)
+	return component_map.get(script)
 
 func has_component(script: Script) -> bool:
-	return components.has(script)
+	return component_map.has(script)
 
 func remove_component(component: Component) -> void:
 	for s in find_bases(component.get_script(), true):
 		if get_component(s) == component:
-			components.erase(component.get_script())
+			component_map.erase(component.get_script())
 	for event: Script in global_subscriptions_.keys():
 		var callbacks: Array = global_subscriptions_.get(event)
 		for i in range(callbacks.size()):
@@ -44,8 +44,8 @@ func find_bases(script: Script, removing: bool) -> Array[Script]:
 	var current_script: Script = script
 	var scripts: Array[Script] = []
 	while current_script != Component:
-		assert(!components.has(current_script) || removing)
-		if components.has(current_script) && !removing:
+		assert(!component_map.has(current_script) || removing)
+		if component_map.has(current_script) && !removing:
 			push_error("A component of this type %s has already been registered" % [ current_script.get_global_name() ])
 			return []
 		scripts.append(current_script)

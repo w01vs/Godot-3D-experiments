@@ -8,6 +8,11 @@ func _ready() -> void:
 		collision_mask = 0
 		add_to_group(Groups.CUSTOM_COLLISION_OBJECT)
 
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
+	entity.global_transform = global_transform
+	transform = Transform3D.IDENTITY
+
 func cset_collision_mask_value(value: int, on: bool) -> void:
 	set_collision_mask_value(value, on)
 

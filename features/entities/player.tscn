@@ -265,9 +265,8 @@ script = ExtResource("9_0fqka")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://b6cug2mwrwkf6"
 
-[node name="LaserComponent" type="Node" parent="." unique_id=783096986 node_paths=PackedStringArray("laser", "entity")]
+[node name="LaserComponent" type="Node" parent="." unique_id=783096986 node_paths=PackedStringArray("entity")]
 script = ExtResource("11_7471s")
-laser = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Laser")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://kmh74icasv6b"
 

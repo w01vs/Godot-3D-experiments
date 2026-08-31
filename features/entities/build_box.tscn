@@ -12,7 +12,7 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_tj3u4"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2d58t"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwm6v"]
 cull_mode = 2
 shading_mode = 0
 albedo_color = Color(0, 0, 0, 1)
@@ -32,7 +32,7 @@ mesh = SubResource("BoxMesh_tj3u4")
 skeleton = NodePath("")
 
 [node name="RingRenderer" type="MeshInstance3D" parent="BoxParent" unique_id=656885542]
-material_override = SubResource("StandardMaterial3D_2d58t")
+material_override = SubResource("StandardMaterial3D_rwm6v")
 mesh = SubResource("ImmediateMesh_kdkrr")
 script = ExtResource("2_2d58t")
 

@@ -64,7 +64,6 @@ func _physics_process(delta: float) -> void:
 			update_velocity(SPEED)
 		else:
 			update_velocity(JUMP_SPEED_REDUCTION)
-	body.move_and_slide()
 
 func _apply_rotations() -> void:
 	twist_pivot.rotate_y(twist_input)

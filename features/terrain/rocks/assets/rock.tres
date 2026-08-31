@@ -3,5 +3,7 @@
 [resource]
 resource_name = "rock"
 cull_mode = 2
+diffuse_mode = 3
 albedo_color = Color(0.24679978, 0.2613094, 0.26005223, 1)
+metallic_specular = 0.3
 roughness = 0.5

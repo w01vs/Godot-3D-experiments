@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 var height = 1
-var offset = 0.7
+var offset = 0.6
 var mesh: MeshInstance3D = null
 var toolbar_button: Button
 var ring_name := "RingRenderer"
@@ -44,17 +44,10 @@ func _on_toolbar_pressed() -> void:
 	var vertices_2d: PackedVector2Array = []
 	var height_percent = height / world_height
 	var height_offset = 0.5 / world_height
-	var relevant_vertices
 	for vertex in faces:
 		if vertex.y <= (height_percent + height_offset):
-			vertex *= mesh.global_transform
 			vertices_2d.append(Vector2(vertex.x, vertex.z))
 	var convex_hull2d: PackedVector2Array = Geometry2D.convex_hull(vertices_2d)
-	convex_hull2d.reverse()
-	var dedup_convex_hull: PackedVector2Array = []
-	for pt in convex_hull2d:
-		if !dedup_convex_hull.has(pt):
-			dedup_convex_hull.append(pt)
 	var offset_hull: Array[PackedVector2Array] = Geometry2D.offset_polygon(convex_hull2d, offset, Geometry2D.JOIN_ROUND)
 	var world_bottom_y: float = (mesh.global_transform * aabb.position).y
 	var target_y: float = world_bottom_y + height

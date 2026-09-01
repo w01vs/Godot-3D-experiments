@@ -1,14 +1,19 @@
 ### TO DO:
-  Player stuff: 
-    - Fix player xz velocity cancelling too slow when opening inventory etc.
+    Player: 
+        -> Fix player xz velocity cancelling too slow when opening inventory etc.
 	Inventory:
-		- fix holding item when closing inventory
-		- Item components + In-world items
+		-> add item to inventory
+        -> query inventory for item and quantity
 	Structures:
         Crucible functionality
-	Items: 
-		- Pickaxe
-		- Sword
+        -> crafting menu ui
+        -> recipe resources
+        -> crafting component
+	Items:
+        -> picking up dropped items
+        -> merging dropped items if they overlap on the ground
+    Components:
+        -> add interaction component hover stuff (billboard label)
 		
 
 maybe ill eventually get around to making a new AI stuffs with a plugin

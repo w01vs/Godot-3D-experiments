@@ -35,7 +35,7 @@ func _drop() -> void:
 	# TODO: drop from chest
 		pass
 	entity.raise_global(DragPreviewChangedEvent.new(self, null))
-	
+	 
 
 func _on_player_load(_event: PlayerLoadedEvent) -> void:
 	if entity.has_component(PlayerComponent):
@@ -149,34 +149,84 @@ func _set_index(index: int, data: InventorySlotData) -> void:
 	var inv_data: InventoryData = _to_inventory_data(index, data)
 	inventory_updated.emit(inv_data)
 
-func _execute_merge(index: int, incoming_qty: int) -> int:
+func _set_quantity(index: int, quantity: int) -> void:
+	var inv_data: InventoryData
+	if index >= inventory_size:
+		hotbar[index - inventory_size].quantity = quantity
+		inv_data = _to_inventory_data(index, hotbar[index - inventory_size])
+		# TODO: figure out what to do here....?
+		#if data:
+			#equipment_updated.emit(index-inventory_size, data.item_data, active_index == index-inventory_size)
+		#else:
+			#equipment_updated.emit(index-inventory_size, null, active_index == index-inventory_size)
+	else:
+		inventory[index].quantity = quantity
+		inv_data = _to_inventory_data(index, inventory[index])
+	inventory_updated.emit(inv_data)
+
+func _execute_merge(index: int, incoming_qty: int, preview: bool = false) -> int:
 	var slot: InventorySlotData = _get_index(index)
 	var max_stack: int = slot.item_data.max_quantity
 	var space_left: int = max_stack - slot.quantity
 	var amount_to_take: int = min(incoming_qty, space_left)
-	slot.quantity += amount_to_take
-	set_slot_data(index, slot) 
+	if !preview:
+		set_slot_data(index, slot) 
+		slot.quantity += amount_to_take
 	return incoming_qty - amount_to_take
 
-func has_item(itemdata: ItemData) -> bool:
-	# TODO: implement querying for a specific item
-	return false
+## [code]has_item[/code] returns a [code]Dictionary[/code] with the following fields: [br]
+## [code]total[/code]: The quantity of the queried item in the inventory [br]
+## [code]indices[/code]: An [code]Array[int][/code] containing the indices at which this item is found,
+## in order of: hotbar (left to right) and then the inventory from top left to bottom right, going 
+## left to right in each row before moving down a column.
+func has_item(itemdata: ItemData) -> Dictionary:
+	var indices: Array[Dictionary] = []
+	var total: int = 0
+	for i in range(hotbar):
+		if hotbar[i] and hotbar[i].item_data and hotbar[i].item_data == itemdata:
+			indices.append({ i + inventory_size: hotbar[i].quantity })
+			total += hotbar[i].quantity
+	for i in range(inventory):
+		if inventory[i] and inventory[i].item_data and inventory[i].item_data == itemdata:
+			indices.append({ i: inventory[i].quantity })
+			total += inventory[i].quantity
+	return { &"indices": indices, &"total": total }
 
 func set_mouse_data(data: InventorySlotData) -> void:
 	mouse_data = data
 	entity.raise_global(DragPreviewChangedEvent.new(self, _to_ui_data(data)))
 
-func add_item(itemdata: ItemData, amount: int) -> bool:
-	for index in range(inventory_size):
-		# TODO: implement proper merging of stacks when adding items
-		if inventory[index] == null:
-			push_warning("Not taking into account item stack limits or full inventories etc.")
-			inventory[index] = InventorySlotData.new()
-			inventory[index].item_data = itemdata
-			inventory[index].quantity = amount
-			set_slot_data(index, inventory[index])
-			return true
-	return false
+func add_item(itemdata: ItemData, amount: int, partial_add: bool = true) -> int:
+	var total: int = amount
+	var info: Dictionary = has_item(itemdata)
+	# In case a partial add is not allowed, the quantites stored in this array are not applied to the inventory
+	var actions: Array[Dictionary] = [] 
+	if info.get(&"total") != 0:
+		for i: int in info.get(&"indices"):
+			var leftover: int = _execute_merge(i, total, true)
+			actions[i] = { &"quantity": total - leftover, &"merge": true}
+			total -= actions[i].get(&"quantity")
+			if total == 0:
+				break
+	if total > 0:
+		for i in range(inventory_size):
+			if inventory[i] == null:
+				var leftover: int = _execute_merge(i, total, true)
+				actions[i] = { &"quantity": total - leftover, &"merge": false}
+				total -= actions[i].get(&"quantity")
+				if total <= 0:
+					break
+	if total <= 0 or (partial_add and total > 0):
+		for i in range(actions):
+			var action: Dictionary = actions[i]
+			if action.merge:
+				_set_quantity(i, action.quantity)
+			else:
+				var data := InventorySlotData.new()
+				data.item_data = itemdata
+				data.quantity = action.quantity
+				_set_index(i, data)
+	return total
 
 func _get_data() -> InventoryData:
 	var dict: Dictionary[int, InventoryUISlotData] = {}

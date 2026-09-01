@@ -9,7 +9,7 @@ var slots: Array[InventorySlot]
 
 func _ready() -> void:
 	EventBus.subscribe(PlayerInventoryLoadedEvent, initialise)
-	EventBus.subscribe(HotbarChangedEvent, _set_active_slot)
+	EventBus.subscribe(HotbarActiveChangedEvent, _set_active_slot)
 
 func initialise(event: PlayerInventoryLoadedEvent) -> void:
 	set_slot_count(event.hotbar_data.size, event.data.size)
@@ -42,7 +42,7 @@ func unbind() -> void:
 		slot.unbind()
 	bindings.inventory_changed.disconnect(_update_hotbar)
 
-func _set_active_slot(event: HotbarChangedEvent) -> void:
+func _set_active_slot(event: HotbarActiveChangedEvent) -> void:
 	slots[event.old_index].toggle_border(false)
 	slots[event.index].toggle_border(true)
 

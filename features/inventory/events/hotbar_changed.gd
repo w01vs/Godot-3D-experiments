@@ -1,4 +1,4 @@
-class_name HotbarChangedEvent extends Event
+class_name HotbarActiveChangedEvent extends Event
 
 var index: int
 var old_index: int

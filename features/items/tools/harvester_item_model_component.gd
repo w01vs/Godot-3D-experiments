@@ -14,5 +14,6 @@ func on_animation_end(_name: StringName) -> void:
 	harvester_comp.set_monitoring(false)
 
 func _on_entity_load(_event: EntityLoadedEvent) -> void:
+	assert(entity.has_component(HarvesterComponent))
 	if entity.has_component(HarvesterComponent):
 		harvester_comp = entity.get_component(HarvesterComponent)

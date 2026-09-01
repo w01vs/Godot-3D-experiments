@@ -32,6 +32,7 @@ func on_animation_end(_name: StringName) -> void:
 	pass
 
 func delete() -> void:
+	unequip()
 	disable()
 	entity.queue_free()
 

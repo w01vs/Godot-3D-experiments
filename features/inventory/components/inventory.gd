@@ -14,7 +14,7 @@ var last_index: int
 var bindings: InventoryBindings
 
 signal inventory_updated(data: InventoryData)
-signal equipment_updated(index: int, data: ItemData)
+signal equipment_updated(index: int, data: ItemData, update: bool)
 
 var open: bool = false
 
@@ -80,7 +80,7 @@ func _on_entity_load(_event: EntityLoadedEvent) -> void:
 		for i in range(inv_save.main_inventory.size()):
 			set_slot_data(i, inv_save.main_inventory[i])
 		entity.raise_global(PlayerInventoryLoadedEvent.new(self, _get_data(), bindings, _get_hotbar_data(), _get_hotbar_itemdata()))
-		entity.raise_global(HotbarChangedEvent.new(self, 0, 0))
+		entity.raise_global(HotbarActiveChangedEvent.new(self, 0, 0))
 
 func is_open() -> bool:
 	return open
@@ -105,7 +105,7 @@ func _previous_hotbar(_event: PreviousHotbarInputEvent) -> void:
 
 # Player exclusive
 func _set_active_item(index: int, old_index: int) -> void:
-	entity.raise_global(HotbarChangedEvent.new(self, index, old_index))
+	entity.raise_global(HotbarActiveChangedEvent.new(self, index, old_index))
 
 func set_slot_data(index: int, data: InventorySlotData) -> void:
 	_set_index(index, data)
@@ -141,11 +141,9 @@ func _set_index(index: int, data: InventorySlotData) -> void:
 	if index >= inventory_size:
 		hotbar[index-inventory_size] = data
 		if data:
-			equipment_updated.emit(index-inventory_size, data.item_data)
+			equipment_updated.emit(index-inventory_size, data.item_data, active_index == index-inventory_size)
 		else:
-			equipment_updated.emit(index-inventory_size, null)
-		if index-inventory_size == active_index:
-			entity.raise_global(HotbarChangedEvent.new(self, active_index, active_index))
+			equipment_updated.emit(index-inventory_size, null, active_index == index-inventory_size)
 	else:
 		inventory[index] = data
 	var inv_data: InventoryData = _to_inventory_data(index, data)

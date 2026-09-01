@@ -29,8 +29,7 @@ func update_visuals(data: Dictionary[int, InventoryUISlotData], reset: bool = fa
 				slots[i].set_data(null)
 	else:
 		for i: int in data.keys():
-			if data.has(i):
-				slots[i].set_data(data[i])
+			slots[i].set_data(data[i])
 
 func _on_inventory_changed(data: InventoryData) -> void:
 	if !data.hotbar:

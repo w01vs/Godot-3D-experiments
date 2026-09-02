@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b62t6dkge6ats"]
 
-[ext_resource type="Texture2D" uid="uid://bu8a7qk4q0tr6" path="res://features/items/resources/diamond/diamond.png" id="1_0152c"]
 [ext_resource type="Script" uid="uid://dqhs1di5j05w7" path="res://features/building/ui/build_menu_item.gd" id="1_mm0jb"]
+[ext_resource type="Texture2D" uid="uid://b2iqowwb7rrr8" path="res://features/spells/laser/laser_circle.png" id="2_mm0jb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0152c"]
 content_margin_left = 0.0
@@ -34,7 +34,7 @@ anchor_bottom = 1.0
 
 [node name="TextureRect" type="TextureRect" parent="Button/VBoxContainer" unique_id=1750346015]
 layout_mode = 2
-texture = ExtResource("1_0152c")
+texture = ExtResource("2_mm0jb")
 expand_mode = 4
 stretch_mode = 2
 

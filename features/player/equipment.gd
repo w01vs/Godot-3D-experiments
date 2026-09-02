@@ -39,20 +39,20 @@ func _change_item(index: int, data: ItemData, update: bool) -> void:
 		unload_item(index)
 	
 	if update:
-		on_active_item_swap(index)
+		on_active_item_swap.call_deferred(index)
 
 func load_item(index: int, data: ItemData) -> void:
 	if item_cache[index]:
 		unload_item(index)
-	item_cache[index] = data.model.instantiate() as Entity
+	if data.model.is_empty():
+		return
+	item_cache[index] = SceneLoader.get_scene_instance(data.model) as Entity
 	item_cache[index].disable()
 	marker.add_child(item_cache[index])
 	if !item_cache[index].has_component(ItemModelComponent):
 		assert(false)
 		push_error("Trying to equip something that has no item model.")
 		return
-	held_item = item_cache[index].get_component(ItemModelComponent)
-	held_item.load(entity, data)
 
 func unload_item(index: int) -> void:
 	if item_cache[index]:
@@ -63,7 +63,6 @@ func unload_item(index: int) -> void:
 func on_active_item_swap(index: int) -> void:
 	if held_item:
 		held_item.unequip()
-		held_item.disable()
 	if !item_cache[index]:
 		# Set current animation to default (should be an idle/walk/run state)
 		entity.raise_local(AnimationTypeChangeEntityEvent.new(self, str(AnimationType.CUSTOM)))
@@ -74,14 +73,16 @@ func on_active_item_swap(index: int) -> void:
 		return
 	held_item = item_cache[index].get_component(ItemModelComponent)
 	held_item.equip()
-	held_item.enable()
 	remote_transform.remote_path = remote_transform.get_path_to(item_cache[index])
-	remote_transform.force_update_cache()
-	remote_transform.force_update_transform()
-	entity.raise_local(AnimationTypeChangeEntityEvent.new(self, str(held_item.data.animation_type)))
+	#remote_transform.force_update_cache()
+	#remote_transform.force_update_transform()
+	if held_item.data.has_animation:
+		entity.raise_local(AnimationTypeChangeEntityEvent.new(self, str(held_item.data.animation_type)))
+	else:
+		entity.raise_local(AnimationTypeChangeEntityEvent.new(self, str(AnimationType.CUSTOM)))
 
 func swap_item(event: HotbarActiveChangedEvent) -> void:
-	on_active_item_swap(event.index)
+	on_active_item_swap.call_deferred(event.index)
 
 func _on_animation_trigger(event: StringName) -> void:
 	if held_item:

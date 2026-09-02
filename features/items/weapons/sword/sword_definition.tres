@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://celqxnhs7ffvn"]
+
+[ext_resource type="Script" uid="uid://dui6mdauvequv" path="res://features/items/_general/item_def.gd" id="1_hfr3n"]
+[ext_resource type="Texture2D" uid="uid://if24auc47fio" path="res://features/items/weapons/sword/sword.png" id="2_bgcbt"]
+
+[resource]
+script = ExtResource("1_hfr3n")
+name = "Sword"
+id = &"sword"
+description = "cool edgy sword?"
+model = "uid://pru6l4blxa6u"
+icon = ExtResource("2_bgcbt")
+has_animation = true
+animation_type = &"Weapon1H"
+metadata/_custom_type_script = "uid://dui6mdauvequv"

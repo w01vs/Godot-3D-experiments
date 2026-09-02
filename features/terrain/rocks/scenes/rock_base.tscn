@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://d1lysd3ah5hlu" path="res://features/terrain/harvestable_component.gd" id="2_4scq8"]
 [ext_resource type="Material" uid="uid://ce5fr6bjmryqc" path="res://features/terrain/rocks/assets/rock.tres" id="2_7dg4j"]
 [ext_resource type="Script" uid="uid://dvo51e8xdwoec" path="res://addons/mesh-rings/ribbon_mesh.gd" id="2_b8gsh"]
-[ext_resource type="Resource" uid="uid://bof1p71fryofx" path="res://features/items/resources/rock_base/rock.tres" id="3_3xqkf"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://core/components/stats/health_component.gd" id="4_obr6a"]
 [ext_resource type="Script" uid="uid://dhe53nqofut4a" path="res://features/terrain/terrain_component.gd" id="5_3xqkf"]
+[ext_resource type="Resource" uid="uid://cqievoarjvi54" path="res://features/items/resources/rock_base/rock_resource.tres" id="5_7dg4j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8gsh"]
 cull_mode = 2
@@ -28,7 +28,7 @@ script = ExtResource("2_b8gsh")
 
 [node name="HarvestableComponent" type="Node" parent="." index="2" unique_id=1710392146 node_paths=PackedStringArray("body", "mesh", "entity")]
 script = ExtResource("2_4scq8")
-item = ExtResource("3_3xqkf")
+item = ExtResource("5_7dg4j")
 quantity = 2
 body = NodePath("../CStaticBody3D")
 mesh = NodePath("../rock")

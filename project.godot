@@ -27,7 +27,8 @@ buses/default_bus_layout=""
 
 EventBus="*uid://dcdvfxul4hiv5"
 InputManager="*uid://fjrfeeuqou28"
-GlobalItem="*uid://c0mhnl7odj08g"
+ResourceLib="*uid://c0mhnl7odj08g"
+SceneLoader="*uid://bgpmucegafsqu"
 InspectorHelp="*uid://bock4nrdwe45u"
 DebugMenu="*uid://cggqb75a8w8r"
 DiscordRPCLoader="*uid://bn0fy3uve2n6l"
@@ -63,7 +64,7 @@ enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg", 
 folder_colors={
 "res://core/": "green",
 "res://editor/": "orange",
-"res://features/": "green"
+"res://features/": "purple"
 }
 
 [global_group]

@@ -5,7 +5,7 @@
 
 ## Dont override this function!!
 func _init_component() -> void:
-	entity.subscribe(self, CollisionEntityEvent, _interact)
+	subscribe(CollisionEntityEvent, _interact)
 	_config_collision_shape()
 
 func _config_collision_shape() -> void:

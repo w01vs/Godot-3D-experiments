@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BuildResource" format=3 uid="uid://k7i7s80tqxx3"]
+
+[ext_resource type="Resource" uid="uid://cw216jdlwf5h" path="res://features/building/resources/groups/buildings.tres" id="1_bgqff"]
+[ext_resource type="Texture2D" uid="uid://bbsvfj8o41emr" path="res://features/building/resources/icons/icon1.png" id="2_h0ffm"]
+[ext_resource type="Script" uid="uid://bmtsi8ddyy01i" path="res://features/building/build_resource.gd" id="2_ks7me"]
+
+[resource]
+script = ExtResource("2_ks7me")
+name = &"BuildBox"
+scene = "uid://425laymvnd48"
+group = ExtResource("1_bgqff")
+icon = ExtResource("2_h0ffm")
+metadata/_custom_type_script = "uid://bmtsi8ddyy01i"

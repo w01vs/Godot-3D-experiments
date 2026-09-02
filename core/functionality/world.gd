@@ -8,7 +8,7 @@ func _ready() -> void:
 	EventBus.subscribe(DropItemEvent, drop_item)
 
 func drop_item(event: DropItemEvent) -> void:
-	var drop: Node3D = event.item.dropped_model.instantiate()
+	var drop: Node3D = SceneLoader.get_scene_instance(event.item.dropped_model) as Node3D
 	var floater: Entity = floating_item.instantiate()
 	dropped_items.add_child(floater)
 	floater.global_position = event.position

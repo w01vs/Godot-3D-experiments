@@ -9,8 +9,6 @@ var structure_comp: StructureComponent
 var world: World
 var last_build_position: Vector3 = Vector3.INF
 
-var structures: Array[BuildResource]
-
 var structure_scene: PackedScene
 var open: bool = false
 var building: bool = false
@@ -20,7 +18,6 @@ var bindings: BuildBindings = BuildBindings.new(set_structure)
 var snapping: bool = false
 
 func _init_component() -> void:
-	load_structures()
 	InputManager.subscribe(BuildInputEvent, _open_build_menu)
 	entity.raise_global(BuildComponentReadyEvent.new(self, bindings, _get_ui_data()))
 	entity.subscribe_global(self, WorldLoadedEvent, set_world)
@@ -51,7 +48,7 @@ func _open_build_menu(_event: BuildInputEvent) -> void:
 
 func set_structure(id: int) -> void:
 	structure_id = id
-	structure = structures[id].scene.instantiate()
+	structure = SceneLoader.get_scene_instance(ResourceLib.get_building(id).scene)
 	world.add_child(structure)
 	placeable_component = structure.get_component(PlaceableComponent)
 	structure_comp = structure.get_component(StructureComponent)
@@ -60,12 +57,9 @@ func set_structure(id: int) -> void:
 	entity.raise_global(BuildMenuCloseEvent.new(self))
 	InputManager.capture_mouse()
 
-func load_structures() -> void:
-	structures = ResourceManager.load_structures("res://features/building/resources/items/")
-
 func _get_ui_data() -> Array[UIBuildItemView]:
 	var res: Array[UIBuildItemView] = []
-	for struc in structures:
+	for struc in ResourceLib.get_all_buildings():
 		res.append(UIBuildItemView.new(struc.name, struc.icon, struc.group, struc.id))
 	return res
 

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ResourceData" format=3 uid="uid://cqievoarjvi54"]
+
+[ext_resource type="Script" uid="uid://b35ocd2hh7njt" path="res://features/items/_general/resource_data.gd" id="1_bkblr"]
+[ext_resource type="Texture2D" uid="uid://dblolnvboyw1w" path="res://features/items/resources/rock_base/rock.png" id="1_pwsxv"]
+
+[resource]
+script = ExtResource("1_bkblr")
+name = "Rock"
+id = "rock"
+description = "rocky rocker rock"
+stackable = true
+max_quantity = 32
+dropped_model = "uid://drel3y2jtn4uc"
+icon = ExtResource("1_pwsxv")
+metadata/_custom_type_script = "uid://b35ocd2hh7njt"

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://features/items/weapons/sword/sword.glb" id="2_6474j"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_5k5mh"]
 [ext_resource type="Script" uid="uid://dv10pdq2oaoph" path="res://features/items/tools/harvester_item_model_component.gd" id="5_8es2e"]
+[ext_resource type="Resource" uid="uid://c4hcbgrspsqsi" path="res://features/items/tools/pickaxe/pickaxe_definition.tres" id="5_27045"]
 [ext_resource type="Script" uid="uid://drfotqkwr4jtl" path="res://features/items/tools/harvester_component.gd" id="5_sxt5b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d6wag"]
@@ -27,9 +28,9 @@ metadata/_custom_type_script = "uid://bf01144lxbocj"
 transform = Transform3D(-7.430936e-09, -0.17, 0, 0.17, -7.4309363e-09, 0, 5.6336193e-16, -3.718781e-38, 0.17, -3.1483577e-08, 1.1041201, 3.167491e-08)
 shape = SubResource("BoxShape3D_d6wag")
 
-[node name="HarvesterItemModelComponent" type="Node" parent="." unique_id=169956937 node_paths=PackedStringArray("harvester_comp", "entity")]
+[node name="HarvesterItemModelComponent" type="Node" parent="." unique_id=169956937 node_paths=PackedStringArray("entity")]
 script = ExtResource("5_8es2e")
-harvester_comp = NodePath("../HarvesterComponent")
+data = ExtResource("5_27045")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://dv10pdq2oaoph"
 

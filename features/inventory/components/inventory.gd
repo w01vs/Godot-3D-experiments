@@ -27,7 +27,7 @@ func _init_component() -> void:
 	inventory.resize(inventory_size)
 
 func _drop() -> void:
-	var drop: Entity = mouse_data.item_data.dropped_model.instantiate()
+	var drop: Entity = SceneLoader.get_scene_instance(mouse_data.item_data.dropped_model) as Entity
 	if entity.has_component(PlayerComponent):
 	# TODO: drop from player
 		pass
@@ -182,11 +182,11 @@ func _execute_merge(index: int, incoming_qty: int, preview: bool = false) -> int
 func has_item(itemdata: ItemData) -> Dictionary:
 	var indices: Array[Dictionary] = []
 	var total: int = 0
-	for i in range(hotbar):
+	for i in range(hotbar_size):
 		if hotbar[i] and hotbar[i].item_data and hotbar[i].item_data == itemdata:
 			indices.append({ i + inventory_size: hotbar[i].quantity })
 			total += hotbar[i].quantity
-	for i in range(inventory):
+	for i in range(inventory_size):
 		if inventory[i] and inventory[i].item_data and inventory[i].item_data == itemdata:
 			indices.append({ i: inventory[i].quantity })
 			total += inventory[i].quantity
@@ -200,25 +200,28 @@ func add_item(itemdata: ItemData, amount: int, partial_add: bool = true) -> int:
 	var total: int = amount
 	var info: Dictionary = has_item(itemdata)
 	# In case a partial add is not allowed, the quantites stored in this array are not applied to the inventory
-	var actions: Array[Dictionary] = [] 
-	if info.get(&"total") != 0:
-		for i: int in info.get(&"indices"):
+	var actions: Array[Dictionary] = []
+	actions.resize(inventory_size + hotbar_size)
+	if info.total != 0:
+		for i: int in info.indices:
 			var leftover: int = _execute_merge(i, total, true)
-			actions[i] = { &"quantity": total - leftover, &"merge": true}
+			actions[i] = { &"quantity": total - (total - leftover), &"merge": true}
 			total -= actions[i].get(&"quantity")
 			if total == 0:
 				break
 	if total > 0:
 		for i in range(inventory_size):
 			if inventory[i] == null:
-				var leftover: int = _execute_merge(i, total, true)
-				actions[i] = { &"quantity": total - leftover, &"merge": false}
+				var leftover: int = total - min(itemdata.max_quantity, total)
+				actions[i] = { &"quantity": total - (total - leftover), &"merge": false}
 				total -= actions[i].get(&"quantity")
 				if total <= 0:
 					break
 	if total <= 0 or (partial_add and total > 0):
-		for i in range(actions):
+		for i in range(actions.size()):
 			var action: Dictionary = actions[i]
+			if action.is_empty():
+				continue
 			if action.merge:
 				_set_quantity(i, action.quantity)
 			else:

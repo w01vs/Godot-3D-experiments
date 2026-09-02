@@ -123,7 +123,7 @@ input_2/break_loop_at_end = false
 input_2/reset = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_vn1u8"]
-graph_offset = Vector2(410.9051, 244.193)
+graph_offset = Vector2(54.51233, 142.47105)
 nodes/output/position = Vector2(1160, 260)
 nodes/Transition/node = SubResource("AnimationNodeTransition_nhuna")
 nodes/Transition/position = Vector2(900, 260)
@@ -162,8 +162,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
 [node name="InteractRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1710092562 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
-visible = false
-target_position = Vector3(0, -5, 0)
+target_position = Vector3(0, -7, 0)
 collision_mask = 2
 script = ExtResource("3_6ldnq")
 entity = NodePath("../../../../..")

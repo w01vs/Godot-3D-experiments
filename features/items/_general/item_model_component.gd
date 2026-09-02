@@ -1,17 +1,18 @@
 class_name ItemModelComponent extends Component
 
-var data: ItemData
+@export var data: ItemData
 var user: Entity
 
-func load(entity_: Entity, data_: ItemData) -> void:
-	data = data_
+func load(entity_: Entity) -> void:
 	user = entity_
 
 func equip() -> void:
 	_on_equip()
+	enable()
 
 func unequip() -> void:
 	_on_unequip()
+	disable()
 
 func _execute_use() -> void:
 	pass

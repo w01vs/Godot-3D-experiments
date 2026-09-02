@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b54bwceiwjxdb" path="res://core/components/physics/hitbox_component.gd" id="4_qfwc1"]
 [ext_resource type="Script" uid="uid://j5p15uhru2yv" path="res://features/items/weapons/attack_item_model_component.gd" id="5_kx4pl"]
 [ext_resource type="Resource" uid="uid://ceb1wkfww1lgw" path="res://features/items/weapons/sword/sword_hit_info.tres" id="6_0hbbe"]
+[ext_resource type="Resource" uid="uid://g64r7qaictss" path="res://features/items/weapons/sword/sword.tres" id="7_7pplc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d6wag"]
 size = Vector3(10.446039, 1.1, 2.3)
@@ -38,5 +39,6 @@ metadata/_custom_type_script = "uid://b54bwceiwjxdb"
 script = ExtResource("5_kx4pl")
 hitbox = NodePath("../HitboxComponent")
 hitinfo = ExtResource("6_0hbbe")
+data = ExtResource("7_7pplc")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://j5p15uhru2yv"

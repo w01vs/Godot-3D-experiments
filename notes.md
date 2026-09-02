@@ -3,7 +3,7 @@
         -> Fix player xz velocity cancelling too slow when opening inventory etc.
 	Inventory:
 		-> add item to inventory
-        -> query inventory for item and quantity
+        -> figure out hotbar part of inventory or no 
 	Structures:
         Crucible functionality
         -> crafting menu ui
@@ -18,6 +18,10 @@
 
 maybe ill eventually get around to making a new AI stuffs with a plugin
 then ill also make components for whatever an enemy needs. dont feel like doing it; also probably not needed?
+
+## Comment keywords
+TODO
+REMIND
 
 to find comments:
 rg -g "*.gd" -g "!addons/*" -g "!gdextension/*" -g "features/procedural/*" '#'

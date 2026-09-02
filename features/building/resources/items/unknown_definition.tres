@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("1_mj3v0")
-icon = ExtResource("2_ipfaj")
+name = &"Unknown"
 group = ExtResource("1_8j3je")
+icon = ExtResource("2_ipfaj")
 metadata/_custom_type_script = "uid://bmtsi8ddyy01i"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c4hcbgrspsqsi"]
+
+[ext_resource type="Script" uid="uid://dui6mdauvequv" path="res://features/items/_general/item_def.gd" id="1_bwd4d"]
+[ext_resource type="Texture2D" uid="uid://imhmtmvqeoem" path="res://features/items/tools/pickaxe/pickaxe.png" id="2_vwjwo"]
+
+[resource]
+script = ExtResource("1_bwd4d")
+name = "Pickaxe"
+id = "pickaxe"
+description = "picky picky pickaxe"
+model = "uid://cegwr0shcxxre"
+icon = ExtResource("2_vwjwo")
+has_animation = true
+animation_type = &"Weapon1H"
+metadata/_custom_type_script = "uid://dui6mdauvequv"

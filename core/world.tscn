@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://by7on7nhfca2w"]
 
 [ext_resource type="Script" uid="uid://du1ht7nmv50hi" path="res://core/functionality/world.gd" id="1_cp1df"]
-[ext_resource type="PackedScene" uid="uid://bhylqctimrlvv" path="res://features/items/item_float.tscn" id="2_m7mcb"]
+[ext_resource type="PackedScene" uid="uid://bhylqctimrlvv" path="res://features/items/_general/item_float.tscn" id="2_m7mcb"]
 [ext_resource type="Script" uid="uid://dnfyonyldr0v2" path="res://core/crosshair.gd" id="3_jj2bn"]
 [ext_resource type="PackedScene" uid="uid://p71w1jc720fp" path="res://features/player/ui/player_health_bar.tscn" id="3_rtxew"]
 [ext_resource type="PackedScene" uid="uid://dg4bw4q1jno8y" path="res://features/inventory/ui/inventory.tscn" id="6_jj2bn"]

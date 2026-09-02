@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://bhylqctimrlvv"]
 
 [ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_nm33o"]
-[ext_resource type="Shader" uid="uid://bbh5glh5klwkc" path="res://features/items/item_float.gdshader" id="2_p42yc"]
+[ext_resource type="Shader" uid="uid://bbh5glh5klwkc" path="res://features/items/_general/item_float.gdshader" id="2_p42yc"]
 [ext_resource type="Script" uid="uid://ccau7wq71bntj" path="res://core/components/extensions/c_meshinstance3d.gd" id="3_ggmqp"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_m1ap5"]
-[ext_resource type="Script" uid="uid://dyumppeihqtwd" path="res://features/items/item_float_component.gd" id="5_7iu4f"]
-[ext_resource type="Script" uid="uid://dn5en33odr4tg" path="res://features/items/dropped_item_interaction.gd" id="6_ggmqp"]
+[ext_resource type="Script" uid="uid://dn5en33odr4tg" path="res://features/items/_general/dropped_item_interaction.gd" id="6_ggmqp"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_8wi4a"]
 
@@ -40,11 +39,6 @@ metadata/_custom_type_script = "uid://bf01144lxbocj"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CArea3D" unique_id=1578370550]
 transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 0, 0, 0)
 shape = SubResource("SphereShape3D_nm33o")
-
-[node name="ItemFloatComponent" type="Node" parent="." unique_id=2134467742 node_paths=PackedStringArray("area", "entity")]
-script = ExtResource("5_7iu4f")
-area = NodePath("../CArea3D")
-entity = NodePath("..")
 
 [node name="DroppedItemInteractionComponent" type="Node" parent="." unique_id=1473197495 node_paths=PackedStringArray("collision_shape", "entity")]
 script = ExtResource("6_ggmqp")

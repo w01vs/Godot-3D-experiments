@@ -75,7 +75,7 @@ func handle_event(event: InputEvent) -> bool:
 				handle_debug_input(action)
 				return true
 			if action.requirements.validate():
-				event_bus.raise(action.event)
+				event_bus.emit(action.event)
 				return true
 	return false
 
@@ -92,7 +92,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			mouse_motion_event.relative = event.relative
 			mouse_motion_event.screen_relative = event.screen_relative
-			event_bus.raise(mouse_motion_event)
+			event_bus.emit(mouse_motion_event)
 			get_viewport().set_input_as_handled()
 	else:
 		if handle_mouse_input(event):
@@ -107,7 +107,7 @@ func handle_mouse_input(event: InputEvent) -> bool:
 			action_flag = event.is_action_pressed(action.name)
 		if action_flag:
 			if action.requirements.validate():
-				event_bus.raise(action.event)
+				event_bus.emit(action.event)
 				return true
 	return false
 
@@ -118,8 +118,8 @@ func disable() -> void:
 	event_bus.disable()
 
 func subscribe(event_type: Script, callback: Callable) -> void:
-	assert(event_bus.is_valid_event(event_type, CustomInputEvent))
-	if !event_bus.is_valid_event(event_type, CustomInputEvent):
+	assert(Utils.is_of_type(event_type, CustomInputEvent))
+	if !Utils.is_of_type(event_type, CustomInputEvent):
 		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])
 		return
 	event_bus.subscribe(event_type, callback, def)

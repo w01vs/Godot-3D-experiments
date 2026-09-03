@@ -1,20 +1,17 @@
 ### TO DO:
     Player: 
         -> Fix player xz velocity cancelling too slow when opening inventory etc.
-	Inventory:
-		-> add item to inventory
-        -> figure out hotbar part of inventory or no 
+            * this is annoying cus xz velocity can be rotated and the total vector needs to be lowered.
+            * have to do some math to get the proportional xz components of the xz velocity to cancel it
 	Structures:
         Crucible functionality
         -> crafting menu ui
         -> recipe resources
         -> crafting component
 	Items:
-        -> picking up dropped items
         -> merging dropped items if they overlap on the ground
     Components:
         -> add interaction component hover stuff (billboard label)
-		
 
 maybe ill eventually get around to making a new AI stuffs with a plugin
 then ill also make components for whatever an enemy needs. dont feel like doing it; also probably not needed?

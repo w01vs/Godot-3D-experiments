@@ -14,7 +14,7 @@ var health: float:
 	set(value):
 		health = value
 		clamp(health, 0, max_health)
-		entity.raise_global(HealthChangedEvent.new(self, health, health / max_health))
+		emit(HealthChangedEvent.new(self, health, health / max_health))
 		health_0()
 
 var increasing_over_time: bool = false
@@ -31,7 +31,7 @@ var decrease_total_ticks: float = 0
 
 func _init_component() -> void:
 	health = max_health
-	entity.subscribe(self, DamageEntityEvent, take_hit)
+	subscribe(DamageEntityEvent, take_hit)
 
 func take_hit(event: DamageEntityEvent) -> void:
 	if event.damage_info:

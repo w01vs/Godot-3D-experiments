@@ -4,7 +4,7 @@ class_name World extends Node3D
 @export var floating_item: PackedScene
 
 func _ready() -> void:
-	EventBus.raise(WorldLoadedEvent.new(self))
+	EventBus.emit(WorldLoadedEvent.new(self))
 	EventBus.subscribe(DropItemEvent, drop_item)
 
 func drop_item(event: DropItemEvent) -> void:

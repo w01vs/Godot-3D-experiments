@@ -10,10 +10,10 @@ var item_cache: Array[Entity]
 var using_held_item: bool
 
 func _init_component() -> void:
-	entity.subscribe_global(self, PlayerInventoryLoadedEvent, initialise)
-	entity.subscribe_global(self, HotbarActiveChangedEvent, swap_item)
-	entity.subscribe_global(self, WorldLoadedEvent, _link_input)
-	entity.subscribe(self, AnimationTypeChangeEntityEvent, _set_animation_type)
+	subscribe(PlayerInventoryLoadedEvent, initialise)
+	subscribe(HotbarActiveChangedEvent, swap_item)
+	subscribe(WorldLoadedEvent, _link_input)
+	subscribe(AnimationTypeChangeEntityEvent, _set_animation_type)
 
 func _set_animation_type(event: AnimationTypeChangeEntityEvent) -> void:
 	animation_tree.set("parameters/Transition/transition_request", event.type)
@@ -65,7 +65,7 @@ func on_active_item_swap(index: int) -> void:
 		held_item.unequip()
 	if !item_cache[index]:
 		# Set current animation to default (should be an idle/walk/run state)
-		entity.raise_local(AnimationTypeChangeEntityEvent.new(self, str(AnimationType.CUSTOM)))
+		emit(AnimationTypeChangeEntityEvent.new(self, str(AnimationType.CUSTOM)))
 		return
 	if !item_cache[index].has_component(ItemModelComponent):
 		assert(false)
@@ -77,9 +77,9 @@ func on_active_item_swap(index: int) -> void:
 	#remote_transform.force_update_cache()
 	#remote_transform.force_update_transform()
 	if held_item.data.has_animation:
-		entity.raise_local(AnimationTypeChangeEntityEvent.new(self, str(held_item.data.animation_type)))
+		emit(AnimationTypeChangeEntityEvent.new(self, str(held_item.data.animation_type)))
 	else:
-		entity.raise_local(AnimationTypeChangeEntityEvent.new(self, str(AnimationType.CUSTOM)))
+		emit(AnimationTypeChangeEntityEvent.new(self, str(AnimationType.CUSTOM)))
 
 func swap_item(event: HotbarActiveChangedEvent) -> void:
 	on_active_item_swap.call_deferred(event.index)

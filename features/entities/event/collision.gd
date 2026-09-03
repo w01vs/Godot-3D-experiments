@@ -1,4 +1,4 @@
-class_name CollisionEntityEvent extends EntityEvent
+@abstract class_name CollisionEntityEvent extends EntityEvent
 
 var data: CollisionData
 

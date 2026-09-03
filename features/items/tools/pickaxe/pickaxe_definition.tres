@@ -9,6 +9,7 @@ name = "Pickaxe"
 id = "pickaxe"
 description = "picky picky pickaxe"
 model = "uid://cegwr0shcxxre"
+dropped_model = "uid://cegwr0shcxxre"
 icon = ExtResource("2_vwjwo")
 has_animation = true
 animation_type = &"Weapon1H"

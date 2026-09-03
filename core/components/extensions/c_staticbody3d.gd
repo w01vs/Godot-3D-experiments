@@ -9,8 +9,14 @@ func _ready() -> void:
 		collision_mask = 0
 		add_to_group(Groups.CUSTOM_COLLISION_OBJECT)
 
-func hit(data: CollisionData) -> void:
-	entity.raise_local(CollisionEntityEvent.new(self, data))
+func enter(data: CollisionData) -> void:
+	entity.emit_local(CollisionEnteredEntityEvent.new(self, data))
+
+func oneshot(data: CollisionData) -> void:
+	entity.emit_local(CollisionOneshotEntityEvent.new(self, data))
+
+func exit(data: CollisionData) -> void:
+	entity.emit_local(CollisionExitEntityEvent.new(self, data))
 
 func cset_collision_mask_value(value: int, on: bool) -> void:
 	set_collision_mask_value(value, on)

@@ -19,11 +19,12 @@ var snapping: bool = false
 
 func _init_component() -> void:
 	InputManager.subscribe(BuildInputEvent, _open_build_menu)
-	entity.raise_global(BuildComponentReadyEvent.new(self, bindings, _get_ui_data()))
-	entity.subscribe_global(self, WorldLoadedEvent, set_world)
+	emit(BuildComponentReadyEvent.new(self, bindings, _get_ui_data()))
+	subscribe(WorldLoadedEvent, set_world)
 	InputManager.subscribe(PlaceInputEvent, place)
 	InputManager.subscribe(SnapInputEvent, _snap)
 	ray.target_position.y = -15
+	ray.disable()
 	ray.cset_collision_mask_value(CollisionLayer.TERRAIN, true)
 	ray.cset_collision_mask_value(CollisionLayer.STRUCTURE, true)
 	ray.set_area_collision(true)
@@ -35,11 +36,11 @@ func set_world(event: WorldLoadedEvent) -> void:
 func _open_build_menu(_event: BuildInputEvent) -> void:
 	if !open:
 		ContextManager.push_player_state(PlayerContext.State.BUILDING)
-		entity.raise_global(BuildMenuOpenEvent.new(self))
+		emit(BuildMenuOpenEvent.new(self))
 		InputManager.release_mouse()
 	else:
 		ContextManager.pop_player_state()
-		entity.raise_global(BuildMenuCloseEvent.new(self))
+		emit(BuildMenuCloseEvent.new(self))
 		InputManager.capture_mouse()
 		building = false
 		if structure:
@@ -54,7 +55,8 @@ func set_structure(id: int) -> void:
 	structure_comp = structure.get_component(StructureComponent)
 	structure_comp.set_collision(false)
 	building = true
-	entity.raise_global(BuildMenuCloseEvent.new(self))
+	emit(BuildMenuCloseEvent.new(self))
+	ray.enable()
 	InputManager.capture_mouse()
 
 func _get_ui_data() -> Array[UIBuildItemView]:

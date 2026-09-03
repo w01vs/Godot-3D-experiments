@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dhe53nqofut4a" path="res://features/terrain/terrain_component.gd" id="5_3xqkf"]
 [ext_resource type="Resource" uid="uid://cqievoarjvi54" path="res://features/items/resources/rock_base/rock_resource.tres" id="5_7dg4j"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8gsh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7dg4j"]
 cull_mode = 2
 shading_mode = 0
 albedo_color = Color(0, 0, 0, 1)
@@ -22,7 +22,7 @@ material_override = ExtResource("2_7dg4j")
 metadata/ring = PackedVector3Array(0.88036, -0.17047656, -1.51883, 1.35556, -0.17047656, -0.98473, 1.46162, -0.17047656, -0.81553, 1.69882, -0.17047656, -0.24293, 1.63777, -0.17047656, 0.32829, 1.05497, -0.17047656, 1.16989, 0.79132, -0.17047656, 1.38263, 0.08422, -0.17047656, 1.67553, -0.37509, -0.17047656, 1.67549, -0.80199, -0.17047656, 1.49859, -0.89638, -0.17047656, 1.44925, -1.56448, -0.17047656, 1.02045, -1.8404, -0.17047656, 0.5155, -1.8404, -0.17047656, 0.4824, -1.81366, -0.17047656, 0.30526, -1.63546, -0.17047656, -0.27144, -1.61409, -0.17047656, -0.32972, -1.40439, -0.17047656, -0.82132, -1.13513, -0.17047656, -1.11516, -0.42803, -0.17047656, -1.49276, -0.30234, -0.17047656, -1.54261, 0.27516, -0.17047656, -1.69911)
 
 [node name="RingRenderer" type="MeshInstance3D" parent="rock" index="0" unique_id=1296068133]
-material_override = SubResource("StandardMaterial3D_b8gsh")
+material_override = SubResource("StandardMaterial3D_7dg4j")
 mesh = SubResource("ImmediateMesh_7dg4j")
 script = ExtResource("2_b8gsh")
 

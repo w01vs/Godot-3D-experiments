@@ -16,8 +16,8 @@ func _ready() -> void:
 	assert(entity != null, "Component %s at %s requires an entity it is attached to." % [ name, get_path() ])
 	assert(entity.is_ancestor_of(self), "Component %s at %s requires its entity to be an ancestor."% [ name, get_path() ] )
 	entity.register(self)
-	entity.subscribe(self, EntityLoadedEvent, _on_entity_load)
-	entity.raise_local(ComponentRegisteredEntityEvent.new(self))
+	subscribe(EntityLoadedEvent, _on_entity_load)
+	emit(ComponentRegisteredEntityEvent.new(self))
 	_init_component()
 
 ## Called when the parent entity finished loading.
@@ -57,4 +57,13 @@ func _on_disable() -> void:
 	pass
 
 func subscribe(event: Script, callback: Callable, prio: EventBase.Priority = EventBase.Priority.BASE) -> void:
-	entity.subscribe(self, event, callback, prio)
+	if Utils.is_of_type(event, EntityEvent, EventBase):
+		entity.subscribe(self, event, callback, prio)
+	else:
+		entity.subscribe_global(self, event, callback, prio)
+
+func emit(event: EventBase) -> void:
+	if event is EntityEvent:
+		entity.emit_local(event)
+	else:
+		entity.emit_global(event)

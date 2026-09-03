@@ -6,4 +6,4 @@ func _interact(event: CollisionEntityEvent) -> void:
 	if event.data is InteractionData:
 		var data: InteractionData = event.data as InteractionData
 		if !data.hover:
-			event.data.source.raise_local(DamageEntityEvent.new(self, damage_info, entity))
+			event.data.source.emit_local(DamageEntityEvent.new(self, damage_info, entity))

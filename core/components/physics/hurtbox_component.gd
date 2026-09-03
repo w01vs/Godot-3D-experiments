@@ -3,7 +3,7 @@ class_name HurtboxComponent extends Component
 @export var area: CollisionObject3D
 
 func _init_component() -> void:
-	entity.subscribe(self, CollisionEntityEvent, hit)
+	subscribe(CollisionEnteredEntityEvent, hit)
 	_shape_initialise()
 
 func _shape_initialise() -> void:
@@ -12,4 +12,4 @@ func _shape_initialise() -> void:
 
 func hit(data: CollisionData) -> void:
 	if data is HitData:
-		entity.raise_local(DamageEntityEvent.new(self, data.info, data.source))
+		emit(DamageEntityEvent.new(self, data.info, data.source))

@@ -17,9 +17,15 @@ func _ready() -> void:
 			shapes.append(node)
 		if shapes.size() > 1:
 			push_warning("CArea3D with more than 1 CollisionShape3D at %s" % [str(self)])
-		
-func hit(data: CollisionData) -> void:
-	entity.raise_local(CollisionEntityEvent.new(self, data))
+
+func enter(data: CollisionData) -> void:
+	entity.emit_local(CollisionEnteredEntityEvent.new(self, data))
+
+func oneshot(data: CollisionData) -> void:
+	entity.emit_local(CollisionOneshotEntityEvent.new(self, data))
+
+func exit(data: CollisionData) -> void:
+	entity.emit_local(CollisionExitEntityEvent.new(self, data))
 
 func cset_collision_mask_value(value: int, on: bool) -> void:
 	if collision_mask == 0 and on:

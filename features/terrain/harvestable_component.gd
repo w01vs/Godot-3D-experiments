@@ -11,7 +11,7 @@ var front_back_offset: Vector2 = Vector2(-0.2, 0.3)
 var inverse_xform: Transform3D
 
 func _init_component() -> void:
-	subscribe(CollisionEntityEvent, _harvest)
+	subscribe(CollisionEnteredEntityEvent, _harvest)
 	_initialise_body()
 	assert(item)
 	assert(quantity > 0)
@@ -24,7 +24,7 @@ func _on_entity_load(_event: EntityLoadedEvent) -> void:
 
 func _harvest(event: CollisionEntityEvent) -> void:
 	if event.data is CollisionData:
-		entity.raise_global(DropItemEvent.new(self, item, quantity, get_terrain_drop_point(event.data.source.global_position)))
+		emit(DropItemEvent.new(self, item, quantity, get_terrain_drop_point(event.data.source.global_position)))
 
 func _initialise_body() -> void:
 	body.cset_collision_layer_value(CollisionLayer.HARVESTABLE, true)

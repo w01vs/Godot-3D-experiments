@@ -11,4 +11,5 @@ func _interact(event: CollisionEntityEvent) -> void:
 	if event.data is InteractionData:
 		if event.data.source.has_component(InventoryComponent):
 			var inv: InventoryComponent = event.data.source.get_component(InventoryComponent)
-			inv.add_item(item, quantity)
+			if inv.add_item(item, quantity) <= 0:
+				entity.queue_free()

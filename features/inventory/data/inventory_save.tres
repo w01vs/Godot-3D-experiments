@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://q01afo7phrd3" path="res://features/inventory/data/slot_data.gd" id="1_w2soh"]
 [ext_resource type="Resource" uid="uid://c4hcbgrspsqsi" path="res://features/items/tools/pickaxe/pickaxe_definition.tres" id="2_03877"]
-[ext_resource type="Resource" uid="uid://celqxnhs7ffvn" path="res://features/items/weapons/sword/sword_definition.tres" id="2_t5ve6"]
 [ext_resource type="Script" uid="uid://db0f6crhrcbd7" path="res://features/inventory/data/inventory_save.gd" id="2_wf2kk"]
 
 [sub_resource type="Resource" id="Resource_wov6g"]
@@ -11,14 +10,8 @@ item_data = ExtResource("2_03877")
 quantity = 1
 metadata/_custom_type_script = "uid://q01afo7phrd3"
 
-[sub_resource type="Resource" id="Resource_lhcr5"]
-script = ExtResource("1_w2soh")
-item_data = ExtResource("2_t5ve6")
-quantity = 1
-metadata/_custom_type_script = "uid://q01afo7phrd3"
-
 [resource]
 script = ExtResource("2_wf2kk")
-main_inventory = Array[ExtResource("1_w2soh")]([SubResource("Resource_wov6g"), null, SubResource("Resource_lhcr5"), null, null, null, null, null, null, null, null, null])
+main_inventory = Array[ExtResource("1_w2soh")]([SubResource("Resource_wov6g"), null, null, null, null, null, null, null, null, null, null, null])
 hotbar = Array[ExtResource("1_w2soh")]([null, null, null, null])
 metadata/_custom_type_script = "uid://db0f6crhrcbd7"

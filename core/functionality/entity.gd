@@ -11,7 +11,7 @@ var active: bool = true
 func _ready() -> void:
 	event_bus.enable()
 	event_bus.release_events()
-	event_bus.raise(EntityLoadedEvent.new(self))
+	event_bus.emit(EntityLoadedEvent.new(self))
 
 func register(component: Component) -> void:
 	for s in find_bases(component.get_script(), true):
@@ -53,22 +53,22 @@ func find_bases(script: Script, removing: bool) -> Array[Script]:
 	return scripts
 
 func subscribe(component: Component, event_type: Script, callback: Callable, prio: EventBase.Priority = EventBase.Priority.BASE) -> void:
-	assert(event_bus.is_valid_event(event_type, EntityEvent))
-	if !event_bus.is_valid_event(event_type, EntityEvent):
+	assert(Utils.is_of_type(event_type, EntityEvent))
+	if !Utils.is_of_type(event_type, EntityEvent):
 		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])
 		return
 	event_bus.subscribe(event_type, callback, component.is_active, prio)
 
 func unsubscribe(event_type: Script, callback: Callable) -> void:
-	assert(event_bus.is_valid_event(event_type, EntityEvent))
-	if !event_bus.is_valid_event(event_type, EntityEvent):
+	assert(Utils.is_of_type(event_type, EntityEvent))
+	if !Utils.is_of_type(event_type, EntityEvent):
 		push_error("Event %s is not a valid entity event" % [ event_type.get_global_name() ])
 	event_bus.unsubscribe(event_type, callback)
 
-func raise_local(event: EntityEvent) -> void:
+func emit_local(event: EntityEvent) -> void:
 	if !active:
 		return
-	event_bus.raise(event)
+	event_bus.emit(event)
 
 func subscribe_global(component: Component, event_type: Script, callback: Callable, priority: EventBase.Priority = EventBase.Priority.BASE) -> void:
 	if !global_subscriptions_.has(event_type):
@@ -89,11 +89,11 @@ func unsubcribe_global(event_type: Script, callback: Callable) -> void:
 			callbacks.pop_back()
 			return
 
-func raise_global(event: Event) -> void:
+func emit_global(event: Event) -> void:
 	if !active:
 		return
 	event.source = self
-	EventBus.raise(event)
+	EventBus.emit(event)
 
 func _callback_internal(event: EventBase) -> void:
 	var event_type: Script = event.get_script()

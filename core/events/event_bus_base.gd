@@ -39,7 +39,7 @@ func unsubscribe(event_type: Script, callback: Callable) -> void:
 					
 					
 
-func raise(event: EventBase) -> void:
+func emit(event: EventBase) -> void:
 	if !active: 
 		return
 	if hold: 
@@ -60,9 +60,9 @@ func raise(event: EventBase) -> void:
 						subscribers[i] = subscribers[subscribers.size() - 1]
 						subscribers.pop_back()
 
-func _raise_held() -> void:
+func _emit_held() -> void:
 	for event: EventBase in dispatch_held:
-		raise(event)
+		emit(event)
 	dispatch_held.clear()
 
 func enable() -> void:
@@ -76,17 +76,9 @@ func hold_events() -> void:
 
 func release_events() -> void:
 	hold = false
-	_raise_held()
+	_emit_held()
 
-func is_valid_event(event: Script, valid_event: Script) -> bool:
-	if event.get_base_script() == valid_event:
-		return true
-	var current_script: Script = event
-	while current_script != valid_event:
-		current_script = current_script.get_base_script()
-		if current_script == valid_event:
-			return true
-	return false
+
 
 func has_callback(array: Array[Subscriber], callback: Callable) -> bool:
 	for sub in array:

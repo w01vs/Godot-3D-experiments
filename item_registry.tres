@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Registry" format=3 uid="uid://bbfics7y7w4so"]
+
+[ext_resource type="Script" uid="uid://dqtv77mng5dyh" path="res://addons/yard/registry.gd" id="1_vqrg4"]
+
+[resource]
+script = ExtResource("1_vqrg4")
+_version = 2
+_scan_rulesets = Array[Dictionary]([{
+&"allowed_file_extensions": Array[String]([".tres"]),
+&"class_restrictions": Array[StringName]([&"ItemData"]),
+&"recursive_scan": true,
+&"scan_directories": Array[String](["res://features/items"]),
+&"scan_regex_exclude": "",
+&"scan_regex_include": ""
+}])
+_uids_to_string_ids = Dictionary[StringName, StringName]({
+&"uid://c4hcbgrspsqsi": &"pickaxe_definition",
+&"uid://celqxnhs7ffvn": &"sword_definition",
+&"uid://cqievoarjvi54": &"rock_resource"
+})
+_string_ids_to_uids = Dictionary[StringName, StringName]({
+&"pickaxe_definition": &"uid://c4hcbgrspsqsi",
+&"rock_resource": &"uid://cqievoarjvi54",
+&"sword_definition": &"uid://celqxnhs7ffvn"
+})

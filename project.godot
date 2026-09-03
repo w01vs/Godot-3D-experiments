@@ -57,7 +57,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/icon_generator/plugin.cfg", "res://addons/mesh-rings/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/icon_generator/plugin.cfg", "res://addons/mesh-rings/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/yard/plugin.cfg")
 
 [file_customization]
 

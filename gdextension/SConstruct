@@ -1,10 +1,65 @@
+import os
+from pathlib import Path
 
+gdtarget = ARGUMENTS.get("gdtarget", "").lower()
 env = SConscript('godot-cpp/SConstruct')
 
-env.Append(CPPPATH="src/")
+if gdtarget == "worldgen":
+    lib_name = "libworldgen"
+    base_src_dir = "src/worldgen"
+    env.Append(CPPPATH=["src/worldgen/"])
+elif gdtarget == "component":
+    lib_name = "libcomponent"
+    base_src_dir = "src/component"
+    env.Append(CPPPATH=["src/component/"])
+elif gdtarget == "":
+    print("No target extension specified. Use gdtarget={name} to specify which extension to compile. \nOptions are:\nworldgen\ncomponent")
+    Exit(1)
+else:
+    # Fixed bug: changed undefined variable 'target' to 'gdtarget'
+    print(f"Error: Unknown gdtarget '{gdtarget}'. \nOptions are:\nworldgen\ncomponent")
+    Exit(1)
 
-src = Glob("src/*.cpp")
 
-libpath = '../libtest{}{}'.format( env['suffix'], env['SHLIBSUFFIX'])
-sharedlib = env.SharedLibrary(libpath, src)
-Default(sharedlib)
+requested_target = ARGUMENTS.get("target", "all").lower()
+
+targets_to_build = []
+
+# Helper function to construct a specific build environment clone
+def build_variant(base_env, target_type):
+    variant_env = base_env.Clone()
+    variant_env['target'] = target_type
+
+    # Force SCons to re-evaluate suffixes for the cloned environment
+    if target_type == "template_debug":
+        variant_env['suffix'] = f".{variant_env['platform']}.template_debug.{variant_env['arch']}"
+    elif target_type == "template_release":
+        variant_env['suffix'] = f".{variant_env['platform']}.template_release.{variant_env['arch']}"
+
+    # 1. Map source folder to isolated build variant directory
+    build_dir = f"build/{gdtarget}/{target_type}"
+    variant_env.VariantDir(build_dir, base_src_dir, duplicate=0)
+
+    # 2. Find real files in src/ and map them into explicit variant_env.File() nodes in build/
+    raw_sources = list(Path(base_src_dir).rglob("*.cpp"))
+    src_files = []
+    for src_path in raw_sources:
+        rel_path = src_path.relative_to(base_src_dir)
+        build_node_path = Path(build_dir) / rel_path
+        src_files.append(variant_env.File(str(build_node_path)))
+
+    # 3. Format output filename
+    custom_suffix = variant_env['suffix'].replace('template_debug', 'debug').replace('template_release', 'release')
+    libpath = '../bin/{}{}{}'.format(lib_name, custom_suffix, variant_env['SHLIBSUFFIX'])
+    
+    return variant_env.SharedLibrary(libpath, src_files)
+
+# Build both by default, or build only the requested target if specified
+if requested_target in ["all", "template_debug"]:
+    targets_to_build.append(build_variant(env, "template_debug"))
+
+if requested_target in ["all", "template_release"]:
+    targets_to_build.append(build_variant(env, "template_release"))
+
+# Set default targets for SCons
+Default(targets_to_build)

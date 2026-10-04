@@ -4,6 +4,7 @@
 #include <godot_cpp/variant/dictionary.hpp>
 #include "event_bus_base.hpp"
 #include <godot_cpp/variant/typed_dictionary.hpp>
+#include <cassert>
 
 #define register() register_component()
 
@@ -31,9 +32,9 @@ class Entity : public Node3D {
         bool has_component(Ref<Script> script);
         void remove_component(Ref<Component> component);
 
-        TypedArray<Script> find_bases(Ref<Script> script);
+        TypedArray<Script> find_bases(Ref<Script> p_script, bool removing = false);
 
-        void subscribe();
+        void subscribe(Ref<Component> component, Ref<Script> event_type, Ref<Callable> callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
         void unsubscribe();
 
         void emit_local();

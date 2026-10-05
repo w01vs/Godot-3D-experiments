@@ -1,0 +1,11 @@
+[configuration]
+
+entry_symbol = "worldgen_library_init"
+compatibility_minimum = "4.1"
+
+[libraries]
+
+linux.debug.x86_64 = "res://libworldgen.linux.debug.x86_64.so"
+linux.release.x86_64 = "res:///libworldgen.linux.release.x86_64.so"
+windows.debug.x86_64 = "res://libworldgen.windows.debug.x86_64.dll"
+windows.release.x86_64 = "res:///libworldgen.windows.release.x86_64.dll"

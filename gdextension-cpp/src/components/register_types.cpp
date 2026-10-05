@@ -6,10 +6,11 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "event_base.hpp"
-#include "event_bus_base.hpp"
+#include "event/event_base.hpp"
+#include "event/event_bus_base.hpp"
 #include "entity.hpp"
 #include "component_area3d.hpp"
+#include "event/global_event.hpp"
 
 using namespace godot;
 
@@ -20,8 +21,11 @@ void initialize_module(ModuleInitializationLevel p_level) {
 	
 	// ClassDB::register_class<TerrainChunk>();
 	ClassDB::register_abstract_class<EventBase>();
+	ClassDB::register_abstract_class<GlobalEventGD>();
+	ClassDB::register_abstract_class<EntityEventGD>();
 	ClassDB::register_class<EventBusBase::Subscriber>();
 	ClassDB::register_class<EventBusBase>();
+	ClassDB::register_abstract_class<Component>();
 	ClassDB::register_class<Entity>();
 	ClassDB::register_class<ComponentArea3D>();
 }

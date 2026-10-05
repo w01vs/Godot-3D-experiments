@@ -20,7 +20,7 @@ void EventBusBase::_bind_methods() {
     BIND_ENUM_CONSTANT(POST);
 }
 
-void EventBusBase::subscribe(const Ref<Script> &p_event_type, const Ref<Callable> &p_callback, const Callable &p_conditions, Priority p_priority) {
+void EventBusBase::subscribe(const Ref<Script> &p_event_type, const Ref<Callable> &p_callback, const Ref<Callable> &p_conditions, Priority p_priority) {
     if (p_event_type.is_null()) {
         return;
     }

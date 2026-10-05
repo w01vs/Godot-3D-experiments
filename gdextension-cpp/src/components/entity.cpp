@@ -1,28 +1,34 @@
 #include "entity.hpp"
 #include "component.hpp"
-#include "godot_cpp/variant/typed_array.hpp"
 #include "godot_cpp/variant/utility_functions.hpp"
+#include "utils/utils.hpp"
 
-void Entity::_ready() {
-    event_bus.enable();
-    event_bus.release_events();
+Entity::Entity() {
+    Ref<EntityEventGD> ref;
+    ref.instantiate();
+    entity_event_script = ref->get_script();
 }
 
-void Entity::register_component(Ref<Component> component) {
+void Entity::_ready() {
+    local_event_bus.enable();
+    local_event_bus.release_events();
+}
+
+void Entity::register_component(const Ref<Component>& component) {
     for(Ref<Script> script : find_bases(component->get_script())) {
         component_map.set(script, component);
     }
 }
 
-Ref<Component> Entity::get_component(Ref<Script> script) {
+Ref<Component> Entity::get_component(const Ref<Script>& script) {
     return component_map.get(script, Variant());
 }
 
-bool Entity::has_component(Ref<Script> script) {
+bool Entity::has_component(const Ref<Script>& script) {
     return component_map.has(script);
 }
 
-void Entity::remove_component(Ref<Component> component) {
+void Entity::remove_component(const Ref<Component>& component) {
     for(Ref<Script> script : find_bases(component->get_script())) {
         if(get_component(script) == component)
             component_map.erase(component->get_script());
@@ -44,7 +50,7 @@ void Entity::remove_component(Ref<Component> component) {
     }
 }
 
-TypedArray<Script> Entity::find_bases(Ref<Script> p_script, bool removing) {
+TypedArray<Script> Entity::find_bases(const Ref<Script>& p_script, bool removing) {
     Ref<Script> current = p_script;
     TypedArray<Script> scripts = TypedArray<Script>();
     while(Object::cast_to<Component>(current.ptr())) {
@@ -59,34 +65,90 @@ TypedArray<Script> Entity::find_bases(Ref<Script> p_script, bool removing) {
     return scripts;
 }
 
-void Entity::subscribe(Ref<Component> component, Ref<Script> event_type, Ref<Callable> callback, EventBusBase::Priority priority) {
-
-    event_bus.unsubscribe(event_type, callback, component->is_active(), priority);
+void Entity::subscribe(const Ref<Component>& component, const Ref<Script>& event_type, const Ref<Callable>& callback, EventBusBase::Priority priority) {
+    assert(Utils::is_of_type(event_type, EntityEventGD::get_script(), EventBase::get_script()));
+    if(Utils::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT)) {
+        UtilityFunctions::push_error("Event %s is not a valid entity event", event_type->get_global_name());
+        return;
+    }
+    local_event_bus.subscribe(event_type, callback, Callable{component.ptr(), "is_active"}, priority);
 }
 
-void Entity::unsubscribe() {
+void Entity::unsubscribe(const Ref<Script>& event_type, const Ref<Callable>& callback) {
+    assert(Utils::is_of_type(event_type, EntityEventGD::get_script(), EventBase::get_script()));
+    if(Utils::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT)) {
+        UtilityFunctions::push_error("Event %s is not a valid entity event", event_type->get_global_name());
+        return;
+    }
+    local_event_bus.unsubscribe(event_type, callback);
+}
+
+void Entity::emit_local(const Ref<EntityEventGD>& event) {
+    if(!active) return;
+    local_event_bus.emit(event);
+}
+
+void Entity::subscribe_global(const Ref<Component>& component, const Ref<Script>& event_type, const Ref<Callable>& callback, EventBusBase::Priority priorit) {
+    if(!global_subscriptions.has(event_type))
+        global_subscriptions[event_type] = TypedArray<Callable>{};
+    TypedArray<Callable> arr = global_subscriptions[event_type];
+    if(!arr.has(callback)) {
+        arr.append(callback);
+        // EventBus.subscribe(...)
+    }
 
 }
 
-void Entity::emit_local() {
+void Entity::unsubscribe_global(const Ref<Script>& event_type, const Ref<Callable>& callback) {
+    // EventBus.unsubscribe()
+    TypedArray<Callable> callbacks = global_subscriptions[event_type];
+    for(int i = 0; i < callbacks.size(); i++) {
+        Ref<Callable> cb = callbacks.get(i);
+        if(!cb.is_valid())
+            continue;
+        if(cb == callback) {
+            callbacks[i] = callbacks[callbacks.size() - 1];
+            callbacks.pop_back();
+            return;
+        }
+    }
 
 }
 
-void Entity::emit_global() {
+void Entity::emit_global(const Ref<GlobalEventGD>& event) {
+    if(!active) return;
+    event->set_source(this);
+    // EventBus.emit(event);
 
 }
 
-void Entity::callback_internal() {
-
+void Entity::callback_internal(const Ref<EventBase>& event) {
+    Ref<Script> event_type = event->get_script();
+    if(global_subscriptions.has(event_type)) {
+        TypedArray<Callable> callbacks = global_subscriptions[event_type];
+        for(int i = callbacks.size(); i >= 0; i--) {
+            Ref<Callable> cb = callbacks.get(i);
+            if(cb.is_valid())
+                cb->call(event);
+            else {
+                callbacks[i] = callbacks[callbacks.size() - 1];
+                callbacks.pop_back();
+            }
+        }
+    }
 }
 
 void Entity::enable() {
     this->show();
-    active = false;
+    active = true;
+    set_process_mode(Node::PROCESS_MODE_PAUSABLE);
+    local_event_bus.enable();
 }
 
 void Entity::disable() {
     this->hide();
     active = false;
+    set_process_mode(Node::PROCESS_MODE_DISABLED);
+    local_event_bus.disable();
 }
 

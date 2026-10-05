@@ -20,9 +20,9 @@ class EventBase : public Resource {
         EventBase() = default;
         ~EventBase() = default;
 
-        static Ref<EventBase> create(Ref<Node> p_source);
+        static Ref<EventBase> create(const Ref<Node>& p_source);
 
-        void set_source(Ref<Node> p_source) { source = p_source; };
+        void set_source(const Ref<Node>& p_source) { source = p_source; };
         Ref<Node> get_source() const { return source; };
 
         uint64_t get_debug_id() const { return debug_id; }

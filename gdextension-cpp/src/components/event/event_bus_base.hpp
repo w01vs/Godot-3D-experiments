@@ -53,7 +53,7 @@ public:
     EventBusBase() = default;
     ~EventBusBase() = default;
 
-    void subscribe(const Ref<Script> &p_event_type, const Ref<Callable> &p_callback, const Callable &p_conditions, Priority p_priority = BASE);
+    void subscribe(const Ref<Script> &p_event_type,  const Ref<Callable>& p_callback, const Ref<Callable>& p_conditions, Priority p_priority = BASE);
     void unsubscribe(const Ref<Script> &p_event_type, const Ref<Callable> &p_callback);
     void emit(const Ref<EventBase> &p_event);
 

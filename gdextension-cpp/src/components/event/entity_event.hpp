@@ -8,7 +8,7 @@ class EntityEventGD : public EventBase {
 
     private:
         Ref<Script> type;
-        static Ref<EntityEventGD> create(Ref<Node> p_source);
+        static Ref<EntityEventGD> create(const Ref<Node>& p_source);
 
     public:
         EntityEventGD() = default;

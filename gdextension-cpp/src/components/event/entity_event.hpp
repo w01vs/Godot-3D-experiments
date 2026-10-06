@@ -4,13 +4,16 @@
 #include "godot_cpp/classes/node.hpp"
 
 class EntityEventGD : public EventBase {
-    GDCLASS(EntityEventGD, EventBase)
+	GDCLASS(EntityEventGD, EventBase)
 
-    private:
-        Ref<Script> type;
-        static Ref<EntityEventGD> create(const Ref<Node>& p_source);
+private:
+	Ref<Script> type;
+	static Ref<EntityEventGD> create(Node *p_source);
 
-    public:
-        EntityEventGD() = default;
-        ~EntityEventGD() = default;
+protected:
+	static void _bind_methods();
+
+public:
+	EntityEventGD() = default;
+	~EntityEventGD() = default;
 };

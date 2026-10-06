@@ -9,5 +9,8 @@ class GlobalEventGD : public EventBase {
         GlobalEventGD() = default;
         ~GlobalEventGD() = default;
     
-        static Ref<GlobalEventGD> create(const Ref<Node>& p_source);
+        static Ref<GlobalEventGD> create(Node* p_source);
+    
+    protected:
+        static void _bind_methods();
 };

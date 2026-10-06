@@ -11,19 +11,18 @@ class EventBase : public Resource {
     GDCLASS(EventBase, Resource)
 
     private:
-        Ref<Node> source;
+        Node* source;
         uint64_t debug_id = 0;
     
     protected:
         static void _bind_methods();
     public:
-        EventBase() = default;
-        ~EventBase() = default;
+        virtual ~EventBase() = default;
 
-        static Ref<EventBase> create(const Ref<Node>& p_source);
+        static Ref<EventBase> create(Node* p_source);
 
-        void set_source(const Ref<Node>& p_source) { source = p_source; };
-        Ref<Node> get_source() const { return source; };
+        void set_source(Node* p_source) { source = p_source; };
+        Node* get_source() const { return source; };
 
         uint64_t get_debug_id() const { return debug_id; }
 

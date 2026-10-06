@@ -7,24 +7,27 @@
 using namespace godot;
 
 class EventBus : public Node {
-    GDCLASS(EventBus, Node)
-    public:
-        static Ref<EventBus> get_singleton();
-        static Ref<Script> BASE_EVENT_SCRIPT;
+	GDCLASS(EventBus, Node)
+public:
+	static EventBus* get_singleton();
+	static Ref<Script> BASE_EVENT_SCRIPT;
 
-        static void start();
+	static void start();
+    static void subscribe(const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE, const Callable &condition = truth);
+    static void unsubscribe(const Ref<Script> &event_type, const Callable &callback);
+    static void emit(const Ref<EventBase> &event);
 
-    private:
-        static Ref<EventBusBase> event_bus;   
-        static Ref<EventBus> instance;
-        static Ref<Callable> truth;
-    
-        EventBus();
-        ~EventBus() = default;
+protected:
+    static void _bind_methods();
 
-        static void subscribe(const Ref<Script>& event_type, const Ref<Callable>& callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE, const Ref<Callable>& condition = truth);
-        static void unsubscribe(const Ref<Script>& event_type, const Ref<Callable>& callback);
-        static void emit(const Ref<EventBase>& event);
+private:
+	static Ref<EventBusBase> event_bus;
+	static EventBus* instance;
+	static Callable truth;
 
-        static bool always_true();
+	EventBus();
+	~EventBus() = default;
+
+
+	static bool always_true();
 };

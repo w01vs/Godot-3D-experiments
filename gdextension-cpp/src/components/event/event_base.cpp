@@ -8,7 +8,7 @@ void EventBase::_bind_methods() {
     ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "source", PROPERTY_HINT_RESOURCE_TYPE, "Node"), "set_source", "get_source");
 }
 
-Ref<EventBase> EventBase::create(const Ref<Node>& p_source) {
+Ref<EventBase> EventBase::create(Node* p_source) {
     Ref<EventBase> event;
     event.instantiate();
     event->source = p_source;

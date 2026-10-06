@@ -10,8 +10,8 @@ if gdtarget == "worldgen":
     env.Append(CPPPATH=["src/worldgen/"])
 elif gdtarget == "component":
     lib_name = "libcomponent"
-    base_src_dir = "src/component"
-    env.Append(CPPPATH=["src/component/"])
+    base_src_dir = "src/components"
+    env.Append(CPPPATH=["src/components/"])
 elif gdtarget == "":
     print("No target extension specified. Use gdtarget={name} to specify which extension to compile. \nOptions are:\nworldgen\ncomponent")
     Exit(1)
@@ -41,16 +41,11 @@ def build_variant(base_env, target_type):
     variant_env.VariantDir(build_dir, base_src_dir, duplicate=0)
 
     # 2. Find real files in src/ and map them into explicit variant_env.File() nodes in build/
-    raw_sources = list(Path(base_src_dir).rglob("*.cpp"))
-    src_files = []
-    for src_path in raw_sources:
-        rel_path = src_path.relative_to(base_src_dir)
-        build_node_path = Path(build_dir) / rel_path
-        src_files.append(variant_env.File(str(build_node_path)))
+    src_files = variant_env.Glob(f"{build_dir}/*.cpp") + variant_env.Glob(f"{build_dir}/**/*.cpp") 
 
     # 3. Format output filename
     custom_suffix = variant_env['suffix'].replace('template_debug', 'debug').replace('template_release', 'release')
-    libpath = '../bin/{}{}{}'.format(lib_name, custom_suffix, variant_env['SHLIBSUFFIX'])
+    libpath = '../gdextension/bin/{}/{}{}{}'.format(gdtarget, lib_name, custom_suffix, variant_env['SHLIBSUFFIX'])
     
     return variant_env.SharedLibrary(libpath, src_files)
 

@@ -24,9 +24,9 @@ public:
 		GDCLASS(Subscriber, RefCounted)
 	public:
 		Subscriber() = default;
-	
+
 	protected:
-		static void _bind_methods() {};
+		static void _bind_methods() {}
 
 	private:
 		Subscriber(const Callable &p_cb, const Callable &p_cond) : callback(p_cb), conditions(p_cond) {

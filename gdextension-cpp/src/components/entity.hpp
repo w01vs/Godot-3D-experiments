@@ -16,14 +16,18 @@ class Component;
 
 class Entity : public Node3D {
 	GDCLASS(Entity, Node3D)
+	friend class Component;
+
 public:
-    void register_component(const Component* component);
-    Component* get_component(const Ref<Script> &script);
-    bool has_component(const Ref<Script> &script);
-    void remove_component(const Component* component);
-    virtual void _ready() override;
+	void register_component(const Component *component);
+	Component *get_component(const Ref<Script> &script);
+	bool has_component(const Ref<Script> &script);
+	void remove_component(const Component *component);
+	virtual void _ready() override;
+	static const Ref<Script> ENTITY_EVENT_SCRIPT() { return entity_event_script; }
+
 protected:
-    static void _bind_methods();
+	static void _bind_methods();
 
 private:
 	Entity();
@@ -34,22 +38,19 @@ private:
 	TypedDictionary<Script, Array> global_subscriptions;
 
 	EventBusBase local_event_bus;
-
-	Ref<Script> entity_event_script;
+	static Ref<Script> entity_event_script;
 
 	bool active;
 
-
-
 	TypedArray<Script> find_bases(const Ref<Script> &p_script, bool removing = false);
 
-	void subscribe(Component* component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
+	void subscribe(Component *component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
 	void unsubscribe(const Ref<Script> &event_type, const Callable &callback);
 
 	void emit_local(const Ref<EntityEventGD> &event);
 	void emit_global(const Ref<GlobalEventGD> &event);
 
-	void subscribe_global(const Component* component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
+	void subscribe_global(const Component *component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
 	void unsubscribe_global(const Ref<Script> &event_type, const Callable &callback);
 
 	void callback_internal(const Ref<EventBase> &event);

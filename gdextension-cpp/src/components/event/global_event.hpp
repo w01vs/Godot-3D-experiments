@@ -2,8 +2,8 @@
 
 #include "event_base.hpp"
 
-class GlobalEventGD : public EventBase {
-    GDCLASS(GlobalEventGD, EventBase)
+class GlobalEventGD : public EventBaseGD {
+    GDCLASS(GlobalEventGD, EventBaseGD)
 
     public:
         GlobalEventGD() = default;

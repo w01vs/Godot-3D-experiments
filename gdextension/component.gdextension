@@ -1,0 +1,10 @@
+[configuration]
+
+entry_symbol = "components_init"
+compatibility_minimum = "4.7"
+
+[libraries]
+linux.debug.x86_64 = "res://gdextension/bin/component/libcomponent.linux.debug.x86_64.so"
+linux.release.x86_64 = "res://gdextension/bin/component/libcomponent.linux.release.x86_64.so"
+windows.debug.x86_64 = "res://gdextension/bin/component/libcomponent.windows.debug.x86_64.dll"
+windows.release.x86_64 = "res://gdextension/bin/component/libcomponent.windows.release.x86_64.dll"

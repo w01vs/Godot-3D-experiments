@@ -76,7 +76,7 @@ void EventBusBase::unsubscribe(const Ref<Script> &p_event_type, const Callable &
 	}
 }
 
-void EventBusBase::emit(const Ref<EventBase> &p_event) {
+void EventBusBase::emit(const Ref<EventBaseGD> &p_event) {
 	if (!active || p_event.is_null()) {
 		return;
 	}

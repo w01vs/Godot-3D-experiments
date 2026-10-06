@@ -5,10 +5,10 @@
 
 using namespace godot;
 
-class Utils {
+class UtilsGD {
 private:
-	Utils() = default;
-	~Utils() = default;
+	UtilsGD() = default;
+	~UtilsGD() = default;
 
 public:
 	static bool is_of_type(const Ref<Script> &child, const Ref<Script> &parent, const Ref<Script> &early_stop = nullptr) {

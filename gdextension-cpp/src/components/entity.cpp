@@ -4,10 +4,14 @@
 #include "godot_cpp/variant/utility_functions.hpp"
 #include "utils/utils.hpp"
 
+Ref<Script> Entity::entity_event_script = nullptr;
+
 Entity::Entity() {
 	Ref<EntityEventGD> ref;
 	ref.instantiate();
 	entity_event_script = ref->get_script();
+
+	local_event_bus.instantiate();
 }
 
 void Entity::_bind_methods() {
@@ -15,8 +19,8 @@ void Entity::_bind_methods() {
 }
 
 void Entity::_ready() {
-	local_event_bus.enable();
-	local_event_bus.release_events();
+	local_event_bus->enable();
+	local_event_bus->release_events();
 }
 
 void Entity::register_component(const Component* component) {
@@ -71,28 +75,28 @@ TypedArray<Script> Entity::find_bases(const Ref<Script> &p_script, bool removing
 }
 
 void Entity::subscribe(Component* component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority) {
-	assert(Utils::is_of_type(event_type, EntityEventGD::get_script(), EventBase::get_script()));
-	if (Utils::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT)) {
+	assert(UtilsGD::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT));
+	if (UtilsGD::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT)) {
 		UtilityFunctions::push_error("Event %s is not a valid entity event", event_type->get_global_name());
 		return;
 	}
-	local_event_bus.subscribe(event_type, callback, Callable{ Object::cast_to<Object>(component), "is_active" }, priority);
+	local_event_bus->subscribe(event_type, callback, Callable{ Object::cast_to<Object>(component), "is_active" }, priority);
 }
 
 void Entity::unsubscribe(const Ref<Script> &event_type, const Callable &callback) {
-	assert(Utils::is_of_type(event_type, EntityEventGD::get_script(), EventBase::get_script()));
-	if (Utils::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT)) {
+	assert(UtilsGD::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT));
+	if (UtilsGD::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT)) {
 		UtilityFunctions::push_error("Event %s is not a valid entity event", event_type->get_global_name());
 		return;
 	}
-	local_event_bus.unsubscribe(event_type, callback);
+	local_event_bus->unsubscribe(event_type, callback);
 }
 
 void Entity::emit_local(const Ref<EntityEventGD> &event) {
 	if (!active) {
 		return;
 	}
-	local_event_bus.emit(event);
+	local_event_bus->emit(event);
 }
 
 void Entity::subscribe_global(const Component* component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priorit) {
@@ -102,12 +106,12 @@ void Entity::subscribe_global(const Component* component, const Ref<Script> &eve
 	TypedArray<Callable> arr = global_subscriptions[event_type];
 	if (!arr.has(callback)) {
 		arr.append(callback);
-		EventBus::subscribe(event_type, callback);
+		EventBus::get_singleton()->subscribe(event_type, callback);
 	}
 }
 
 void Entity::unsubscribe_global(const Ref<Script> &event_type, const Callable &callback) {
-	EventBus::unsubscribe(event_type, callback);
+	EventBus::get_singleton()->unsubscribe(event_type, callback);
 	TypedArray<Callable> callbacks = global_subscriptions[event_type];
 	for (int i = 0; i < callbacks.size(); i++) {
 		Callable cb = callbacks.get(i);
@@ -127,10 +131,10 @@ void Entity::emit_global(const Ref<GlobalEventGD> &event) {
 		return;
 	}
 	event->set_source(this);
-	EventBus::emit(event);
+	EventBus::get_singleton()->emit(event);
 }
 
-void Entity::callback_internal(const Ref<EventBase> &event) {
+void Entity::callback_internal(const Ref<EventBaseGD> &event) {
 	Ref<Script> event_type = event->get_script();
 	if (global_subscriptions.has(event_type)) {
 		TypedArray<Callable> callbacks = global_subscriptions[event_type];
@@ -150,12 +154,12 @@ void Entity::enable() {
 	this->show();
 	active = true;
 	set_process_mode(Node::PROCESS_MODE_PAUSABLE);
-	local_event_bus.enable();
+	local_event_bus->enable();
 }
 
 void Entity::disable() {
 	this->hide();
 	active = false;
 	set_process_mode(Node::PROCESS_MODE_DISABLED);
-	local_event_bus.disable();
+	local_event_bus->disable();
 }

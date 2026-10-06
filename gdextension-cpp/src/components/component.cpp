@@ -1,27 +1,40 @@
 #include "component.hpp"
 #include "event/event_bus.hpp"
 #include "godot_cpp/classes/engine.hpp"
+#include "godot_cpp/classes/global_constants.hpp"
 #include "godot_cpp/classes/wrapped.hpp"
 #include "godot_cpp/core/class_db.hpp"
+#include "godot_cpp/core/object.hpp"
 #include "utils/utils.hpp"
+
+const StringName Component::GROUP = StringName{"COMPONENT"};
 
 void Component::_bind_methods() {
 	GDVIRTUAL_BIND(_on_entity_load);
 	GDVIRTUAL_BIND(_init_component);
-	ClassDB::bind_method(D_METHOD("_on_entity_load"), &Component::_on_entity_load);
-	ClassDB::bind_method(D_METHOD("_init_component"), &Component::_init_component);
+	GDVIRTUAL_BIND(_on_enable);
+	GDVIRTUAL_BIND(_on_disable);
 	ClassDB::bind_method(D_METHOD("subscribe", "event_type", "callback", "priority"), &Component::subscribe, DEFVAL(EventBusBase::Priority::BASE));
 	ClassDB::bind_method(D_METHOD("emit", "event"), &Component::emit);
 
 	ClassDB::bind_method(D_METHOD("get_entity"), &Component::get_entity);
-	ClassDB::bind_method(D_METHOD("set_entity", "entity"), &Component::set_entity);
+	ClassDB::bind_method(D_METHOD("set_entity", "p_entity"), &Component::set_entity);
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "entity", PROPERTY_HINT_NODE_TYPE, "Entity"), "set_entity", "get_entity");
+
+	ClassDB::bind_method(D_METHOD("enable"), &Component::enable);
+	ClassDB::bind_method(D_METHOD("disable"), &Component::disable);
+
+	ClassDB::bind_method(D_METHOD("is_active"), &Component::is_active);
 }
 
 void Component::_ready() {
+	if(Engine::get_singleton()->is_editor_hint())
+		return;
 	assert(entity);
 	assert(entity->is_ancestor_of(this));
 	entity->register_component(this);
 	entity->connect("ready", Callable{ this, "_on_entity_load" });
+	add_to_group(Component::GROUP);
 }
 
 void Component::_on_entity_load() {
@@ -70,14 +83,14 @@ void Component::_on_disable() {
 }
 
 void Component::subscribe(Ref<Script> event_type, Callable callback, EventBusBase::Priority priority) {
-	if (Utils::is_of_type(event_type, Entity::ENTITY_EVENT_SCRIPT(), EventBus::BASE_EVENT_SCRIPT)) {
+	if (UtilsGD::is_of_type(event_type, Entity::ENTITY_EVENT_SCRIPT(), EventBus::BASE_EVENT_SCRIPT)) {
 		entity->subscribe(this, event_type, callback, priority);
 	} else {
 		entity->subscribe_global(this, event_type, callback, priority);
 	}
 }
 
-void Component::emit(Ref<EventBase> event) {
+void Component::emit(Ref<EventBaseGD> event) {
 	if (Object::cast_to<EntityEventGD>(event.ptr())) {
 		entity->emit_local(event);
 	} else {

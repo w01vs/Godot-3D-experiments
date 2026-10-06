@@ -621,3 +621,5 @@ addons/godotty/
 *.dblite    
 addons/discord-rpc-gd
 !addons/**/bin/
+!gdextension/**/bin/
+gdextension-cpp/build

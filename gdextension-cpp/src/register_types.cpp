@@ -6,13 +6,18 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "component_area3d.hpp"
-#include "entity.hpp"
-#include "event/event_base.hpp"
-#include "event/event_bus.hpp"
-#include "event/event_bus_base.hpp"
-#include "event/global_event.hpp"
-#include "component.hpp"
+#include "components/component-3d/collision_data.hpp"
+#include "components/component-3d/component_area3d.hpp"
+#include "components/component-3d/events/collision_entered_event.hpp"
+#include "components/component-3d/events/collision_exit_event.hpp"
+#include "components/component-3d/events/collision_oneshot_event.hpp"
+#include "components/entity.hpp"
+#include "components/event/event_base.hpp"
+#include "components/event/event_bus.hpp"
+#include "components/event/event_bus_base.hpp"
+#include "components/event/global_event.hpp"
+#include "components/component.hpp"
+#include "worldgen/terrainchunk.hpp"
 
 using namespace godot;
 
@@ -20,16 +25,28 @@ void initialize_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
-
+	
+	ClassDB::register_class<EventBus>();
 	ClassDB::_register_engine_singleton(StringName("EventBus"), EventBus::get_singleton());
-	ClassDB::register_abstract_class<EventBase>();
+
+	ClassDB::register_abstract_class<EventBaseGD>();
 	ClassDB::register_abstract_class<GlobalEventGD>();
 	ClassDB::register_abstract_class<EntityEventGD>();
+
 	ClassDB::register_class<EventBusBase::Subscriber>();
 	ClassDB::register_class<EventBusBase>();
-	ClassDB::register_abstract_class<Component>();
+
 	ClassDB::register_class<Entity>();
+	ClassDB::register_class<Component>(true);
+
+	ClassDB::register_class<CollisionDataGD>(true);
+	ClassDB::register_class<CollisionExitEntityEvent>();
+	ClassDB::register_class<CollisionEnteredEntityEvent>();
+	ClassDB::register_class<CollisionOneshotEntityEvent>();
 	ClassDB::register_class<ComponentArea3D>();
+
+
+	ClassDB::register_class<TerrainChunk>();
 }
 
 void uninitialize_module(ModuleInitializationLevel p_level) {

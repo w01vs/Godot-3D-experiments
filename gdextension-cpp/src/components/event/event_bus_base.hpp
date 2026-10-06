@@ -44,7 +44,7 @@ private:
 
 	bool active = true;
 	bool hold = false;
-	TypedArray<EventBase> dispatch_held;
+	TypedArray<EventBaseGD> dispatch_held;
 
 	bool _has_callback(const TypedArray<Subscriber> &p_subs, const Callable &p_cb) const;
 	void _emit_held();
@@ -58,7 +58,7 @@ public:
 
 	void subscribe(const Ref<Script> &p_event_type, const Callable &p_callback, const Callable &p_conditions, Priority p_priority = BASE);
 	void unsubscribe(const Ref<Script> &p_event_type, const Callable &p_callback);
-	void emit(const Ref<EventBase> &p_event);
+	void emit(const Ref<EventBaseGD> &p_event);
 
 	void enable() { active = true; }
 	void disable() { active = false; }

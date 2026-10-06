@@ -13,21 +13,21 @@ public:
 	static Ref<Script> BASE_EVENT_SCRIPT;
 
 	static void start();
-    static void subscribe(const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE, const Callable &condition = truth);
+    static void subscribe(const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE, const Callable &condition = get_singleton()->truth);
     static void unsubscribe(const Ref<Script> &event_type, const Callable &callback);
-    static void emit(const Ref<EventBase> &event);
+    static void emit(const Ref<EventBaseGD> &event);
 
 protected:
     static void _bind_methods();
 
 private:
-	static Ref<EventBusBase> event_bus;
+	Ref<EventBusBase> event_bus;
 	static EventBus* instance;
-	static Callable truth;
+	Callable truth;
 
 	EventBus();
 	~EventBus() = default;
 
 
-	static bool always_true();
+	bool always_true();
 };

@@ -7,8 +7,8 @@
 
 using namespace godot;
 
-class EventBase : public Resource {
-	GDCLASS(EventBase, Resource)
+class EventBaseGD : public Resource {
+	GDCLASS(EventBaseGD, Resource)
 
 private:
 	Node *source;
@@ -18,12 +18,13 @@ protected:
 	static void _bind_methods();
 
 public:
-	virtual ~EventBase() = default;
+	virtual ~EventBaseGD() = default;
 
-	static Ref<EventBase> create(Node *p_source);
+	static Ref<EventBaseGD> create(Node *p_source);
 
 	void set_source(Node *p_source) { source = p_source; }
 	Node *get_source() const { return source; }
 
 	uint64_t get_debug_id() const { return debug_id; }
+	void set_debug_id(uint64_t p_debug_id) { debug_id = p_debug_id; }
 };

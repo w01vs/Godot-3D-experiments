@@ -3,8 +3,8 @@
 #include "event_base.hpp"
 #include "godot_cpp/classes/node.hpp"
 
-class EntityEventGD : public EventBase {
-	GDCLASS(EntityEventGD, EventBase)
+class EntityEventGD : public EventBaseGD {
+	GDCLASS(EntityEventGD, EventBaseGD)
 
 private:
 	Ref<Script> type;

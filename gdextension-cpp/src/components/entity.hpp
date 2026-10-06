@@ -17,6 +17,7 @@ class Component;
 class Entity : public Node3D {
 	GDCLASS(Entity, Node3D)
 	friend class Component;
+	friend class ComponentArea3D;
 
 public:
 	void register_component(const Component *component);
@@ -37,7 +38,7 @@ private:
 
 	TypedDictionary<Script, Array> global_subscriptions;
 
-	EventBusBase local_event_bus;
+	Ref<EventBusBase> local_event_bus;
 	static Ref<Script> entity_event_script;
 
 	bool active;
@@ -53,7 +54,7 @@ private:
 	void subscribe_global(const Component *component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
 	void unsubscribe_global(const Ref<Script> &event_type, const Callable &callback);
 
-	void callback_internal(const Ref<EventBase> &event);
+	void callback_internal(const Ref<EventBaseGD> &event);
 
 	void enable();
 	void disable();

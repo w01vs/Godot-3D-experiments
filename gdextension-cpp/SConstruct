@@ -1,60 +1,50 @@
 import os
 from pathlib import Path
 
-gdtarget = ARGUMENTS.get("gdtarget", "").lower()
+# Load base godot-cpp environment
 env = SConscript('godot-cpp/SConstruct')
 
-if gdtarget == "worldgen":
-    lib_name = "libworldgen"
-    base_src_dir = "src/worldgen"
-    env.Append(CPPPATH=["src/worldgen/"])
-elif gdtarget == "component":
-    lib_name = "libcomponent"
-    base_src_dir = "src/components"
-    env.Append(CPPPATH=["src/components/"])
-elif gdtarget == "":
-    print("No target extension specified. Use gdtarget={name} to specify which extension to compile. \nOptions are:\nworldgen\ncomponent")
-    Exit(1)
-else:
-    # Fixed bug: changed undefined variable 'target' to 'gdtarget'
-    print(f"Error: Unknown gdtarget '{gdtarget}'. \nOptions are:\nworldgen\ncomponent")
-    Exit(1)
+lib_name = "libcomponent"
+base_src_dir = "src"
 
+# Add include paths to base environment
+env.Append(CPPPATH=["src/"])
 
 requested_target = ARGUMENTS.get("target", "all").lower()
-
 targets_to_build = []
 
-# Helper function to construct a specific build environment clone
+# Collect all relative .cpp source paths under src/ recursively
+src_path = Path(base_src_dir)
+cpp_rel_paths = [p.relative_to(src_path) for p in src_path.rglob("*.cpp")]
+
 def build_variant(base_env, target_type):
     variant_env = base_env.Clone()
     variant_env['target'] = target_type
 
-    # Force SCons to re-evaluate suffixes for the cloned environment
+    # Force suffix matching for Godot 4.x GDExtension naming conventions
     if target_type == "template_debug":
         variant_env['suffix'] = f".{variant_env['platform']}.template_debug.{variant_env['arch']}"
     elif target_type == "template_release":
         variant_env['suffix'] = f".{variant_env['platform']}.template_release.{variant_env['arch']}"
 
-    # 1. Map source folder to isolated build variant directory
-    build_dir = f"build/{gdtarget}/{target_type}"
+    # Set build directory isolation
+    build_dir = f"build/{target_type}"
     variant_env.VariantDir(build_dir, base_src_dir, duplicate=0)
 
-    # 2. Find real files in src/ and map them into explicit variant_env.File() nodes in build/
-    src_files = variant_env.Glob(f"{build_dir}/*.cpp") + variant_env.Glob(f"{build_dir}/**/*.cpp") 
+    # Convert relative source files into explicit nodes inside build_dir
+    src_files = [variant_env.File(f"{build_dir}/{rel_path}") for rel_path in cpp_rel_paths]
 
-    # 3. Format output filename
+    # Format output filename (mapping template_debug -> debug)
     custom_suffix = variant_env['suffix'].replace('template_debug', 'debug').replace('template_release', 'release')
-    libpath = '../gdextension/bin/{}/{}{}{}'.format(gdtarget, lib_name, custom_suffix, variant_env['SHLIBSUFFIX'])
-    
+    libpath = f"../gdextension/bin/{lib_name}{custom_suffix}{variant_env['SHLIBSUFFIX']}"
+
     return variant_env.SharedLibrary(libpath, src_files)
 
-# Build both by default, or build only the requested target if specified
+# Queue targets
 if requested_target in ["all", "template_debug"]:
     targets_to_build.append(build_variant(env, "template_debug"))
 
 if requested_target in ["all", "template_release"]:
     targets_to_build.append(build_variant(env, "template_release"))
 
-# Set default targets for SCons
 Default(targets_to_build)

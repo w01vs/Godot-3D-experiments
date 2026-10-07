@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_11x3j"]
 [ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="5_sgeud"]
 
-[sub_resource type="Resource" id="Resource_1nhu3"]
+[sub_resource type="EventBaseGD" id="EventBaseGD_2yga4"]
 script = ExtResource("1_1nhu3")
 metadata/_custom_type_script = "uid://biv6bo64aduqn"
 
@@ -30,5 +30,5 @@ metadata/_custom_type_script = "uid://cy6k2oxdef355"
 script = ExtResource("1_hbj4t")
 name = &"default_attack"
 requirements = SubResource("Resource_s8bfm")
-event = SubResource("Resource_1nhu3")
+event = SubResource("EventBaseGD_2yga4")
 metadata/_custom_type_script = "uid://jd2bn4oouvye"

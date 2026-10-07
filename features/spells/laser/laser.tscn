@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://rsqjs7m5ykxs"]
 
 [ext_resource type="Script" uid="uid://dp8t0asb3d50v" path="res://features/spells/laser/laser.gd" id="1_ngp0y"]
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_rccfa"]
 [ext_resource type="Shader" uid="uid://1exioniqb4cg" path="res://features/spells/laser/magic_circle.tres" id="2_got70"]
 [ext_resource type="Texture2D" uid="uid://b2iqowwb7rrr8" path="res://features/spells/laser/laser_circle.png" id="3_htfng"]
 [ext_resource type="Texture2D" uid="uid://5uu8pkcweu2t" path="res://features/spells/laser/magic_fade_noise.tres" id="4_rccfa"]
@@ -298,9 +297,7 @@ alpha_curve = SubResource("CurveTexture_g4sr0")
 
 [sub_resource type="QuadMesh" id="QuadMesh_rwfxr"]
 
-[node name="Entity" type="Node3D" unique_id=1937160536]
-script = ExtResource("1_rccfa")
-metadata/_custom_type_script = "uid://cp7e65rba841n"
+[node name="Entity" type="Entity" unique_id=1949570156]
 
 [node name="Laser" type="RayCast3D" parent="." unique_id=1207216729 node_paths=PackedStringArray("anim", "beam_out", "beam_in", "beam_cap", "fade", "entity")]
 visible = false

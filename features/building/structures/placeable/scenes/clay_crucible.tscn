@@ -22,25 +22,7 @@ metadata/_custom_type_script = "uid://bf01144lxbocj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.016557693, 0)
 shape = SubResource("BoxShape3D_0a4h2")
 
-[node name="PlaceableComponent" type="Node" parent="." index="1" unique_id=2067818831 node_paths=PackedStringArray("boundingbox", "boundingbox_shape", "meshes", "hidden_while_placing", "foundation", "entity")]
-script = ExtResource("4_y0acs")
-boundingbox = NodePath("../BoundingBox")
-boundingbox_shape = NodePath("../BoundingBox/CollisionShape3D")
-meshes = [null]
-hidden_while_placing = [null]
-HOLOGRAM_MATERIAL = ExtResource("5_vxk24")
-HOLO_COLLIDING_MATERIAL = ExtResource("6_ujndc")
-use_foundation = true
-foundation = NodePath("../FoundationMarker")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://bktfcwecr8sif"
-
-[node name="StructureComponent" type="Node" parent="." index="2" unique_id=2059748834 node_paths=PackedStringArray("entity")]
-script = ExtResource("3_rmtmm")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://canh2ypmaa0b7"
-
-[node name="FoundationMarker" type="Node3D" parent="." index="3" unique_id=411178180 node_paths=PackedStringArray("box_shape_node")]
+[node name="FoundationMarker" type="Node3D" parent="." index="1" unique_id=411178180 node_paths=PackedStringArray("box_shape_node")]
 script = ExtResource("7_rmtmm")
 box_shape_node = NodePath("../BoundingBox/CollisionShape3D")
 metadata/_custom_type_script = "uid://dw0j5a7b3rwve"
@@ -61,3 +43,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.91015625, 0.6)
 
 [node name="CornerMarker5" type="Marker3D" parent="FoundationMarker/CornerMarkers" index="4" unique_id=1544048912]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.91015625, 0)
+
+[node name="PlaceableComponent" type="Component" parent="." index="5" unique_id=1147585610 node_paths=PackedStringArray("entity", "boundingbox", "boundingbox_shape", "meshes", "hidden_while_placing", "body", "foundation")]
+entity = NodePath("..")
+script = ExtResource("4_y0acs")
+boundingbox = NodePath("../BoundingBox")
+boundingbox_shape = NodePath("../BoundingBox/CollisionShape3D")
+meshes = [NodePath("../crucible")]
+hidden_while_placing = [NodePath("../filling")]
+body = NodePath("../CStaticBody3D")
+HOLOGRAM_MATERIAL = ExtResource("5_vxk24")
+HOLO_COLLIDING_MATERIAL = ExtResource("6_ujndc")
+use_foundation = true
+foundation = NodePath("../FoundationMarker")
+metadata/_custom_type_script = "uid://bktfcwecr8sif"
+
+[node name="StructureComponent" type="Component" parent="." index="6" unique_id=1623833673 node_paths=PackedStringArray("entity", "body")]
+entity = NodePath("..")
+script = ExtResource("3_rmtmm")
+body = NodePath("../CStaticBody3D")
+metadata/_custom_type_script = "uid://canh2ypmaa0b7"

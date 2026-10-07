@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cxbypbu3uvy0g" path="res://core/utils/context/query/or.gd" id="5_tnhv2"]
 [ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="6_t8s42"]
 
-[sub_resource type="Resource" id="Resource_vxb6u"]
+[sub_resource type="EventBaseGD" id="EventBaseGD_6dak1"]
 script = ExtResource("1_c5pwe")
 metadata/_custom_type_script = "uid://bjoyyw7l3g48p"
 
@@ -46,6 +46,6 @@ metadata/_custom_type_script = "uid://cy6k2oxdef355"
 script = ExtResource("1_k8vj4")
 name = &"previous_hotbar"
 requirements = SubResource("Resource_362d1")
-event = SubResource("Resource_vxb6u")
+event = SubResource("EventBaseGD_6dak1")
 on_release = true
 metadata/_custom_type_script = "uid://jd2bn4oouvye"

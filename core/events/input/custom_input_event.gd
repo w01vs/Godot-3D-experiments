@@ -1,4 +1,4 @@
-class_name CustomInputEvent extends EventBase
+@abstract class_name CustomInputEvent extends EventBaseGD
 
 func _init(source_: Node = null) -> void:
-	super(source_)
+	source = source_

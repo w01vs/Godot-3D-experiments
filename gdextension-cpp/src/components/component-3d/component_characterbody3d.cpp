@@ -17,7 +17,7 @@ void ComponentCharacterBody3D::_ready() {
     add_to_group(Component::GROUP);
 }
 
-void ComponentCharacterBody3D::_physics_process() {
+void ComponentCharacterBody3D::_physics_process(double delta) {
     move_and_slide();
     entity->set_global_transform(get_global_transform());
     set_transform(Transform3D{});

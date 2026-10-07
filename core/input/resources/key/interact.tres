@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_4nt8k"]
 [ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="5_rrggc"]
 
-[sub_resource type="Resource" id="Resource_jj2bn"]
+[sub_resource type="EventBaseGD" id="EventBaseGD_km1kb"]
 script = ExtResource("1_y5gy6")
 metadata/_custom_type_script = "uid://dgsayim7fjspn"
 
@@ -30,5 +30,5 @@ metadata/_custom_type_script = "uid://cy6k2oxdef355"
 script = ExtResource("1_owjw4")
 name = &"interact"
 requirements = SubResource("Resource_rrggc")
-event = SubResource("Resource_jj2bn")
+event = SubResource("EventBaseGD_km1kb")
 metadata/_custom_type_script = "uid://ddiprs3aeynd7"

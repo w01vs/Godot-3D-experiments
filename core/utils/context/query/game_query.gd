@@ -6,4 +6,5 @@ func _init(state_: GameContext.State = GameContext.State.NONE) -> void:
 	state = state_
 
 func validate() -> bool:
-	return ContextManager.is_game_state(state)
+	return true
+	#return ContextManager.is_game_state(state)

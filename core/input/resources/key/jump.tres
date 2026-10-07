@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ddiprs3aeynd7" path="res://core/input/key_input_action.gd" id="1_kkrkq"]
 [ext_resource type="Resource" uid="uid://xfl6miyghvq0" path="res://core/input/movement_query.tres" id="2_a1s00"]
 
-[sub_resource type="Resource" id="Resource_2w5qx"]
+[sub_resource type="EventBaseGD" id="EventBaseGD_n8jup"]
 script = ExtResource("1_2w5qx")
 metadata/_custom_type_script = "uid://c803oyvd2y83l"
 
@@ -12,5 +12,5 @@ metadata/_custom_type_script = "uid://c803oyvd2y83l"
 script = ExtResource("1_kkrkq")
 name = &"jump"
 requirements = ExtResource("2_a1s00")
-event = SubResource("Resource_2w5qx")
+event = SubResource("EventBaseGD_n8jup")
 metadata/_custom_type_script = "uid://ddiprs3aeynd7"

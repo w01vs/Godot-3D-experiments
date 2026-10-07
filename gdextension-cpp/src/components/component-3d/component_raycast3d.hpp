@@ -13,7 +13,7 @@ public:
 	~ComponentRayCast3D() = default;
 
 	void _ready() override;
-	void _physics_process();
+	void _physics_process(double delta) override;
 	const Object *get_current_collider();
 
 	void set_area_collision(bool on);

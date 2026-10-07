@@ -40,7 +40,7 @@ public:
 	};
 
 private:
-	TypedDictionary<Variant, Dictionary> listeners;
+	Dictionary listeners;
 
 	bool active = true;
 	bool hold = false;

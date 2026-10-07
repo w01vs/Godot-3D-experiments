@@ -3,8 +3,8 @@ extends Node
 var event_bus: EventBusBase = EventBusBase.new()
 
 var movement_vector: Vector2
-@export var key_inputs: Array[KeyInputAction]
-@export var mouse_inputs: Array[MouseInputAction]
+var key_inputs: Array[KeyInputAction]
+var mouse_inputs: Array[MouseInputAction]
 @export var movement_query: ContextQuery
 
 var filtered_key_inputs: Array[KeyInputAction]

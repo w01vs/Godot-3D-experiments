@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cjbba6hvuaoqo" path="res://core/utils/context/query/player_query.gd" id="4_mdjq0"]
 [ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="5_tf6a6"]
 
-[sub_resource type="Resource" id="Resource_1nhu3"]
+[sub_resource type="EventBaseGD" id="EventBaseGD_wl1br"]
 script = ExtResource("1_hamay")
 metadata/_custom_type_script = "uid://c7v45sf01e7g0"
 
@@ -30,5 +30,5 @@ metadata/_custom_type_script = "uid://cy6k2oxdef355"
 script = ExtResource("1_fl4wf")
 name = &"place"
 requirements = SubResource("Resource_uva3e")
-event = SubResource("Resource_1nhu3")
+event = SubResource("EventBaseGD_wl1br")
 metadata/_custom_type_script = "uid://jd2bn4oouvye"

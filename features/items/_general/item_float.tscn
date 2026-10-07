@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bhylqctimrlvv"]
 
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_nm33o"]
 [ext_resource type="Shader" uid="uid://bbh5glh5klwkc" path="res://features/items/_general/item_float.gdshader" id="2_p42yc"]
 [ext_resource type="Script" uid="uid://ccau7wq71bntj" path="res://core/components/extensions/c_meshinstance3d.gd" id="3_ggmqp"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_m1ap5"]
@@ -19,16 +18,14 @@ shader_parameter/rim_smoothness = 0.400000019
 [sub_resource type="SphereShape3D" id="SphereShape3D_nm33o"]
 radius = 1.0
 
-[node name="Entity" type="Node3D" unique_id=17313904]
-script = ExtResource("1_nm33o")
-metadata/_custom_type_script = "uid://cp7e65rba841n"
+[node name="Entity" type="Entity" unique_id=1797652492]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=986424694 node_paths=PackedStringArray("entity")]
 mesh = SubResource("SphereMesh_8wi4a")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_n7rjw")
 script = ExtResource("3_ggmqp")
-entity = NodePath("..")
+entity = NodePath("")
 metadata/_custom_type_script = "uid://ccau7wq71bntj"
 
 [node name="CArea3D" type="Area3D" parent="." unique_id=1287798368 node_paths=PackedStringArray("entity")]
@@ -40,8 +37,16 @@ metadata/_custom_type_script = "uid://bf01144lxbocj"
 transform = Transform3D(0.465, 0, 0, 0, 0.465, 0, 0, 0, 0.465, 0, 0, 0)
 shape = SubResource("SphereShape3D_nm33o")
 
-[node name="DroppedItemInteractionComponent" type="Node" parent="." unique_id=1473197495 node_paths=PackedStringArray("collision_shape", "entity")]
+[node name="DroppedItemInteractionComponent" type="Component" parent="." unique_id=959726538 node_paths=PackedStringArray("entity", "collision_shape")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("6_ggmqp")
 collision_shape = NodePath("../CArea3D")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://dn5en33odr4tg"

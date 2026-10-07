@@ -1,7 +1,4 @@
-@abstract class_name EntityEvent extends EventBase
+@abstract class_name EntityEvent extends EntityEventGD
 
-var _type: Script
-
-func _init(source_: Node) -> void:
-	super(source_)
-	_type = get_script()
+func _init(source_: Node = null) -> void:
+	source = source_

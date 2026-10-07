@@ -10,9 +10,9 @@ void CollisionEnteredEntityEvent::_bind_methods() {
 }
 
 Ref<CollisionEnteredEntityEvent> CollisionEnteredEntityEvent::create(Node* p_source, Ref<CollisionDataGD> p_data) {
-    CollisionEnteredEntityEvent* event = memnew(CollisionEnteredEntityEvent);
+    Ref<CollisionEnteredEntityEvent> event = memnew(CollisionEnteredEntityEvent);
     event->data = p_data;
     event->source = p_source;
 
-    return Ref<CollisionEnteredEntityEvent>(event);
+    return event;
 }

@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cxbypbu3uvy0g" path="res://core/utils/context/query/or.gd" id="5_lfs2i"]
 [ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="6_m74eg"]
 
-[sub_resource type="Resource" id="Resource_6ds10"]
+[sub_resource type="EventBaseGD" id="EventBaseGD_6yimv"]
 script = ExtResource("1_6ds10")
 metadata/_custom_type_script = "uid://bl8pd2gx1a02l"
 
@@ -46,6 +46,6 @@ metadata/_custom_type_script = "uid://cy6k2oxdef355"
 script = ExtResource("1_h0v0e")
 name = &"next_hotbar"
 requirements = SubResource("Resource_tfn6y")
-event = SubResource("Resource_6ds10")
+event = SubResource("EventBaseGD_6yimv")
 on_release = true
 metadata/_custom_type_script = "uid://jd2bn4oouvye"

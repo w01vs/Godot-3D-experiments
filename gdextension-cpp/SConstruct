@@ -2,7 +2,9 @@ import os
 from pathlib import Path
 
 # Load base godot-cpp environment
-env = SConscript('godot-cpp/SConstruct')
+env = SConscript('godot-cpp/SConstruct', {
+    "api_version": "4.7",
+})
 
 lib_name = "libcomponent"
 base_src_dir = "src"

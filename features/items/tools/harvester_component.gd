@@ -2,7 +2,7 @@
 ## [br] Optionally also enable events on exit
 class_name HarvesterComponent extends Component
 
-@export var area: CArea3D
+@export var area: ComponentArea3D
  
 var damage_info: DamageInfo
 

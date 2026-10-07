@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cy6k2oxdef355" path="res://core/utils/context/query/and.gd" id="5_7cm6h"]
 [ext_resource type="Script" uid="uid://cxbypbu3uvy0g" path="res://core/utils/context/query/or.gd" id="5_km1kb"]
 
-[sub_resource type="Resource" id="Resource_ynafv"]
+[sub_resource type="EventBaseGD" id="EventBaseGD_6yimv"]
 script = ExtResource("1_ynafv")
 metadata/_custom_type_script = "uid://de2otdbtt00r5"
 
@@ -41,5 +41,5 @@ metadata/_custom_type_script = "uid://cy6k2oxdef355"
 script = ExtResource("1_jell1")
 name = &"build"
 requirements = SubResource("Resource_7cm6h")
-event = SubResource("Resource_ynafv")
+event = SubResource("EventBaseGD_6yimv")
 metadata/_custom_type_script = "uid://ddiprs3aeynd7"

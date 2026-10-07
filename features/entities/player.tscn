@@ -125,14 +125,20 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x5kv8"]
 
-[node name="Entity" type="Entity" unique_id=2012197820]
+[sub_resource type="BoxMesh" id="BoxMesh_6fjev"]
+size = Vector3(22.977966, 1, 18.520142)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7471s"]
+size = Vector3(22.977966, 1, 18.520142)
+
+[node name="Entity" type="Node3D" unique_id=2012197820]
 
 [node name="CCharacterBody3D" type="CharacterBody3D" parent="." unique_id=1750855292 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 32
 collision_mask = 49
 script = ExtResource("2_3vvee")
-entity = NodePath("")
+entity = NodePath("..")
 
 [node name="TwistPivot" type="Node3D" parent="CCharacterBody3D" unique_id=1164485217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -143,21 +149,19 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 [node name="Camera3D" type="Camera3D" parent="CCharacterBody3D/TwistPivot/PitchPivot" unique_id=230448478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
-[node name="InteractRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1710092562 node_paths=PackedStringArray("entity")]
+[node name="InteractRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1710092562]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 target_position = Vector3(0, -7, 0)
 collision_mask = 2
 script = ExtResource("3_6ldnq")
-entity = NodePath("")
 metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
 
-[node name="BuildRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1795242167 node_paths=PackedStringArray("entity")]
+[node name="BuildRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1795242167]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 visible = false
 target_position = Vector3(0, -15, 0)
 collision_mask = 0
 script = ExtResource("3_6ldnq")
-entity = NodePath("")
 metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
 
 [node name="Laser" parent="CCharacterBody3D/TwistPivot/PitchPivot" unique_id=846373636 instance=ExtResource("5_n0cgk")]
@@ -211,122 +215,59 @@ skeleton = NodePath("")
 [node name="CArea3D" type="Area3D" parent="CCharacterBody3D" unique_id=389225742 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("4_6ldnq")
-entity = NodePath("")
+entity = NodePath("../..")
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CCharacterBody3D/CArea3D" unique_id=367625082]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
-[node name="InventoryComponent" type="Component" parent="." unique_id=1466975797 node_paths=PackedStringArray("entity")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="InventoryComponent" type="Node" parent="." unique_id=1466975797]
 script = ExtResource("9_0fqka")
 metadata/_custom_type_script = "uid://b6cug2mwrwkf6"
 
-[node name="HealthComponent" type="Component" parent="." unique_id=33746118 node_paths=PackedStringArray("entity")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="HealthComponent" type="Node" parent="." unique_id=33746118]
 script = ExtResource("4_1qn71")
 metadata/_custom_type_script = "uid://bj38naggyrtts"
 
-[node name="EquipmentComponent" type="Component" parent="." unique_id=1236495036 node_paths=PackedStringArray("entity", "marker", "remote_transform", "animation_tree")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="EquipmentComponent" type="Node" parent="." unique_id=1236495036 node_paths=PackedStringArray("marker", "remote_transform", "animation_tree")]
 script = ExtResource("12_7471s")
 marker = NodePath("../CCharacterBody3D/TwistPivot/RightArm/rightarm/Marker3D")
 remote_transform = NodePath("../CCharacterBody3D/TwistPivot/RightArm/rightarm/Marker3D/RemoteTransform3D")
 animation_tree = NodePath("../CCharacterBody3D/AnimationTree")
 metadata/_custom_type_script = "uid://dxwson43xm1pg"
 
-[node name="BuilderComponent" type="Component" parent="." unique_id=1556784139 node_paths=PackedStringArray("entity", "ray")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="BuilderComponent" type="Node" parent="." unique_id=1556784139 node_paths=PackedStringArray("ray")]
 script = ExtResource("13_alkvy")
 ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/BuildRay")
 metadata/_custom_type_script = "uid://dj1ra631i0o8q"
 
-[node name="PlayerComponent" type="Component" parent="." unique_id=1539198104 node_paths=PackedStringArray("entity", "twist_pivot", "pitch_pivot", "body")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="PlayerComponent" type="Node" parent="." unique_id=1539198104 node_paths=PackedStringArray("twist_pivot", "pitch_pivot", "body")]
 script = ExtResource("8_3vvee")
 twist_pivot = NodePath("../CCharacterBody3D/TwistPivot")
 pitch_pivot = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot")
 body = NodePath("../CCharacterBody3D")
 metadata/_custom_type_script = "uid://c4qx547gynsx3"
 
-[node name="InteractRayComponent" type="Component" parent="." unique_id=1306071978 node_paths=PackedStringArray("entity", "ray")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="InteractRayComponent" type="Node" parent="." unique_id=1306071978 node_paths=PackedStringArray("ray")]
 script = ExtResource("9_i1ft5")
 ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/InteractRay")
 metadata/_custom_type_script = "uid://dpd66hp3w048d"
 
-[node name="LaserComponent" type="Component" parent="." unique_id=805197079 node_paths=PackedStringArray("entity")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="LaserComponent" type="Node" parent="." unique_id=805197079]
 script = ExtResource("11_7471s")
 metadata/_custom_type_script = "uid://kmh74icasv6b"
 
-[node name="HurtboxComponent" type="Component" parent="." unique_id=1414387260 node_paths=PackedStringArray("entity", "area")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="HurtboxComponent" type="Node" parent="." unique_id=1414387260 node_paths=PackedStringArray("area")]
 script = ExtResource("6_malci")
 area = NodePath("../CCharacterBody3D/CArea3D")
 metadata/_custom_type_script = "uid://lrvixysacsgx"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1943919022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.977237, -1.145216, 2.1222715)
+mesh = SubResource("BoxMesh_6fjev")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="MeshInstance3D" unique_id=862361209]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D2" unique_id=761867629]
+shape = SubResource("BoxShape3D_7471s")

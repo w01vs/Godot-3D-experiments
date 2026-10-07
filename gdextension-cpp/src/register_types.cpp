@@ -22,6 +22,8 @@
 #include "components/event/event_bus.hpp"
 #include "components/event/event_bus_base.hpp"
 #include "components/event/global_event.hpp"
+#include "components/event/world_loaded_event.hpp"
+#include "godot_cpp/variant/utility_functions.hpp"
 #include "worldgen/terrainchunk.hpp"
 
 using namespace godot;
@@ -31,20 +33,22 @@ void initialize_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
+	
+	ClassDB::register_class<EventBaseGD>(true);
+	ClassDB::register_class<GlobalEventGD>(true);
+	ClassDB::register_class<EntityEventGD>(true);
+	ClassDB::register_class<WorldLoadedEvent>(true);
+	
+	ClassDB::register_class<EventBusBase::Subscriber>();
+	ClassDB::register_class<EventBusBase>();
+	
 	ClassDB::register_class<EventBus>();
 	ClassDB::_register_engine_singleton(StringName("EventBus"), EventBus::get_singleton());
 
-	ClassDB::register_class<EventBaseGD>();
-	ClassDB::register_class<GlobalEventGD>();
-	ClassDB::register_class<EntityEventGD>();
-
-	ClassDB::register_class<EventBusBase::Subscriber>();
-	ClassDB::register_class<EventBusBase>();
-
 	ClassDB::register_class<Entity>();
-	ClassDB::register_class<Component>();
+	ClassDB::register_class<Component>(true);
 
-	ClassDB::register_class<CollisionDataGD>();
+	ClassDB::register_class<CollisionDataGD>(true);
 
 	ClassDB::register_class<CollisionExitEntityEvent>();
 	ClassDB::register_class<CollisionEnteredEntityEvent>();

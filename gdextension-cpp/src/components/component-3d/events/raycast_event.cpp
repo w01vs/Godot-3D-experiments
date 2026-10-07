@@ -9,9 +9,9 @@ void RayCastEntityEvent::_bind_methods() {
 }
 
 Ref<RayCastEntityEvent> RayCastEntityEvent::create(Node *p_source, Object *p_collider) {
-    RayCastEntityEvent* event = memnew(RayCastEntityEvent);
+    Ref<RayCastEntityEvent> event = memnew(RayCastEntityEvent);
     event->source = p_source;
     event->collider = p_collider;
 
-    return Ref<RayCastEntityEvent>(event);
+    return event;
 }

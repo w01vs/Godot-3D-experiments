@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://nm4mx2dmfxj0"]
-
-[node name="Entity" type="Entity" unique_id=857583265]
-
-[node name="Component" type="Component" parent="." unique_id=2045786440 node_paths=PackedStringArray("entity")]
-entity = NodePath("..")

@@ -1,0 +1,28 @@
+Auto-detected 16 CPU cores available for build parallelism. Using 15 cores by default. You can override it with the -j argument.
+Building for architecture x86_64 on platform linux
+scons: `godot-cpp/bin/libgodot-cpp.linux.template_debug.dev.x86_64.a' is up to date.
+Building compilation database compile_commands.json
+Compiling shared src/components/component-3d/events/raycast_event.cpp ...
+Compiling shared src/components/component-3d/events/collision_exit_event.cpp ...
+Compiling shared src/components/component-3d/events/collision_entered_event.cpp ...
+Compiling shared src/components/component-3d/events/collision_oneshot_event.cpp ...
+src/components/component-3d/events/raycast_event.cpp: In static member function 'static godot::Ref<RayCastEntityEvent> RayCastEntityEvent::create(godot::Node*, godot::Object*)':
+src/components/component-3d/events/raycast_event.cpp:13:12: error: 'class RayCastEntityEvent' has no member named 'instantiate'
+   13 |     event->instantiate();
+      |            ^~~~~~~~~~~
+scons: *** [build/template_debug/components/component-3d/events/raycast_event.os] Error 1
+src/components/component-3d/events/collision_exit_event.cpp: In static member function 'static godot::Ref<CollisionExitEntityEvent> CollisionExitEntityEvent::create(godot::Node*, godot::Ref<CollisionDataGD>)':
+src/components/component-3d/events/collision_exit_event.cpp:14:12: error: 'class CollisionExitEntityEvent' has no member named 'instantiate'
+   14 |     event->instantiate();
+      |            ^~~~~~~~~~~
+src/components/component-3d/events/collision_oneshot_event.cpp: In static member function 'static godot::Ref<CollisionOneshotEntityEvent> CollisionOneshotEntityEvent::create(godot::Node*, godot::Ref<CollisionDataGD>)':
+src/components/component-3d/events/collision_oneshot_event.cpp:14:12: error: 'class CollisionOneshotEntityEvent' has no member named 'instantiate'
+   14 |     event->instantiate();
+      |            ^~~~~~~~~~~
+src/components/component-3d/events/collision_entered_event.cpp: In static member function 'static godot::Ref<CollisionEnteredEntityEvent> CollisionEnteredEntityEvent::create(godot::Node*, godot::Ref<CollisionDataGD>)':
+src/components/component-3d/events/collision_entered_event.cpp:14:12: error: 'class CollisionEnteredEntityEvent' has no member named 'instantiate'
+   14 |     event->instantiate();
+      |            ^~~~~~~~~~~
+scons: *** [build/template_debug/components/component-3d/events/collision_exit_event.os] Error 1
+scons: *** [build/template_debug/components/component-3d/events/collision_oneshot_event.os] Error 1
+scons: *** [build/template_debug/components/component-3d/events/collision_entered_event.os] Error 1

@@ -1,5 +1,7 @@
 #include "event_bus.hpp"
 #include "../component.hpp"
+#include "components/event/event_bus_base.hpp"
+#include "components/event/world_loaded_event.hpp"
 #include "godot_cpp/core/class_db.hpp"
 #include "godot_cpp/variant/utility_functions.hpp"
 #include <godot_cpp/core/class_db.hpp>
@@ -9,13 +11,14 @@ Ref<Script> EventBus::BASE_EVENT_SCRIPT = nullptr;
 
 void EventBus::_bind_methods() {
 	ClassDB::bind_static_method("EventBus", D_METHOD("start"), &EventBus::start);
-	ClassDB::bind_static_method("EventBus", D_METHOD("subscribe", "event_type", "callback", "priority", "condition"), &EventBus::subscribe, DEFVAL(get_singleton()->truth), DEFVAL(EventBusBase::Priority::BASE));
+	ClassDB::bind_static_method("EventBus", D_METHOD("subscribe", "event_type", "callback", "priority", "condition"), &EventBus::subscribe, DEFVAL(EventBusBase::Priority::BASE), DEFVAL(get_singleton()->truth));
 	ClassDB::bind_static_method("EventBus", D_METHOD("unsubscribe", "event_type", "callback"), &EventBus::unsubscribe);
 	ClassDB::bind_static_method("EventBus", D_METHOD("emit", "event"), &EventBus::emit);
 }
 
 EventBus::EventBus() {
 	truth = Callable{ this, "always_true" };
+	event_bus = memnew(EventBusBase);
 }
 
 EventBus* EventBus::get_singleton() {
@@ -25,9 +28,10 @@ EventBus* EventBus::get_singleton() {
 	return instance;
 }
 
-void EventBus::start() {
+void EventBus::start(Node* source) {
 	get_singleton()->event_bus->enable();
 	get_singleton()->event_bus->release_events();
+	emit(WorldLoadedEvent::create(source));
 }
 
 bool EventBus::always_true() {

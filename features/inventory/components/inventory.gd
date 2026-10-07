@@ -62,7 +62,7 @@ func _open(player: bool) -> void:
 func _on_open(event: InventoryOpenEntityEvent) -> void:
 	_open(event.is_player)
 
-func _close(_event: EventBase) -> void:
+func _close(_event: EventBaseGD) -> void:
 	if open:
 		if mouse_data:
 			add_item(mouse_data.item_data, mouse_data.quantity, true, false)

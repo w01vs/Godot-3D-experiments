@@ -12,21 +12,20 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mja2j"]
 
-[node name="Entity" type="Entity" unique_id=1187246384]
+[node name="Entity" type="Entity" unique_id=713214561]
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=574538779]
 mesh = SubResource("BoxMesh_poopc")
-skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_ikia7")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Mesh" unique_id=458604654 node_paths=PackedStringArray("entity")]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=458604654 node_paths=PackedStringArray("entity")]
 script = ExtResource("2_ehbd2")
-entity = NodePath("")
+entity = NodePath("..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" unique_id=1286531422]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1286531422]
 shape = SubResource("BoxShape3D_mja2j")
 
-[node name="HealthInteractionComponent" type="Component" parent="." unique_id=378592873 node_paths=PackedStringArray("entity", "collision_shape")]
+[node name="HealthInteractionComponent" type="Component" parent="." unique_id=874820665 node_paths=PackedStringArray("entity", "collision_shape")]
 entity = NodePath("..")
 unique_name_in_owner = false
 process_mode = 0
@@ -38,10 +37,11 @@ auto_translate_mode = 0
 editor_description = ""
 script = ExtResource("2_64fsb")
 damage_info = ExtResource("4_ehbd2")
-collision_shape = NodePath("../Mesh/StaticBody3D")
+collision_shape = NodePath("../StaticBody3D")
 metadata/_custom_type_script = "uid://k857ynoid412"
 
-[node name="TerrainComponent" type="Component" parent="." unique_id=261766221 node_paths=PackedStringArray("body")]
+[node name="TerrainComponent" type="Component" parent="." unique_id=507772737 node_paths=PackedStringArray("entity", "body")]
+entity = NodePath("..")
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -51,5 +51,5 @@ physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
 script = ExtResource("5_7ijho")
-body = NodePath("../Mesh/StaticBody3D")
+body = NodePath("../StaticBody3D")
 metadata/_custom_type_script = "uid://dhe53nqofut4a"

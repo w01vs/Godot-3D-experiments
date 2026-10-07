@@ -9,44 +9,26 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ih8e"]
 
-[node name="Entity" type="Entity" unique_id=598504392]
+[node name="Entity" type="Entity" unique_id=1985707336]
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1512958692]
 mesh = SubResource("BoxMesh_5ih8e")
-skeleton = NodePath("../..")
+skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Mesh" unique_id=405424245 node_paths=PackedStringArray("entity")]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=405424245 node_paths=PackedStringArray("entity")]
 script = ExtResource("3_vux85")
 entity = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" unique_id=530127438]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=530127438]
 shape = SubResource("BoxShape3D_5ih8e")
 
-[node name="HealthInteractionComponent" type="Component" parent="." unique_id=582530079 node_paths=PackedStringArray("entity", "collision_shape")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="HealthInteractionComponent" type="Node" parent="." unique_id=761669197 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("2_qhbva")
 damage_info = ExtResource("4_5ih8e")
-collision_shape = NodePath("../Mesh/StaticBody3D")
+collision_shape = NodePath("../StaticBody3D")
 metadata/_custom_type_script = "uid://k857ynoid412"
 
-[node name="TerrainComponent" type="Component" parent="." unique_id=896225607 node_paths=PackedStringArray("entity", "body")]
-entity = NodePath("..")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
+[node name="TerrainComponent" type="Node" parent="." unique_id=1967775580 node_paths=PackedStringArray("body")]
 script = ExtResource("5_vux85")
-body = NodePath("../Mesh/StaticBody3D")
+body = NodePath("../StaticBody3D")
 metadata/_custom_type_script = "uid://dhe53nqofut4a"

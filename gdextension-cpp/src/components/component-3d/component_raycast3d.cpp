@@ -18,7 +18,7 @@ void ComponentRayCast3D::_ready() {
     add_to_group(Component::GROUP);
 }
 
-void ComponentRayCast3D::_physics_process() {
+void ComponentRayCast3D::_physics_process(double delta) {
     Object* collider = get_collider();
     if(current_collider != collider) {
         current_collider = collider;

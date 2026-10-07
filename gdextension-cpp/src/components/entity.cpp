@@ -1,6 +1,7 @@
 #include "entity.hpp"
 #include "component.hpp"
 #include "event/event_bus.hpp"
+#include "godot_cpp/core/class_db.hpp"
 #include "godot_cpp/variant/utility_functions.hpp"
 
 Ref<Script> Entity::entity_event_script = nullptr;
@@ -14,6 +15,11 @@ Entity::Entity() {
 }
 
 void Entity::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("has_component", "type"), &Entity::has_component);
+	ClassDB::bind_method(D_METHOD("register_component", "component"), &Entity::register_component);
+	ClassDB::bind_method(D_METHOD("get_component", "type"), &Entity::get_component);
+	ClassDB::bind_method(D_METHOD("remove_component", "component"), &Entity::remove_component);
+	
 }
 
 void Entity::_ready() {
@@ -60,7 +66,7 @@ void Entity::remove_component(const Component *component) {
 TypedArray<Script> Entity::find_bases(const Ref<Script> &p_script, bool removing) {
 	Ref<Script> current = p_script;
 	TypedArray<Script> scripts = TypedArray<Script>();
-	while (Object::cast_to<Component>(current.ptr())) {
+	while (current.is_valid() && current->get_instance_base_type() == Component::get_class_static() && !current->is_abstract()) {
 		assert(!component_map.has(current) || removing);
 		if (component_map.has(current) && !removing) {
 			UtilityFunctions::push_error("A component of this type %s has already been registered", current->get_global_name());

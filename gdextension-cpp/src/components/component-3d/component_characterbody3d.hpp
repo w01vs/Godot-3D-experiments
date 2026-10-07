@@ -17,7 +17,7 @@ public:
 	Entity *get_entity() const { return entity; }
 
     void _ready() override;
-    void _physics_process();
+    void _physics_process(double delta) override;
 
 	void cset_collision_layer_value(int value, bool on);
 	void cset_collision_mask_value(int value, bool on);

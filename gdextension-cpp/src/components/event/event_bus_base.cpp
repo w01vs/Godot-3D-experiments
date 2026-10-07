@@ -1,4 +1,5 @@
 #include "event_bus_base.hpp"
+#include "godot_cpp/variant/utility_functions.hpp"
 #include <godot_cpp/core/class_db.hpp>
 
 namespace godot {
@@ -25,17 +26,17 @@ void EventBusBase::subscribe(const Variant &p_event_type, const Callable &p_call
 		return;
 	}
 
-	if (!listeners.has(p_event_type)) {
-		Dictionary prio_dict;
+	bool exists = listeners.has(p_event_type);
+	Dictionary prio_dict;
+	if (!exists) {
 		prio_dict[PRE] = TypedArray<Subscriber>();
 		prio_dict[BASE] = TypedArray<Subscriber>();
 		prio_dict[POST] = TypedArray<Subscriber>();
+
 		listeners[p_event_type] = prio_dict;
 	}
 
-	Dictionary prio_dict = listeners[p_event_type];
 	TypedArray<Subscriber> subs_arr = prio_dict[p_priority];
-
 	for (int i = 0; i < subs_arr.size(); ++i) {
 		Ref<Subscriber> sub_d = subs_arr[i];
 		if (sub_d.is_valid() && sub_d->callback == p_callback) {
@@ -43,9 +44,9 @@ void EventBusBase::subscribe(const Variant &p_event_type, const Callable &p_call
 		}
 	}
 
-	// Pack subscriber into a Variant-friendly Dictionary for GDScript boundary
 	Ref<Subscriber> sub;
 	sub.instantiate();
+
 	sub->callback = p_callback;
 	sub->object = p_callback.get_object();
 	sub->conditions = p_conditions;

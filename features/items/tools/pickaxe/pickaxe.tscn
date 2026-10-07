@@ -1,40 +1,53 @@
-[gd_scene format=3 uid="uid://cegwr0shcxxre"]
+[gd_scene format=3 uid="uid://c854cy0xipvdt"]
 
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_gtsso"]
-[ext_resource type="PackedScene" uid="uid://cqnfeqwdyuef5" path="res://features/items/weapons/sword/sword.glb" id="2_6474j"]
-[ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="3_5k5mh"]
 [ext_resource type="Script" uid="uid://dv10pdq2oaoph" path="res://features/items/tools/harvester_item_model_component.gd" id="5_8es2e"]
 [ext_resource type="Resource" uid="uid://c4hcbgrspsqsi" path="res://features/items/tools/pickaxe/pickaxe_definition.tres" id="5_27045"]
 [ext_resource type="Script" uid="uid://drfotqkwr4jtl" path="res://features/items/tools/harvester_component.gd" id="5_sxt5b"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_d6wag"]
-size = Vector3(10.446039, 1.1, 2.3)
+[sub_resource type="BoxMesh" id="BoxMesh_6fjev"]
+size = Vector3(1, 2.8446045, 1)
 
-[node name="Pickaxe" type="Node3D" unique_id=1929155436]
-top_level = true
-script = ExtResource("1_gtsso")
-metadata/_custom_type_script = "uid://cp7e65rba841n"
+[sub_resource type="BoxShape3D" id="BoxShape3D_na3t5"]
+size = Vector3(1, 2.8446045, 1)
 
-[node name="sword" parent="." unique_id=744820849 instance=ExtResource("2_6474j")]
-transform = Transform3D(3.2481654e-16, 7.430936e-09, -0.17, 0.17, -7.430936e-09, 0, -7.430936e-09, -0.17, -7.430936e-09, 0, 0.359, 0)
+[node name="Entity" type="Entity" unique_id=1026370378]
 
-[node name="ComponentArea3D" type="Area3D" parent="sword" unique_id=1709173092 node_paths=PackedStringArray("entity")]
-transform = Transform3D(1.1239325e-14, 5.882353, -2.571258e-07, 2.571258e-07, -2.571258e-07, -5.882353, -5.882353, 6.734627e-22, -2.571258e-07, -2.1117647, 9.230816e-08, -2.417731e-22)
-script = ExtResource("3_5k5mh")
-entity = NodePath("../..")
-metadata/_custom_type_script = "uid://bf01144lxbocj"
+[node name="ComponentMeshInstance3D" type="ComponentMeshInstance3D" parent="." unique_id=896007115 node_paths=PackedStringArray("entity")]
+entity = NodePath("..")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92230225, 0)
+mesh = SubResource("BoxMesh_6fjev")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="sword/ComponentArea3D" unique_id=321027928]
-transform = Transform3D(-7.430936e-09, -0.17, 0, 0.17, -7.4309363e-09, 0, 5.6336193e-16, -3.718781e-38, 0.17, -3.1483577e-08, 1.1041201, 3.167491e-08)
-shape = SubResource("BoxShape3D_d6wag")
+[node name="ComponentArea3D" type="ComponentArea3D" parent="." unique_id=1673127066 node_paths=PackedStringArray("entity")]
+entity = NodePath("..")
 
-[node name="HarvesterItemModelComponent" type="Node" parent="." unique_id=169956937 node_paths=PackedStringArray("entity")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ComponentArea3D" unique_id=953168635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92230225, 0)
+shape = SubResource("BoxShape3D_na3t5")
+
+[node name="HarvesterComponent" type="Component" parent="." unique_id=1091123267 node_paths=PackedStringArray("entity", "area")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("5_sxt5b")
+area = NodePath("../ComponentArea3D")
+metadata/_custom_type_script = "uid://drfotqkwr4jtl"
+
+[node name="HarvesterItemModelComponent" type="Component" parent="." unique_id=1166710754 node_paths=PackedStringArray("entity")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("5_8es2e")
 data = ExtResource("5_27045")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://dv10pdq2oaoph"
-
-[node name="HarvesterComponent" type="Node" parent="." unique_id=50722548 node_paths=PackedStringArray("area", "entity")]
-script = ExtResource("5_sxt5b")
-area = NodePath("../sword/ComponentArea3D")
-entity = NodePath("..")

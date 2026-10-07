@@ -20,8 +20,8 @@ void EventBusBase::_bind_methods() {
 	BIND_ENUM_CONSTANT(POST);
 }
 
-void EventBusBase::subscribe(const Ref<Script> &p_event_type, const Callable &p_callback, const Callable &p_conditions, Priority p_priority) {
-	if (p_event_type.is_null()) {
+void EventBusBase::subscribe(const Variant &p_event_type, const Callable &p_callback, const Callable &p_conditions, Priority p_priority) {
+	if (p_event_type.get_type() == Variant::NIL) {
 		return;
 	}
 
@@ -53,7 +53,7 @@ void EventBusBase::subscribe(const Ref<Script> &p_event_type, const Callable &p_
 	subs_arr.append(sub);
 }
 
-void EventBusBase::unsubscribe(const Ref<Script> &p_event_type, const Callable &p_callback) {
+void EventBusBase::unsubscribe(const Variant &p_event_type, const Callable &p_callback) {
 	if (!listeners.has(p_event_type)) {
 		return;
 	}

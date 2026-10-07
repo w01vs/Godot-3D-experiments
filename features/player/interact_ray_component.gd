@@ -20,7 +20,7 @@ func _interact(_event: InteractInputEvent) -> void:
 	if collider:
 		collider.oneshot(InteractionData.new(entity))
 
-func _on_entity_load(_event: EntityLoadedEvent) -> void:
+func _on_entity_load() -> void:
 	ray.cset_collision_mask_value(CollisionLayer.INTERACTABLE, true)
 	ray.set_area_collision(true)
 	ray.set_body_collision(true)

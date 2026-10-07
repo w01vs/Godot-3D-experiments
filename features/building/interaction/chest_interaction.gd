@@ -4,7 +4,7 @@ var inv: InventoryComponent
 
 @export var interactable_area: CArea3D
 
-func _on_entity_load(_event: EntityLoadedEvent) -> void:
+func _on_entity_load() -> void:
 	_init_area()
 	if entity.has_component(InventoryComponent):
 		inv = entity.get_component(InventoryComponent)

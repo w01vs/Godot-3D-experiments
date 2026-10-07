@@ -40,7 +40,7 @@ public:
 	};
 
 private:
-	TypedDictionary<Script, Dictionary> listeners;
+	TypedDictionary<Variant, Dictionary> listeners;
 
 	bool active = true;
 	bool hold = false;
@@ -56,8 +56,8 @@ public:
 	EventBusBase() = default;
 	~EventBusBase() = default;
 
-	void subscribe(const Ref<Script> &p_event_type, const Callable &p_callback, const Callable &p_conditions, Priority p_priority = BASE);
-	void unsubscribe(const Ref<Script> &p_event_type, const Callable &p_callback);
+	void subscribe(const Variant &p_event_type, const Callable &p_callback, const Callable &p_conditions, Priority p_priority = BASE);
+	void unsubscribe(const Variant &p_event_type, const Callable &p_callback);
 	void emit(const Ref<EventBaseGD> &p_event);
 
 	void enable() { active = true; }

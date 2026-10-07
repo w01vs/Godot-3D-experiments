@@ -74,7 +74,7 @@ func _close(_event: EventBase) -> void:
 		InputManager.capture_mouse()
 
 # Player exclusive
-func _on_entity_load(_event: EntityLoadedEvent) -> void:
+func _on_entity_load() -> void:
 	if entity.has_component(PlayerComponent):
 		var inv_save: InventorySave = preload("uid://b5oqc4fvtmllc")
 		inventory.resize(inventory_size)

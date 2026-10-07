@@ -7,7 +7,7 @@ func set_data(item_: ItemData, quantity_: int) -> void:
 	item = item_
 	quantity = quantity_
 
-func _interact(event: CollisionEntityEvent) -> void:
+func _interact(event: CollisionOneshotEntityEvent) -> void:
 	if event.data is InteractionData:
 		if event.data.source.has_component(InventoryComponent):
 			var inv: InventoryComponent = event.data.source.get_component(InventoryComponent)

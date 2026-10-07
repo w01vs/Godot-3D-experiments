@@ -1,13 +1,11 @@
 #include "component.hpp"
-#include "event/event_bus.hpp"
 #include "godot_cpp/classes/engine.hpp"
 #include "godot_cpp/classes/global_constants.hpp"
 #include "godot_cpp/classes/wrapped.hpp"
 #include "godot_cpp/core/class_db.hpp"
 #include "godot_cpp/core/object.hpp"
-#include "utils/utils.hpp"
 
-const StringName Component::GROUP = StringName{"COMPONENT"};
+const char* Component::GROUP = "COMPONENT";
 
 void Component::_bind_methods() {
 	GDVIRTUAL_BIND(_on_entity_load);
@@ -82,11 +80,18 @@ void Component::_on_disable() {
 	}
 }
 
-void Component::subscribe(Ref<Script> event_type, Callable callback, EventBusBase::Priority priority) {
-	if (UtilsGD::is_of_type(event_type, Entity::ENTITY_EVENT_SCRIPT(), EventBus::BASE_EVENT_SCRIPT)) {
-		entity->subscribe(this, event_type, callback, priority);
+void Component::subscribe(const Variant& event_type, Callable callback, EventBusBase::Priority priority) {
+	Ref<Script> script = Object::cast_to<Script>(event_type);
+	assert(script.ptr());
+	if(!script.ptr()){
+		UtilityFunctions::push_error("Supplied an invalid event type.");
+		return;
+	}
+	bool inherits = ClassDB::is_parent_class(script->get_class_static(), Entity::ENTITY_EVENT_SCRIPT()->get_class_static());
+	if (inherits) {
+		entity->subscribe(this, script, callback, priority);
 	} else {
-		entity->subscribe_global(this, event_type, callback, priority);
+		entity->subscribe_global(this, script, callback, priority);
 	}
 }
 

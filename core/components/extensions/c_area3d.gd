@@ -19,13 +19,13 @@ func _ready() -> void:
 			push_warning("CArea3D with more than 1 CollisionShape3D at %s" % [str(self)])
 
 func enter(data: CollisionData) -> void:
-	entity.emit_local(CollisionEnteredEntityEvent.new(self, data))
+	entity.emit_local(CollisionEnteredEntityEvent.new().init)
 
 func oneshot(data: CollisionData) -> void:
-	entity.emit_local(CollisionOneshotEntityEvent.new(self, data))
+	entity.emit_local(CollisionOneshotEntityEvent.new())
 
 func exit(data: CollisionData) -> void:
-	entity.emit_local(CollisionExitEntityEvent.new(self, data))
+	entity.emit_local(CollisionExitEntityEvent.new())
 
 func cset_collision_mask_value(value: int, on: bool) -> void:
 	if collision_mask == 0 and on:

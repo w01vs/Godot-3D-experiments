@@ -12,7 +12,7 @@ public:
     CollisionDataGD() = default;
     ~CollisionDataGD() = default;
     
-	Entity *source;
+	Entity *source = nullptr;
 	Entity *get_source() const { return source; }
 	void set_source(Entity *p_source) { source = p_source; }
 protected:

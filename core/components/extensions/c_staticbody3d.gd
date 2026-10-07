@@ -10,13 +10,14 @@ func _ready() -> void:
 		add_to_group(Groups.CUSTOM_COLLISION_OBJECT)
 
 func enter(data: CollisionData) -> void:
-	entity.emit_local(CollisionEnteredEntityEvent.new(self, data))
+	entity.emit_local(CollisionEnteredEntityEvent.new())
 
 func oneshot(data: CollisionData) -> void:
-	entity.emit_local(CollisionOneshotEntityEvent.new(self, data))
+	entity.emit_local(CollisionOneshotEntityEvent.new())
 
 func exit(data: CollisionData) -> void:
-	entity.emit_local(CollisionExitEntityEvent.new(self, data))
+	entity.emit_local(CollisionExitEntityEvent.new())
+	Component.new()
 
 func cset_collision_mask_value(value: int, on: bool) -> void:
 	set_collision_mask_value(value, on)

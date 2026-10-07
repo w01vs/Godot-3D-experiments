@@ -1,13 +1,10 @@
-@abstract class_name EventBase extends Resource
+@abstract class_name EventBase extends EventBaseGD
 
 enum Priority { 
 	PRE = -1,
 	BASE = 0,
 	POST = 1,
 }
-
-var source: Node
-var debug_id: int
 
 func _init(source_: Node) -> void:
 	source = source_ 

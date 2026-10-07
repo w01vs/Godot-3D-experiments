@@ -17,31 +17,54 @@ albedo_color = Color(0, 0, 0, 1)
 
 [node name="rock_base_root" unique_id=552998870 instance=ExtResource("1_2v1pc")]
 
-[node name="rock" parent="." index="0" unique_id=1892184986]
+[node name="rock" parent="." index="0" unique_id=2054125945]
 material_override = ExtResource("2_7dg4j")
-metadata/ring = PackedVector3Array(0.88036, -0.17047656, -1.51883, 1.35556, -0.17047656, -0.98473, 1.46162, -0.17047656, -0.81553, 1.69882, -0.17047656, -0.24293, 1.63777, -0.17047656, 0.32829, 1.05497, -0.17047656, 1.16989, 0.79132, -0.17047656, 1.38263, 0.08422, -0.17047656, 1.67553, -0.37509, -0.17047656, 1.67549, -0.80199, -0.17047656, 1.49859, -0.89638, -0.17047656, 1.44925, -1.56448, -0.17047656, 1.02045, -1.8404, -0.17047656, 0.5155, -1.8404, -0.17047656, 0.4824, -1.81366, -0.17047656, 0.30526, -1.63546, -0.17047656, -0.27144, -1.61409, -0.17047656, -0.32972, -1.40439, -0.17047656, -0.82132, -1.13513, -0.17047656, -1.11516, -0.42803, -0.17047656, -1.49276, -0.30234, -0.17047656, -1.54261, 0.27516, -0.17047656, -1.69911)
 
 [node name="RingRenderer" type="MeshInstance3D" parent="rock" index="0" unique_id=1296068133]
 material_override = SubResource("StandardMaterial3D_7dg4j")
 mesh = SubResource("ImmediateMesh_7dg4j")
 script = ExtResource("2_b8gsh")
 
-[node name="HarvestableComponent" type="Node" parent="." index="2" unique_id=1710392146 node_paths=PackedStringArray("body", "mesh", "entity")]
-script = ExtResource("2_4scq8")
-item = ExtResource("5_7dg4j")
-quantity = 2
-body = NodePath("../CStaticBody3D")
-mesh = NodePath("../rock")
+[node name="TerrainComponent" type="Component" parent="." index="2" unique_id=1677716270 node_paths=PackedStringArray("entity", "body")]
 entity = NodePath("..")
-metadata/_custom_type_script = "uid://d1lysd3ah5hlu"
-
-[node name="HealthComponent" type="Node" parent="." index="3" unique_id=1120861329 node_paths=PackedStringArray("entity")]
-script = ExtResource("4_obr6a")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://bj38naggyrtts"
-
-[node name="TerrainComponent" type="Node" parent="." index="4" unique_id=1887708995 node_paths=PackedStringArray("body", "entity")]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("5_3xqkf")
 body = NodePath("../CStaticBody3D")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://dhe53nqofut4a"
+
+[node name="HealthComponent" type="Component" parent="." index="3" unique_id=313652091 node_paths=PackedStringArray("entity")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("4_obr6a")
+metadata/_custom_type_script = "uid://bj38naggyrtts"
+
+[node name="HarvestableComponent" type="Component" parent="." index="4" unique_id=885170205 node_paths=PackedStringArray("entity", "body", "mesh")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("2_4scq8")
+item = ExtResource("5_7dg4j")
+quantity = 1
+body = NodePath("../CStaticBody3D")
+mesh = NodePath("../rock")
+metadata/_custom_type_script = "uid://d1lysd3ah5hlu"

@@ -11,6 +11,7 @@ public:
 
 	Ref<CollisionDataGD> get_data() const { return data; }
 	void set_data(Ref<CollisionDataGD> p_data) { data = p_data; }
+	static Ref<CollisionExitEntityEvent> create(Node* source, Ref<CollisionDataGD> p_data); 
 
 protected:
 	static void _bind_methods();

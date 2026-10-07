@@ -21,7 +21,7 @@ var placed: bool = false
 var holo: bool = true
 var placeable: bool = false
 
-func _on_entity_load(_event: EntityLoadedEvent) -> void:
+func _on_entity_load() -> void:
 	assert(!use_foundation || (use_foundation and foundation))
 	if use_foundation and !foundation:
 		push_error("No FoundationMarker selected.")

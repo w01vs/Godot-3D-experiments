@@ -15,16 +15,16 @@ class Component : public Node {
 private:
 	Entity *entity = nullptr;
 	bool active = true;
-	
-	protected:
+
+protected:
 	static void _bind_methods();
 	virtual void _on_entity_load();
 	GDVIRTUAL0(_on_entity_load);
 	virtual void _init_component();
 	GDVIRTUAL0(_init_component);
 	void _notification(int what);
-	
-	public:
+
+public:
 	Component() = default;
 	~Component() = default;
 	bool is_active() { return active; }
@@ -37,8 +37,8 @@ private:
 	void disable();
 	virtual void _on_disable();
 	GDVIRTUAL0(_on_disable);
-	
-	void subscribe(Ref<Script> event_type, Callable callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
+
+	void subscribe(const Variant &event_type, Callable callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
 	void emit(Ref<EventBaseGD> event);
-	const static StringName GROUP;
+	const static char *GROUP;
 };

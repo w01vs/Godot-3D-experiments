@@ -17,7 +17,6 @@ class Component;
 class Entity : public Node3D {
 	GDCLASS(Entity, Node3D)
 	friend class Component;
-	friend class ComponentArea3D;
 
 public:
 	void register_component(const Component *component);
@@ -26,6 +25,8 @@ public:
 	void remove_component(const Component *component);
 	virtual void _ready() override;
 	static const Ref<Script> ENTITY_EVENT_SCRIPT() { return entity_event_script; }
+
+	void process_event(const Ref<EntityEventGD>& event);
 
 protected:
 	static void _bind_methods();

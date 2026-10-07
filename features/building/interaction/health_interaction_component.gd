@@ -2,7 +2,7 @@ class_name HealthInteractionComponent extends InteractionComponent
 
 @export var damage_info: DamageInfo
 
-func _interact(event: CollisionEntityEvent) -> void:
+func _interact(event: CollisionOneshotEntityEvent) -> void:
 	if event.data is InteractionData:
 		var data: InteractionData = event.data as InteractionData
 		if !data.hover:

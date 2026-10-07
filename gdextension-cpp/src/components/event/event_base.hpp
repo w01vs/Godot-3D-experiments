@@ -10,11 +10,9 @@ using namespace godot;
 class EventBaseGD : public Resource {
 	GDCLASS(EventBaseGD, Resource)
 
-private:
-	Node *source;
-	uint64_t debug_id = 0;
-
 protected:
+	Node *source = nullptr;
+	uint64_t debug_id = 0;
 	static void _bind_methods();
 
 public:

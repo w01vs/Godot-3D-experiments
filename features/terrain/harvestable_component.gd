@@ -17,7 +17,7 @@ func _init_component() -> void:
 	assert(quantity > 0)
 	inverse_xform = entity.global_transform.affine_inverse()
 
-func _on_entity_load(_event: EntityLoadedEvent) -> void:
+func _on_entity_load() -> void:
 	if mesh.has_meta("ring"):
 		ring = mesh.get_meta("ring")
 		mesh.remove_meta("ring")

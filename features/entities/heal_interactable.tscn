@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bg2ko1e8iq8ne"]
 
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_4n15f"]
 [ext_resource type="Script" uid="uid://k857ynoid412" path="res://features/building/interaction/health_interaction_component.gd" id="2_qhbva"]
 [ext_resource type="Script" uid="uid://dxpaoqwywatwk" path="res://core/components/extensions/c_staticbody3d.gd" id="3_vux85"]
 [ext_resource type="Resource" uid="uid://bahrrcu008m8q" path="res://features/building/interaction/heal_interactable_info.tres" id="4_5ih8e"]
@@ -10,30 +9,44 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ih8e"]
 
-[node name="HealInteractable" type="Node3D" unique_id=2040929709]
-script = ExtResource("1_4n15f")
-metadata/_custom_type_script = "uid://cp7e65rba841n"
+[node name="Entity" type="Entity" unique_id=598504392]
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1512958692]
 mesh = SubResource("BoxMesh_5ih8e")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Mesh" unique_id=405424245 node_paths=PackedStringArray("entity")]
 script = ExtResource("3_vux85")
-entity = NodePath("../..")
+entity = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" unique_id=530127438]
 shape = SubResource("BoxShape3D_5ih8e")
 
-[node name="HealthInteractionComponent" type="Node" parent="." unique_id=763902668 node_paths=PackedStringArray("collision_shape", "entity")]
+[node name="HealthInteractionComponent" type="Component" parent="." unique_id=582530079 node_paths=PackedStringArray("entity", "collision_shape")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("2_qhbva")
 damage_info = ExtResource("4_5ih8e")
 collision_shape = NodePath("../Mesh/StaticBody3D")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://k857ynoid412"
 
-[node name="TerrainComponent" type="Node" parent="." unique_id=92066286 node_paths=PackedStringArray("body", "entity")]
+[node name="TerrainComponent" type="Component" parent="." unique_id=896225607 node_paths=PackedStringArray("entity", "body")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("5_vux85")
 body = NodePath("../Mesh/StaticBody3D")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://dhe53nqofut4a"

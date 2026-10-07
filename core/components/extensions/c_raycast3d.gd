@@ -13,7 +13,7 @@ func _physics_process(_delta: float) -> void:
 		var collider: Object = get_collider()
 		if _current_collider != collider:
 			_current_collider = collider
-			entity.emit_local(RayCastEntityEvent.new(self, _current_collider))
+			entity.emit_local(RayCastEntityEvent.new())
 		elif _current_collider:
 			_current_collider = null
 

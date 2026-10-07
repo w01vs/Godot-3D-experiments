@@ -2,7 +2,6 @@
 #include "component.hpp"
 #include "event/event_bus.hpp"
 #include "godot_cpp/variant/utility_functions.hpp"
-#include "utils/utils.hpp"
 
 Ref<Script> Entity::entity_event_script = nullptr;
 
@@ -15,7 +14,6 @@ Entity::Entity() {
 }
 
 void Entity::_bind_methods() {
-    
 }
 
 void Entity::_ready() {
@@ -23,13 +21,13 @@ void Entity::_ready() {
 	local_event_bus->release_events();
 }
 
-void Entity::register_component(const Component* component) {
+void Entity::register_component(const Component *component) {
 	for (Ref<Script> script : find_bases(component->get_script())) {
 		component_map.set(script, component);
 	}
 }
 
-Component* Entity::get_component(const Ref<Script> &script) {
+Component *Entity::get_component(const Ref<Script> &script) {
 	return Object::cast_to<Component>(component_map.get(script, nullptr));
 }
 
@@ -37,7 +35,7 @@ bool Entity::has_component(const Ref<Script> &script) {
 	return component_map.has(script);
 }
 
-void Entity::remove_component(const Component* component) {
+void Entity::remove_component(const Component *component) {
 	for (Ref<Script> script : find_bases(component->get_script())) {
 		if (get_component(script) == component) {
 			component_map.erase(component->get_script());
@@ -74,9 +72,10 @@ TypedArray<Script> Entity::find_bases(const Ref<Script> &p_script, bool removing
 	return scripts;
 }
 
-void Entity::subscribe(Component* component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority) {
-	assert(UtilsGD::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT));
-	if (UtilsGD::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT)) {
+void Entity::subscribe(Component *component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority) {
+	bool inherits = ClassDB::is_parent_class(event_type.get_class_static(), entity_event_script->get_class_static());
+	assert(inherits);
+	if (!inherits) {
 		UtilityFunctions::push_error("Event %s is not a valid entity event", event_type->get_global_name());
 		return;
 	}
@@ -84,8 +83,9 @@ void Entity::subscribe(Component* component, const Ref<Script> &event_type, cons
 }
 
 void Entity::unsubscribe(const Ref<Script> &event_type, const Callable &callback) {
-	assert(UtilsGD::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT));
-	if (UtilsGD::is_of_type(event_type, entity_event_script, EventBus::BASE_EVENT_SCRIPT)) {
+	bool inherits = ClassDB::is_parent_class(event_type.get_class_static(), entity_event_script->get_class_static());
+	assert(inherits);
+	if (!inherits) {
 		UtilityFunctions::push_error("Event %s is not a valid entity event", event_type->get_global_name());
 		return;
 	}
@@ -99,7 +99,7 @@ void Entity::emit_local(const Ref<EntityEventGD> &event) {
 	local_event_bus->emit(event);
 }
 
-void Entity::subscribe_global(const Component* component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priorit) {
+void Entity::subscribe_global(const Component *component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priorit) {
 	if (!global_subscriptions.has(event_type)) {
 		global_subscriptions[event_type] = TypedArray<Callable>{};
 	}
@@ -148,6 +148,10 @@ void Entity::callback_internal(const Ref<EventBaseGD> &event) {
 			}
 		}
 	}
+}
+
+void Entity::process_event(const Ref<EntityEventGD> &event) {
+	emit_local(event);
 }
 
 void Entity::enable() {

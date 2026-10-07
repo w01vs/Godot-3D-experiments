@@ -1,8 +1,8 @@
 #include "event_bus.hpp"
 #include "../component.hpp"
-#include "../utils/utils.hpp"
 #include "godot_cpp/core/class_db.hpp"
 #include "godot_cpp/variant/utility_functions.hpp"
+#include <godot_cpp/core/class_db.hpp>
  
 EventBus* EventBus::instance = nullptr;
 Ref<Script> EventBus::BASE_EVENT_SCRIPT = nullptr;
@@ -34,20 +34,34 @@ bool EventBus::always_true() {
 	return true;
 }
 
-void EventBus::subscribe(const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority, const Callable &condition) {
-	assert(!Object::cast_to<Component>(callback.get_object()));
-	assert(UtilsGD::is_of_type(event_type, BASE_EVENT_SCRIPT));
-	if (Object::cast_to<Component>(callback.get_object()) || UtilsGD::is_of_type(event_type, BASE_EVENT_SCRIPT)) {
+void EventBus::subscribe(const Variant &event_type, const Callable &callback, EventBusBase::Priority priority, const Callable &condition) {
+    assert(!Object::cast_to<Component>(callback.get_object()));
+	Ref<Script> script = Object::cast_to<Script>(event_type);
+	assert(script.ptr());
+	if(!script.ptr()){
+		UtilityFunctions::push_error("Supplied an invalid event type.");
+		return;
+	}
+	bool inherits = ClassDB::is_parent_class(script->get_class_static(), BASE_EVENT_SCRIPT->get_class_static());
+    assert(inherits);
+	if (Object::cast_to<Component>(callback.get_object()) || !inherits) {
 		UtilityFunctions::push_error("Called from component or supplied wrong event type");
 		return;
 	}
 	get_singleton()->event_bus->subscribe(event_type, callback, condition, priority);
 }
 
-void EventBus::unsubscribe(const Ref<Script> &event_type, const Callable &callback) {
+void EventBus::unsubscribe(const Variant &event_type, const Callable &callback) {
     assert(!Object::cast_to<Component>(callback.get_object()));
-    assert(UtilsGD::is_of_type(event_type, BASE_EVENT_SCRIPT));
-	if (Object::cast_to<Component>(callback.get_object()) || UtilsGD::is_of_type(event_type, BASE_EVENT_SCRIPT)) {
+	Ref<Script> script = Object::cast_to<Script>(event_type);
+	assert(script.ptr());
+	if(!script.ptr()){
+		UtilityFunctions::push_error("Supplied an invalid event type.");
+		return;
+	}
+	bool inherits = ClassDB::is_parent_class(script->get_class_static(), BASE_EVENT_SCRIPT->get_class_static());
+    assert(inherits);
+	if (Object::cast_to<Component>(callback.get_object()) || !inherits) {
 		UtilityFunctions::push_error("Called from component or supplied wrong event type");
 		return;
 	}

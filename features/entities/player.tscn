@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://o45847jxuasr"]
 
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_sm6ki"]
 [ext_resource type="Script" uid="uid://bp68jof6vnwy5" path="res://core/components/extensions/c_characterbody3d.gd" id="2_3vvee"]
 [ext_resource type="Script" uid="uid://ccd4wd8ocb43x" path="res://core/components/extensions/c_raycast3d.gd" id="3_6ldnq"]
 [ext_resource type="Script" uid="uid://bj38naggyrtts" path="res://core/components/stats/health_component.gd" id="4_1qn71"]
@@ -45,20 +44,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0.09612751, 0.060932398), Vector3(0, 0.048, -0.129), Vector3(0, 0, 0)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../EquipmentComponent")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"hitbox_on"],
-"method": &"_on_animation_trigger"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_6twa2"]
@@ -140,16 +125,14 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x5kv8"]
 
-[node name="Player" type="Node3D" unique_id=1804397749 groups=["player"]]
-script = ExtResource("1_sm6ki")
-metadata/_custom_type_script = "uid://cp7e65rba841n"
+[node name="Entity" type="Entity" unique_id=2012197820]
 
 [node name="CCharacterBody3D" type="CharacterBody3D" parent="." unique_id=1750855292 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 32
 collision_mask = 49
 script = ExtResource("2_3vvee")
-entity = NodePath("..")
+entity = NodePath("")
 
 [node name="TwistPivot" type="Node3D" parent="CCharacterBody3D" unique_id=1164485217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -165,7 +148,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0
 target_position = Vector3(0, -7, 0)
 collision_mask = 2
 script = ExtResource("3_6ldnq")
-entity = NodePath("../../../../..")
+entity = NodePath("")
 metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
 
 [node name="BuildRay" type="RayCast3D" parent="CCharacterBody3D/TwistPivot/PitchPivot/Camera3D" unique_id=1795242167 node_paths=PackedStringArray("entity")]
@@ -174,7 +157,7 @@ visible = false
 target_position = Vector3(0, -15, 0)
 collision_mask = 0
 script = ExtResource("3_6ldnq")
-entity = NodePath("../../../../..")
+entity = NodePath("")
 metadata/_custom_type_script = "uid://ccd4wd8ocb43x"
 
 [node name="Laser" parent="CCharacterBody3D/TwistPivot/PitchPivot" unique_id=846373636 instance=ExtResource("5_n0cgk")]
@@ -209,7 +192,7 @@ libraries/ = SubResource("AnimationLibrary_3ip4g")
 
 [node name="AnimationTree" type="AnimationTree" parent="CCharacterBody3D" unique_id=894092481]
 tree_root = SubResource("AnimationNodeBlendTree_vn1u8")
-advance_expression_base_node = NodePath("../../EquipmentComponent")
+advance_expression_base_node = NodePath("")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Transition/current_state = "Custom"
 parameters/Transition/transition_request = ""
@@ -228,60 +211,122 @@ skeleton = NodePath("")
 [node name="CArea3D" type="Area3D" parent="CCharacterBody3D" unique_id=389225742 node_paths=PackedStringArray("entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("4_6ldnq")
-entity = NodePath("../..")
+entity = NodePath("")
 metadata/_custom_type_script = "uid://bf01144lxbocj"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CCharacterBody3D/CArea3D" unique_id=367625082]
 transform = Transform3D(0.930991, 0, 0, 0, 0.930991, 0, 0, 0, 0.930991, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_flj5x")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=823678617 node_paths=PackedStringArray("entity")]
-script = ExtResource("4_1qn71")
+[node name="InventoryComponent" type="Component" parent="." unique_id=1466975797 node_paths=PackedStringArray("entity")]
 entity = NodePath("..")
-
-[node name="HurtboxComponent" type="Node" parent="." unique_id=2124588863 node_paths=PackedStringArray("area", "entity")]
-script = ExtResource("6_malci")
-area = NodePath("../CCharacterBody3D/CArea3D")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://lrvixysacsgx"
-
-[node name="InteractRayComponent" type="Node" parent="." unique_id=1412276942 node_paths=PackedStringArray("ray", "entity")]
-script = ExtResource("9_i1ft5")
-ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/InteractRay")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://dpd66hp3w048d"
-
-[node name="PlayerComponent" type="Node" parent="." unique_id=1967038254 node_paths=PackedStringArray("twist_pivot", "pitch_pivot", "body", "entity")]
-script = ExtResource("8_3vvee")
-twist_pivot = NodePath("../CCharacterBody3D/TwistPivot")
-pitch_pivot = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot")
-body = NodePath("../CCharacterBody3D")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://c4qx547gynsx3"
-
-[node name="InventoryComponent" type="Node" parent="." unique_id=270277734 node_paths=PackedStringArray("entity")]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("9_0fqka")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://b6cug2mwrwkf6"
 
-[node name="LaserComponent" type="Node" parent="." unique_id=783096986 node_paths=PackedStringArray("entity")]
-script = ExtResource("11_7471s")
+[node name="HealthComponent" type="Component" parent="." unique_id=33746118 node_paths=PackedStringArray("entity")]
 entity = NodePath("..")
-metadata/_custom_type_script = "uid://kmh74icasv6b"
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("4_1qn71")
+metadata/_custom_type_script = "uid://bj38naggyrtts"
 
-[node name="EquipmentComponent" type="Node" parent="." unique_id=1330994814 node_paths=PackedStringArray("marker", "remote_transform", "animation_tree", "entity")]
+[node name="EquipmentComponent" type="Component" parent="." unique_id=1236495036 node_paths=PackedStringArray("entity", "marker", "remote_transform", "animation_tree")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("12_7471s")
 marker = NodePath("../CCharacterBody3D/TwistPivot/RightArm/rightarm/Marker3D")
 remote_transform = NodePath("../CCharacterBody3D/TwistPivot/RightArm/rightarm/Marker3D/RemoteTransform3D")
 animation_tree = NodePath("../CCharacterBody3D/AnimationTree")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://dxwson43xm1pg"
 
-[node name="BuilderComponent" type="Node" parent="." unique_id=1468051129 node_paths=PackedStringArray("ray", "entity")]
+[node name="BuilderComponent" type="Component" parent="." unique_id=1556784139 node_paths=PackedStringArray("entity", "ray")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("13_alkvy")
 ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/BuildRay")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://dj1ra631i0o8q"
 
-[connection signal="animation_finished" from="CCharacterBody3D/AnimationTree" to="EquipmentComponent" method="_on_animation_end"]
-[connection signal="animation_started" from="CCharacterBody3D/AnimationTree" to="EquipmentComponent" method="_on_animation_start"]
+[node name="PlayerComponent" type="Component" parent="." unique_id=1539198104 node_paths=PackedStringArray("entity", "twist_pivot", "pitch_pivot", "body")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("8_3vvee")
+twist_pivot = NodePath("../CCharacterBody3D/TwistPivot")
+pitch_pivot = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot")
+body = NodePath("../CCharacterBody3D")
+metadata/_custom_type_script = "uid://c4qx547gynsx3"
+
+[node name="InteractRayComponent" type="Component" parent="." unique_id=1306071978 node_paths=PackedStringArray("entity", "ray")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("9_i1ft5")
+ray = NodePath("../CCharacterBody3D/TwistPivot/PitchPivot/Camera3D/InteractRay")
+metadata/_custom_type_script = "uid://dpd66hp3w048d"
+
+[node name="LaserComponent" type="Component" parent="." unique_id=805197079 node_paths=PackedStringArray("entity")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("11_7471s")
+metadata/_custom_type_script = "uid://kmh74icasv6b"
+
+[node name="HurtboxComponent" type="Component" parent="." unique_id=1414387260 node_paths=PackedStringArray("entity", "area")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("6_malci")
+area = NodePath("../CCharacterBody3D/CArea3D")
+metadata/_custom_type_script = "uid://lrvixysacsgx"

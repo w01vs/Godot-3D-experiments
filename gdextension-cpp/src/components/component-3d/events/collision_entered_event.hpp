@@ -9,6 +9,8 @@ class CollisionEnteredEntityEvent : public EntityEventGD {
 public:
 	Ref<CollisionDataGD> data;
 
+	static Ref<CollisionEnteredEntityEvent> create(Node* p_source, Ref<CollisionDataGD> p_data);
+
 	Ref<CollisionDataGD> get_data() const { return data; }
 	void set_data(Ref<CollisionDataGD> p_data) { data = p_data; }
 

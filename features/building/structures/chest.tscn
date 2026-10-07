@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://60ymc70tglcd"]
 
-[ext_resource type="Script" uid="uid://cp7e65rba841n" path="res://core/functionality/entity.gd" id="1_x7mpe"]
 [ext_resource type="Script" uid="uid://dxpaoqwywatwk" path="res://core/components/extensions/c_staticbody3d.gd" id="2_bv3sb"]
 [ext_resource type="Script" uid="uid://bf01144lxbocj" path="res://core/components/extensions/c_area3d.gd" id="2_day8l"]
 [ext_resource type="Script" uid="uid://ccau7wq71bntj" path="res://core/components/extensions/c_meshinstance3d.gd" id="3_day8l"]
@@ -18,9 +17,7 @@ radius = 3.318432
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d6iu8"]
 albedo_color = Color(0.62352943, 0.46666667, 0.16078432, 1)
 
-[node name="Entity" type="Node3D" unique_id=1882066182]
-script = ExtResource("1_x7mpe")
-metadata/_custom_type_script = "uid://cp7e65rba841n"
+[node name="Entity" type="Entity" unique_id=1773362604]
 
 [node name="CArea3D" type="Area3D" parent="." unique_id=2065155919 node_paths=PackedStringArray("entity")]
 script = ExtResource("2_day8l")
@@ -40,25 +37,50 @@ shape = SubResource("BoxShape3D_v4ow6")
 
 [node name="CMeshInstance3D" type="MeshInstance3D" parent="." unique_id=378738915 node_paths=PackedStringArray("entity")]
 mesh = SubResource("BoxMesh_rwfxr")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_d6iu8")
 script = ExtResource("3_day8l")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://ccau7wq71bntj"
 
-[node name="InventoryComponent" type="Node" parent="." unique_id=1470635521 node_paths=PackedStringArray("entity")]
-script = ExtResource("4_t3ekh")
+[node name="TerrainComponent" type="Component" parent="." unique_id=1133339477 node_paths=PackedStringArray("entity", "body")]
 entity = NodePath("..")
-metadata/_custom_type_script = "uid://b6cug2mwrwkf6"
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("6_bv3sb")
+body = NodePath("../CStaticBody3D")
+metadata/_custom_type_script = "uid://dhe53nqofut4a"
 
-[node name="ChestInteraction" type="Node" parent="." unique_id=447029155 node_paths=PackedStringArray("interactable_area", "collision_shape", "entity")]
+[node name="ChestInteractionComponent" type="Component" parent="." unique_id=277083120 node_paths=PackedStringArray("entity", "interactable_area", "collision_shape")]
+entity = NodePath("..")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 script = ExtResource("5_x6u83")
 interactable_area = NodePath("../CArea3D")
 collision_shape = NodePath("../CStaticBody3D")
-entity = NodePath("..")
 metadata/_custom_type_script = "uid://byvyjassigei"
 
-[node name="TerrainComponent" type="Node" parent="." unique_id=1203729230 node_paths=PackedStringArray("body", "entity")]
-script = ExtResource("6_bv3sb")
-body = NodePath("../CStaticBody3D")
+[node name="InventoryComponent" type="Component" parent="." unique_id=2005277155 node_paths=PackedStringArray("entity")]
 entity = NodePath("..")
-metadata/_custom_type_script = "uid://dhe53nqofut4a"
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = ExtResource("4_t3ekh")
+metadata/_custom_type_script = "uid://b6cug2mwrwkf6"

@@ -19,7 +19,7 @@ var pitch_input: float = 0
 @export var body: CCharacterBody3D
 
 func _init_component() -> void:
-	subscribe(WorldLoadedEvent, _on_world_loaded, Event.Priority.BASE)
+	subscribe(WorldLoadedEvent, _on_world_loaded, EventBusBase.Priority.BASE)
 	InputManager.subscribe(JumpInputEvent, _jump)
 	InputManager.subscribe(MouseMotionInputEvent, _on_mouse_moved)
 	_init_body()

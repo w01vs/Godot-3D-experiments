@@ -37,8 +37,8 @@ func delete() -> void:
 	disable()
 	entity.queue_free()
 
-func enable() -> void:
+func _on_enable() -> void:
 	entity.enable()
 
-func disable() -> void:
+func _on_disable() -> void:
 	entity.disable()

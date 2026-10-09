@@ -10,7 +10,6 @@ class EventBus : public Node {
 	GDCLASS(EventBus, Node)
 public:
 	static EventBus* get_singleton();
-	static Ref<Script> BASE_EVENT_SCRIPT;
 
 	static void start(Node* source);
     static void subscribe(const Variant &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE, const Callable &condition = get_singleton()->truth);

@@ -23,7 +23,6 @@
 #include "components/event/event_bus_base.hpp"
 #include "components/event/global_event.hpp"
 #include "components/event/world_loaded_event.hpp"
-#include "godot_cpp/variant/utility_functions.hpp"
 #include "worldgen/terrainchunk.hpp"
 
 using namespace godot;

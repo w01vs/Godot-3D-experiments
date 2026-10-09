@@ -1,4 +1,5 @@
 #include "event_base.hpp"
+#include "components/utils/utils.hpp"
 #include "godot_cpp/core/class_db.hpp"
 
 void EventBaseGD::_bind_methods() {
@@ -20,4 +21,8 @@ Ref<EventBaseGD> EventBaseGD::create(Node* p_source) {
         event->debug_id = script->get_instance_id();
 
     return event;
+}
+
+bool EventBaseGD::validate_event_script(const Variant &event_type) {
+    return Utils::inherits(EventBaseGD::get_class_static(), event_type);
 }

@@ -24,7 +24,6 @@ public:
 	bool has_component(const Ref<Script> &script);
 	void remove_component(const Component *component);
 	virtual void _ready() override;
-	static const Ref<Script> ENTITY_EVENT_SCRIPT() { return entity_event_script; }
 
 	void process_event(const Ref<EntityEventGD>& event);
 
@@ -37,23 +36,22 @@ private:
 
 	TypedDictionary<Script, Component> component_map;
 
-	TypedDictionary<Script, Array> global_subscriptions;
+	TypedDictionary<Variant, Array> global_subscriptions;
 
 	Ref<EventBusBase> local_event_bus;
-	static Ref<Script> entity_event_script;
 
 	bool active;
 
-	TypedArray<Script> find_bases(const Ref<Script> &p_script, bool removing = false);
+	Array find_bases(const Variant &p_script, bool removing = false);
 
-	void subscribe(Component *component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
-	void unsubscribe(const Ref<Script> &event_type, const Callable &callback);
+	void subscribe(Component *component, const Variant &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
+	void unsubscribe(const Variant &event_type, const Callable &callback);
 
 	void emit_local(const Ref<EntityEventGD> &event);
 	void emit_global(const Ref<GlobalEventGD> &event);
 
-	void subscribe_global(const Component *component, const Ref<Script> &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
-	void unsubscribe_global(const Ref<Script> &event_type, const Callable &callback);
+	void subscribe_global(const Component *component, const Variant &event_type, const Callable &callback, EventBusBase::Priority priority = EventBusBase::Priority::BASE);
+	void unsubscribe_global(const Variant &event_type, const Callable &callback);
 
 	void callback_internal(const Ref<EventBaseGD> &event);
 

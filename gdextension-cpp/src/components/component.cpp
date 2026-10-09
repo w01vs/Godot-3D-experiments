@@ -4,8 +4,10 @@
 #include "godot_cpp/classes/wrapped.hpp"
 #include "godot_cpp/core/class_db.hpp"
 #include "godot_cpp/core/object.hpp"
+#include "godot_cpp/variant/utility_functions.hpp"
+#include "utils/utils.hpp"
 
-const char* Component::GROUP = "COMPONENT";
+const char *Component::GROUP = "COMPONENT";
 
 void Component::_bind_methods() {
 	GDVIRTUAL_BIND(_on_entity_load);
@@ -26,13 +28,15 @@ void Component::_bind_methods() {
 }
 
 void Component::_ready() {
-	if(Engine::get_singleton()->is_editor_hint())
+	if (Engine::get_singleton()->is_editor_hint()) {
 		return;
-	assert(entity);
-	assert(entity->is_ancestor_of(this));
+	}
+	GDASSERT(entity, "No entity set for component: ", UtilityFunctions::str(this));
+	GDASSERT(entity->is_ancestor_of(this), "Component ", UtilityFunctions::str(this), " is incorrectly nested? See its entity: ", UtilityFunctions::str(entity));
 	entity->register_component(this);
 	entity->connect("ready", Callable{ this, "_on_entity_load" });
 	add_to_group(Component::GROUP);
+	_init_component();
 }
 
 void Component::_on_entity_load() {
@@ -80,18 +84,13 @@ void Component::_on_disable() {
 	}
 }
 
-void Component::subscribe(const Variant& event_type, Callable callback, EventBusBase::Priority priority) {
-	Ref<Script> script = Object::cast_to<Script>(event_type);
-	assert(script.ptr());
-	if(!script.ptr()){
-		UtilityFunctions::push_error("Supplied an invalid event type.");
-		return;
-	}
-	bool inherits = ClassDB::is_parent_class(script->get_class_static(), Entity::ENTITY_EVENT_SCRIPT()->get_class_static());
+void Component::subscribe(const Variant &event_type, Callable callback, EventBusBase::Priority priority) {
+	Ref<Script> event = Object::cast_to<Script>(event_type);
+	bool inherits = Utils::inherits(EntityEventGD::get_class_static(), event_type);
 	if (inherits) {
-		entity->subscribe(this, script, callback, priority);
+		entity->subscribe(this, event_type, callback, priority);
 	} else {
-		entity->subscribe_global(this, script, callback, priority);
+		entity->subscribe_global(this, event_type, callback, priority);
 	}
 }
 

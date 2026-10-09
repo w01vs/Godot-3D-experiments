@@ -16,7 +16,8 @@ protected:
 	static void _bind_methods();
 
 public:
-	virtual ~EventBaseGD() = default;
+	EventBaseGD() = default;
+	~EventBaseGD() = default;
 
 	static Ref<EventBaseGD> create(Node *p_source);
 
@@ -25,4 +26,6 @@ public:
 
 	uint64_t get_debug_id() const { return debug_id; }
 	void set_debug_id(uint64_t p_debug_id) { debug_id = p_debug_id; }
+
+	static bool validate_event_script(const Variant& event_type);
 };

@@ -5,7 +5,6 @@
 namespace godot {
 
 void EventBusBase::_bind_methods() {
-	// Bind Methods for GDScript / Engine Access
 	ClassDB::bind_method(D_METHOD("subscribe", "event_type", "callback", "conditions", "priority"), &EventBusBase::subscribe, DEFVAL(BASE));
 	ClassDB::bind_method(D_METHOD("unsubscribe", "event_type", "callback"), &EventBusBase::unsubscribe);
 	ClassDB::bind_method(D_METHOD("emit", "event"), &EventBusBase::emit);
@@ -15,7 +14,6 @@ void EventBusBase::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("hold_events"), &EventBusBase::hold_events);
 	ClassDB::bind_method(D_METHOD("release_events"), &EventBusBase::release_events);
 
-	// Bind Enum
 	BIND_ENUM_CONSTANT(PRE);
 	BIND_ENUM_CONSTANT(BASE);
 	BIND_ENUM_CONSTANT(POST);

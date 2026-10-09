@@ -7,6 +7,17 @@
 #include <cassert>
 #include <godot_cpp/core/gdvirtual.gen.inc>
 
+#define GDASSERT(condition, ...) \
+    do { \
+        if (!(condition)) { \
+            UtilityFunctions::push_error( \
+                "ASSERT FAILED: ", \
+                __VA_ARGS__ \
+            ); \
+            assert(condition); \
+        } \
+    } while (false)
+
 using namespace godot;
 
 class Component : public Node {
